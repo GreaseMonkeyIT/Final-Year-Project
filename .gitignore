@@ -33,3 +33,12 @@ reports/**/Reference_Papers/
 
 # Zip snapshots: their contents are already in the repository.
 *.zip
+
+# Working files: AI prompts, logs and edit lists. They stay on the local disk only.
+*.log
+*_LOG.md
+*_log.md
+*prompt*.md
+**/pending_edits.md
+.claude/
+CLAUDE.local.md
