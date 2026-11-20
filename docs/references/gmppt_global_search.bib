@@ -1,0 +1,480 @@
+% Global MPPT literature for the M1-M4 comparative study and the DIRECT work.
+% Collected 2026-10-01. Journal papers only. Metadata of the IEEE entries is from
+% IEEE Xplore (NIT Andhra Pradesh access). The Nature and Elsevier entries are from
+% the publisher pages. See Notes/gmppt_m1_m4_comparative_study.md for the review.
+%
+% 2026-10-22: section C2 adds IEEE Xplore finds. It has conference papers, and each
+% one carries "NOT A JOURNAL PAPER" in its note field.
+%
+% PDF in Literature/: nguyen2010direct, zaki2023hybrid, harrison2023heliyon,
+% alombah2025msmppt (supplementary only: alombah2025_msmppt_supplementary.docx).
+% The main text of alombah2025msmppt is open access at the DOI link.
+
+% ===========================================================
+% A. THE FOUR METHODS UNDER STUDY (M1-M4)
+% ===========================================================
+
+% M4. The method selected for the final output.
+@article{nguyen2010direct,
+  author  = {Nguyen, Tat Luat and Low, Kay-Soon},
+  title   = {A Global Maximum Power Point Tracking Scheme Employing {DIRECT}
+             Search Algorithm for Photovoltaic Systems},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {57},
+  number  = {10},
+  pages   = {3456--3467},
+  year    = {2010},
+  doi     = {10.1109/TIE.2009.2039450},
+  note    = {Hardware: buck-boost, 20 kHz, 50 ms sampling, solar array
+             simulators and real 20 W panels. Only hardware-validated method of M1-M4.}
+}
+
+% M1.
+@article{zaki2023hybrid,
+  author  = {Zaki, Mohamed and Shahin, Ahmed and Eskender, Saad and
+             Elsayes, Mohamed A.},
+  title   = {Hybrid global search with enhanced {INC} {MPPT} under partial
+             shading condition},
+  journal = {Scientific Reports},
+  volume  = {13},
+  pages   = {22197},
+  year    = {2023},
+  doi     = {10.1038/s41598-023-49528-w},
+  note    = {Simulation only. 4 series x 2 parallel 250 W panels, boost converter.}
+}
+
+% M2.
+@article{alombah2025msmppt,
+  author  = {Alombah, Njimboh Henry and Harrison, Ambe and Mbasso, Wulfran Fendzi
+             and Belghiti, Hamid and Fotsin, Hilaire Bertrand and Jangir, Pradeep
+             and Al-Gahtani, Saad F. and Elbarbary, Z. M. S.},
+  title   = {Multiple-to-single maximum power point tracking for empowering
+             conventional {MPPT} algorithms under partial shading conditions},
+  journal = {Scientific Reports},
+  volume  = {15},
+  pages   = {14540},
+  year    = {2025},
+  doi     = {10.1038/s41598-025-98619-3},
+  note    = {Simulation only. Appendix A (supplementary): the Va/Vb estimator uses
+             the voltage and current of each module, temperature, and a trained
+             neural network.}
+}
+
+% Base study of the M2 estimator (cited by M2 as its Appendix A source).
+@article{harrison2023heliyon,
+  author  = {Harrison, Ambe and Alombah, Njimboh Henry and
+             Nguimfack-Ndongmo, Jean de Dieu},
+  title   = {Solar irradiance estimation and optimum power region localization in
+             {PV} energy systems under partial shaded condition},
+  journal = {Heliyon},
+  volume  = {9},
+  number  = {8},
+  pages   = {e18434},
+  year    = {2023},
+  doi     = {10.1016/j.heliyon.2023.e18434},
+  note    = {ANN (1 hidden layer, 10 neurons) trained on 400 patterns of one
+             3-module string. Each irradiance estimator uses one module voltage.}
+}
+
+% M3 is NOT a journal paper. It stays in the comparison only because test.docx
+% selected it. Do not cite it as a journal source. Journal alternatives with the
+% same idea are bi2020enhanced and ghasemi2016shading (section C).
+% Kouchaki, A., Eskandari, A., Milimonfared, J., Aghaei, M., "An Adaptive
+% Technique of MPPT for PV Array Under Partial and Dynamic Shading Conditions,"
+% 14th PEDSTC (conference), 2023, doi 10.1109/PEDSTC57673.2023.10087181.
+
+% ===========================================================
+% B. DIRECT FOUNDATION AND THE BASELINE THAT DIRECT WAS TESTED AGAINST
+% ===========================================================
+
+@article{jones1993direct,
+  author  = {Jones, D. R. and Perttunen, C. D. and Stuckman, B. E.},
+  title   = {Lipschitzian optimization without the {Lipschitz} constant},
+  journal = {Journal of Optimization Theory and Applications},
+  volume  = {79},
+  number  = {1},
+  pages   = {157--181},
+  year    = {1993},
+  doi     = {10.1007/BF00941892},
+  note    = {Original DIRECT algorithm. Not IEEE.}
+}
+
+@article{patel2008mppt,
+  author  = {Patel, Hiren and Agarwal, Vivek},
+  title   = {Maximum Power Point Tracking Scheme for {PV} Systems Operating Under
+             Partially Shaded Conditions},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {55},
+  number  = {4},
+  pages   = {1689--1698},
+  year    = {2008},
+  doi     = {10.1109/TIE.2008.917118},
+  note    = {The only method that nguyen2010direct compares against.}
+}
+
+% ===========================================================
+% C. PRIOR ART FOR OUR IDEAS (BSP, BOUND / BRANCH-AND-BOUND, SA)
+%    Read these before we claim novelty for the bound check.
+% ===========================================================
+
+% Closest prior art to the monotone-current bound: skips a voltage interval
+% because P < Pm wherever V < Pm / I. Sequential sweep, not interval search.
+@article{wang2016ssj,
+  author  = {Wang, Yunping and Li, Ying and Ruan, Xinbo},
+  title   = {High-Accuracy and Fast-Speed {MPPT} Methods for {PV} String Under
+             Partially Shaded Conditions},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {63},
+  number  = {1},
+  pages   = {235--245},
+  year    = {2016},
+  doi     = {10.1109/TIE.2015.2465897}
+}
+
+@article{boztepe2014rvw,
+  author  = {Boztepe, Mutlu and Guinjoan, Francesc and Velasco-Quesada, Guillermo
+             and Silvestre, Santiago and Chouder, Aissa and Karatepe, Engin},
+  title   = {Global {MPPT} Scheme for Photovoltaic String Inverters Based on
+             Restricted Voltage Window Search Algorithm},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {61},
+  number  = {7},
+  pages   = {3302--3312},
+  year    = {2014},
+  doi     = {10.1109/TIE.2013.2281163}
+}
+
+@article{furtado2018mpt,
+  author  = {Furtado, Artur M. S. and Bradaschia, Fabricio and
+             Cavalcanti, Marcelo C. and Limongi, Leonardo R.},
+  title   = {A Reduced Voltage Range Global Maximum Power Point Tracking Algorithm
+             for Photovoltaic Systems Under Partial Shading Conditions},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {65},
+  number  = {4},
+  pages   = {3252--3262},
+  year    = {2018},
+  doi     = {10.1109/TIE.2017.2750623},
+  note    = {Maximum power trapezium: a region of the P-V plane that holds every
+             possible GMPP.}
+}
+
+% Best-first branch-and-bound GMPPT. The bounds come from a fitted logistic
+% I-V model, not from the raw measurements as in our bound check.
+@article{abujarad2026prism,
+  author  = {Abujarad, Mohammed and Mohammed, Karam Khairullah and Mekhilef, Saad
+             and Mubin, Marizan Binti and Tey, Kok Soon},
+  title   = {Accelerated Global {MPPT} Under Partial Shading: A Physics-Regularized
+             {I-V} Search With Logistic Modeling and Search Space Exclusion},
+  journal = {IEEE Transactions on Power Electronics},
+  volume  = {41},
+  number  = {11},
+  pages   = {18784--18797},
+  year    = {2026},
+  doi     = {10.1109/TPEL.2026.3708433}
+}
+
+% Lipschitz-bound search (LIPO). Needs a Lipschitz constant from simulation.
+@article{li2019lipo,
+  author  = {Li, Wenfan and Zhang, Guogang and Pan, Tingzhe and Zhang, Zeyu and
+             Geng, Yingsan and Wang, Jianhua},
+  title   = {A {Lipschitz} Optimization-Based {MPPT} Algorithm for Photovoltaic
+             System Under Partial Shading Condition},
+  journal = {IEEE Access},
+  volume  = {7},
+  pages   = {126323--126333},
+  year    = {2019},
+  doi     = {10.1109/ACCESS.2019.2939095}
+}
+
+@article{bharadwaj2021rpc,
+  author  = {Bharadwaj, Pallavi and John, Vinod},
+  title   = {Optimized Global Maximum Power Point Tracking of Photovoltaic Systems
+             Based on Rectangular Power Comparison},
+  journal = {IEEE Access},
+  volume  = {9},
+  pages   = {53602--53616},
+  year    = {2021},
+  doi     = {10.1109/ACCESS.2021.3071136}
+}
+
+@article{lyden2016sa,
+  author  = {Lyden, Sarah and Haque, Md. Enamul},
+  title   = {A Simulated Annealing Global Maximum Power Point Tracking Approach for
+             {PV} Modules Under Partial Shading Conditions},
+  journal = {IEEE Transactions on Power Electronics},
+  volume  = {31},
+  number  = {6},
+  pages   = {4171--4181},
+  year    = {2016},
+  doi     = {10.1109/TPEL.2015.2468592}
+}
+
+@article{lyden2021sapo,
+  author  = {Lyden, Sarah and Galligan, Harry and Haque, Md Enamul},
+  title   = {A Hybrid Simulated Annealing and Perturb and Observe Maximum Power
+             Point Tracking Method},
+  journal = {IEEE Systems Journal},
+  volume  = {15},
+  number  = {3},
+  pages   = {4325--4333},
+  year    = {2021},
+  doi     = {10.1109/JSYST.2020.3021379}
+}
+
+% Journal alternatives to M3 (0.8 Voc candidates and shading detection).
+@article{bi2020enhanced,
+  author  = {Bi, Ziqiang and Ma, Jieming and Man, Ka Lok and Smith, Jeremy S. and
+             Yue, Yong and Wen, Huiqing},
+  title   = {An Enhanced 0.8{V}$_{OC}$-Model-Based Global Maximum Power Point
+             Tracking Method for Photovoltaic Systems},
+  journal = {IEEE Transactions on Industry Applications},
+  volume  = {56},
+  number  = {6},
+  pages   = {6825--6834},
+  year    = {2020},
+  doi     = {10.1109/TIA.2020.3019364}
+}
+
+@article{ghasemi2016shading,
+  author  = {Ghasemi, Mohammad Amin and Foroushani, Hossein Mohammadian and
+             Parniani, Mostafa},
+  title   = {Partial Shading Detection and Smooth Maximum Power Point Tracking of
+             {PV} Arrays Under {PSC}},
+  journal = {IEEE Transactions on Power Electronics},
+  volume  = {31},
+  number  = {9},
+  pages   = {6281--6292},
+  year    = {2016},
+  doi     = {10.1109/TPEL.2015.2504515}
+}
+
+% ===========================================================
+% C2. ADDED 2026-10-22 FROM IEEE XPLORE
+%     Prior art for the monotone-current bound (scan and skip) and for
+%     bisection (Idea C). Conference papers are marked. See
+%     Notes/direct_literature_and_ideas.md, section 4.
+% ===========================================================
+
+% Closest journal prior art for our bound: uses the monotonic output of the
+% array to set a variable lower bound on the current range.
+@article{xu2021mmpt,
+  author  = {Xu, Shungang and Gao, Yuan and Zhou, Guohua and Mao, Guihua},
+  title   = {A Global Maximum Power Point Tracking Algorithm for Photovoltaic
+             Systems Under Partially Shaded Conditions Using Modified Maximum
+             Power Trapezium Method},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {68},
+  number  = {1},
+  pages   = {370--380},
+  year    = {2021},
+  doi     = {10.1109/TIE.2020.2965498}
+}
+
+@article{ahmed2023skip,
+  author  = {Ahmed, Sajib and Mekhilef, Saad and Mubin, Marizan and
+             Tey, Kok Soon and Kermadi, Mostefa},
+  title   = {An Adaptive Perturb and Observe Algorithm With Enhanced Skipping
+             Feature for Fast Global Maximum Power Point Tracking Under Partial
+             Shading Conditions},
+  journal = {IEEE Transactions on Power Electronics},
+  volume  = {38},
+  number  = {9},
+  pages   = {11601--11613},
+  year    = {2023},
+  doi     = {10.1109/TPEL.2023.3285243}
+}
+
+@article{kermadi2019hybrid,
+  author  = {Kermadi, Mostefa and Salam, Zainal and Ahmed, Jubaer and
+             Berkouk, El Madjid},
+  title   = {An Effective Hybrid Maximum Power Point Tracker of Photovoltaic
+             Arrays for Complex Partial Shading Conditions},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {66},
+  number  = {9},
+  pages   = {6990--7000},
+  year    = {2019},
+  doi     = {10.1109/TIE.2018.2877202}
+}
+
+@article{kermadi2021rapid,
+  author  = {Kermadi, Mostefa and Salam, Zainal and Ahmed, Jubaer and
+             Berkouk, El Madjid},
+  title   = {A High-Performance Global Maximum Power Point Tracker of {PV} System
+             for Rapidly Changing Partial Shading Conditions},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {68},
+  number  = {3},
+  pages   = {2236--2245},
+  year    = {2021},
+  doi     = {10.1109/TIE.2020.2972456}
+}
+
+@article{zhou2022single,
+  author  = {Zhou, Guohua and Bi, Qiang and Tian, Qingxin and Leng, Minrui and
+             Xu, Guodong},
+  title   = {Single Sensor Based Global Maximum Power Point Tracking Algorithm of
+             {PV} System With Partial Shading Condition},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {69},
+  number  = {3},
+  pages   = {2669--2683},
+  year    = {2022},
+  doi     = {10.1109/TIE.2021.3066920}
+}
+
+@article{sun2023ovs,
+  author  = {Sun, Zhuoya and Jang, Yohan and Bae, Sungwoo},
+  title   = {Optimized Voltage Search Algorithm for Fast Global Maximum Power
+             Point Tracking in Photovoltaic Systems},
+  journal = {IEEE Transactions on Sustainable Energy},
+  volume  = {14},
+  number  = {1},
+  pages   = {423--441},
+  year    = {2023},
+  doi     = {10.1109/TSTE.2022.3215308}
+}
+
+@article{aquib2020time,
+  author  = {Aquib, Mohd and Jain, Sachin and Agarwal, Vivek},
+  title   = {A Time-Based Global Maximum Power Point Tracking Technique for {PV}
+             System},
+  journal = {IEEE Transactions on Power Electronics},
+  volume  = {35},
+  number  = {1},
+  pages   = {393--402},
+  year    = {2020},
+  doi     = {10.1109/TPEL.2019.2915774}
+}
+
+% Random agents and a shrinking range. Not a bound. Hardware (dSPACE).
+@article{hadiby2026ssr,
+  author  = {Hadiby, Soufiane and Beriber, Dalila and Zaouche, Khelil and
+             Talha, Abdelaziz and Kouzou, Abdellah},
+  title   = {Search Space Reduction Algorithm for {MPPT} in {PV} Systems Under
+             Partial Shading Conditions},
+  journal = {IEEE Journal of Emerging and Selected Topics in Power Electronics},
+  volume  = {14},
+  number  = {3},
+  pages   = {3626--3638},
+  year    = {2026},
+  doi     = {10.1109/JESTPE.2025.3646460}
+}
+
+@article{nugraha2019cuckoo,
+  author  = {Nugraha, Dimas Aji and Lian, Kuo-Lung and Suwarno},
+  title   = {A Novel {MPPT} Method Based on Cuckoo Search Algorithm and Golden
+             Section Search Algorithm for Partially Shaded {PV} System},
+  journal = {Canadian Journal of Electrical and Computer Engineering},
+  volume  = {42},
+  number  = {3},
+  pages   = {173--182},
+  year    = {2019},
+  doi     = {10.1109/CJECE.2019.2914723}
+}
+
+% Closest GMPPT prior art for Idea C: bisection that removes the regions where
+% the MPP cannot lie. Simulation only. Read the full text before any claim.
+@inproceedings{tiong2017binary,
+  author    = {Tiong, Meng Chung and Daniyal, Hamdan and Sulaiman, Mohd Herwan and
+               Bakar, Mohd Shafie},
+  title     = {Binary search algorithm as maximum power point tracking technique
+               for photovoltaic system under partial shaded conditions},
+  booktitle = {IEEE Conference on Energy Conversion (CENCON)},
+  pages     = {10--14},
+  year      = {2017},
+  doi       = {10.1109/CENCON.2017.8262449},
+  note      = {NOT A JOURNAL PAPER.}
+}
+
+% Binary search on the power reference, not on the duty. Secant tracking.
+@inproceedings{kumaresan2022secant,
+  author    = {Kumaresan, Anusha and Farivar, Glen G. and Tafti, Hossein Dehghani
+               and Beniwal, Neha and Gorla, Naga Brahmendra Yadav and Pou, Josep},
+  title     = {Global Maximum Power Point Tracking for Photovoltaic Systems Using
+               Hybrid Secant and Binary Search Algorithms},
+  booktitle = {IEEE Energy Conversion Congress and Exposition (ECCE)},
+  pages     = {1--6},
+  year      = {2022},
+  doi       = {10.1109/ECCE50734.2022.9948026},
+  note      = {NOT A JOURNAL PAPER.}
+}
+
+@inproceedings{ramana2018bisection,
+  author    = {Ramana, Vanjari Venkata and Mudlapur, Arjun and Viswadev, Roopa and
+               Venkatesaperumal, B. and Mishra, Sukumar},
+  title     = {Efficient global peak tracking of {PV} system under mismatching
+               conditions using searching technique and bisection method},
+  booktitle = {IEEMA Engineer Infinite Conference (eTechNxT)},
+  pages     = {1--6},
+  year      = {2018},
+  doi       = {10.1109/ETECHNXT.2018.8385358},
+  note      = {NOT A JOURNAL PAPER.}
+}
+
+@inproceedings{malathy2017fibonacci,
+  author    = {Malathy, S. and Ramaprabha, R.},
+  title     = {Maximum power point tracking algorithm of {SPVA} under inhomogeneous
+               irradiation conditions: A modified {Fibonacci} search based
+               approach},
+  booktitle = {IEEE 12th International Conference on Power Electronics and Drive
+               Systems (PEDS)},
+  pages     = {487--492},
+  year      = {2017},
+  doi       = {10.1109/PEDS.2017.8289159},
+  note      = {NOT A JOURNAL PAPER.}
+}
+
+@inproceedings{cardoso2019fibonacci,
+  author    = {Cardoso, Ronnan de B. and da Silva, Edison Roberto C. and
+               Fernandes, Darlan A.},
+  title     = {Multilevel-Boost-Converter-Neutral-Point-Clamped-Inverter
+               Photovoltaic System with {MPPT} Based on {Fibonacci} Search},
+  booktitle = {IEEE Energy Conversion Congress and Exposition (ECCE)},
+  pages     = {4597--4604},
+  year      = {2019},
+  doi       = {10.1109/ECCE.2019.8912727},
+  note      = {NOT A JOURNAL PAPER.}
+}
+
+% Local stage with a convergence guarantee. Not read.
+@inproceedings{shames2016guaranteed,
+  author    = {Shames, Iman and Farokhi, Farhad and Cantoni, Michael},
+  title     = {Guaranteed maximum power point tracking by scalar iterations with
+               quadratic convergence rate},
+  booktitle = {55th IEEE Conference on Decision and Control (CDC)},
+  pages     = {2840--2845},
+  year      = {2016},
+  doi       = {10.1109/CDC.2016.7798692},
+  note      = {NOT A JOURNAL PAPER.}
+}
+
+% ===========================================================
+% D. REVIEWS
+% ===========================================================
+
+@article{bidram2012review,
+  author  = {Bidram, Ali and Davoudi, Ali and Balog, Robert S.},
+  title   = {Control and Circuit Techniques to Mitigate Partial Shading Effects in
+             Photovoltaic Arrays},
+  journal = {IEEE Journal of Photovoltaics},
+  volume  = {2},
+  number  = {4},
+  pages   = {532--546},
+  year    = {2012},
+  doi     = {10.1109/JPHOTOV.2012.2202879}
+}
+
+@article{vinnikov2023survey,
+  author  = {Vinnikov, Dmitri and Chub, Andrii and Kosenko, Roman and
+             Sidorov, Vadim and Lindvest, Andre},
+  title   = {Implementation of Global Maximum Power Point Tracking in Photovoltaic
+             Microconverters: A Survey of Challenges and Opportunities},
+  journal = {IEEE Journal of Emerging and Selected Topics in Power Electronics},
+  volume  = {11},
+  number  = {2},
+  pages   = {2259--2280},
+  year    = {2023},
+  doi     = {10.1109/JESTPE.2021.3137521}
+}

@@ -1,0 +1,497 @@
+<div class="wrap">
+<nav class="toc">
+<h2>Contents</h2>
+<a class="p" href="#front">Before you start</a>
+<a class="p" href="#ch1">1 &nbsp;The photovoltaic cell</a>
+<a class="s" href="#s1-1">1.1 What light does inside silicon</a>
+<a class="s" href="#s1-2">1.2 Why a cell is a current source</a>
+<a class="p" href="#ch2">2 &nbsp;The equivalent circuit</a>
+<a class="s" href="#s2-1">2.1 The ideal cell</a>
+<a class="s" href="#s2-2">2.2 The five-parameter model</a>
+<a class="s" href="#s2-3">2.3 The four landmarks</a>
+<a class="s" href="#s2-4">2.4 The two-diode model</a>
+<a class="s" href="#s2-5">2.5 What R<sub>s</sub> and R<sub>sh</sub> do</a>
+<a class="s" href="#s2-6">2.6 The reference module</a>
+<a class="p" href="#ch3">3 &nbsp;Light, heat and the curve</a>
+<a class="s" href="#s3-1">3.1 Irradiance</a>
+<a class="s" href="#s3-2">3.2 Why V<sub>oc</sub> moves so little</a>
+<a class="s" href="#s3-3">3.3 Temperature</a>
+<a class="s" href="#s3-4">3.4 What sags, what holds</a>
+<a class="p" href="#ch4">4 &nbsp;Why MPPT exists</a>
+<a class="s" href="#s4-1">4.1 The load picks the point</a>
+<a class="s" href="#s4-2">4.2 Impedance matching</a>
+<a class="s" href="#s4-3">4.3 The converter as a transformer</a>
+<a class="s" href="#s4-4">4.4 The tracking loop</a>
+<a class="s" href="#s4-5">4.5 How tracking is scored</a>
+<a class="p" href="#ch5">5 &nbsp;Methods I: offline family</a>
+<a class="s" href="#s5-1">5.1 A map of the families</a>
+<a class="s" href="#s5-2">5.2 Fractional V<sub>oc</sub></a>
+<a class="s" href="#s5-3">5.3 Fractional I<sub>sc</sub></a>
+<a class="s" href="#s5-4">5.4 Tables and curve fitting</a>
+<a class="p" href="#ch6">6 &nbsp;Methods II: hill climbing</a>
+<a class="s" href="#s6-1">6.1 Perturb and observe</a>
+<a class="s" href="#s6-2">6.2 Incremental conductance</a>
+<a class="s" href="#s6-3">6.3 Duty-ratio hill climbing</a>
+<a class="s" href="#s6-4">6.4 Ripple correlation control</a>
+<a class="s" href="#s6-5">6.5 Extremum seeking</a>
+<a class="s" href="#s6-6">6.6 Fuzzy logic</a>
+<a class="s" href="#s6-7">6.7 Neural networks</a>
+<a class="s" href="#s6-8">6.8 Sliding mode and MPC</a>
+<a class="s" href="#s6-9">6.9 Side-by-side comparison</a>
+<a class="s" href="#s6-10">6.10 How to choose</a>
+<a class="p" href="#ch7">7 &nbsp;From one panel to an array</a>
+<a class="s" href="#s7-1">7.1 Series, parallel, modules</a>
+<a class="s" href="#s7-2">7.2 Mismatch</a>
+<a class="s" href="#s7-3">7.3 Where the tracker sits</a>
+<a class="s" href="#s7-4">7.4 Adapting the algorithms</a>
+<a class="s" href="#s7-5">7.5 Wiring topologies</a>
+<a class="p" href="#ch8">8 &nbsp;What shade does</a>
+<a class="s" href="#s8-1">8.1 Where shade comes from</a>
+<a class="s" href="#s8-2">8.2 The series bottleneck</a>
+<a class="s" href="#s8-3">8.3 Reverse bias and hot spots</a>
+<a class="s" href="#s8-4">8.4 Bypass diodes</a>
+<a class="s" href="#s8-5">8.5 Overload on healthy modules</a>
+<a class="s" href="#s8-6">8.6 Parallel strings</a>
+<a class="s" href="#s8-7">8.7 Damage and standards</a>
+<a class="p" href="#ch9">9 &nbsp;The multi-peak curve</a>
+<a class="s" href="#s9-1">9.1 How the staircase forms</a>
+<a class="s" href="#s9-2">9.2 Counting and placing peaks</a>
+<a class="s" href="#s9-3">9.3 Why classical trackers fail</a>
+<a class="s" href="#s9-4">9.4 The energy at stake</a>
+<a class="p" href="#ch10">10 &nbsp;Finding the global peak</a>
+<a class="s" href="#s10-1">10.1 Detecting the change</a>
+<a class="s" href="#s10-2">10.2 Scanning methods</a>
+<a class="s" href="#s10-3">10.3 The window method</a>
+<a class="s" href="#s10-4">10.4 Metaheuristic search</a>
+<a class="s" href="#s10-5">10.5 Hybrids</a>
+<a class="s" href="#s10-6">10.6 Reconfiguration</a>
+<a class="s" href="#s10-7">10.7 Comparison</a>
+<a class="p" href="#ch11">11 &nbsp;The search question</a>
+<a class="s" href="#s11-1">11.1 The problem, stated</a>
+<a class="s" href="#s11-2">11.2 The cost that matters</a>
+<a class="s" href="#s11-3">11.3 The wrong tools</a>
+<a class="s" href="#s11-4">11.4 The recommended method</a>
+<a class="s" href="#s11-5">11.5 Complexity</a>
+<a class="s" href="#s11-6">11.6 Fallbacks</a>
+<a class="p" href="#appx">Appendices</a>
+<a class="s" href="#a-symbols">A Symbols</a>
+<a class="s" href="#a-params">B Reference module</a>
+<a class="s" href="#a-glossary">C Glossary</a>
+<a class="s" href="#a-sources">D Sources</a>
+</nav>
+
+<main>
+
+<!-- ===================================================== FRONT MATTER === -->
+<section id="front">
+<p class="kicker">Final year project reference</p>
+<h1>Implementation of MPPT for PV&nbsp;Arrays under Partial Shading Conditions</h1>
+<p class="meta">A working notebook &#183; built from first principles &#183; all curves computed from the single-diode model</p>
+
+<p class="lede">This notebook starts at the physics of one silicon cell and ends at the algorithm you
+will implement. Nothing is assumed except school-level circuit theory. Every I-V and P-V curve in
+these pages is not a sketch: each one is solved numerically from the five-parameter single-diode
+equation for a real 265&nbsp;W module, so the numbers you read off the axes are the numbers the model
+gives.</p>
+
+<h3>How the book is arranged</h3>
+<p>The order follows the physical build-up of the problem. Chapters 1 to 3 describe one cell and
+what moves its curve. Chapter 4 shows why a tracker is needed at all. Chapters 5 and 6 cover the
+tracking methods for a single panel. Chapter 7 assembles panels into an array and shows what
+must change. Chapters 8 to 10 deal with partial shade, which is the reason this project exists.
+Chapter 11 answers the search question directly.</p>
+
+<div class="note">
+<p class="boxh">A note on the drawings</p>
+<p>Every figure here is drawn as vector graphics inside the file itself. There are no links to
+outside pictures. The file therefore opens correctly with no internet connection, prints cleanly,
+and will still work in five years. The plotted curves come from the model in
+<a href="#a-params">Appendix B</a>; the schematics are drawn to match standard circuit conventions.</p>
+</div>
+
+<h3>Language</h3>
+<p>The text follows the plain-English rules used in aerospace technical writing (ASD-STE100 style):
+short sentences, one idea per sentence, active voice, and the same word for the same thing every
+time. A cell is always a <em>cell</em>. A module is always a <em>module</em>. A string of modules in
+series is always a <em>string</em>. Where the literature uses two names for one thing, both are
+given once, then only one is used.</p>
+</section>
+
+<!-- ============================================================== CH 1 === -->
+<section id="ch1">
+<h2>1 &nbsp;The photovoltaic cell</h2>
+
+<h3 id="s1-1">1.1 What light does inside silicon</h3>
+
+<p>A solar cell is a large-area diode made from doped silicon. Its top layer is n-type: it has
+extra free electrons. Its lower, thicker layer is p-type: it has extra holes. Where the two layers
+meet, electrons diffuse into the p side and holes diffuse into the n side. They leave behind fixed
+charged atoms. This creates a thin region with no free carriers and a strong built-in electric
+field. This region is the <strong>depletion region</strong>, and its field is the working part of
+the cell.</p>
+
+<p>Three things must happen for the cell to deliver current.</p>
+
+<ol>
+<li><strong>Absorption.</strong> A photon enters the silicon and gives its energy to an electron.
+The photon must carry at least the band-gap energy, which is 1.12&nbsp;eV for silicon. This
+corresponds to a wavelength of about 1100&nbsp;nm. Photons with less energy pass through and do
+nothing. Photons with much more energy create one electron-hole pair and waste the surplus as
+heat.</li>
+<li><strong>Separation.</strong> The freed electron and the hole it left behind must be pulled
+apart before they recombine. The built-in field of the depletion region does this. It pushes
+electrons toward the n side and holes toward the p side.</li>
+<li><strong>Collection.</strong> The separated carriers must reach the metal contacts. The front
+contact is a grid of thin fingers, so it collects current without blocking much light. The rear
+contact usually covers the whole back surface.</li>
+</ol>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 340" class="fig" role="img" aria-label="Cross-section of a silicon solar cell showing photon absorption, carrier separation and collection">
+  <text class="figtitle" x="20" y="20">Figure 1.1 &#8212; What happens inside one cell</text>
+  <!-- external circuit -->
+  <path class="wire" d="M235,100 L235,54 L650,54 L650,168"/>
+  <path class="wire" d="M650,214 L650,300 L235,300 L235,284"/>
+  <rect class="fillbg" x="622" y="168" width="56" height="46" rx="4"/>
+  <text class="stxt" x="650" y="196" text-anchor="middle">load</text>
+  <line class="wire" x1="360" y1="54" x2="450" y2="54" marker-end="url(#aw)"/>
+  <text class="stxtb" x="405" y="44" text-anchor="middle">I</text>
+  <!-- cell body -->
+  <g class="node">
+    <rect x="212" y="100" width="46" height="9" rx="2"/><rect x="300" y="100" width="46" height="9" rx="2"/>
+    <rect x="388" y="100" width="46" height="9" rx="2"/><rect x="476" y="100" width="46" height="9" rx="2"/>
+  </g>
+  <text class="stxts" x="194" y="106" text-anchor="end">front grid fingers</text>
+  <rect x="200" y="109" width="360" height="33" class="fillac"/>
+  <text class="stxtb" x="330" y="131" text-anchor="middle">n-type layer</text>
+  <rect x="200" y="142" width="360" height="30" fill="var(--surface2)" stroke="var(--rule2)" stroke-width="1.4"/>
+  <text class="stxt" x="330" y="162" text-anchor="middle">depletion region</text>
+  <rect x="200" y="172" width="360" height="100" class="fillwarn"/>
+  <text class="stxtb" x="330" y="228" text-anchor="middle">p-type base</text>
+  <rect x="200" y="272" width="360" height="12" rx="2" class="node"/>
+  <text class="stxts" x="194" y="282" text-anchor="end">rear contact</text>
+  <!-- built-in field -->
+  <line x1="250" y1="157" x2="208" y2="157" stroke="var(--ink2)" stroke-width="1.6" marker-end="url(#aw)"/>
+  <text class="stxts" x="194" y="161" text-anchor="end">built-in field</text>
+  <!-- photon -->
+  <g transform="translate(258,26) rotate(30.2)">
+    <path d="M0,0 q9,-9 18,0 q9,9 18,0 q9,-9 18,0 q9,9 18,0 q9,-9 18,0 q9,9 18,0 q9,-9 18,0"
+          fill="none" stroke="var(--c2)" stroke-width="2.2"/>
+    <line x1="126" y1="0" x2="240" y2="0" stroke="var(--c2)" stroke-width="2" marker-end="url(#aw)"/>
+  </g>
+  <text class="stxts" x="252" y="46" text-anchor="end" style="fill:var(--c2)">photon, E &#8805; 1.12 eV</text>
+  <!-- electron-hole pair -->
+  <circle cx="470" cy="152" r="9" fill="var(--c1)"/>
+  <text x="470" y="156" text-anchor="middle" font-size="12" fill="#fff">&#8722;</text>
+  <circle cx="496" cy="176" r="9" fill="var(--c4)"/>
+  <text x="496" y="180" text-anchor="middle" font-size="12" fill="#fff">+</text>
+  <line x1="470" y1="142" x2="470" y2="118" stroke="var(--c1)" stroke-width="2" marker-end="url(#ac)"/>
+  <line x1="496" y1="186" x2="496" y2="244" stroke="var(--c4)" stroke-width="2" marker-end="url(#aw)"/>
+  <text class="stxts" x="484" y="122">electron to n</text>
+  <text class="stxts" x="510" y="222">hole to p</text>
+  <text class="stxts" x="200" y="320">1 absorption &#8594; 2 separation by the built-in field &#8594; 3 collection at the contacts</text>
+</svg>
+</div>
+<figcaption>Figure 1.1 &#8212; One cell in cross-section. Only the third step is a design choice;
+the first two are set by the material. This is why a shaded cell stops making current almost at
+once: with no photons there is nothing to separate.</figcaption>
+</figure>
+
+<h3 id="s1-2">1.2 Why a cell behaves as a current source with a diode across it</h3>
+
+<p>Two currents flow inside an illuminated cell at the same time, and they flow in opposite
+directions.</p>
+
+<p>The first is the <strong>photocurrent</strong> <var>I<sub>ph</sub></var>. It is set by how many
+usable photons arrive each second. Double the light, and you double the number of electron-hole
+pairs, so you double the photocurrent. The photocurrent is therefore almost exactly proportional
+to irradiance. It hardly depends on the cell's terminal voltage at all, because the built-in field
+sweeps the carriers out regardless.</p>
+
+<p>The second is the ordinary <strong>diode current</strong> <var>I<sub>d</sub></var>. The cell is
+still a p-n junction. When the terminals sit at a positive voltage, that voltage forward-biases the
+junction and pushes a recombination current back across it. This current grows exponentially with
+voltage.</p>
+
+<p>The terminal current is the difference:</p>
+
+<div class="eq"><span class="n">(1.1)</span>
+I = I<sub>ph</sub> &#8722; I<sub>d</sub>(V)
+</div>
+
+<p>That single line explains the whole shape of the I-V curve, and it is worth pausing on. At low
+terminal voltage the diode is barely conducting, so <var>I<sub>d</sub></var> is negligible and
+<var>I &#8776; I<sub>ph</sub></var>. The cell looks like a current source. As the terminal voltage
+rises, <var>I<sub>d</sub></var> grows exponentially and eats into the output. At one particular
+voltage the diode swallows the entire photocurrent, the terminal current reaches zero, and no more
+voltage is available. That voltage is the open-circuit voltage.</p>
+
+<div class="note">
+<p class="boxh">The one idea to carry forward</p>
+<p>A solar cell is a light-controlled current source with a diode permanently connected across it.
+Light sets the height of the current source. The diode sets the voltage at which that current
+disappears. Everything else in this book follows from those two sentences.</p>
+</div>
+</section>
+
+<!-- ============================================================== CH 2 === -->
+<section id="ch2">
+<h2>2 &nbsp;The equivalent circuit and the I-V curve</h2>
+
+<h3 id="s2-1">2.1 The ideal cell</h3>
+
+<p>The simplest useful circuit has two elements: the photocurrent source and the junction diode.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 250" class="fig" role="img" aria-label="Ideal solar cell equivalent circuit">
+  <text class="figtitle" x="20" y="20">Figure 2.1 &#8212; Ideal single-diode cell</text>
+  <path class="wire" d="M150,70 L560,70"/>
+  <path class="wire" d="M150,200 L560,200"/>
+  <path class="wire" d="M150,70 L150,144"/><path class="wire" d="M150,196 L150,200"/>
+  <!-- current source -->
+  <circle cx="150" cy="170" r="26" class="comp" fill="var(--surface)"/>
+  <line class="wire" x1="150" y1="188" x2="150" y2="152" marker-end="url(#aw)"/>
+  <text class="stxtb" x="112" y="174" text-anchor="end">I<tspan font-size="9" dy="3">ph</tspan></text>
+  <!-- diode -->
+  <path class="wire" d="M330,70 L330,112"/><path class="wire" d="M330,158 L330,200"/>
+  <path class="comp" d="M310,116 L350,116 L330,152 z" fill="var(--surface)"/>
+  <line class="comp" x1="308" y1="152" x2="352" y2="152"/>
+  <text class="stxtb" x="366" y="140">D</text>
+  <text class="stxts" x="366" y="157">I<tspan font-size="9" dy="3">d</tspan></text>
+  <!-- terminals -->
+  <circle cx="560" cy="70" r="5" class="node"/><circle cx="560" cy="200" r="5" class="node"/>
+  <line class="wire" x1="430" y1="70" x2="500" y2="70" marker-end="url(#aw)"/>
+  <text class="stxtb" x="465" y="60" text-anchor="middle">I</text>
+  <line class="wire" x1="600" y1="86" x2="600" y2="184" marker-end="url(#aw)"/>
+  <line class="wire" x1="600" y1="184" x2="600" y2="86" marker-end="url(#aw)"/>
+  <text class="stxtb" x="612" y="140">V</text>
+  <text class="stxts" x="574" y="66">+</text><text class="stxts" x="574" y="210">&#8722;</text>
+  <text class="stxts" x="150" y="232" text-anchor="middle">light-controlled source</text>
+  <text class="stxts" x="330" y="232" text-anchor="middle">junction diode</text>
+</svg>
+</div>
+<figcaption>Figure 2.1 &#8212; The ideal cell. Useful for understanding, too optimistic for design.</figcaption>
+</figure>
+
+<p>Applying the Shockley diode equation to <span>(1.1)</span> gives the ideal characteristic:</p>
+
+<div class="eq"><span class="n">(2.1)</span>
+I = I<sub>ph</sub> &#8722; I<sub>0</sub> &#183; [ exp( V / (n&#183;V<sub>t</sub>) ) &#8722; 1 ]
+<br>
+V<sub>t</sub> = k&#183;T / q &#8776; 25.7 mV at 25 &#176;C
+</div>
+
+<p>Here <var>I<sub>0</sub></var> is the reverse saturation current, which measures how leaky the
+junction is; <var>n</var> is the ideality factor, normally between 1 and 2; <var>k</var> is the
+Boltzmann constant; <var>T</var> is the absolute cell temperature; and <var>q</var> is the electron
+charge. <var>V<sub>t</sub></var> is the thermal voltage. For a module of <var>N<sub>s</sub></var>
+cells in series, replace <var>n&#183;V<sub>t</sub></var> with
+<var>n&#183;N<sub>s</sub>&#183;V<sub>t</sub></var>.</p>
+
+<h3 id="s2-2">2.2 The five-parameter model</h3>
+
+<p>Two parasitic elements must be added before the model matches a real device.</p>
+
+<p><strong>Series resistance</strong> <var>R<sub>s</sub></var> collects every ohmic loss along the
+current path: the bulk silicon, the emitter sheet, the contact between metal and silicon, the
+fingers, the busbars and the ribbons. It is small, usually a few hundred milliohms for a module,
+but the current through it is large.</p>
+
+<p><strong>Shunt resistance</strong> <var>R<sub>sh</sub></var> represents every leakage path that
+lets current bypass the junction: edge leakage around the cell perimeter, cracks, and defects that
+short the junction locally. It should be large. A poor cell has a low shunt resistance.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 260" class="fig" role="img" aria-label="Five-parameter single-diode equivalent circuit with series and shunt resistance">
+  <text class="figtitle" x="20" y="20">Figure 2.2 &#8212; The five-parameter (single-diode) model</text>
+  <path class="wire" d="M120,70 L430,70"/>
+  <path class="wire" d="M120,210 L600,210"/>
+  <path class="wire" d="M120,70 L120,150"/><path class="wire" d="M120,202 L120,210"/>
+  <circle cx="120" cy="176" r="26" class="comp" fill="var(--surface)"/>
+  <line class="wire" x1="120" y1="194" x2="120" y2="158" marker-end="url(#aw)"/>
+  <text class="stxtb" x="84" y="180" text-anchor="end">I<tspan font-size="9" dy="3">ph</tspan></text>
+  <!-- diode -->
+  <path class="wire" d="M270,70 L270,118"/><path class="wire" d="M270,164 L270,210"/>
+  <path class="comp" d="M250,122 L290,122 L270,158 z" fill="var(--surface)"/>
+  <line class="comp" x1="248" y1="158" x2="292" y2="158"/>
+  <text class="stxtb" x="304" y="146">D</text>
+  <!-- shunt resistor -->
+  <path class="wire" d="M400,70 L400,112"/><path class="wire" d="M400,168 L400,210"/>
+  <path class="comp" d="M400,112 L386,120 L414,132 L386,144 L414,156 L400,164"/>
+  <text class="stxtb" x="426" y="136">R<tspan font-size="9" dy="3">sh</tspan></text>
+  <!-- series resistor -->
+  <path class="comp" d="M470,70 L482,56 L500,84 L518,56 L536,84 L548,70"/>
+  <path class="wire" d="M430,70 L470,70"/><path class="wire" d="M548,70 L600,70"/>
+  <text class="stxtb" x="509" y="44" text-anchor="middle">R<tspan font-size="9" dy="3">s</tspan></text>
+  <circle cx="600" cy="70" r="5" class="node"/><circle cx="600" cy="210" r="5" class="node"/>
+  <line class="wire" x1="616" y1="70" x2="666" y2="70" marker-end="url(#aw)"/>
+  <text class="stxtb" x="641" y="60" text-anchor="middle">I</text>
+  <line class="wire" x1="694" y1="86" x2="694" y2="194" marker-end="url(#aw)"/>
+  <line class="wire" x1="694" y1="194" x2="694" y2="86" marker-end="url(#aw)"/>
+  <text class="stxtb" x="706" y="145">V</text>
+  <text class="stxts" x="270" y="242" text-anchor="middle">recombination</text>
+  <text class="stxts" x="400" y="242" text-anchor="middle">leakage</text>
+  <text class="stxts" x="509" y="242" text-anchor="middle">ohmic loss</text>
+  <text class="stxtc" x="120" y="46">junction voltage V<tspan font-size="9" dy="3">j</tspan><tspan dy="-3"> = V + I&#183;R</tspan><tspan font-size="9" dy="3">s</tspan></text>
+</svg>
+</div>
+<figcaption>Figure 2.2 &#8212; The model used for every curve in this book. Five parameters:
+I<sub>ph</sub>, I<sub>0</sub>, n, R<sub>s</sub>, R<sub>sh</sub>.</figcaption>
+</figure>
+
+<p>Writing Kirchhoff's current law at the internal node gives the equation that the rest of the
+book uses:</p>
+
+<div class="eq"><span class="n">(2.2)</span>
+I = I<sub>ph</sub> &#8722; I<sub>0</sub> &#183; [ exp( (V + I&#183;R<sub>s</sub>) / a ) &#8722; 1 ]
+&#8722; (V + I&#183;R<sub>s</sub>) / R<sub>sh</sub>
+<br>
+a = n &#183; N<sub>s</sub> &#183; k &#183; T / q &nbsp;&nbsp;(the modified ideality factor)
+</div>
+
+<p>Equation 2.2 is <em>implicit</em>: <var>I</var> appears on both sides and inside an exponential.
+It has no solution in elementary functions. In practice you solve it point by point with a
+root-finder, or in closed form with the Lambert W function. Every curve in this notebook was solved
+with a bracketing root-finder to a tolerance of 10<sup>&#8722;12</sup>&nbsp;A.</p>
+
+<h3 id="s2-3">2.3 The four landmarks of the curve</h3>
+
+<p>Four points describe almost everything you need.</p>
+
+<dl class="deflist">
+<dt>Short-circuit current, I<sub>sc</sub></dt>
+<dd>The current when the terminals are shorted, so <var>V = 0</var>. The diode is unbiased and
+takes almost nothing, so <var>I<sub>sc</sub> &#8776; I<sub>ph</sub></var>. This is the largest
+current the cell can deliver. It is proportional to irradiance.</dd>
+
+<dt>Open-circuit voltage, V<sub>oc</sub></dt>
+<dd>The voltage when no current is drawn, so <var>I = 0</var>. The diode is now consuming the whole
+photocurrent. Setting <var>I = 0</var> in 2.1 and solving gives
+<var>V<sub>oc</sub> = a&#183;ln(I<sub>ph</sub>/I<sub>0</sub> + 1)</var>. This is the largest
+voltage the cell can produce.</dd>
+
+<dt>Maximum power point (MPP), at V<sub>mp</sub> and I<sub>mp</sub></dt>
+<dd>The single point on the curve where the product <var>V&#183;I</var> is largest. At both ends of
+the curve the power is zero, because one factor is zero. Somewhere between them there is a maximum.
+Finding and holding this point is the entire subject of this project.</dd>
+
+<dt>Fill factor, FF</dt>
+<dd>How square the curve is:
+<var>FF = (V<sub>mp</sub>&#183;I<sub>mp</sub>) / (V<sub>oc</sub>&#183;I<sub>sc</sub>)</var>.
+A perfect rectangle would give 1. Good silicon modules reach 0.75 to 0.82. Laboratory cells reach
+about 0.85. A falling fill factor is the standard symptom of a resistance problem.</dd>
+</dl>
+
+<!--FIG:cell_iv-->
+<p class="figcapx"></p>
+
+<div class="note">
+<p class="boxh">Why the MPP must exist</p>
+<p>Power is zero at <var>V = 0</var> because there is no voltage. Power is zero at
+<var>V = V<sub>oc</sub></var> because there is no current. Power is positive in between, and the
+curve is smooth. A continuous function that is zero at both ends and positive in the middle must
+have a maximum inside. Under uniform light there is exactly one such maximum. Under partial shade
+there can be several, and that is the whole difficulty of this project.</p>
+</div>
+
+<h3 id="s2-4">2.4 The two-diode model</h3>
+
+<p>The single-diode model is slightly wrong at low light. The reason is that recombination in the
+depletion region follows a different law from recombination in the bulk. The two-diode model gives
+each mechanism its own diode: one with <var>n<sub>1</sub> &#8776; 1</var> for the bulk, and one with
+<var>n<sub>2</sub> &#8776; 2</var> for the depletion region.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 250" class="fig" role="img" aria-label="Two-diode equivalent circuit">
+  <text class="figtitle" x="20" y="20">Figure 2.4 &#8212; The two-diode model</text>
+  <path class="wire" d="M110,66 L420,66"/><path class="wire" d="M110,200 L580,200"/>
+  <path class="wire" d="M110,66 L110,142"/><path class="wire" d="M110,194 L110,200"/>
+  <circle cx="110" cy="168" r="24" class="comp" fill="var(--surface)"/>
+  <line class="wire" x1="110" y1="184" x2="110" y2="150" marker-end="url(#aw)"/>
+  <text class="stxtb" x="76" y="172" text-anchor="end">I<tspan font-size="9" dy="3">ph</tspan></text>
+  <g>
+    <path class="wire" d="M215,66 L215,110"/><path class="wire" d="M215,154 L215,200"/>
+    <path class="comp" d="M197,114 L233,114 L215,148 z" fill="var(--surface)"/>
+    <line class="comp" x1="195" y1="148" x2="235" y2="148"/>
+    <text class="stxtb" x="245" y="126">D<tspan font-size="9" dy="3">1</tspan></text>
+    <text class="stxts" x="245" y="143">n &#8776; 1</text>
+  </g>
+  <g>
+    <path class="wire" d="M320,66 L320,110"/><path class="wire" d="M320,154 L320,200"/>
+    <path class="comp" d="M302,114 L338,114 L320,148 z" fill="var(--surface)"/>
+    <line class="comp" x1="300" y1="148" x2="340" y2="148"/>
+    <text class="stxtb" x="350" y="126">D<tspan font-size="9" dy="3">2</tspan></text>
+    <text class="stxts" x="350" y="143">n &#8776; 2</text>
+  </g>
+  <path class="wire" d="M420,66 L420,108"/><path class="wire" d="M420,160 L420,200"/>
+  <path class="comp" d="M420,108 L407,116 L433,127 L407,138 L433,149 L420,160"/>
+  <text class="stxtb" x="444" y="132">R<tspan font-size="9" dy="3">sh</tspan></text>
+  <path class="comp" d="M462,66 L474,54 L490,80 L506,54 L522,80 L534,66"/>
+  <path class="wire" d="M420,66 L462,66"/><path class="wire" d="M534,66 L580,66"/>
+  <text class="stxtb" x="498" y="44" text-anchor="middle">R<tspan font-size="9" dy="3">s</tspan></text>
+  <circle cx="580" cy="66" r="5" class="node"/><circle cx="580" cy="200" r="5" class="node"/>
+  <text class="stxts" x="600" y="70">+</text><text class="stxts" x="600" y="205">&#8722;</text>
+  <text class="stxts" x="215" y="230" text-anchor="middle">bulk recombination</text>
+  <text class="stxts" x="330" y="230" text-anchor="middle">depletion-region recombination</text>
+</svg>
+</div>
+<figcaption>Figure 2.4 &#8212; Seven parameters instead of five. Use it when low-light accuracy
+matters, or for thin-film devices. For a shading study on silicon, the five-parameter model is
+enough, and it is far cheaper to solve.</figcaption>
+</figure>
+
+<h3 id="s2-5">2.5 What the parasitic resistances do to the curve</h3>
+
+<p>The two resistances damage two different parts of the curve, and this is how you tell them apart
+on a flash-test report.</p>
+
+<p><strong>Series resistance</strong> pulls the curve down near the open-circuit end. It costs you
+a voltage of <var>I&#183;R<sub>s</sub></var> at every operating point, and the current is highest at
+the knee, so the knee suffers most. <var>V<sub>oc</sub></var> is untouched, because at open circuit
+no current flows through <var>R<sub>s</sub></var>. <var>I<sub>sc</sub></var> is barely touched. The
+fill factor falls.</p>
+
+<p><strong>Shunt resistance</strong> tilts the flat part of the curve near short circuit. A low
+<var>R<sub>sh</sub></var> steals current in proportion to voltage, so the curve slopes downward
+instead of running flat. <var>I<sub>sc</sub></var> is barely touched, but
+<var>V<sub>oc</sub></var> falls and the fill factor falls.</p>
+
+<!--FIG:rs_effect-->
+<!--FIG:rsh_effect-->
+
+<div class="note">
+<p class="boxh">Diagnostic rule</p>
+<p>Look at the slope of the measured curve at the two ends. The slope near <var>V<sub>oc</sub></var>
+is roughly <var>&#8722;1/R<sub>s</sub></var>. The slope near <var>I<sub>sc</sub></var> is roughly
+<var>&#8722;1/R<sub>sh</sub></var>. Those two slopes are the fastest field estimate of both
+parasitic resistances, and they need no curve fitting.</p>
+</div>
+
+<h3 id="s2-6">2.6 The reference module used throughout this book</h3>
+
+<p>All figures use one module so that the numbers stay comparable from chapter to chapter. It is a
+60-cell monocrystalline module of the 265&nbsp;W class, which is a common size for a laboratory
+rig.</p>
+
+<table>
+<thead><tr><th>Quantity</th><th>Symbol</th><th>Value at STC</th><th>Comment</th></tr></thead>
+<tbody>
+<tr><td>Cells in series</td><td>N<sub>s</sub></td><td class="num">60</td><td>each about 0.625 V open circuit</td></tr>
+<tr><td>Open-circuit voltage</td><td>V<sub>oc</sub></td><td class="num">37.50 V</td><td>datasheet input</td></tr>
+<tr><td>Short-circuit current</td><td>I<sub>sc</sub></td><td class="num">9.200 A</td><td>datasheet input</td></tr>
+<tr><td>MPP voltage</td><td>V<sub>mp</sub></td><td class="num">30.97 V</td><td>model output</td></tr>
+<tr><td>MPP current</td><td>I<sub>mp</sub></td><td class="num">8.559 A</td><td>model output</td></tr>
+<tr><td>Peak power</td><td>P<sub>max</sub></td><td class="num">265.0 W</td><td>model output</td></tr>
+<tr><td>Fill factor</td><td>FF</td><td class="num">0.768</td><td>model output</td></tr>
+<tr><td>Optimum load</td><td>R<sub>opt</sub></td><td class="num">3.62 &#8486;</td><td>V<sub>mp</sub>/I<sub>mp</sub></td></tr>
+</tbody>
+</table>
+
+<p>The five fitted parameters are listed in <a href="#a-params">Appendix B</a>. The fit reproduces
+all four datasheet points to machine precision, so any error you see in a figure is a modelling
+choice, not a numerical artefact.</p>
+</section>

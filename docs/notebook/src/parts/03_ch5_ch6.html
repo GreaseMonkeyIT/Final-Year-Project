@@ -1,0 +1,407 @@
+<!-- ============================================================== CH 5 === -->
+<section id="ch5">
+<h2>5 &nbsp;Tracking methods I: the offline family</h2>
+
+<h3 id="s5-1">5.1 A map of the families</h3>
+
+<p>There are more than a hundred published tracking methods. Almost all of them belong to one of
+three families, and the family tells you the strengths and the weaknesses before you read a single
+equation.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 300" class="fig" role="img" aria-label="Taxonomy of MPPT methods">
+  <text class="figtitle" x="20" y="20">Figure 5.1 &#8212; The three families</text>
+  <rect class="fillbg" x="300" y="38" width="160" height="34" rx="4"/>
+  <text class="stxtb" x="380" y="60" text-anchor="middle">MPPT methods</text>
+  <path class="wire" d="M380,72 L380,92 M130,92 L630,92 M130,92 L130,112 M380,92 L380,112 M630,92 L630,112"/>
+  <rect class="fillbg" x="46" y="112" width="168" height="40" rx="4"/>
+  <text class="stxtb" x="130" y="130" text-anchor="middle">Offline (indirect)</text>
+  <text class="stxts" x="130" y="146" text-anchor="middle">estimate, then jump</text>
+  <rect class="fillbg" x="296" y="112" width="168" height="40" rx="4"/>
+  <text class="stxtb" x="380" y="130" text-anchor="middle">Online (direct)</text>
+  <text class="stxts" x="380" y="146" text-anchor="middle">measure, then step</text>
+  <rect class="fillbg" x="546" y="112" width="168" height="40" rx="4"/>
+  <text class="stxtb" x="630" y="130" text-anchor="middle">Soft-computing</text>
+  <text class="stxts" x="630" y="146" text-anchor="middle">learn or search</text>
+  <text class="stxt" x="130" y="180" text-anchor="middle">fractional V<tspan font-size="9" dy="3">oc</tspan></text>
+  <text class="stxt" x="130" y="200" text-anchor="middle">fractional I<tspan font-size="9" dy="3">sc</tspan></text>
+  <text class="stxt" x="130" y="220" text-anchor="middle">look-up table</text>
+  <text class="stxt" x="130" y="240" text-anchor="middle">curve fitting</text>
+  <text class="stxt" x="380" y="180" text-anchor="middle">perturb and observe</text>
+  <text class="stxt" x="380" y="200" text-anchor="middle">incremental conductance</text>
+  <text class="stxt" x="380" y="220" text-anchor="middle">ripple correlation</text>
+  <text class="stxt" x="380" y="240" text-anchor="middle">extremum seeking</text>
+  <text class="stxt" x="630" y="180" text-anchor="middle">fuzzy logic</text>
+  <text class="stxt" x="630" y="200" text-anchor="middle">neural network</text>
+  <text class="stxt" x="630" y="220" text-anchor="middle">particle swarm, grey wolf</text>
+  <text class="stxt" x="630" y="240" text-anchor="middle">hybrids of the above</text>
+  <line class="wire2" x1="46" y1="266" x2="714" y2="266"/>
+  <text class="stxts" x="130" y="286" text-anchor="middle">cheap, approximate</text>
+  <text class="stxts" x="380" y="286" text-anchor="middle">exact but local</text>
+  <text class="stxts" x="630" y="286" text-anchor="middle">global, expensive</text>
+</svg>
+</div>
+<figcaption>Figure 5.1 &#8212; Offline methods guess the answer from an easily measured quantity.
+Online methods find it by trial. Soft-computing methods either learn the mapping or search the
+whole curve. Only the third column can find a global peak by itself.</figcaption>
+</figure>
+
+<p>The offline family shares one idea: the maximum power point is not measured, it is
+<em>estimated</em> from something cheaper. That estimate is then used as a set-point. The panel is
+never asked whether the estimate was right.</p>
+
+<h3 id="s5-2">5.2 Fractional open-circuit voltage</h3>
+
+<p>This method rests on the observation from Section&nbsp;3.2: the ratio
+<var>V<sub>mp</sub>/V<sub>oc</sub></var> is nearly constant.</p>
+
+<div class="eq"><span class="n">(5.1)</span>
+V<sub>mp</sub> &#8776; k<sub>v</sub> &#183; V<sub>oc</sub> &nbsp;&nbsp; with k<sub>v</sub> &#8776; 0.71 to 0.86 for silicon
+</div>
+
+<!--FIG:ratio_stability-->
+
+<p>For the reference module the model gives <var>k<sub>v</sub></var> between 0.798 and 0.861 across
+the full range of 100 to 1000&nbsp;W/m&#178; and 0 to 65&nbsp;&#176;C. Choosing a fixed
+<var>k<sub>v</sub> = 0.82</var> costs at most 1.85&nbsp;% of the available power anywhere on that
+grid, and less than 0.7&nbsp;% over most of it. That is a remarkable result for a method that needs
+one sensor and two lines of arithmetic.</p>
+
+<p><strong>How it runs.</strong> Every few seconds the converter is stopped, or a pilot cell is
+read, so that <var>V<sub>oc</sub></var> can be measured. The set-point
+<var>k<sub>v</sub>&#183;V<sub>oc</sub></var> is then held until the next sample.</p>
+
+<table>
+<thead><tr><th>Fractional V<sub>oc</sub></th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>One voltage sensor. No multiplication, no division, no memory of past states. Cannot oscillate. Cannot become unstable. Reaches the neighbourhood of the peak in one step, which makes it a good <em>starting</em> stage for a two-stage tracker.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Never exactly at the peak. The array must be disconnected to measure V<sub>oc</sub>, which loses all power for a few milliseconds each time. k<sub>v</sub> drifts with ageing, temperature and technology. Under partial shade the relation breaks down completely, because V<sub>oc</sub> no longer describes the shape of a multi-peak curve.</td></tr>
+<tr><td>Where it fits</td><td>Very small, very cheap systems: solar lanterns, garden lights, water pumps. Also the coarse first stage of a hybrid tracker. Also as a safe fallback if sensors fail.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s5-3">5.3 Fractional short-circuit current</h3>
+
+<p>The mirror image. The ratio <var>I<sub>mp</sub>/I<sub>sc</sub></var> is even steadier than the
+voltage ratio: the model holds it between 0.928 and 0.930 across the whole irradiance range.</p>
+
+<div class="eq"><span class="n">(5.2)</span>
+I<sub>mp</sub> &#8776; k<sub>i</sub> &#183; I<sub>sc</sub> &nbsp;&nbsp; with k<sub>i</sub> &#8776; 0.78 to 0.93
+</div>
+
+<p>Using a fixed <var>k<sub>i</sub> = 0.929</var> on the reference module costs at most
+0.26&nbsp;% of the available power. It is the more accurate of the two fractional methods.</p>
+
+<table>
+<thead><tr><th>Fractional I<sub>sc</sub></th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>More stable coefficient than the voltage method. Insensitive to temperature.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Measuring I<sub>sc</sub> means shorting the array. That needs an extra switch rated for the full array current, which costs more than it saves. A current sensor is more expensive than a voltage divider. Same blindness to partial shade.</td></tr>
+<tr><td>Where it fits</td><td>Systems that already have a short-circuit-capable switch, or that carry a small pilot cell whose I<sub>sc</sub> can be measured without disturbing the array.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s5-4">5.4 Look-up tables and curve fitting</h3>
+
+<p>If you measure irradiance and cell temperature, you can look up <var>V<sub>mp</sub></var> in a
+table filled during commissioning, or evaluate a fitted polynomial in <var>G</var> and <var>T</var>.
+The response is immediate, because there is no search at all.</p>
+
+<table>
+<thead><tr><th>Look-up and curve fitting</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>Fastest possible response to a change: one table read. No oscillation. Predictable behaviour, which suits certification.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Needs a pyranometer and a temperature sensor, both of which cost more than the tracker. The table is valid for one array, in one place, in one state of cleanliness and age. It cannot represent shading patterns at all, because the shading pattern is not a scalar.</td></tr>
+<tr><td>Where it fits</td><td>Large plants that already carry weather instruments, used as a coarse pre-position for a fine tracker. Space systems, where the environment is known exactly and reliability outranks accuracy.</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================================================== CH 6 === -->
+<section id="ch6">
+<h2>6 &nbsp;Tracking methods II: hill climbing and beyond</h2>
+
+<p>The online family does not guess. It moves the operating point, watches what happens to the
+power, and uses the result to decide the next move. It is exact at steady state, and it needs no
+knowledge of the panel. It is also, without help, strictly local: it climbs the hill it is standing
+on.</p>
+
+<h3 id="s6-1">6.1 Perturb and observe</h3>
+
+<p>The oldest and still the most used method. The rule is one sentence: <em>change the operating
+voltage by a small step; if the power went up, take another step the same way; if the power went
+down, step the other way.</em></p>
+
+<!--FIG:po_hill-->
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 320" class="fig" role="img" aria-label="Perturb and observe decision flow">
+  <text class="figtitle" x="20" y="20">Figure 6.2 &#8212; Perturb and observe, one cycle</text>
+  <rect class="flowbox" x="40" y="44" width="150" height="42" rx="6"/>
+  <text class="stxt" x="115" y="63" text-anchor="middle">measure V(k), I(k)</text>
+  <text class="stxts" x="115" y="79" text-anchor="middle">P(k) = V(k)&#183;I(k)</text>
+  <line class="wire" x1="190" y1="66" x2="230" y2="66" marker-end="url(#aw)"/>
+  <path class="comp" d="M330,34 L426,66 L330,98 L234,66 z" fill="var(--surface2)"/>
+  <text class="stxtb" x="330" y="71" text-anchor="middle">is &#916;P &gt; 0 ?</text>
+  <text class="stxts" x="330" y="26" text-anchor="middle">&#916;P = P(k) &#8722; P(k&#8722;1)</text>
+  <line class="wire" x1="426" y1="66" x2="486" y2="66" marker-end="url(#aw)"/>
+  <text class="stxts" x="456" y="58" text-anchor="middle">yes</text>
+  <line class="wire" x1="330" y1="98" x2="330" y2="150" marker-end="url(#aw)"/>
+  <text class="stxts" x="342" y="126">no</text>
+  <rect class="flowbox" x="486" y="44" width="216" height="42" rx="6"/>
+  <text class="stxt" x="594" y="70" text-anchor="middle">keep the same step direction</text>
+  <rect class="flowbox" x="222" y="150" width="216" height="42" rx="6"/>
+  <text class="stxt" x="330" y="176" text-anchor="middle">reverse the step direction</text>
+  <line class="wire" x1="594" y1="86" x2="594" y2="230"/>
+  <line class="wire" x1="438" y1="171" x2="470" y2="171"/><line class="wire" x1="470" y1="171" x2="470" y2="230"/>
+  <line class="wire" x1="470" y1="230" x2="594" y2="230"/>
+  <rect class="flowbox" x="486" y="230" width="216" height="46" rx="6" style="display:none"/>
+  <rect class="flowbox" x="300" y="230" width="230" height="46" rx="6"/>
+  <text class="stxt" x="415" y="249" text-anchor="middle">V<tspan font-size="9" dy="3">ref</tspan><tspan dy="-3">(k+1) = V</tspan><tspan font-size="9" dy="3">ref</tspan><tspan dy="-3">(k) &#177; &#916;V</tspan></text>
+  <text class="stxts" x="415" y="266" text-anchor="middle">wait for the converter to settle, then repeat</text>
+  <line class="wire" x1="300" y1="253" x2="240" y2="253"/>
+  <line class="wire" x1="240" y1="253" x2="240" y2="300"/><line class="wire" x1="240" y1="300" x2="115" y2="300"/>
+  <line class="wire" x1="115" y1="300" x2="115" y2="86" marker-end="url(#aw)"/>
+</svg>
+</div>
+<figcaption>Figure 6.2 &#8212; The complete algorithm. Two multiplications, one subtraction, one
+comparison. This is why it runs on any microcontroller.</figcaption>
+</figure>
+
+<p><strong>The step size is the whole design.</strong> A large step reaches the peak quickly but
+then oscillates across it with a large amplitude, wasting power in steady state. A small step
+settles tightly but takes many cycles to cross the curve, and responds slowly to a passing cloud.
+The reference module gives a feel for the cost: sitting 1&nbsp;V away from
+<var>V<sub>mp</sub></var> costs 1.0&nbsp;% of peak power, 2&nbsp;V costs 5.0&nbsp;%, and 3&nbsp;V
+costs 13.4&nbsp;%. The curve is flat at the top and steep on the right shoulder, so an overshoot to
+the right is much more expensive than the same overshoot to the left.</p>
+
+<p><strong>The drift problem.</strong> Perturb and observe cannot tell the difference between
+&#8220;the power rose because I moved&#8221; and &#8220;the power rose because a cloud cleared&#8221;.
+On a fast irradiance ramp it therefore reads a rising power, concludes its last move was correct,
+and keeps moving in a direction that is in fact wrong. The operating point drifts away from the
+peak. The standard cures are:</p>
+
+<ul>
+<li><strong>Variable step size.</strong> Make the step proportional to <var>|dP/dV|</var>, so it is
+large far from the peak and small near it. This is the single most effective improvement, and it is
+cheap.</li>
+<li><strong>Three-point weight comparison.</strong> Sample at three points before deciding, which
+rejects a monotone irradiance ramp.</li>
+<li><strong>Add a current measurement test.</strong> A change in <var>I</var> at constant
+<var>V</var> indicates irradiance change, not the effect of the perturbation.</li>
+</ul>
+
+<table>
+<thead><tr><th>Perturb and observe</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>No model of the panel. No calibration. Works with any array. Trivial to code and to test. Reaches the true peak, not an estimate. Static tracking efficiency above 99 % with a good step size.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Always oscillates around the peak. Drifts on fast irradiance ramps. Needs both sensors. <strong>Stops at the first peak it finds</strong>, which under partial shade is very often the wrong one.</td></tr>
+<tr><td>Where it fits</td><td>The default for anything without shading. The local-refinement stage of nearly every global method, including the one recommended in Chapter&nbsp;11.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s6-2">6.2 Incremental conductance</h3>
+
+<p>This method uses the same hill, but computes the slope analytically instead of comparing two
+power readings. Differentiate <var>P = V&#183;I</var> with respect to <var>V</var>:</p>
+
+<div class="eq"><span class="n">(6.1)</span>
+dP/dV = I + V &#183; dI/dV
+</div>
+
+<p>At the maximum power point the slope is zero, which gives the test that names the method:</p>
+
+<div class="eq"><span class="n">(6.2)</span>
+at the MPP: &nbsp;&nbsp;dI/dV = &#8722; I / V
+<br>
+left of it: &nbsp;&nbsp;&nbsp;dI/dV &gt; &#8722; I / V &nbsp;&nbsp;(increase V)
+<br>
+right of it: &nbsp;&nbsp;dI/dV &lt; &#8722; I / V &nbsp;&nbsp;(decrease V)
+</div>
+
+<p>In words: the <em>incremental</em> conductance <var>dI/dV</var> is compared with the negative of
+the <em>instantaneous</em> conductance <var>I/V</var>. In an implementation the derivatives become
+differences, <var>&#916;I/&#916;V</var>.</p>
+
+<!--FIG:inccond-->
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 300" class="fig" role="img" aria-label="Incremental conductance decision flow">
+  <text class="figtitle" x="20" y="20">Figure 6.4 &#8212; Incremental conductance, one cycle</text>
+  <rect class="flowbox" x="30" y="120" width="132" height="46" rx="6"/>
+  <text class="stxt" x="96" y="139" text-anchor="middle">measure V, I</text>
+  <text class="stxts" x="96" y="156" text-anchor="middle">form &#916;V, &#916;I</text>
+  <line class="wire" x1="162" y1="143" x2="200" y2="143" marker-end="url(#aw)"/>
+  <path class="comp" d="M272,110 L344,143 L272,176 L200,143 z" fill="var(--surface2)"/>
+  <text class="stxtb" x="272" y="140" text-anchor="middle">&#916;V = 0 ?</text>
+  <text class="stxts" x="272" y="156" text-anchor="middle"></text>
+  <line class="wire" x1="272" y1="110" x2="272" y2="66" marker-end="url(#aw)"/>
+  <text class="stxts" x="284" y="90">yes</text>
+  <rect class="flowbox" x="176" y="30" width="192" height="36" rx="6"/>
+  <text class="stxt" x="272" y="53" text-anchor="middle">use sign of &#916;I instead</text>
+  <line class="wire" x1="344" y1="143" x2="392" y2="143" marker-end="url(#aw)"/>
+  <text class="stxts" x="368" y="134" text-anchor="middle">no</text>
+  <path class="comp" d="M486,100 L582,143 L486,186 L390,143 z" fill="var(--surface2)"/>
+  <text class="stxtb" x="486" y="139" text-anchor="middle">&#916;I/&#916;V vs &#8722;I/V</text>
+  <line class="wire" x1="486" y1="100" x2="486" y2="66" marker-end="url(#aw)"/>
+  <line class="wire" x1="582" y1="143" x2="640" y2="143" marker-end="url(#aw)"/>
+  <line class="wire" x1="486" y1="186" x2="486" y2="226" marker-end="url(#aw)"/>
+  <rect class="flowbox" x="398" y="30" width="176" height="36" rx="6"/>
+  <text class="stxt" x="486" y="53" text-anchor="middle">greater &#8594; raise V<tspan font-size="9" dy="3">ref</tspan></text>
+  <rect class="flowbox" x="640" y="122" width="106" height="42" rx="6"/>
+  <text class="stxt" x="693" y="140" text-anchor="middle">equal &#8594;</text>
+  <text class="stxt" x="693" y="156" text-anchor="middle">hold V<tspan font-size="9" dy="3">ref</tspan></text>
+  <rect class="flowbox" x="398" y="226" width="176" height="36" rx="6"/>
+  <text class="stxt" x="486" y="249" text-anchor="middle">less &#8594; lower V<tspan font-size="9" dy="3">ref</tspan></text>
+  <line class="wire" x1="398" y1="244" x2="96" y2="244"/>
+  <line class="wire" x1="96" y1="244" x2="96" y2="166" marker-end="url(#aw)"/>
+</svg>
+</div>
+<figcaption>Figure 6.4 &#8212; Note the &#8220;hold&#8221; branch. It is the reason incremental
+conductance can, in principle, sit still at the peak instead of oscillating.</figcaption>
+</figure>
+
+<table>
+<thead><tr><th>Incremental conductance</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>Has a true stop condition, so it can stop oscillating once the peak is reached. Distinguishes a change caused by its own perturbation from a change caused by irradiance, because it looks at &#916;V and &#916;I separately. Better dynamic tracking efficiency than plain P&amp;O on ramps.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Needs a division, so more computation and more care with fixed-point arithmetic. The exact equality is never met with real ADC noise, so a tolerance band must be added &#8212; and that band re-introduces a small oscillation. Still strictly local.</td></tr>
+<tr><td>Where it fits</td><td>The standard choice for grid-tied string inverters and for anything where irradiance changes quickly. Also the usual refinement stage in global methods.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s6-3">6.3 Hill climbing on the duty ratio</h3>
+
+<p>Identical logic to perturb and observe, but the perturbed variable is the duty ratio itself
+rather than a voltage reference. It removes the inner voltage loop, which saves a controller and
+some tuning.</p>
+
+<p>The price is that the relation between duty ratio and array voltage is non-linear and depends on
+the load. A fixed step in <var>D</var> gives a small voltage step in one part of the range and a
+large one in another. The tracker is therefore well damped at one operating point and twitchy at
+another.</p>
+
+<h3 id="s6-4">6.4 Ripple correlation control</h3>
+
+<p>A switching converter already makes the array voltage and current ripple at the switching
+frequency. Ripple correlation control uses that ripple as the perturbation, so no artificial
+perturbation is needed at all.</p>
+
+<p>The insight is a sign test. Below the peak, power and voltage ripple in phase, so their time
+derivatives have the same sign. Above the peak they are in antiphase. The control law is therefore:</p>
+
+<div class="eq"><span class="n">(6.3)</span>
+dD/dt = &#8722; k &#183; ( dP/dt ) &#183; ( dV/dt ) &nbsp;&nbsp; k &gt; 0
+</div>
+
+<p>The product is positive below the peak and negative above it, so the duty ratio is driven until
+the product averages to zero, which happens only at the peak.</p>
+
+<table>
+<thead><tr><th>Ripple correlation control</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>Converges in a few switching periods, so it is one to three orders of magnitude faster than perturb and observe. No added perturbation, so no added steady-state loss. Proven to converge.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Needs analogue or fast-sampled measurement of the ripple, which means wideband sensing and careful layout. Sensitive to phase shift in the sensing chain: a filter that delays the ripple can invert the sign of the product and make the loop climb the wrong way. Still local.</td></tr>
+<tr><td>Where it fits</td><td>Module-level converters and any design where the tracker must follow fast-moving shade edges. Attractive for a hardware-focused final year project, because the interesting work is analogue.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s6-5">6.5 Extremum seeking control</h3>
+
+<p>A small sinusoidal dither at frequency <var>&#969;</var> is added to the set-point. The measured
+power is multiplied by the same sinusoid and low-pass filtered. The result is proportional to the
+local gradient, with the correct sign. An integrator then drives the gradient to zero. It is the
+formal, provable version of hill climbing, and it separates the estimation frequency from the
+control bandwidth, which is what gives it its good noise behaviour.</p>
+
+<h3 id="s6-6">6.6 Fuzzy logic control</h3>
+
+<p>Instead of a fixed step size, the step is decided by a rule base. Two inputs are usual: the error
+<var>E = &#916;P/&#916;V</var> and its change <var>&#916;E</var>. Each is mapped to linguistic
+labels such as <em>negative big</em>, <em>zero</em>, <em>positive small</em>. A rule table then
+selects a change in duty ratio, and the result is defuzzified to a number.</p>
+
+<p>In practice a fuzzy controller is a smooth, non-linear, gain-scheduled hill climber. It takes
+large steps far from the peak and small steps near it, which is exactly the variable step size that
+plain perturb and observe wants, but expressed in a form that is easier to tune by hand than a
+formula.</p>
+
+<table>
+<thead><tr><th>Fuzzy logic</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>No panel model. Handles the non-linearity gracefully. Small steady-state oscillation and fast approach at the same time. Tolerant of sensor noise.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>The rule base and membership functions are chosen by the designer, so performance depends on skill and on trial. More memory and computation than P&amp;O. Still local unless combined with a global search.</td></tr>
+<tr><td>Where it fits</td><td>Systems with fast-changing conditions where the tuning effort is justified. Common as the refinement half of a hybrid global tracker.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s6-7">6.7 Neural networks</h3>
+
+<p>A network is trained offline to map inputs such as irradiance, temperature,
+<var>V<sub>oc</sub></var> and <var>I<sub>sc</sub></var> onto <var>V<sub>mp</sub></var>. At run time
+it is a fixed function evaluation, so the response is immediate.</p>
+
+<table>
+<thead><tr><th>Neural network</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>Once trained, it jumps straight to the answer with no search. Can absorb effects that no simple formula captures, including the array's own shading geometry if it was in the training set.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Needs a large, representative training set from the actual array. Must be retrained as the array ages or is modified. Behaves unpredictably outside the training distribution, which is precisely where an unusual shading pattern lives.</td></tr>
+<tr><td>Where it fits</td><td>Large installations that can afford the data collection, or as a pre-positioning stage that a hill climber then refines.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s6-8">6.8 Sliding mode and model predictive control</h3>
+
+<p><strong>Sliding mode control</strong> defines a switching surface, usually
+<var>S = dP/dV = 0</var>, and applies a discontinuous control law that forces the state onto that
+surface and keeps it there. It is robust against parameter error and load change, and it has a
+formal stability proof. Its weakness is chattering at the switching surface, which must be softened
+in practice.</p>
+
+<p><strong>Model predictive control</strong> uses a model of the converter to predict the array
+power for each candidate switching state over a short horizon, then applies the state that
+maximises a cost function. It gives an excellent dynamic response with no perturbation at all, but
+it needs an accurate converter model and a processor fast enough to evaluate the predictions inside
+one switching period.</p>
+
+<h3 id="s6-9">6.9 Side-by-side comparison</h3>
+
+<table>
+<thead><tr>
+<th>Method</th><th>Sensors</th><th>Speed</th><th>Steady-state error</th>
+<th>Needs panel data</th><th>Finds global peak</th><th>Effort</th></tr></thead>
+<tbody>
+<tr><td>Fractional V<sub>oc</sub></td><td>V</td><td>fast</td><td>1 to 2 %</td><td>k<sub>v</sub> only</td><td class="minus">no</td><td>very low</td></tr>
+<tr><td>Fractional I<sub>sc</sub></td><td>I</td><td>fast</td><td>&lt; 0.5 %</td><td>k<sub>i</sub> only</td><td class="minus">no</td><td>low</td></tr>
+<tr><td>Look-up table</td><td>G, T</td><td>immediate</td><td>depends on table</td><td class="minus">yes, full</td><td class="minus">no</td><td>medium</td></tr>
+<tr><td>Perturb and observe</td><td>V, I</td><td>medium</td><td>oscillates</td><td class="plus">no</td><td class="minus">no</td><td>very low</td></tr>
+<tr><td>Incremental conductance</td><td>V, I</td><td>medium</td><td>small</td><td class="plus">no</td><td class="minus">no</td><td>low</td></tr>
+<tr><td>Ripple correlation</td><td>V, I (wideband)</td><td class="plus">very fast</td><td>very small</td><td class="plus">no</td><td class="minus">no</td><td>medium</td></tr>
+<tr><td>Extremum seeking</td><td>V, I</td><td>fast</td><td>small</td><td class="plus">no</td><td class="minus">no</td><td>medium</td></tr>
+<tr><td>Fuzzy logic</td><td>V, I</td><td>fast</td><td>small</td><td class="plus">no</td><td class="minus">no</td><td>medium</td></tr>
+<tr><td>Neural network</td><td>varies</td><td class="plus">immediate</td><td>depends on training</td><td class="minus">yes, training set</td><td>only if trained for it</td><td>high</td></tr>
+<tr><td>Sliding mode</td><td>V, I</td><td>fast</td><td>chatter</td><td>partly</td><td class="minus">no</td><td>high</td></tr>
+<tr><td>Model predictive</td><td>V, I</td><td class="plus">very fast</td><td>very small</td><td class="minus">yes, converter</td><td class="minus">no</td><td>high</td></tr>
+<tr><td>Swarm methods (Ch. 10)</td><td>V, I</td><td class="minus">slow</td><td>small after convergence</td><td class="plus">no</td><td class="plus">yes</td><td>medium</td></tr>
+</tbody>
+</table>
+
+<h3 id="s6-10">6.10 How to choose</h3>
+
+<p>The decision is usually made by three questions, in this order.</p>
+
+<ol>
+<li><strong>Can the array be shaded in normal use?</strong> If yes, no method in this chapter is
+sufficient on its own. You need a global stage from Chapter&nbsp;10 with one of these as the
+refinement stage.</li>
+<li><strong>How fast does the irradiance change?</strong> A fixed installation in a clear climate can
+use plain perturb and observe. Moving shade edges, or a vehicle-mounted array, need incremental
+conductance, ripple correlation, or a variable step.</li>
+<li><strong>What is the cost target?</strong> Below a few watts, the fractional methods win because
+they need one sensor. Above that, the sensors are already paid for, so the arithmetic is free.</li>
+</ol>
+</section>

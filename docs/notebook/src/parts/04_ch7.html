@@ -1,0 +1,222 @@
+<!-- ============================================================== CH 7 === -->
+<section id="ch7">
+<h2>7 &nbsp;From one panel to an array</h2>
+
+<p>Everything so far described a single, uniformly lit device. A real installation is dozens of
+modules wired together, and the wiring changes the problem in ways that are not obvious.</p>
+
+<h3 id="s7-1">7.1 Series, parallel, and how the curves combine</h3>
+
+<p>Two rules govern every combination, and both follow from Kirchhoff's laws.</p>
+
+<ul>
+<li><strong>In series, the current is common and the voltages add.</strong> To build the combined
+curve, pick a current, read each device's voltage at that current, and add the voltages.</li>
+<li><strong>In parallel, the voltage is common and the currents add.</strong> Pick a voltage, read
+each device's current at that voltage, and add the currents.</li>
+</ul>
+
+<!--FIG:combine_series-->
+<!--FIG:combine_parallel-->
+
+<p>A standard module is itself an application of the first rule: 60 or 72 cells in series, so that
+one module produces 30 to 45&nbsp;V. Half-cut modules cut each cell in two and use 120 or 144 half
+cells in two parallel halves; this halves the current in each cell and therefore quarters the
+resistive loss, and it also gives useful shading behaviour, as Section&nbsp;8.4 explains.</p>
+
+<h3 id="s7-2">7.2 Mismatch: the reason arrays are worse than the sum of their parts</h3>
+
+<p>No two modules are identical. The differences are called <strong>mismatch</strong>, and they
+matter because of the series rule above.</p>
+
+<table>
+<thead><tr><th>Source of mismatch</th><th>Typical size</th><th>Time scale</th></tr></thead>
+<tbody>
+<tr><td>Manufacturing tolerance</td><td class="num">&#177;3 % of P<sub>max</sub></td><td>fixed at the factory</td></tr>
+<tr><td>Uneven soiling, dust, bird droppings</td><td class="num">1 to 10 %</td><td>weeks</td></tr>
+<tr><td>Ageing and degradation</td><td class="num">0.4 to 0.8 % per year</td><td>years</td></tr>
+<tr><td>Temperature gradient across the array</td><td class="num">5 to 15 &#176;C</td><td>hours</td></tr>
+<tr><td>Different tilt or azimuth</td><td class="num">up to 30 %</td><td>fixed by the roof</td></tr>
+<tr><td>Partial shade</td><td class="num">up to 100 % of one module</td><td>seconds to hours</td></tr>
+</tbody>
+</table>
+
+<p>The last row is different in kind, not only in size. The others shift a curve slightly. Shade
+removes a whole section of a string from service, and that is what creates the multiple peaks that
+this project must handle.</p>
+
+<h3 id="s7-3">7.3 Where the tracker sits</h3>
+
+<p>One tracker cannot optimise two modules that disagree. It can only choose one operating current
+for the whole series path. The system architecture therefore decides how much mismatch loss you are
+prepared to accept.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 300" class="fig" role="img" aria-label="Four PV system architectures">
+  <text class="figtitle" x="20" y="20">Figure 7.3 &#8212; Four places to put the tracker</text>
+  <g>
+    <text class="stxtb" x="20" y="52">Central inverter</text>
+    <rect class="fillbg" x="20" y="62" width="26" height="34" rx="3"/><rect class="fillbg" x="20" y="100" width="26" height="34" rx="3"/>
+    <rect class="fillbg" x="52" y="62" width="26" height="34" rx="3"/><rect class="fillbg" x="52" y="100" width="26" height="34" rx="3"/>
+    <path class="wire" d="M78,98 L108,98"/>
+    <rect class="fillac" x="108" y="76" width="56" height="44" rx="4"/>
+    <text class="stxts" x="136" y="103" text-anchor="middle">1 MPPT</text>
+    <text class="stxts" x="20" y="156">cheapest per watt</text>
+    <text class="stxts" x="20" y="172">worst under mismatch</text>
+  </g>
+  <g transform="translate(190,0)">
+    <text class="stxtb" x="20" y="52">String inverter</text>
+    <rect class="fillbg" x="20" y="62" width="26" height="34" rx="3"/><rect class="fillbg" x="20" y="100" width="26" height="34" rx="3"/>
+    <rect class="fillbg" x="52" y="62" width="26" height="34" rx="3"/><rect class="fillbg" x="52" y="100" width="26" height="34" rx="3"/>
+    <path class="wire" d="M78,79 L100,79 L100,90"/><path class="wire" d="M78,117 L100,117 L100,106"/>
+    <rect class="fillac" x="100" y="76" width="26" height="20" rx="3"/>
+    <rect class="fillac" x="100" y="100" width="26" height="20" rx="3"/>
+    <text class="stxts" x="132" y="92">2 MPPT</text>
+    <text class="stxts" x="20" y="156">one tracker per string</text>
+    <text class="stxts" x="20" y="172">today's default</text>
+  </g>
+  <g transform="translate(380,0)">
+    <text class="stxtb" x="20" y="52">DC optimiser</text>
+    <rect class="fillbg" x="20" y="62" width="26" height="34" rx="3"/><rect class="fillbg" x="20" y="100" width="26" height="34" rx="3"/>
+    <rect class="fillac" x="50" y="68" width="16" height="22" rx="2"/><rect class="fillac" x="50" y="106" width="16" height="22" rx="2"/>
+    <path class="wire" d="M46,79 L50,79"/><path class="wire" d="M46,117 L50,117"/>
+    <path class="wire" d="M66,79 L86,79 L86,117 L66,117"/>
+    <path class="wire" d="M86,98 L110,98"/>
+    <rect class="fillbg" x="110" y="82" width="34" height="32" rx="3"/>
+    <text class="stxts" x="127" y="102" text-anchor="middle">inv</text>
+    <text class="stxts" x="20" y="156">MPPT per module,</text>
+    <text class="stxts" x="20" y="172">one inverter</text>
+  </g>
+  <g transform="translate(570,0)">
+    <text class="stxtb" x="20" y="52">Microinverter</text>
+    <rect class="fillbg" x="20" y="62" width="26" height="34" rx="3"/><rect class="fillbg" x="20" y="100" width="26" height="34" rx="3"/>
+    <rect class="fillac" x="50" y="68" width="22" height="22" rx="2"/><rect class="fillac" x="50" y="106" width="22" height="22" rx="2"/>
+    <path class="wire" d="M46,79 L50,79"/><path class="wire" d="M46,117 L50,117"/>
+    <path class="wire" d="M72,79 L96,79 L96,117 L72,117"/>
+    <path class="wire" d="M96,98 L124,98"/>
+    <text class="stxts" x="128" y="102">AC</text>
+    <text class="stxts" x="20" y="156">MPPT and inversion</text>
+    <text class="stxts" x="20" y="172">at every module</text>
+  </g>
+  <line class="wire2" x1="20" y1="200" x2="740" y2="200"/>
+  <text class="stxts" x="20" y="222">cost per watt &#8594; increases from left to right</text>
+  <text class="stxts" x="20" y="242">mismatch and shading loss &#8594; decreases from left to right</text>
+  <text class="stxts" x="20" y="262">number of independent maximum power points &#8594; 1, then one per string, then one per module</text>
+</svg>
+</div>
+<figcaption>Figure 7.3 &#8212; The architecture decides how finely the array can be optimised. This
+is a commercial decision as much as an engineering one.</figcaption>
+</figure>
+
+<p>The size of the prize is easy to state with the reference module. Take three modules in series
+at 1000, 600 and 300&nbsp;W/m&#178;. Their individual peak powers add to 499&nbsp;W. A single
+tracker on the series string can extract only 337&nbsp;W, because it must choose one current for
+all three. Module-level electronics would recover the difference, less its own conversion loss.
+That gap, about one third, is what optimiser manufacturers sell.</p>
+
+<div class="note">
+<p class="boxh">The important consequence for this project</p>
+<p>If the array has one tracker for many modules in series, then partial shading produces a
+multi-peak curve and you must solve a global search problem. If every module has its own tracker,
+each sees a single peak and ordinary perturb and observe is enough. The algorithm you need is
+determined by the wiring, not by the weather.</p>
+</div>
+
+<h3 id="s7-4">7.4 Adapting a single-panel algorithm to an array</h3>
+
+<p>The equations do not change. Five practical things do.</p>
+
+<ol>
+<li><strong>Scale the step size.</strong> A step of 0.5&nbsp;V is sensible on a 37&nbsp;V module. On
+a 600&nbsp;V string it is far too small: the tracker would need hundreds of cycles to cross the
+curve. Express the step as a fraction of array <var>V<sub>oc</sub></var>, typically 0.2&nbsp;% to
+1&nbsp;%, so the same code works at any array size.</li>
+<li><strong>Lengthen the settling time.</strong> Array capacitance and cable inductance both grow
+with size. Sample later, not sooner.</li>
+<li><strong>Do not trust a single power reading.</strong> With long cables, noise on the current
+sensor is worse. Average several samples before comparing.</li>
+<li><strong>Bound the search.</strong> The useful range is roughly 0.5 to 0.95 of array
+<var>V<sub>oc</sub></var>. Refusing to leave that window prevents the tracker from wandering to
+short circuit after a disturbance.</li>
+<li><strong>Add a shading test.</strong> Any array with more than one module in series needs a
+periodic check that it is still on the global peak. Chapter&nbsp;10 covers this.</li>
+</ol>
+
+<h3 id="s7-5">7.5 Array wiring topologies</h3>
+
+<p>Modules can be interconnected in several patterns. The pattern changes how a shadow spreads
+through the array, and therefore how much power is lost.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 300" class="fig" role="img" aria-label="Series-parallel, total-cross-tied, bridge-linked and honeycomb array topologies">
+  <text class="figtitle" x="20" y="20">Figure 7.4 &#8212; Four interconnection patterns for a 3 &#215; 3 array</text>
+  <g id="sp" transform="translate(24,44)">
+    <text class="stxtb" x="0" y="0">Series-parallel (SP)</text>
+    <g class="fillbg">
+      <rect x="6" y="14" width="34" height="26" rx="3"/><rect x="6" y="60" width="34" height="26" rx="3"/><rect x="6" y="106" width="34" height="26" rx="3"/>
+      <rect x="58" y="14" width="34" height="26" rx="3"/><rect x="58" y="60" width="34" height="26" rx="3"/><rect x="58" y="106" width="34" height="26" rx="3"/>
+      <rect x="110" y="14" width="34" height="26" rx="3"/><rect x="110" y="60" width="34" height="26" rx="3"/><rect x="110" y="106" width="34" height="26" rx="3"/>
+    </g>
+    <path class="wire" d="M23,40 L23,60 M23,86 L23,106 M75,40 L75,60 M75,86 L75,106 M127,40 L127,60 M127,86 L127,106"/>
+    <path class="wire" d="M23,8 L23,14 M75,8 L75,14 M127,8 L127,14 M23,8 L127,8"/>
+    <path class="wire" d="M23,132 L23,140 M75,132 L75,140 M127,132 L127,140 M23,140 L127,140"/>
+    <text class="stxts" x="0" y="160">simplest, fewest joints</text>
+    <text class="stxts" x="0" y="176">worst shade tolerance</text>
+  </g>
+  <g id="tct" transform="translate(208,44)">
+    <text class="stxtb" x="0" y="0">Total cross-tied (TCT)</text>
+    <g class="fillbg">
+      <rect x="6" y="14" width="34" height="26" rx="3"/><rect x="6" y="60" width="34" height="26" rx="3"/><rect x="6" y="106" width="34" height="26" rx="3"/>
+      <rect x="58" y="14" width="34" height="26" rx="3"/><rect x="58" y="60" width="34" height="26" rx="3"/><rect x="58" y="106" width="34" height="26" rx="3"/>
+      <rect x="110" y="14" width="34" height="26" rx="3"/><rect x="110" y="60" width="34" height="26" rx="3"/><rect x="110" y="106" width="34" height="26" rx="3"/>
+    </g>
+    <path class="wire" d="M23,40 L23,60 M23,86 L23,106 M75,40 L75,60 M75,86 L75,106 M127,40 L127,60 M127,86 L127,106"/>
+    <path class="wire" d="M23,50 L127,50 M23,96 L127,96"/>
+    <path class="wire" d="M23,8 L127,8 M23,8 L23,14 M75,8 L75,14 M127,8 L127,14"/>
+    <path class="wire" d="M23,140 L127,140 M23,132 L23,140 M75,132 L75,140 M127,132 L127,140"/>
+    <text class="stxts" x="0" y="160">every row tied together</text>
+    <text class="stxts" x="0" y="176">best shade tolerance</text>
+  </g>
+  <g id="bl" transform="translate(392,44)">
+    <text class="stxtb" x="0" y="0">Bridge-linked (BL)</text>
+    <g class="fillbg">
+      <rect x="6" y="14" width="34" height="26" rx="3"/><rect x="6" y="60" width="34" height="26" rx="3"/><rect x="6" y="106" width="34" height="26" rx="3"/>
+      <rect x="58" y="14" width="34" height="26" rx="3"/><rect x="58" y="60" width="34" height="26" rx="3"/><rect x="58" y="106" width="34" height="26" rx="3"/>
+      <rect x="110" y="14" width="34" height="26" rx="3"/><rect x="110" y="60" width="34" height="26" rx="3"/><rect x="110" y="106" width="34" height="26" rx="3"/>
+    </g>
+    <path class="wire" d="M23,40 L23,60 M23,86 L23,106 M75,40 L75,60 M75,86 L75,106 M127,40 L127,60 M127,86 L127,106"/>
+    <path class="wire" d="M23,50 L75,50 M75,96 L127,96"/>
+    <path class="wire" d="M23,8 L127,8 M23,8 L23,14 M75,8 L75,14 M127,8 L127,14"/>
+    <path class="wire" d="M23,140 L127,140 M23,132 L23,140 M75,132 L75,140 M127,132 L127,140"/>
+    <text class="stxts" x="0" y="160">half the ties of TCT</text>
+    <text class="stxts" x="0" y="176">most of the benefit</text>
+  </g>
+  <g id="hc" transform="translate(576,44)">
+    <text class="stxtb" x="0" y="0">Honeycomb (HC)</text>
+    <g class="fillbg">
+      <rect x="6" y="14" width="34" height="26" rx="3"/><rect x="6" y="60" width="34" height="26" rx="3"/><rect x="6" y="106" width="34" height="26" rx="3"/>
+      <rect x="58" y="14" width="34" height="26" rx="3"/><rect x="58" y="60" width="34" height="26" rx="3"/><rect x="58" y="106" width="34" height="26" rx="3"/>
+      <rect x="110" y="14" width="34" height="26" rx="3"/><rect x="110" y="60" width="34" height="26" rx="3"/><rect x="110" y="106" width="34" height="26" rx="3"/>
+    </g>
+    <path class="wire" d="M23,40 L23,60 M23,86 L23,106 M75,40 L75,60 M75,86 L75,106 M127,40 L127,60 M127,86 L127,106"/>
+    <path class="wire" d="M23,50 L75,50 M75,50 L75,60 M75,96 L127,96 M23,96 L75,96"/>
+    <path class="wire" d="M23,8 L127,8 M23,8 L23,14 M75,8 L75,14 M127,8 L127,14"/>
+    <path class="wire" d="M23,140 L127,140 M23,132 L23,140 M75,132 L75,140 M127,132 L127,140"/>
+    <text class="stxts" x="0" y="160">hexagonal tie pattern</text>
+    <text class="stxts" x="0" y="176">a compromise</text>
+  </g>
+  <text class="stxts" x="24" y="266">Cross ties give a shaded module a parallel path, so a shadow affects fewer series elements.</text>
+  <text class="stxts" x="24" y="286">They also add copper, extra joints and new fault current paths.</text>
+</svg>
+</div>
+<figcaption>Figure 7.4 &#8212; Interconnection is a design variable, not a given. Reconfiguration
+methods, in Section&nbsp;10.6, exploit exactly this.</figcaption>
+</figure>
+
+<p>The ranking under shade is usually TCT first, then bridge-linked and honeycomb, then plain
+series-parallel. TCT wins because the cross ties let current from an unshaded module in the same
+row bypass the shaded one, so the shadow degrades the row rather than killing the string. The cost
+is more wiring, more terminations and higher fault currents.</p>
+</section>

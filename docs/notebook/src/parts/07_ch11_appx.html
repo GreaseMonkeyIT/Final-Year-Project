@@ -1,0 +1,280 @@
+<!-- ============================================================= CH 11 === -->
+<section id="ch11">
+<h2>11 &nbsp;The search question, answered</h2>
+
+<p class="lede">You asked: given a curve with several local maxima and one global maximum, what is
+the fastest and most computationally efficient technique to reach the global maximum? The short
+answer is that for this particular curve you should not use a general-purpose global optimiser at
+all. You should use the structure you already know.</p>
+
+<h3 id="s11-1">11.1 State the problem properly first</h3>
+
+<p>Write it as an optimisation problem, and list what is actually known about it. Almost all of the
+answer falls out of this list.</p>
+
+<div class="eq"><span class="n">(11.1)</span>
+maximise &nbsp; P(V) = V &#183; I(V) &nbsp;&nbsp; subject to &nbsp; 0 &#8804; V &#8804; V<sub>oc,array</sub>
+</div>
+
+<table>
+<thead><tr><th>Property</th><th>What is true here</th><th>Consequence for the algorithm</th></tr></thead>
+<tbody>
+<tr><td>Dimension</td><td>one</td><td>Population methods lose their main advantage, which is coping with many dimensions.</td></tr>
+<tr><td>Domain</td><td>bounded and known: [0, V<sub>oc,array</sub>]</td><td>No unbounded exploration is needed.</td></tr>
+<tr><td>Number of local maxima</td><td>at most the number of bypass groups in series, N<sub>m</sub>, known at design time</td><td>The candidate set is small and finite. This is the key fact.</td></tr>
+<tr><td>Where the maxima are</td><td>near k &#183; (0.72 to 0.95) &#183; V<sub>oc,mod</sub>, k = 1 &#8230; N<sub>m</sub></td><td>You can bracket every peak before measuring anything.</td></tr>
+<tr><td>Shape between peaks</td><td>smooth and single-peaked inside each bypass segment</td><td>An optimal unimodal line search applies inside a bracket.</td></tr>
+<tr><td>Cost of one evaluation</td><td>one converter settling time: 1 to 50 ms, plus lost energy</td><td>Minimise the <em>number of evaluations</em>. Arithmetic is free by comparison.</td></tr>
+<tr><td>Noise</td><td>ADC noise, switching ripple</td><td>Do not chase precision beyond the noise floor.</td></tr>
+<tr><td>Flatness at the top</td><td>&#177;1 V from V<sub>mp</sub> costs 1 % of peak power on the reference module; &#177;2 V costs 5 %</td><td>Precision better than about 1 % of module V<sub>oc</sub> is wasted effort.</td></tr>
+<tr><td>Stationarity</td><td>the curve itself changes in seconds</td><td>A search that takes longer than a few hundred milliseconds is solving yesterday's problem.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s11-2">11.2 The cost that actually matters</h3>
+
+<p>This is where most published comparisons go wrong. They count arithmetic operations or lines of
+code. Neither is the bottleneck. A modern microcontroller performs a particle swarm update in
+microseconds. What costs time is that <strong>every candidate voltage must be physically applied to
+the array and allowed to settle before its power can be measured</strong>. The unit of cost is one
+settling time, and everything else rounds to zero.</p>
+
+<!--FIG:budget-->
+
+<p>At a settling time of 20&nbsp;ms, the same figures become: exhaustive sweep 6.4&nbsp;s, particle
+swarm 1.8&nbsp;s, DIRECT 0.8&nbsp;s, window scan with refinement about 0.3&nbsp;s. On a moving cloud
+edge, the difference between 1.8&nbsp;s and 0.3&nbsp;s is the difference between tracking the shade
+and chasing it.</p>
+
+<div class="note">
+<p class="boxh">Restating the objective</p>
+<p>Do not ask for the algorithm with the lowest computational complexity. Ask for the algorithm that
+reaches the global peak in the fewest applied operating points. Those are different questions, and
+only the second one describes the hardware.</p>
+</div>
+
+<h3 id="s11-3">11.3 Why the popular answers are the wrong tools</h3>
+
+<p><strong>Particle swarm, grey wolf, cuckoo search and the rest.</strong> These are designed for
+black-box functions in many dimensions where nothing is known about the landscape. Here the
+dimension is one and a great deal is known. They pay for generality you do not need: every particle
+costs a settling time in every iteration, they are stochastic so they give a different answer and a
+different duration each run, they carry tuning constants with no physical meaning, and they offer
+no guarantee of reaching the global peak in finite time. Premature convergence onto a local peak is
+a documented failure of several of them.</p>
+
+<p><strong>Gradient methods, Newton, and anything that follows a slope.</strong> These converge to
+the nearest stationary point, which is exactly the trap. They belong in the refinement stage, never
+in the global stage.</p>
+
+<p><strong>Simulated annealing.</strong> Correct in the limit, and far too slow: its guarantee needs
+a cooling schedule measured in thousands of evaluations.</p>
+
+<p><strong>Exhaustive search.</strong> Correct, deterministic and honest, but it spends most of its
+evaluations in voltage ranges where a peak cannot exist.</p>
+
+<h3 id="s11-4">11.4 The method to use</h3>
+
+<p>Two answers, depending on what the hardware can do. Take the first if you can.</p>
+
+<h4>Answer A &#8212; if you can build a fast I-V sweep</h4>
+
+<p>Disconnect the load path for a few tens of milliseconds and let the array charge or discharge its
+own input capacitor from short circuit to open circuit, while sampling <var>V</var> and <var>I</var>
+at a few tens of kilohertz. You now hold several hundred points of the whole curve, bought with a
+single transient rather than several hundred settling times. Multiply, take the maximum, and go
+there. Then refine locally.</p>
+
+<p>This is the true optimum for the problem as posed, because it collapses the search cost to one
+event. Its requirements are a fast ADC, a capacitor sized so that the sweep is slow enough to
+sample but fast enough not to lose energy, and care that the sweep does not disturb the load. Most
+commercial string inverters use exactly this for their periodic shade check.</p>
+
+<h4>Answer B &#8212; with ordinary hardware: bracket by structure, then search the bracket</h4>
+
+<p>Use the physical structure to reduce the candidate set to <var>N<sub>m</sub></var>, then use the
+provably optimal unimodal line search inside the winning bracket. The procedure, in words:</p>
+
+<ol>
+<li><strong>Trigger.</strong> Enter the search only when the detector fires: a power deviation above
+the threshold, a bypass voltage step, or the periodic timer.</li>
+<li><strong>Establish the scale.</strong> Take, or recall, the array open-circuit voltage. Divide by
+the number of series bypass groups <var>N<sub>m</sub></var> to get the effective
+<var>V<sub>oc,mod</sub></var>. This is the only array knowledge the method needs.</li>
+<li><strong>Probe the windows.</strong> For <var>k = 1</var> to <var>N<sub>m</sub></var>, apply two
+set-points inside the <var>k</var>-th window, at about <var>0.78&#183;k&#183;V<sub>oc,mod</sub></var>
+and <var>0.90&#183;k&#183;V<sub>oc,mod</sub></var>, and record the power at each. Cost:
+<var>2N<sub>m</sub></var> settling times. Move downward from high voltage to low, so that the array
+current rises gradually rather than in one jump.</li>
+<li><strong>Select.</strong> Take the window with the highest measured power. If the best two are
+within the measurement noise of one another, keep both.</li>
+<li><strong>Refine.</strong> Run a Fibonacci or golden-section search inside the winning window. Each
+evaluation shrinks the bracket by a factor of 0.618, so six to seven evaluations reduce a
+17&nbsp;V window to under 1&nbsp;V, which is within 1&nbsp;% of the peak power.</li>
+<li><strong>Hand over.</strong> Give the result to incremental conductance with a small step, record
+the converged power as the new <var>P<sub>ref</sub></var>, and return to normal tracking.</li>
+</ol>
+
+<p>For a four-module string this is <var>8 + 7 = 15</var> applied operating points, about
+0.3&nbsp;seconds at a 20&nbsp;ms settling time, with no random numbers and no tuning constants.</p>
+
+<div class="okbox">
+<p class="boxh">Why Fibonacci and not something cleverer</p>
+<p>Inside one bypass segment the power curve has a single maximum. For that class of function,
+Fibonacci search is <em>provably optimal</em>: no method that only compares function values can
+guarantee a smaller interval of uncertainty for the same number of evaluations. Golden-section
+search gives up a negligible amount and does not need the number of evaluations to be fixed in
+advance, which makes it easier to code. Either is the right choice; there is nothing to be gained
+by looking further.</p>
+</div>
+
+<h3 id="s11-5">11.5 Complexity, and what is guaranteed</h3>
+
+<div class="eq"><span class="n">(11.2)</span>
+global stage: &nbsp;&nbsp;&#920;( N<sub>m</sub> ) evaluations
+<br>
+refinement: &nbsp;&nbsp;&nbsp;&#920;( log(L<sub>0</sub> / &#949;) ) evaluations, bracket &#215; 0.618 each time
+<br>
+total: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2N<sub>m</sub> + 7, independent of the voltage range
+</div>
+
+<p>The method finds the true global peak whenever two conditions hold: every peak lies inside its
+window, and the probe inside the tallest window returns a power larger than the probes in the
+others. The first condition is the published 70&nbsp;% to 95&nbsp;% rule and is reliable. The
+second can fail when two peaks are nearly equal, which is exactly the case where the penalty for
+choosing wrongly is smallest. Refining the best two windows removes the failure at a cost of seven
+more evaluations.</p>
+
+<p>It is worth knowing what a fully general answer would look like, because your examiners may ask.
+For a black-box multimodal function on a bounded interval, no algorithm can guarantee the global
+maximum from finitely many samples without an assumption that limits how fast the function can
+change. With a Lipschitz constant <var>L</var> known, the Shubert-Piyavskii algorithm is optimal
+and needs <var>O(L(b&#8722;a)/&#949;)</var> evaluations. If <var>L</var> is unknown, the DIRECT
+algorithm subdivides the interval and searches all rates simultaneously; it converges to the global
+optimum and typically needs 30 to 60 evaluations here. DIRECT is therefore the correct answer if
+you must not assume anything about the array. It is still five times more expensive than using what
+you know.</p>
+
+<h3 id="s11-6">11.6 When to use something else</h3>
+
+<table>
+<thead><tr><th>Situation</th><th>Use instead</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td>Every module has its own converter</td><td>plain P&amp;O or incremental conductance</td><td>Each module sees a single peak. There is no global problem left to solve. This is the best outcome, not a compromise.</td></tr>
+<tr><td>Array configuration unknown or changes</td><td>DIRECT, or a swarm method</td><td>The window rule needs N<sub>m</sub> and V<sub>oc,mod</sub>.</td></tr>
+<tr><td>Very long strings, N<sub>m</sub> &gt; 15</td><td>fast sweep, or probe only the windows adjacent to the last known peak</td><td>2N<sub>m</sub> probes become slow. Locality between successive shading patterns is strong.</td></tr>
+<tr><td>Shade changes faster than the search</td><td>reduce the search to the top two windows from the previous run</td><td>Shading patterns are correlated in time; a full rescan is rarely needed.</td></tr>
+<tr><td>Fixed, repeating shade every day</td><td>reconfiguration, plus a simple tracker</td><td>Removing the mismatch is worth more than tracking around it.</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+<p class="boxh">The one-paragraph answer</p>
+<p>The fastest technique is the one that spends the fewest settling times, because settling time,
+not arithmetic, is the cost. Do not search blindly: the number of local maxima is bounded by the
+number of series bypass groups, and each one sits near a known multiple of the module open-circuit
+voltage. Probe those <var>N<sub>m</sub></var> windows, pick the best, and finish with a
+Fibonacci or golden-section line search inside it, which is optimal for a single-peaked function.
+That is <var>2N<sub>m</sub> + 7</var> operating points, deterministic and repeatable, against
+roughly 90 for particle swarm and 320 for an exhaustive sweep. If your hardware can capture the
+whole I-V curve in one capacitor transient, do that instead: it reduces the entire search to a
+single event.</p>
+</div>
+</section>
+
+<!-- ========================================================= APPENDICES === -->
+<section id="appx">
+<h2>Appendices</h2>
+
+<h3 id="a-symbols">A &nbsp;Symbols</h3>
+<table>
+<thead><tr><th>Symbol</th><th>Meaning</th><th>Unit</th></tr></thead>
+<tbody>
+<tr><td>G</td><td>irradiance in the plane of the module</td><td>W/m&#178;</td></tr>
+<tr><td>T</td><td>cell temperature (absolute)</td><td>K</td></tr>
+<tr><td>I<sub>ph</sub></td><td>photocurrent</td><td>A</td></tr>
+<tr><td>I<sub>0</sub></td><td>diode reverse saturation current</td><td>A</td></tr>
+<tr><td>n</td><td>diode ideality factor</td><td>&#8212;</td></tr>
+<tr><td>N<sub>s</sub></td><td>cells in series in one module</td><td>&#8212;</td></tr>
+<tr><td>N<sub>m</sub></td><td>bypass-diode groups in series in one string</td><td>&#8212;</td></tr>
+<tr><td>R<sub>s</sub>, R<sub>sh</sub></td><td>series and shunt resistance</td><td>&#8486;</td></tr>
+<tr><td>V<sub>t</sub></td><td>thermal voltage, kT/q</td><td>V</td></tr>
+<tr><td>a</td><td>modified ideality factor, n&#183;N<sub>s</sub>&#183;V<sub>t</sub></td><td>V</td></tr>
+<tr><td>I<sub>sc</sub>, V<sub>oc</sub></td><td>short-circuit current, open-circuit voltage</td><td>A, V</td></tr>
+<tr><td>V<sub>mp</sub>, I<sub>mp</sub></td><td>voltage and current at the maximum power point</td><td>V, A</td></tr>
+<tr><td>FF</td><td>fill factor</td><td>&#8212;</td></tr>
+<tr><td>D</td><td>converter duty ratio</td><td>&#8212;</td></tr>
+<tr><td>k<sub>v</sub>, k<sub>i</sub></td><td>fractional-method coefficients</td><td>&#8212;</td></tr>
+<tr><td>&#945;<sub>I</sub>, &#946;<sub>V</sub>, &#947;<sub>P</sub></td><td>temperature coefficients of I<sub>sc</sub>, V<sub>oc</sub>, P<sub>max</sub></td><td>%/&#176;C</td></tr>
+</tbody>
+</table>
+
+<h3 id="a-params">B &nbsp;The reference module and its fitted parameters</h3>
+
+<p>A 60-cell monocrystalline module of the 265&nbsp;W class. The five parameters were fitted so that
+the model passes exactly through the four datasheet points: <var>I<sub>sc</sub></var>,
+<var>V<sub>oc</sub></var>, the maximum power point, and the condition <var>dP/dV = 0</var> at that
+point. The residual of the fit is at the level of machine precision, so every plotted figure is a
+faithful picture of this model rather than an artist's impression.</p>
+
+<table>
+<thead><tr><th>Parameter</th><th>Value at 1000 W/m&#178;, 25 &#176;C</th></tr></thead>
+<tbody>
+<tr><td>Photocurrent I<sub>ph</sub></td><td class="num">9.2071 A</td></tr>
+<tr><td>Saturation current I<sub>0</sub></td><td class="num">5.874 &#215; 10<sup>&#8722;9</sup> A</td></tr>
+<tr><td>Ideality factor n</td><td class="num">1.15</td></tr>
+<tr><td>Series resistance R<sub>s</sub></td><td class="num">0.1616 &#8486;</td></tr>
+<tr><td>Shunt resistance R<sub>sh</sub></td><td class="num">210.7 &#8486;</td></tr>
+<tr><td>Modified ideality factor a</td><td class="num">1.7728 V</td></tr>
+<tr><td>Temperature coefficient of I<sub>sc</sub></td><td class="num">+0.05 %/&#176;C</td></tr>
+<tr><td>Temperature coefficient of V<sub>oc</sub></td><td class="num">&#8722;0.30 %/&#176;C</td></tr>
+</tbody>
+</table>
+
+<p>Irradiance scaling uses <var>I<sub>ph</sub> &#8733; G</var> and
+<var>R<sub>sh</sub> &#8733; 1/G</var>. Temperature scaling uses the standard
+<var>I<sub>0</sub>(T) &#8733; T&#179;&#183;exp(&#8722;qE<sub>g</sub>/nkT)</var> law with
+<var>E<sub>g</sub> = 1.121&nbsp;eV</var>. Series strings are built by adding module voltages at
+equal current, with each module clamped to <var>&#8722;0.7&nbsp;V</var> when its bypass diode
+conducts.</p>
+
+<h3 id="a-glossary">C &nbsp;Glossary</h3>
+<dl class="deflist">
+<dt>Bypass diode</dt><dd>A diode across a group of cells that carries the string current when the group cannot, limiting the group's reverse voltage to one diode drop.</dd>
+<dt>Blocking diode</dt><dd>A diode in series with a string that prevents reverse current from other strings or from a battery.</dd>
+<dt>GMPP / LMPP</dt><dd>Global and local maximum power point.</dd>
+<dt>Hot spot</dt><dd>Localised heating in a reverse-biased cell that is dissipating the power generated by the healthy cells around it.</dd>
+<dt>Mismatch loss</dt><dd>The power lost because series-connected devices are forced to share one current, or parallel devices one voltage.</dd>
+<dt>MLPE</dt><dd>Module-level power electronics: DC optimisers and microinverters.</dd>
+<dt>NOCT</dt><dd>Nominal operating cell temperature: 800 W/m&#178;, 20 &#176;C ambient, 1 m/s wind. A more realistic reference than STC.</dd>
+<dt>Partial shading</dt><dd>A condition in which the modules of one array receive different irradiance at the same time.</dd>
+<dt>Settling time</dt><dd>The time the power stage needs after a set-point change before a measurement is meaningful. The unit of cost for every search method.</dd>
+<dt>STC</dt><dd>Standard test conditions: 1000 W/m&#178;, 25 &#176;C cell temperature, AM1.5 spectrum.</dd>
+<dt>Staircase curve</dt><dd>The stepped I-V characteristic of a partially shaded string, caused by bypass diodes switching in one after another.</dd>
+<dt>Tracking efficiency</dt><dd>Energy actually captured divided by energy available at the maximum power point, over a defined test.</dd>
+</dl>
+
+<h3 id="a-sources">D &nbsp;Sources</h3>
+<p>Device physics, temperature coefficients, fill factor, mismatch and bypass-diode behaviour were
+checked against the PVCDROM reference. The peak-location rule, the algorithm families and the
+reported tracking efficiencies were checked against the review literature listed below.</p>
+<ul>
+<li><a href="https://www.pveducation.org/pvcdrom/solar-cell-operation/effect-of-temperature">PVEducation / PVCDROM &#8212; Effect of temperature</a></li>
+<li><a href="https://www.pveducation.org/pvcdrom/solar-cell-operation/fill-factor">PVEducation / PVCDROM &#8212; Fill factor</a></li>
+<li><a href="https://www.pveducation.org/pvcdrom/modules-and-arrays/bypass-diodes">PVEducation / PVCDROM &#8212; Bypass diodes</a></li>
+<li><a href="https://www.pveducation.org/pvcdrom/modules-and-arrays/mismatch-effects">PVEducation / PVCDROM &#8212; Mismatch effects</a></li>
+<li><a href="https://doi.org/10.3390/en12050882">Global Maximum Power Point Tracking under Shading Condition and Hotspot Detection Algorithms for Photovoltaic Systems, Energies 12(5) 882 &#8212; source of the 70 % to 95 % peak-location rule</a></li>
+<li><a href="https://doi.org/10.3390/solar5030044">A Comprehensive Decade-Long Review of Advanced MPPT Algorithms for Enhanced Photovoltaic Efficiency, Solar 5(3) 44</a></li>
+<li><a href="https://www.frontiersin.org/journals/energy-research/articles/10.3389/fenrg.2022.946864/full">Comparative study of modern heuristic algorithms for global maximum power point tracking under partial shading, Frontiers in Energy Research</a></li>
+<li><a href="https://www.sciencedirect.com/science/article/abs/pii/S1364032118303149">A review of global maximum power point tracking techniques of photovoltaic systems under partial shading conditions, Renewable and Sustainable Energy Reviews</a></li>
+<li><a href="https://sinovoltaics.com/learning-center/testing/iec-61215-mqt-09-hot-spot-endurance-test-why-it-matters-for-solar-module-reliability/">IEC 61215 hot-spot endurance test (MQT 09)</a></li>
+</ul>
+
+<p class="meta">All curves and tables in this notebook were computed from the model in
+Appendix&nbsp;B. Where a number comes from the literature instead, the text says so.</p>
+</section>
+
+</main>
+</div>
+</body>
+</html>

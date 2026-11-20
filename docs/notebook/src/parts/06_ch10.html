@@ -1,0 +1,217 @@
+<!-- ============================================================= CH 10 === -->
+<section id="ch10">
+<h2>10 &nbsp;Detecting shade and finding the global peak</h2>
+
+<p>A global tracker has two jobs that are usually confused with one another. The first is to notice
+that the curve has changed shape. The second is to search the new curve. They need different
+methods, and a design that does the second well but the first badly will still perform poorly,
+because it will either search too often or too late.</p>
+
+<h3 id="s10-1">10.1 Detecting the change</h3>
+
+<p>A search is expensive: while you sweep, you are not at the peak, so you lose energy. A search is
+also unnecessary most of the time. The detector decides when it is worth paying.</p>
+
+<table>
+<thead><tr><th>Trigger</th><th>Rule</th><th>Comment</th></tr></thead>
+<tbody>
+<tr><td>Power deviation</td><td>Rescan if |P &#8722; P<sub>ref</sub>| / P<sub>ref</sub> exceeds a threshold, typically 5 to 10 %. P<sub>ref</sub> is the power recorded when the tracker last converged.</td><td>The standard trigger. Simple, needs no extra hardware. Cannot tell a cloud from a shadow, so it fires on both.</td></tr>
+<tr><td>Bypass transition</td><td>Rescan when the array voltage steps by roughly one module V<sub>mp</sub> while the current stays nearly constant.</td><td>Specific to shading, and therefore fires far less often. Needs a fast sample rate to catch the step.</td></tr>
+<tr><td>Slope inconsistency</td><td>Rescan if the measured dP/dV does not match what the last few perturbations predicted.</td><td>Catches a curve that has changed shape under the tracker's feet.</td></tr>
+<tr><td>Periodic timer</td><td>Rescan every few minutes regardless.</td><td>The safety net. Guarantees a bounded time spent on a wrong peak. Costs little: a 200 ms sweep every 5 minutes is 0.07 % of the time.</td></tr>
+<tr><td>Operating-point ratio</td><td>Rescan if V/V<sub>oc</sub> and I/I<sub>sc</sub> fall outside the bands expected for an unshaded array.</td><td>Cheap sanity check. Needs an occasional V<sub>oc</sub> measurement.</td></tr>
+<tr><td>External telemetry</td><td>Module-level monitoring, or an irradiance sensor per string.</td><td>The most reliable and the most expensive.</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+<p class="boxh">Choosing the threshold</p>
+<p>Too low, and the tracker rescans on every gust of cloud, spending more energy on searching than
+it recovers. Too high, and it sits on a local peak all afternoon. A practical rule is to set the
+power threshold just above the largest step the tracker's own perturbation can produce, then rely
+on the periodic timer to catch anything the threshold misses.</p>
+</div>
+
+<h3 id="s10-2">10.2 Scanning methods</h3>
+
+<p>The most direct global method is to look at the whole curve. Sweep the reference voltage from
+near <var>V<sub>oc</sub></var> down to a low value, record the power at each step, keep the best,
+and return to it.</p>
+
+<p>The sweep can be done in two ways. A <strong>stepped sweep</strong> moves the set-point in
+discrete steps and waits for settling at each one; its cost is the number of steps multiplied by
+the settling time. A <strong>fast sweep</strong> lets the array's own input capacitor charge or
+discharge through the converter while sampling <var>V</var> and <var>I</var> continuously, which
+captures the whole I-V curve in tens of milliseconds. The fast sweep is what most commercial
+inverters use for their periodic shade check, and it is well worth considering for a project rig,
+because it turns an expensive search into one cheap measurement.</p>
+
+<table>
+<thead><tr><th>Scanning</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>Finds the true global peak with certainty, because it looks everywhere. No tuning parameters. Deterministic and repeatable, which makes it easy to test and to certify.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>A stepped sweep is slow: a 0.5 V step over a 160 V string is 320 settling times. Power is lost during every sweep. If the shade moves during the sweep, the result is stale.</td></tr>
+<tr><td>Where it fits</td><td>Whenever a fast capacitor-based sweep is possible. Also as the periodic safety net behind a cheaper method.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s10-3">10.3 The window method: using what you already know</h3>
+
+<p>A full sweep wastes most of its effort on voltages where no peak can possibly be. Section&nbsp;9.2
+showed that peaks appear only near multiples of the module open-circuit voltage. That fact turns a
+blind sweep into a short list.</p>
+
+<!--FIG:windows-->
+
+<p>For a string of <var>N<sub>m</sub></var> modules, define <var>N<sub>m</sub></var> windows, the
+<var>k</var>-th spanning roughly <var>0.72&#183;k&#183;V<sub>oc,mod</sub></var> to
+<var>0.95&#183;k&#183;V<sub>oc,mod</sub></var>. Probe inside each window, compare the powers, and
+refine only in the winner. The number of expensive measurements falls from hundreds to about
+<var>2N<sub>m</sub></var>.</p>
+
+<p>The method works because the underlying structure is physical, not statistical. Each window
+corresponds to one more bypass group having switched out. That is why the rule survives changes of
+shading pattern, of irradiance, and of temperature.</p>
+
+<table>
+<thead><tr><th>Window scan</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>Cost grows linearly with the number of modules, not with the voltage range. Deterministic: the same shade gives the same answer every time. No random numbers, no tuning constants, no convergence proof to argue about. Uses only the sensors already present.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Needs to know how many bypass groups are in series, and the module V<sub>oc</sub>. Both are known at commissioning, but both must be right. If two peaks are nearly equal in height, a single probe per window may pick the wrong one; probe twice, or refine the best two.</td></tr>
+<tr><td>Where it fits</td><td>The default recommendation for a string-level tracker, and the basis of the method in Chapter&nbsp;11.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s10-4">10.4 Metaheuristic search</h3>
+
+<p>The literature is dominated by population-based optimisers borrowed from computer science. The
+idea is always the same. Place several candidate operating points across the voltage range, measure
+the power at each, then move them according to a rule that mixes exploration with exploitation, and
+repeat until they converge.</p>
+
+<p><strong>Particle swarm optimisation</strong> is the most common. Each particle
+<var>i</var> holds a position <var>V<sub>i</sub></var> and a velocity, and is attracted both to its
+own best position and to the swarm's best:</p>
+
+<div class="eq"><span class="n">(10.1)</span>
+v<sub>i</sub>(k+1) = w&#183;v<sub>i</sub>(k) + c<sub>1</sub>r<sub>1</sub>[ P<sub>best,i</sub> &#8722; V<sub>i</sub>(k) ] + c<sub>2</sub>r<sub>2</sub>[ G<sub>best</sub> &#8722; V<sub>i</sub>(k) ]
+<br>
+V<sub>i</sub>(k+1) = V<sub>i</sub>(k) + v<sub>i</sub>(k+1)
+</div>
+
+<p>Others in the same family are grey wolf optimisation, cuckoo search with L&#233;vy flights,
+artificial bee colony, firefly, teaching-learning-based optimisation, Jaya and vortex search.
+Comparative studies find that they mostly work, that the differences between them are smaller than
+the differences between tunings of any one of them, and that the initial placement of the candidates
+matters more than the update rule.</p>
+
+<table>
+<thead><tr><th>Metaheuristics</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>Need no knowledge of the array at all: no module count, no V<sub>oc</sub>, no wiring information. Handle any curve shape, including ones the window rule does not describe. Easy to add to an existing tracker. Reported tracking efficiencies above 95 %, and above 99 % for well-tuned hybrids.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Every particle costs one settling time in every iteration, so the total cost is particles &#215; iterations. Stochastic, so two runs on the same shade can give different answers and different times &#8212; awkward to test and to certify. Several tuning constants with no physical meaning. No guarantee of finding the global peak in finite time. Premature convergence onto a local peak is a documented failure of PSO and of several others.</td></tr>
+<tr><td>Where it fits</td><td>Arrays whose configuration is unknown or changes, research comparisons, and cases where the window assumption fails. Rarely the best engineering answer for a known, fixed string.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s10-5">10.5 Hybrid, two-stage trackers</h3>
+
+<p>Almost every good published tracker is two-stage, whatever the paper calls it.</p>
+
+<ol>
+<li>A <strong>global stage</strong> that is coarse, wide and infrequent: a scan, a window probe, or
+a swarm. It answers the question <em>which hill?</em></li>
+<li>A <strong>local stage</strong> that is fine, narrow and continuous: perturb and observe,
+incremental conductance, or fuzzy. It answers the question <em>where exactly on this hill?</em>
+and then holds position.</li>
+</ol>
+
+<p>Splitting the problem this way is what makes the numbers work. The global stage runs for a few
+hundred milliseconds after a detection event. The local stage runs for the other 99.9&nbsp;% of the
+time and is responsible for the steady-state efficiency. Reported combinations include neural
+network with incremental conductance at 97.5&nbsp;% tracking efficiency, and swarm-based hybrids
+above 99&nbsp;% under both standard and shaded conditions.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 260" class="fig" role="img" aria-label="State machine of a two-stage global tracker">
+  <text class="figtitle" x="20" y="20">Figure 10.2 &#8212; The state machine of a practical global tracker</text>
+  <rect class="flowbox" x="40" y="60" width="150" height="52" rx="6"/>
+  <text class="stxtb" x="115" y="83" text-anchor="middle">TRACK</text>
+  <text class="stxts" x="115" y="100" text-anchor="middle">local hill climb, holds P<tspan font-size="9" dy="3">ref</tspan></text>
+  <line class="wire" x1="190" y1="86" x2="252" y2="86" marker-end="url(#aw)"/>
+  <text class="stxts" x="221" y="76" text-anchor="middle">trigger</text>
+  <rect class="flowbox" x="252" y="60" width="150" height="52" rx="6"/>
+  <text class="stxtb" x="327" y="83" text-anchor="middle">DETECT</text>
+  <text class="stxts" x="327" y="100" text-anchor="middle">confirm the change</text>
+  <line class="wire" x1="402" y1="86" x2="464" y2="86" marker-end="url(#aw)"/>
+  <rect class="flowbox" x="464" y="60" width="150" height="52" rx="6"/>
+  <text class="stxtb" x="539" y="83" text-anchor="middle">SEARCH</text>
+  <text class="stxts" x="539" y="100" text-anchor="middle">probe the windows</text>
+  <line class="wire" x1="539" y1="112" x2="539" y2="156" marker-end="url(#aw)"/>
+  <rect class="flowbox" x="464" y="156" width="150" height="52" rx="6"/>
+  <text class="stxtb" x="539" y="179" text-anchor="middle">REFINE</text>
+  <text class="stxts" x="539" y="196" text-anchor="middle">line search in the winner</text>
+  <line class="wire" x1="464" y1="182" x2="115" y2="182"/>
+  <line class="wire" x1="115" y1="182" x2="115" y2="112" marker-end="url(#aw)"/>
+  <text class="stxts" x="290" y="174">store the new P<tspan font-size="9" dy="3">ref</tspan><tspan dy="-3">, resume</tspan></text>
+  <line class="wire2" x1="327" y1="112" x2="327" y2="140"/>
+  <line class="wire2" x1="327" y1="140" x2="200" y2="140"/>
+  <line class="wire2" x1="200" y1="140" x2="200" y2="112" marker-end="url(#aw)"/>
+  <text class="stxts" x="264" y="136" text-anchor="middle">false alarm</text>
+  <text class="stxts" x="40" y="230">Time spent: TRACK &#8776; 99.9 %, SEARCH and REFINE &#8776; 0.1 %.</text>
+  <text class="stxts" x="40" y="250">The steady-state efficiency belongs to TRACK; the global success rate belongs to SEARCH.</text>
+</svg>
+</div>
+<figcaption>Figure 10.2 &#8212; Almost every good global tracker has this shape, whatever search is
+used inside the SEARCH state.</figcaption>
+</figure>
+
+<h3 id="s10-6">10.6 Reconfiguration: changing the curve instead of searching it</h3>
+
+<p>There is a completely different attack on the problem. Instead of finding the best point on a
+bad curve, change the wiring so that the curve is better.</p>
+
+<p><strong>Static reconfiguration</strong> physically relocates modules within a total-cross-tied
+array so that electrically adjacent modules are physically far apart. A shadow that falls on a
+compact physical area is then spread across many electrical rows. Because each row loses only a
+little, the staircase flattens into something close to a single peak. The relocation patterns are
+usually generated from a puzzle: Su Do Ku, magic square or futoshiki arrangements are common,
+because they guarantee that no two members of a row sit near each other. The wiring is never
+changed after installation, so there are no switches and nothing to fail.</p>
+
+<p><strong>Dynamic reconfiguration</strong> puts a matrix of switches between the modules and lets a
+controller re-wire the array in response to the measured shading pattern. It performs better than
+any static pattern, and it costs a switch matrix, its drivers, its control algorithm and its
+failure modes.</p>
+
+<table>
+<thead><tr><th>Reconfiguration</th><th></th></tr></thead>
+<tbody>
+<tr><td class="plus">Advantages</td><td>Attacks the mismatch loss itself, which no tracking algorithm can recover. Static versions need no electronics at all. Works together with any tracker.</td></tr>
+<tr><td class="minus">Disadvantages</td><td>Static patterns need long cable runs across the array, adding cost and resistive loss. They are optimised for assumed shade patterns, and behave less well for others. Dynamic versions add many switches in the main power path.</td></tr>
+<tr><td>Where it fits</td><td>New installations with known, repeating shade, such as row-to-row self shading. An excellent second experiment for a final year project, because the comparison against a fixed array is easy to measure.</td></tr>
+</tbody>
+</table>
+
+<h3 id="s10-7">10.7 Comparison of global methods</h3>
+
+<table>
+<thead><tr>
+<th>Method</th><th>Measurements needed</th><th>Deterministic</th>
+<th>Needs array data</th><th>Typical settling steps</th><th>Main risk</th></tr></thead>
+<tbody>
+<tr><td>Full stepped sweep</td><td>every step of the range</td><td class="plus">yes</td><td class="plus">no</td><td class="num">200 to 400</td><td>too slow; stale result</td></tr>
+<tr><td>Fast capacitor sweep</td><td>one continuous transient</td><td class="plus">yes</td><td class="plus">no</td><td class="num">1 sweep, tens of ms</td><td>needs fast sampling</td></tr>
+<tr><td>Window scan (0.8 V<sub>oc</sub>)</td><td>2 per module</td><td class="plus">yes</td><td>module count, V<sub>oc</sub></td><td class="num">10 to 20</td><td>near-equal peaks</td></tr>
+<tr><td>Fibonacci per segment</td><td>a few per segment</td><td class="plus">yes</td><td>segment boundaries</td><td class="num">20 to 40</td><td>segment detection</td></tr>
+<tr><td>DIRECT, 1-D</td><td>adaptive subdivision</td><td class="plus">yes</td><td class="plus">no</td><td class="num">30 to 60</td><td>slow final convergence</td></tr>
+<tr><td>Particle swarm</td><td>particles &#215; iterations</td><td class="minus">no</td><td class="plus">no</td><td class="num">60 to 120</td><td>premature convergence</td></tr>
+<tr><td>Grey wolf, cuckoo, others</td><td>agents &#215; iterations</td><td class="minus">no</td><td class="plus">no</td><td class="num">60 to 120</td><td>tuning sensitivity</td></tr>
+<tr><td>Reconfiguration</td><td>none, or a shade map</td><td class="plus">yes</td><td class="minus">yes, full layout</td><td class="num">n/a</td><td>hardware cost</td></tr>
+</tbody>
+</table>
+
+<p>The settling-step column is the one to read. It is developed in the next chapter, and it is the
+reason the ranking here does not match the ranking you will find in most published comparisons.</p>
+</section>

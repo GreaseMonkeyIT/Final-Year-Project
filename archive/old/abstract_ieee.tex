@@ -1,0 +1,126 @@
+%% Plain LaTeX article. No IEEEtran anywhere.
+%% Body text is uniform 10pt. Title and section headings are enlarged.
+%% Abstract wording unchanged from the author.
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ---------------------------------------------------------------------
+% MARGINS
+% One value for all four sides:
+%     \usepackage[margin=2cm]{geometry}
+% Separate values, which is what is active below. Later keys win, so
+% "margin" sets a baseline and top/bottom override it.
+% Increase top/bottom to push the text block inward, decrease to gain room.
+% ---------------------------------------------------------------------
+\usepackage[margin=2cm, top=2cm, bottom=2cm]{geometry}
+
+\pagestyle{empty}
+
+\hyphenation{pho-to-vol-ta-ic ir-ra-di-ance micro-con-trol-ler}
+
+\begin{document}
+
+% ---------- Title block ----------
+\begin{center}
+{\LARGE\bfseries Maximum Power Point Tracking for Photovoltaic\\[0.3em]
+Arrays under Partial Shading Conditions\par}
+
+\vspace{1em}
+Soumyadip Das \quad B Kishan \quad Aditi Arora
+\end{center}
+
+\vspace{1.5em}
+
+% ---------- Abstract. Plain paragraphs, no abstract environment. ----------
+\begin{center}
+{\large\bfseries Abstract}
+\end{center}
+
+\noindent
+Reliable and efficient photovoltaic (PV) power generation is essential for
+maximising the utilisation of renewable energy. However, conventional Maximum
+Power Point Tracking (MPPT) techniques face significant challenges under
+partial shading conditions, where non-uniform irradiance across PV modules
+can result in multiple peaks in the power--voltage (P--V) characteristic.
+This makes it difficult for conventional tracking techniques to consistently
+identify and track the Global Maximum Power Point (GMPP), potentially leading
+to significant power losses.
+
+This project aims to investigate and develop an effective MPPT strategy for
+photovoltaic arrays operating under partial shading conditions. A PV array
+integrated with a DC--DC converter will be modelled and simulated to study its
+behaviour under both uniform irradiance and different partial shading patterns.
+Various MPPT approaches will be investigated and comparatively evaluated, with
+conventional techniques such as Perturb and Observe (P\&O) and Incremental
+Conductance (INC) studied alongside global optimisation and intelligent
+techniques, including Genetic Algorithms (GA), Artificial Neural Networks
+(ANNs), and other suitable approaches. The methods will be evaluated based on
+parameters such as global maximum power point tracking accuracy, convergence
+speed, dynamic response, steady-state oscillations, computational complexity,
+and overall energy extraction. Based on the comparative analysis, a suitable
+approach will be identified and its effectiveness under different operating
+conditions will be assessed. The project ultimately aims to improve the
+reliability and efficiency of PV power extraction under partial shading
+conditions while establishing an effective balance between tracking performance
+and computational requirements.
+
+\vspace{1em}
+\noindent
+\textbf{Keywords:} artificial neural networks, DC--DC converters, genetic
+algorithms, global maximum power point, maximum power point tracking, partial
+shading, photovoltaic systems.
+
+\vspace{1.5em}
+
+% ---------- Objectives ----------
+\begin{center}
+{\large\bfseries Objectives}
+\end{center}
+
+\begin{enumerate}
+\setlength{\itemsep}{6pt}
+\setlength{\parskip}{0pt}
+
+\item \textbf{Literature Study and Qualitative Comparison.}
+To survey existing maximum power point tracking techniques for partially shaded
+arrays and classify them by solution family, covering conventional
+hill-climbing, scanning, model-based, metaheuristic, soft-computing, and hybrid
+schemes. Each family will be compared on tracking mechanism, sensing
+requirement, controller class, and determinism, with reported results separated
+into simulation and hardware-validated evidence, and the survey extended to
+commercial inverter practice and the applicable MPPT efficiency standards.
+
+\item \textbf{Development and Simulation of a Robust GMPPT Algorithm.}
+To formulate and develop a Global Maximum Power Point Tracking (GMPPT)
+algorithm capable of reliably navigating the multi-peak P--V curves caused by
+partial shading. The algorithm will be implemented on a simulated PV array
+coupled to a DC--DC converter and exercised across uniform irradiance and a
+representative set of shading patterns, with simulation studies used to
+validate its convergence speed, transient response, and steady-state stability.
+
+\item \textbf{Real-Time Hardware Validation.}
+To implement the proposed algorithm on a rapid control prototyping platform
+comprising a host PC running MATLAB/Simulink and a dSPACE MicroLabBox
+real-time controller, driving a DC--DC boost converter under reproducible
+shading. Measured tracking efficiency, convergence time, and the number of
+operating points applied to the array will be compared against simulation, and
+the execution time and memory footprint recorded to establish portability to a
+low-cost microcontroller.
+
+\item \textbf{Comparative Performance Analysis.}
+To execute an empirical comparison of the proposed GMPPT strategy against
+conventional derivative-based methods such as Perturb and Observe, and against
+standard metaheuristic optimisation algorithms including Particle Swarm
+Optimisation (PSO), Genetic Algorithms (GA), Ant Colony Optimisation (ACO), and
+the Grey Wolf Optimizer (GWO). The comparison will benchmark dynamic tracking
+efficiency, convergence time on the true Global Maximum Power Point (GMPP), and
+steady-state power oscillation under complex shading profiles.
+
+\end{enumerate}
+
+\end{document}

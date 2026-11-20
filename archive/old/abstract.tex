@@ -1,0 +1,59 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+
+% --- Abbreviations (keeps the text consistent) ---
+\newcommand{\PV}{PV}          % photovoltaic
+\newcommand{\PVchar}{P--V}    % power-voltage characteristic
+
+\title{Maximum Power Point Tracking for Photovoltaic Arrays\
+under Partial Shading Conditions}
+\author{Soumyadip}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\onehalfspacing
+\noindent
+Reliable and efficient photovoltaic (\PV) power generation is essential for
+maximising the utilisation of renewable energy. However, conventional Maximum
+Power Point Tracking (MPPT) techniques face significant challenges under
+partial shading conditions, where non-uniform irradiance across \PV{} modules
+can result in multiple peaks in the power--voltage (\PVchar) characteristic.
+This makes it difficult for conventional tracking techniques to consistently
+identify and track the Global Maximum Power Point (GMPP), potentially leading
+to significant power losses.
+
+This project aims to investigate and develop an effective MPPT strategy for
+photovoltaic arrays operating under partial shading conditions. A \PV{} array
+integrated with a DC--DC converter will be modelled and simulated to study its
+behaviour under both uniform irradiance and different partial shading patterns.
+Various MPPT approaches will be investigated and comparatively evaluated, with
+conventional techniques such as Perturb and Observe (P\&O) and Incremental
+Conductance (INC) studied alongside global optimisation and intelligent
+techniques, including Genetic Algorithms (GA), Artificial Neural Networks
+(ANNs), and other suitable approaches. The methods will be evaluated based on
+parameters such as global maximum power point tracking accuracy, convergence
+speed, dynamic response, steady-state oscillations, computational complexity,
+and overall energy extraction. Based on the comparative analysis, a suitable
+approach will be identified and its effectiveness under different operating
+conditions will be assessed. The project ultimately aims to improve the
+reliability and efficiency of \PV{} power extraction under partial shading
+conditions while establishing an effective balance between tracking performance
+and computational requirements.
+\end{abstract}
+
+\vspace{1em}
+\noindent\textbf{Keywords:} photovoltaic array; maximum power point tracking;
+partial shading; global maximum power point; DC--DC converter; perturb and
+observe; incremental conductance; genetic algorithm; artificial neural network.
+
+\end{document}

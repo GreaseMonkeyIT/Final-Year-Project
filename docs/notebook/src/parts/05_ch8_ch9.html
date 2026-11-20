@@ -1,0 +1,339 @@
+<!-- ============================================================== CH 8 === -->
+<section id="ch8">
+<h2>8 &nbsp;What partial shade does to the circuit</h2>
+
+<h3 id="s8-1">8.1 Where shade comes from</h3>
+
+<p>Partial shading means that the modules of one array receive different irradiance at the same
+moment. The common causes divide into two groups by time scale.</p>
+
+<table>
+<thead><tr><th>Cause</th><th>Pattern</th><th>Duration</th><th>Predictable?</th></tr></thead>
+<tbody>
+<tr><td>Passing cloud edge</td><td>soft, moving, large</td><td>seconds to minutes</td><td>no</td></tr>
+<tr><td>Chimney, pole, antenna, satellite dish</td><td>hard, narrow, moving with the sun</td><td>1 to 3 h daily</td><td class="plus">yes</td></tr>
+<tr><td>Neighbouring building or tree</td><td>hard, large, seasonal</td><td>hours, worse in winter</td><td class="plus">yes</td></tr>
+<tr><td>Row-to-row self shading</td><td>hard, horizontal band, from the bottom</td><td>morning and evening</td><td class="plus">yes</td></tr>
+<tr><td>Bird droppings, leaves, snow patches</td><td>hard, very small, fixed</td><td>days to weeks</td><td>no</td></tr>
+<tr><td>Uneven soiling</td><td>soft, large</td><td>weeks</td><td>partly</td></tr>
+</tbody>
+</table>
+
+<p>A hard shadow is the dangerous kind. A cloud reduces irradiance to perhaps 20&nbsp;% over a wide
+area, so the modules stay similar to one another. A pole casts a sharp shadow that puts one cell at
+5&nbsp;% while its neighbour stays at 100&nbsp;%. That difference, inside one series group, is what
+does the damage.</p>
+
+<h3 id="s8-2">8.2 The series bottleneck</h3>
+
+<p>Recall the series rule: the current is common. A cell that receives one fifth of the light can
+generate only one fifth of the photocurrent. If the string tries to carry more current than that,
+the shaded cell simply cannot supply it from light. The extra current must still pass through the
+cell, because there is nowhere else for it to go.</p>
+
+<p>To pass a current larger than its photocurrent, the cell must go to a negative terminal voltage.
+It stops being a source and becomes a load. This is the single most important sentence in this
+chapter.</p>
+
+<h3 id="s8-3">8.3 Reverse bias and the hot spot</h3>
+
+<p>Follow what happens as the string current is pushed above the shaded cell's photocurrent. The
+cell voltage falls through zero and goes negative. At first the reverse current is limited by the
+shunt resistance. Then, at a reverse voltage of typically 10 to 30&nbsp;V for a silicon cell,
+avalanche breakdown begins and the cell conducts freely in reverse.</p>
+
+<!--FIG:reverse_bias-->
+
+<p>The cell is now dissipating <var>|V| &#215; I</var> as heat. Two ceilings limit that number:</p>
+
+<ul>
+<li>the reverse voltage at which the cell breaks down, which is a property of the cell;</li>
+<li>the voltage the healthy cells in the same bypass group can produce, because they are the source
+driving the current.</li>
+</ul>
+
+<p>For a 20-cell group at the reference operating point, the healthy cells can generate about
+<var>20 &#215; 0.516&nbsp;V &#215; 8.56&nbsp;A &#8776; 88&nbsp;W</var>. Nearly all of that can end up
+in one shaded cell, in an area of about 150&nbsp;cm&#178;, under a glass sheet. Cell temperatures
+above 150&nbsp;&#176;C are reported in hot-spot tests. The consequences are delamination, cracked
+glass, browning of the encapsulant, melted solder joints and, in the worst case, fire.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 290" class="fig" role="img" aria-label="A shaded cell in a series string becomes a load and heats">
+  <text class="figtitle" x="20" y="20">Figure 8.2 &#8212; The shaded cell becomes the load for its own string</text>
+  <path class="wire" d="M60,80 L700,80"/><path class="wire" d="M60,210 L700,210"/>
+  <path class="wire" d="M60,80 L60,210"/>
+  <line class="wire" x1="300" y1="80" x2="380" y2="80" marker-end="url(#aw)"/>
+  <text class="stxtb" x="340" y="70" text-anchor="middle">I = 8.56 A, set by the healthy cells</text>
+  <g>
+    <rect class="fillok" x="120" y="118" width="70" height="54" rx="4"/>
+    <text class="stxts" x="155" y="142" text-anchor="middle">lit cell</text>
+    <text class="stxts" x="155" y="158" text-anchor="middle">+0.52 V</text>
+    <rect class="fillok" x="210" y="118" width="70" height="54" rx="4"/>
+    <text class="stxts" x="245" y="142" text-anchor="middle">lit cell</text>
+    <text class="stxts" x="245" y="158" text-anchor="middle">+0.52 V</text>
+    <text class="stxt" x="310" y="150" text-anchor="middle">&#183; &#183; &#183;</text>
+    <rect class="fillok" x="340" y="118" width="70" height="54" rx="4"/>
+    <text class="stxts" x="375" y="142" text-anchor="middle">lit cell</text>
+    <text class="stxts" x="375" y="158" text-anchor="middle">+0.52 V</text>
+  </g>
+  <rect class="fillwarn" x="470" y="106" width="120" height="78" rx="5" stroke-width="2.5"/>
+  <text class="stxtb" x="530" y="130" text-anchor="middle" style="fill:var(--c4)">shaded cell</text>
+  <text class="stxts" x="530" y="148" text-anchor="middle">&#8722;13.9 V</text>
+  <text class="stxts" x="530" y="166" text-anchor="middle">absorbs the power</text>
+  <path class="wire" d="M120,145 L100,145 L100,80 M100,145 L100,80" />
+  <path class="wire" d="M190,145 L210,145 M280,145 L296,145 M324,145 L340,145 M410,145 L470,145"/>
+  <path class="wire" d="M590,145 L640,145 L640,210"/>
+  <path class="wire" d="M100,145 L100,80"/>
+  <path class="wire" d="M120,145 L100,145"/>
+  <!-- heat -->
+  <g stroke="var(--c4)" stroke-width="2" fill="none">
+    <path d="M498,100 q6,-10 0,-20 q-6,-10 0,-20"/>
+    <path d="M530,100 q6,-10 0,-20 q-6,-10 0,-20"/>
+    <path d="M562,100 q6,-10 0,-20 q-6,-10 0,-20"/>
+  </g>
+  <text class="stxts" x="740" y="46" text-anchor="end" style="fill:var(--c4)">heat, up to the whole group's own output</text>
+  <text class="stxts" x="60" y="248">The lit cells are still generating. Their power no longer leaves the string: it is delivered into the shaded cell.</text>
+  <text class="stxts" x="60" y="268">This is why one small hard shadow can destroy a module while the array still appears to work.</text>
+</svg>
+</div>
+<figcaption>Figure 8.2 &#8212; A hot spot is not a fault in the shaded cell. It is the healthy cells
+delivering their power into it.</figcaption>
+</figure>
+
+<h3 id="s8-4">8.4 Bypass diodes</h3>
+
+<p>The cure is to give the current another path. A <strong>bypass diode</strong> is connected across
+a group of cells, with the opposite polarity to the cells. In normal operation the group produces a
+positive voltage, so the diode is reverse biased and does nothing. When the group is forced
+negative by about 0.5&nbsp;V, the diode conducts and carries the string current around the group.
+The group's reverse voltage is then clamped to one diode drop instead of tens of volts.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 760 300" class="fig" role="img" aria-label="Module with three bypass diodes, one substring shaded">
+  <text class="figtitle" x="20" y="20">Figure 8.3 &#8212; A 60-cell module: three substrings, three bypass diodes</text>
+  <rect class="fillok" x="60" y="60" width="150" height="70" rx="4"/>
+  <text class="stxt" x="135" y="88" text-anchor="middle">substring 1</text>
+  <text class="stxts" x="135" y="108" text-anchor="middle">20 cells, lit</text>
+  <rect class="fillok" x="280" y="60" width="150" height="70" rx="4"/>
+  <text class="stxt" x="355" y="88" text-anchor="middle">substring 2</text>
+  <text class="stxts" x="355" y="108" text-anchor="middle">20 cells, lit</text>
+  <rect class="fillwarn" x="500" y="60" width="150" height="70" rx="4" stroke-width="2.5"/>
+  <text class="stxt" x="575" y="88" text-anchor="middle" style="fill:var(--c4)">substring 3</text>
+  <text class="stxts" x="575" y="108" text-anchor="middle">one cell shaded</text>
+  <path class="wire" d="M30,95 L60,95 M210,95 L280,95 M430,95 L500,95 M650,95 L722,95"/>
+  <g>
+    <path class="wire" d="M45,95 L45,250 M245,95 L245,250"/>
+    <path class="wire" d="M45,250 L127,250 M163,250 L245,250"/>
+    <path class="comp" d="M127,232 L127,268 L163,250 z" fill="var(--surface)"/>
+    <line class="comp" x1="163" y1="232" x2="163" y2="268"/>
+    <text class="stxts" x="145" y="222" text-anchor="middle">off</text>
+    
+  </g>
+  <g>
+    <path class="wire" d="M265,95 L265,250 M465,95 L465,250"/>
+    <path class="wire" d="M265,250 L347,250 M383,250 L465,250"/>
+    <path class="comp" d="M347,232 L347,268 L383,250 z" fill="var(--surface)"/>
+    <line class="comp" x1="383" y1="232" x2="383" y2="268"/>
+    <text class="stxts" x="365" y="222" text-anchor="middle">off</text>
+    
+  </g>
+  <g>
+    <path class="wire" d="M485,95 L485,250 M690,95 L690,250"/>
+    <path class="wire" d="M485,250 L570,250 M606,250 L690,250"/>
+    <path class="comp" d="M570,232 L570,268 L606,250 z" style="fill:var(--c3);stroke:var(--c3)"/>
+    <line class="comp" x1="606" y1="232" x2="606" y2="268" stroke="var(--c3)"/>
+    <text class="stxts" x="588" y="222" text-anchor="middle" style="fill:var(--c3)">conducting</text>
+    <line class="wire" x1="510" y1="250" x2="548" y2="250" marker-end="url(#aw)" stroke="var(--c3)"/>
+  </g>
+  <text class="stxts" x="30" y="290">With the diode conducting, the module delivers only two thirds of its voltage &#8212; but it delivers it, and nothing is destroyed.</text>
+</svg>
+</div>
+<figcaption>Figure 8.3 &#8212; A standard 60-cell module has three bypass diodes in the junction box,
+one per 20-cell substring. Shading one cell removes one third of the module, not the whole
+module, and not the whole string.</figcaption>
+</figure>
+
+<p>Two design numbers matter.</p>
+
+<p><strong>Group size.</strong> Protection improves as the group gets smaller, because a smaller
+group can generate less power to dump into a shaded cell. The classic guidance is a maximum of
+about 15 cells per diode for full protection. Commercial practice uses 20 to 24 cells per diode,
+which is a compromise between safety and the cost of diodes and junction-box terminals. Half-cut
+modules improve on this without more diodes, because each half carries half the current.</p>
+
+<p><strong>Diode dissipation.</strong> A conducting bypass diode carries the entire string current.
+At 8.56&nbsp;A, a Schottky diode at 0.45&nbsp;V dissipates 3.9&nbsp;W; a PN diode at 0.9&nbsp;V
+dissipates 7.7&nbsp;W. That heat is generated inside a sealed plastic junction box on the back of a
+hot module. Bypass diodes are one of the most common field failures, and they fail in two ways:</p>
+
+<ul>
+<li><strong>Short circuit,</strong> the usual thermal-runaway outcome. The substring is permanently
+removed, so the module loses a third of its output and nobody notices for months.</li>
+<li><strong>Open circuit,</strong> often after a lightning surge. The protection is gone, and the
+next hard shadow produces a hot spot.</li>
+</ul>
+
+<h3 id="s8-5">8.5 What actually gets overloaded</h3>
+
+<p>It is worth being precise here, because &#8220;the shaded module overloads the others&#8221; is a
+common but loose statement. The healthy modules are not driven beyond their ratings by a shadow.
+Three real overloads do occur.</p>
+
+<ol>
+<li><strong>Thermal overload of the shaded cell.</strong> Described above. This is the dangerous
+one, and bypass diodes exist to prevent it.</li>
+<li><strong>Thermal overload of the bypass diode.</strong> Several watts, continuously, in a sealed
+box, whenever the shadow is present. Long daily shading from a fixed obstruction is much harder on
+a diode than an occasional cloud.</li>
+<li><strong>Reverse current into a weak parallel string.</strong> If several strings are paralleled
+and one string's voltage collapses under shade, the healthy strings drive current backwards into
+it. The weak string then dissipates instead of generating.</li>
+</ol>
+
+<p>There is also a fourth effect which is not an overload but is often mistaken for one. When the
+tracker sits on a low-voltage peak, the string current is close to <var>I<sub>sc</sub></var> while
+the string voltage is low. Cables, connectors and fuses therefore carry near-maximum current while
+the array delivers little power. Nothing is damaged, but the resistive losses are as high as at
+full output, and the useful output is not.</p>
+
+<h3 id="s8-6">8.6 Parallel strings and blocking diodes</h3>
+
+<p>A <strong>blocking diode</strong> in series with each string prevents reverse current from
+entering a weak or shaded string. It solves item 3 above. Its cost is a permanent forward drop in
+every string, at all times, which is a continuous loss of roughly 0.5&nbsp;V out of several hundred.
+Modern practice usually prefers string fuses, or simply an inverter with one tracker per string,
+because a fuse costs nothing when nothing is wrong. Blocking diodes remain common in small
+battery systems, where they also stop the battery discharging into the array at night.</p>
+
+<h3 id="s8-7">8.7 Damage, standards and ageing</h3>
+
+<p>Hot-spot endurance is a type-approval requirement. In IEC&nbsp;61215 the hot-spot test
+(MQT&nbsp;09) deliberately shades cells and runs the module at short circuit for several hours to
+show that it survives. Passing that test does not mean shading is harmless; it means a single
+event will not destroy the module.</p>
+
+<p>Repeated shading shortens life in slower ways as well: thermal cycling of solder joints, local
+encapsulant browning, and accelerated degradation of the affected cells. A module that is shaded
+for two hours every day for twenty years experiences about 15&nbsp;000 hot-spot cycles.</p>
+
+<div class="warnbox">
+<p class="boxh">Design consequence</p>
+<p>A global tracking algorithm is not only an energy-yield feature. By keeping the array off
+operating points where a shaded substring is deeply reverse biased, and by choosing a peak on the
+correct side of a bypass transition, the tracker also influences how much heat is put into the
+weakest cell. Tracking and reliability are not separate problems.</p>
+</div>
+</section>
+
+<!-- ============================================================== CH 9 === -->
+<section id="ch9">
+<h2>9 &nbsp;The multi-peak characteristic</h2>
+
+<h3 id="s9-1">9.1 How the staircase forms</h3>
+
+<p>Now put the two rules together. Take three modules in series at 1000, 600 and
+300&nbsp;W/m&#178;, each with a bypass diode. Sweep the string current from zero upward and see what
+each module contributes.</p>
+
+<ul>
+<li><strong>Below 2.76&nbsp;A</strong> (the short-circuit current of the 300&nbsp;W/m&#178; module),
+all three modules generate. All three voltages add. The string behaves normally, but at the
+current of the weakest module.</li>
+<li><strong>Between 2.76 and 5.52&nbsp;A,</strong> the weakest module cannot supply the current. Its
+bypass diode conducts. It now contributes about <var>&#8722;0.7&nbsp;V</var> instead of
+<var>+30&nbsp;V</var>. The string voltage drops by roughly 31&nbsp;V in one step.</li>
+<li><strong>Above 5.52&nbsp;A,</strong> the middle module drops out in the same way, and only the
+fully lit module remains.</li>
+</ul>
+
+<p>Each bypass transition is a step down in voltage at almost constant current. The I-V curve
+becomes a staircase.</p>
+
+<!--FIG:string_iv-->
+
+<p>Multiply point by point by the voltage and the staircase becomes a range of hills.</p>
+
+<!--FIG:string_pv-->
+
+<h3 id="s9-2">9.2 Counting and placing the peaks</h3>
+
+<p>Two rules, both useful when you write the search algorithm.</p>
+
+<div class="eq"><span class="n">(9.1)</span>
+number of local peaks &#8804; number of distinct irradiance levels in the string
+<br>
+number of local peaks &#8804; number of bypass-diode groups in series
+</div>
+
+<p>Both bounds hold at once, so the smaller applies. A string of four modules with one bypass diode
+each has at most four peaks, whatever the shadow does. This is the fact that makes the search
+tractable: the number of candidates is small, known in advance, and fixed by the hardware.</p>
+
+<p>The second rule concerns position. Each peak occurs near the point where one more group has just
+been bypassed, so the peaks appear at roughly regular voltage intervals of about one module's
+<var>V<sub>mp</sub></var>. Published surveys place them at multiples of 70&nbsp;% to 85&nbsp;% of
+the module open-circuit voltage, with the two rightmost peaks between 75&nbsp;% and 95&nbsp;%. The
+model agrees: for a four-module string at 1000, 800, 450 and 250&nbsp;W/m&#178;, the peaks fall at
+77&nbsp;%, 83&nbsp;%, 88&nbsp;% and 89&nbsp;% of <var>k &#215; V<sub>oc,module</sub></var>.</p>
+
+<!--FIG:patterns-->
+
+<table>
+<thead><tr><th>Shading pattern on four modules</th><th>Peaks</th><th>Global peak</th><th>At voltage</th></tr></thead>
+<tbody>
+<tr><td>1000, 1000, 1000, 1000 (uniform)</td><td class="num">1</td><td class="num">1060 W</td><td class="num">124 V</td></tr>
+<tr><td>1000, 1000, 500, 500</td><td class="num">2</td><td class="num">571 W</td><td class="num">130 V</td></tr>
+<tr><td>1000, 750, 500, 250 (graded)</td><td class="num">4</td><td class="num">435 W</td><td class="num">98 V</td></tr>
+<tr><td>1000, 1000, 1000, 200 (one deep shadow)</td><td class="num">2</td><td class="num">789 W</td><td class="num">92 V</td></tr>
+</tbody>
+</table>
+
+<p>Read the last row carefully, because it is the most instructive. One heavily shaded module out of
+four costs the string 26&nbsp;% of its power, and the best operating point is now at 92&nbsp;V
+instead of 124&nbsp;V. A tracker that stayed near the old voltage would find the smaller peak and
+lose much more.</p>
+
+<h3 id="s9-3">9.3 Why the classical trackers fail</h3>
+
+<p>Perturb and observe and incremental conductance both use only <em>local</em> information: the
+sign of <var>dP/dV</var> at the present operating point. On a multi-peak curve that sign tells you
+which way the nearest hilltop is. It says nothing about whether a taller hill exists elsewhere.
+Once the tracker reaches any hilltop, <var>dP/dV = 0</var>, and every rule it has says stop.</p>
+
+<p>The cost is not small. For the three-module string above:</p>
+
+<table>
+<thead><tr><th>Tracker settles at</th><th>Power held</th><th>Fraction of the global peak</th></tr></thead>
+<tbody>
+<tr><td class="num">29.7 V (left local peak)</td><td class="num">253.1 W</td><td class="num">75.1 %</td></tr>
+<tr><td class="num">63.8 V (global peak)</td><td class="num">337.2 W</td><td class="num">100.0 %</td></tr>
+<tr><td class="num">99.1 V (right local peak)</td><td class="num">265.2 W</td><td class="num">78.7 %</td></tr>
+</tbody>
+</table>
+
+<p>A quarter of the available power, lost by an algorithm that is working exactly as designed. And
+which peak the tracker lands on depends only on where it happened to be when the shadow arrived,
+so the loss is unpredictable from day to day.</p>
+
+<h3 id="s9-4">9.4 How much energy is really at stake</h3>
+
+<p>Three different losses are often confused. Separating them tells you which one your project can
+actually address.</p>
+
+<table>
+<thead><tr><th>Loss</th><th>For the 1000 / 600 / 300 string</th><th>Can MPPT recover it?</th></tr></thead>
+<tbody>
+<tr><td>Loss of light</td><td>795 W unshaded &#8594; 499 W of module-level potential</td><td class="minus">No. The photons are gone.</td></tr>
+<tr><td>Mismatch loss from series connection</td><td>499 W &#8594; 337 W at the string's own global peak</td><td>Only by changing the architecture: optimisers, microinverters, or reconfiguration.</td></tr>
+<tr><td>Tracking loss from landing on a local peak</td><td>337 W &#8594; 253 W</td><td class="plus">Yes. This is the part a global algorithm recovers.</td></tr>
+</tbody>
+</table>
+
+<p>Your algorithm owns the third row. On this example it is worth 84&nbsp;W out of 795&nbsp;W, which
+is 11&nbsp;% of the unshaded rating and 25&nbsp;% of what is actually available. Field studies of
+shaded residential arrays generally report annual gains between 3&nbsp;% and 15&nbsp;% from global
+tracking, depending on how often the array is shaded.</p>
+</section>

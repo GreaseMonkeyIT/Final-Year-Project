@@ -1,0 +1,35 @@
+# MATLAB and Simulink: caches and build output
+slprj/
+*.slxc
+*.asv
+*.autosave
+*.mexw64
+*.mex*
+codegen/
+*_ert_rtw/
+*_grt_rtw/
+resources/project/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editors and operating system
+.obsidian/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+
+# Third-party papers: copyrighted, so they stay on the local disk only.
+# The bib files in docs/references/ list every paper.
+docs/references/*.pdf
+docs/references/*.docx
+reports/**/Reference_Papers/
+
+# Zip snapshots: their contents are already in the repository.
+*.zip

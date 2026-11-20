@@ -1,0 +1,33 @@
+<svg viewBox="0 0 780 340" class="fig" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="grid" x1="310.00" y1="284.00" x2="310.00" y2="36.00"/>
+<line class="grid" x1="430.59" y1="284.00" x2="430.59" y2="36.00"/>
+<line class="grid" x1="551.18" y1="284.00" x2="551.18" y2="36.00"/>
+<line class="grid" x1="671.76" y1="284.00" x2="671.76" y2="36.00"/>
+<line class="ax" x1="310.00" y1="284.00" x2="720.00" y2="284.00"/>
+<line class="ax" x1="310.00" y1="284.00" x2="310.00" y2="36.00"/>
+<text class="tick" x="310.00" y="304.00" text-anchor="middle">0</text>
+<text class="tick" x="430.59" y="304.00" text-anchor="middle">100</text>
+<text class="tick" x="551.18" y="304.00" text-anchor="middle">200</text>
+<text class="tick" x="671.76" y="304.00" text-anchor="middle">300</text>
+<text class="axlab" x="515.00" y="326.00" text-anchor="middle">Converter settling steps needed before the global peak is held</text>
+<text class="axlab" transform="translate(20,160.00) rotate(-90)" text-anchor="middle"></text>
+<text class="figtitle" x="310.00" y="18" text-anchor="start">Figure 11.1 &#8212; The cost that matters is settling steps, not arithmetic</text>
+<rect class="bar1" x="310.0" y="44.7" width="385.9" height="24" rx="3"/>
+<text class="lbl" x="298.00" y="61.67" text-anchor="end">Exhaustive sweep, 0.5 V steps</text>
+<text class="legb" x="704.88" y="61.67" text-anchor="start">&#8776; 320</text>
+<rect class="bar2" x="310.0" y="86.0" width="108.5" height="24" rx="3"/>
+<text class="lbl" x="298.00" y="103.00" text-anchor="end">Particle swarm, 6 particles &#215; 15 iterations</text>
+<text class="legb" x="427.53" y="103.00" text-anchor="start">&#8776; 90</text>
+<rect class="bar3" x="310.0" y="127.3" width="96.5" height="24" rx="3"/>
+<text class="lbl" x="298.00" y="144.33" text-anchor="end">Grey wolf, 4 agents &#215; 20 iterations</text>
+<text class="legb" x="415.47" y="144.33" text-anchor="start">&#8776; 80</text>
+<rect class="bar4" x="310.0" y="168.7" width="48.2" height="24" rx="3"/>
+<text class="lbl" x="298.00" y="185.67" text-anchor="end">DIRECT / Lipschitz 1-D search</text>
+<text class="legb" x="367.24" y="185.67" text-anchor="start">&#8776; 40</text>
+<rect class="bar5" x="310.0" y="210.0" width="36.2" height="24" rx="3"/>
+<text class="lbl" x="298.00" y="227.00" text-anchor="end">Fibonacci search inside each segment</text>
+<text class="legb" x="355.18" y="227.00" text-anchor="start">&#8776; 30</text>
+<rect class="bar6" x="310.0" y="251.3" width="14.5" height="24" rx="3"/>
+<text class="lbl" x="298.00" y="268.33" text-anchor="end">0.8&#183;V&#8338;&#8336; window scan, then local climb</text>
+<text class="legb" x="333.47" y="268.33" text-anchor="start">&#8776; 12</text>
+</svg>

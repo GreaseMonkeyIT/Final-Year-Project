@@ -1,0 +1,14 @@
+# Text files: git stores LF and checks out the native line ending.
+* text=auto
+
+# Binary files: no line-ending change, no text diff.
+*.slx  binary
+*.mdl  binary
+*.mat  binary
+*.mlx  binary
+*.fig  binary
+*.png  binary
+*.jpg  binary
+*.pdf  binary
+*.docx binary
+*.zip  binary

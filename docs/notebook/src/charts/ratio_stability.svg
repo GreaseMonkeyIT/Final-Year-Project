@@ -1,0 +1,40 @@
+<svg viewBox="0 0 760 430" class="fig" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="grid" x1="76.00" y1="372.00" x2="76.00" y2="30.00"/>
+<line class="grid" x1="184.80" y1="372.00" x2="184.80" y2="30.00"/>
+<line class="grid" x1="293.60" y1="372.00" x2="293.60" y2="30.00"/>
+<line class="grid" x1="402.40" y1="372.00" x2="402.40" y2="30.00"/>
+<line class="grid" x1="511.20" y1="372.00" x2="511.20" y2="30.00"/>
+<line class="grid" x1="620.00" y1="372.00" x2="620.00" y2="30.00"/>
+<line class="grid" x1="76.00" y1="372.00" x2="620.00" y2="372.00"/>
+<line class="grid" x1="76.00" y1="286.50" x2="620.00" y2="286.50"/>
+<line class="grid" x1="76.00" y1="201.00" x2="620.00" y2="201.00"/>
+<line class="grid" x1="76.00" y1="115.50" x2="620.00" y2="115.50"/>
+<line class="grid" x1="76.00" y1="30.00" x2="620.00" y2="30.00"/>
+<line class="ax" x1="76.00" y1="372.00" x2="620.00" y2="372.00"/>
+<line class="ax" x1="76.00" y1="372.00" x2="76.00" y2="30.00"/>
+<text class="tick" x="76.00" y="392.00" text-anchor="middle">0</text>
+<text class="tick" x="184.80" y="392.00" text-anchor="middle">200</text>
+<text class="tick" x="293.60" y="392.00" text-anchor="middle">400</text>
+<text class="tick" x="402.40" y="392.00" text-anchor="middle">600</text>
+<text class="tick" x="511.20" y="392.00" text-anchor="middle">800</text>
+<text class="tick" x="620.00" y="392.00" text-anchor="middle">1000</text>
+<text class="tick" x="67.00" y="376.00" text-anchor="end">0.60</text>
+<text class="tick" x="67.00" y="290.50" text-anchor="end">0.70</text>
+<text class="tick" x="67.00" y="205.00" text-anchor="end">0.80</text>
+<text class="tick" x="67.00" y="119.50" text-anchor="end">0.90</text>
+<text class="tick" x="67.00" y="34.00" text-anchor="end">1.00</text>
+<text class="axlab" x="348.00" y="416.00" text-anchor="middle">Irradiance  G  (W/m&#178;)</text>
+<text class="axlab" transform="translate(20,201.00) rotate(-90)" text-anchor="middle">Ratio  (dimensionless)</text>
+<text class="figtitle" x="76.00" y="18" text-anchor="start">Figure 5.2 &#8212; V&#8344;&#8344;/V&#8338;&#8336; and I&#8344;&#8344;/I&#8347;&#8344; hardly move, which is what makes the fractional methods work</text>
+<path class="s1" d="M130.40,162.75 L157.60,161.32 L184.80,162.75 L212.00,162.75 L239.20,164.17 L266.40,164.17 L293.60,165.60 L320.80,165.60 L348.00,167.03 L375.20,168.46 L402.40,169.88 L429.60,169.88 L456.80,171.31 L484.00,172.74 L511.20,174.17 L538.40,174.17 L565.60,175.59 L592.80,177.02 L620.00,178.45" />
+<path class="s3" d="M130.40,91.09 L157.60,91.76 L184.80,90.11 L212.00,90.45 L239.20,89.49 L266.40,90.27 L293.60,89.60 L320.80,90.61 L348.00,90.10 L375.20,89.65 L402.40,89.25 L429.60,90.47 L456.80,90.13 L484.00,89.82 L511.20,89.53 L538.40,90.86 L565.60,90.60 L592.80,90.36 L620.00,90.13" />
+<line class="s1" x1="628" y1="40" x2="646" y2="40"/>
+<text class="leg" x="652" y="44">V&#8344;&#8344; / V&#8338;&#8336;  (vs G)</text>
+<line class="s3" x1="628" y1="62" x2="646" y2="62"/>
+<text class="leg" x="652" y="66">I&#8344;&#8344; / I&#8347;&#8344;  (vs G)</text>
+<text class="leg" x="628.00" y="108.00" text-anchor="start">spread over 100-1000 W/m&#178;</text>
+<text class="legb" x="628.00" y="128.00" text-anchor="start">k&#8342; : 0.826 to 0.846</text>
+<text class="legb" x="628.00" y="148.00" text-anchor="start">k&#8305; : 0.928 to 0.931</text>
+<text class="leg" x="628.00" y="176.00" text-anchor="start">over 0-70 &#176;C</text>
+<text class="legb" x="628.00" y="196.00" text-anchor="start">k&#8342; : 0.795 to 0.843</text>
+</svg>
