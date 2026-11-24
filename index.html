@@ -1,4 +1,10 @@
-<title>DIRECT from First Principles</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Idea C MPPT Notes</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
 <script>
@@ -6,892 +12,387 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
 <style>
-/* Layout: one reading column (68ch) in lecture-note form. Figure panels break out to the 1040px frame. */
+/* Layout: one reading column of about 76ch. Figures and wide tables use the 980px frame. Revision notes: short sections, key boxes, tables, interactive figures. */
 :root{
-  --bg:#f2f5f6;--surface:#ffffff;--fg:#14212b;--muted:#566571;--line:#d3dce2;--soft:#e6edf0;--wbg:#eef4f4;
-  --curve:#0d7272;--pt:#2c4f86;--sel:#c27200;--warn:#c2185b;--step:#d32f2f;
+  --bg:#f3f6f7;--surface:#ffffff;--fg:#14212b;--muted:#53636f;--line:#d3dce2;--soft:#e7eef1;
+  --accent:#0d6e6e;--c:#1f66c1;--d:#b9521f;--plate:#ffffff;
+  --curve:#0d7272;--pt:#2c4f86;--sel:#c27200;--warn:#c2185b;--ok:#1e8a4c;--step:#d32f2f;
   --f-display:"Space Grotesk",system-ui,sans-serif;
   --f-body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0e1418;--surface:#151d23;--fg:#e4ecf1;--muted:#93a3ae;--line:#2a3640;--soft:#1c262d;--wbg:#152228;
-  --curve:#52c4c4;--pt:#94b6ec;--sel:#f0ad3a;--warn:#f06292;--step:#ff6b6b;color-scheme:dark}}
+  --bg:#0f1519;--surface:#161e24;--fg:#e3ebf0;--muted:#97a6b1;--line:#2b3741;--soft:#1d2830;
+  --accent:#5cc4c4;--c:#86b6f2;--d:#f0935f;--plate:#ffffff;
+  --curve:#52c4c4;--pt:#94b6ec;--sel:#f0ad3a;--warn:#f06292;--ok:#5fd38d;--step:#ff6b6b;color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0e1418;--surface:#151d23;--fg:#e4ecf1;--muted:#93a3ae;--line:#2a3640;--soft:#1c262d;--wbg:#152228;
-  --curve:#52c4c4;--pt:#94b6ec;--sel:#f0ad3a;--warn:#f06292;--step:#ff6b6b;color-scheme:dark}
-body{background:var(--bg);color:var(--fg);font:16px/1.7 var(--f-body);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:2.6rem 4rem}
-main{max-width:1040px;margin:0 auto}
-.col{max-width:84ch;margin:0 auto}
-h1{font:700 clamp(2.1rem,5.5vw,3.2rem)/1.08 var(--f-display);letter-spacing:-.02em;text-wrap:balance;margin:.3rem 0 .9rem}
-.eyebrow{font:500 .78rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-h2{font:600 1.6rem/1.25 var(--f-display);text-wrap:balance;margin:3.4rem 0 .7rem;letter-spacing:-.01em}
-h2 .n{display:block;font:500 .78rem var(--f-mono);letter-spacing:.07em;color:var(--muted);margin-bottom:.25rem}
-h3{font:600 1.1rem/1.35 var(--f-display);margin:2rem 0 .35rem}
-p,li{margin:.65rem 0}
+  --bg:#0f1519;--surface:#161e24;--fg:#e3ebf0;--muted:#97a6b1;--line:#2b3741;--soft:#1d2830;
+  --accent:#5cc4c4;--c:#86b6f2;--d:#f0935f;--plate:#ffffff;
+  --curve:#52c4c4;--pt:#94b6ec;--sel:#f0ad3a;--warn:#f06292;--ok:#5fd38d;--step:#ff6b6b;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.65 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.6rem 4rem}
+main{max-width:980px;margin:0 auto}
+.col{max-width:76ch;margin:0 auto}
+nav.pages{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 auto 2rem;max-width:76ch}
+nav.pages a{font:500 .8rem var(--f-mono);color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:.3rem .7rem;background:var(--surface)}
+nav.pages a[aria-current="page"]{color:var(--accent);border-color:var(--accent)}
+nav.pages a:hover{border-color:var(--accent)}
+.eyebrow{font:500 .76rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 clamp(1.9rem,5vw,2.7rem)/1.1 var(--f-display);letter-spacing:-.02em;text-wrap:balance;margin:.35rem 0 .8rem}
+h2{font:600 1.45rem/1.25 var(--f-display);text-wrap:balance;margin:3rem 0 .6rem;letter-spacing:-.01em}
+h2 .n{display:block;font:500 .76rem var(--f-mono);letter-spacing:.07em;color:var(--muted);margin-bottom:.2rem}
+h3{font:600 1.08rem/1.35 var(--f-display);margin:1.7rem 0 .3rem}
+p,li{margin:.55rem 0}
 ul,ol{padding-left:1.3rem}
-.lede{font-size:1.06rem;color:var(--muted)}
-.idea{font-size:1.04rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:.7rem 0;margin:1rem 0 1.2rem}
-.idea>b:first-child{font:500 .74rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--curve);display:block;margin-bottom:.15rem}
-/* key terms (item 18) */
-.kt{font-weight:600;text-decoration:underline;text-decoration-color:var(--curve);text-decoration-thickness:1.5px;text-underline-offset:.18em}
-/* display math (item 20) */
-.eqm{background:var(--soft);border-radius:6px 6px 0 0;padding:.35rem 1rem;margin:1.1rem 0 0;overflow-x:auto;overflow-y:hidden}
-.eqm.solo{border-radius:6px;margin-bottom:1.1rem}
-mjx-container[display="true"]{font-size:100%!important;margin:.45em 0!important}
+.lede{font-size:1.04rem;color:var(--muted)}
+.key{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.75rem 1.1rem;margin:1.2rem 0}
+.key .lab{font:500 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.15rem}
+.key p,.key li{margin:.35rem 0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.6rem;margin:1.2rem 0}
+.facts div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.6rem .85rem;min-width:0}
+.facts b{display:block;font:500 .72rem var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+.facts span{font-size:.92rem}
+.eq{background:var(--soft);border-radius:6px 6px 0 0;padding:.3rem 1rem;margin:1rem 0 0;overflow-x:auto;overflow-y:hidden}
+.eq.solo{border-radius:6px;margin-bottom:1rem}
+.where{background:var(--surface);border:1px solid var(--soft);border-top:0;border-radius:0 0 6px 6px;padding:.4rem 1rem .5rem;margin:0 0 1.1rem;font-size:.93rem}
+.where ul{margin:.15rem 0;padding-left:1.2rem}
+.where li{margin:.2rem 0}
+mjx-container[display="true"]{font-size:100%!important;margin:.4em 0!important}
 mjx-container{color:var(--fg)}
-/* where blocks (item 19) */
-.where{background:var(--wbg);border-left:3px solid var(--curve);border-radius:0 0 6px 0;padding:.45rem 1rem .55rem;margin:0 0 1.3rem;font-size:.95rem}
-.where>span{font-weight:700;text-decoration:underline;text-decoration-color:var(--curve);text-underline-offset:.18em;font-style:normal;color:var(--fg)}
-.where ul{margin:.2rem 0;padding-left:1.2rem}
-.where li{margin:.25rem 0}
-.def{margin:.9rem 0;padding-left:1rem;border-left:2px solid var(--line)}
-.fig{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;margin:1.7rem 0}
-.fig canvas{display:block;width:100%;height:300px}
-.fig svg:not(mjx-container svg){display:block;width:100%;height:auto}
-.cap{color:var(--muted);font-size:.88rem;line-height:1.6;margin:.65rem 2px 0}
+.fig{margin:1.5rem 0}
+.plate{background:var(--plate);border:1px solid var(--line);border-radius:8px;padding:10px}
+.plate img{display:block;width:100%;height:auto}
+.figc{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px}
+.figc canvas{display:block;width:100%;height:300px}
+.cap{color:var(--muted);font-size:.88rem;line-height:1.55;margin:.55rem 2px 0}
 .cap b{color:var(--fg);font-weight:600}
-.two{display:grid;grid-template-columns:1.45fr 1fr;gap:14px}
-.two>*{min-width:0}
-.ctrl{display:flex;flex-wrap:wrap;gap:.55rem .9rem;align-items:center;font-size:.9rem;margin-top:.8rem}
+.ctrl{display:flex;flex-wrap:wrap;gap:.55rem .9rem;align-items:center;font-size:.9rem;margin-top:.7rem}
 .ctrl label{display:flex;gap:.5rem;align-items:center;color:var(--muted)}
-.ctrl input[type=range]{width:min(260px,60vw);accent-color:var(--curve)}
+.ctrl input[type=range]{width:min(240px,55vw);accent-color:var(--curve)}
 .ctrl input[type=checkbox]{accent-color:var(--curve)}
-button,select{font:500 .88rem var(--f-body);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:.38rem .8rem;cursor:pointer}
+button,select{font:500 .86rem var(--f-body);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:.35rem .8rem;cursor:pointer}
 button:hover{border-color:var(--curve)}
-button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--curve);outline-offset:2px}
-.stats{font:400 .82rem/1.55 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;margin-top:.6rem}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{font:400 .8rem/1.55 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;margin-top:.55rem}
 .stats b{color:var(--fg);font-weight:500}
-.tw{overflow-x:auto;margin:.8rem 0}
-table{border-collapse:collapse;font:400 .82rem var(--f-mono);font-variant-numeric:tabular-nums;width:100%;min-width:420px}
-th,td{text-align:right;padding:.32rem .6rem;border-bottom:1px solid var(--line)}
-th{color:var(--muted);font-weight:500}
-th:first-child,td:first-child{text-align:left}
+.key-dot{display:inline-block;width:.7em;height:.7em;border-radius:50%;margin:0 .3em 0 .1em;vertical-align:baseline}
+.tw{overflow-x:auto;margin:.9rem 0}
+table{border-collapse:collapse;font-size:.88rem;width:100%;min-width:520px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:.4rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font:500 .74rem var(--f-mono);letter-spacing:.05em;text-transform:uppercase}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-size:.84rem}
+tr.ic td{color:var(--c);font-weight:600}
+table.dt{font-family:var(--f-mono);font-size:.8rem}
+table.dt td,table.dt th{text-align:right}
+table.dt td:first-child,table.dt th:first-child{text-align:left}
+#tF td:last-child,#tF th:last-child{text-align:left}
 tr.win td{color:var(--sel);font-weight:500}
-tr.dom td{opacity:.5}
-tr.grp td{background:var(--soft);color:var(--muted);font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .6rem}
+tr.dom td,tr.dim td{opacity:.55}
+tr.grp td{background:var(--soft);color:var(--muted);font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .6rem}
 tr.swept td:first-child::before{content:"✓ ";color:var(--sel)}
-table.tt{font-family:var(--f-body);font-size:.86rem}
-table.tt th,table.tt td{text-align:left;vertical-align:top}
-.key{display:inline-block;width:.7em;height:.7em;border-radius:50%;margin:0 .3em 0 .1em;vertical-align:baseline}
-.note{background:var(--soft);border-radius:8px;padding:.9rem 1.1rem;margin:1.2rem 0}
-.note .lab{font:500 .74rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--sel);display:block;margin-bottom:.1rem}
-.note.app .lab{color:var(--curve)}
-.note p{margin:.4rem 0}
-.steps li{margin:.5rem 0}
-.wk h3 .sec{font:400 .78rem var(--f-mono);color:var(--muted);margin-left:.4rem}
-.ub{display:inline-block;font:500 .64rem/1.4 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--sel);border:1px solid var(--sel);border-radius:4px;padding:.02rem .38rem;margin:0 .35rem;vertical-align:.12em;white-space:nowrap;text-decoration:none}
-.nd{display:inline-block;font:500 .64rem/1.4 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--muted);border-radius:4px;padding:.02rem .38rem;margin:0 .35rem;vertical-align:.12em;white-space:nowrap}
-#t3d{position:relative;height:420px;border-radius:6px;overflow:hidden;touch-action:pan-y;cursor:grab}
-#t3d canvas{height:100%!important}
-.refs{font-size:.86rem;color:var(--muted);padding-left:1.8rem}
-.refs li{margin:.45rem 0}
+.tagc{color:var(--c);font-weight:600}
+.tagd{color:var(--d);font-weight:600}
+.src{font-size:.86rem;color:var(--muted)}
+.refs{font-size:.86rem;color:var(--muted);padding-left:1.6rem}
+.refs li{margin:.4rem 0}
 .refs i{color:var(--fg)}
-.nt td,.nt th{text-align:left;vertical-align:top}
-.nt td:last-child{white-space:nowrap;color:var(--muted)}
-.nt{font-family:var(--f-body);font-size:.88rem}
-dl.gl{margin:1rem 0}
-dl.gl dt{margin-top:.8rem}
-dl.gl dd{margin:.15rem 0 0 0}
-svg .bx{fill:none;stroke:var(--fg);stroke-width:1.5}
-svg .dt{fill:var(--pt)}
-svg .dt2{fill:var(--sel)}
-svg .tx{fill:var(--fg);font:500 15px var(--f-mono)}
-svg .tm{fill:var(--muted);font:400 13px var(--f-body)}
-svg .ar{stroke:var(--muted);stroke-width:1.5;fill:none}
-svg .ac{stroke:var(--sel);stroke-width:2.2;fill:none}
-svg .bg{fill:var(--soft)}
-.sk{float:right;width:min(220px,42%);margin:.3rem 0 .6rem 1rem}
-@media (max-width:760px){.two{grid-template-columns:1fr}.fig canvas{height:250px}#t3d{height:340px}.sk{float:none;width:220px;margin:.5rem 0}}
+.next{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);font:500 .86rem var(--f-mono)}
+a{color:var(--accent)}
+code{font:400 .86em var(--f-mono)}
+@media (max-width:640px){.figc canvas{height:250px}}
 </style>
+</head>
+<body>
+
 
 <main>
+<nav class="pages" aria-label="Pages">
+  <a href="index.html" aria-current="page">1 · Search problem and theory</a>
+  <a href="ideas.html">2 · Idea C method</a>
+  <a href="results.html">3 · Example and results</a>
+</nav>
+
 <header class="col">
-  <div style="font:500 .82rem var(--f-mono);margin-bottom:1.4rem"><a href="ideas.html" style="color:var(--curve)">Part 2: DIRECT on MPPT, Ideas B and C (sections 13 to 24) →</a></div>
-  <div class="eyebrow">Lecture notes · part 1 of 2 · deterministic global optimization</div>
-  <h1>The DIRECT algorithm, from first principles</h1>
-  <p class="lede">These notes explain DIRECT (DIviding RECTangles), introduced by Jones, Perttunen and Stuckman in 1993 [1]. They follow the review by Jones and Martins, “The DIRECT algorithm: 25 years later” [2], sections 1 to 3.1. Part 2 (sections 13 to 24) applies the method to maximum power point tracking.</p>
-<p class="lede">Each section states the core idea first, then the formal statement, then an analogy. The figures run a working DIRECT implementation in your browser.</p>
-<p class="lede">Section 0 defines every symbol, and the appendix defines every technical term. Key terms are set in <span class="kt">bold and underlined</span> where they are defined. Parts tagged <span class="ub">Added by user</span> came from questions asked while reading. Parts tagged <span class="nd">n-D background</span> are general theory that a one-variable problem such as MPPT does not need.</p>
+  <div class="eyebrow">EE449 Major Project · Revision notes · Part 1 of 3</div>
+  <h1>The search problem and the theory behind Idea C</h1>
+  <p class="lede">Idea C is the main global search of this project. This part builds the theory that Idea C rests on, one step at a time: the search problem, what samples can and cannot prove, the Lipschitz bound, the Piyavskii-Shubert search and the DIRECT baseline. Each step ends with what it means for Idea C. Part 2 gives Idea C itself. Part 3 gives a worked example and the final results of 24 November 2026.</p>
+  <div class="facts">
+    <div><b>Array</b><span>4 × 4 Emmvee E325P72, 325 W each, 5.2 kW rated. V<sub>oc</sub> 183.2 V, I<sub>sc</sub> 36.44 A at STC. Three bypass diodes per panel.</span></div>
+    <div><b>Converter</b><span>Averaged buck-boost, direct duty control. Duty range 0.30 to 0.78. A higher duty gives a lower array voltage.</span></div>
+    <div><b>Controller</b><span>One decision each 20 ms. One search test lasts 40 ms, and the controller averages its last quarter.</span></div>
+    <div><b>Test benches</b><span>Simulink with Simscape Electrical (MATLAB R2025b), and a compiled static bench on the static I-V curves.</span></div>
+  </div>
 </header>
 
 <section class="col">
-  <h2><span class="n">0 · Notation</span>Symbols used in these notes</h2>
-  <p>The notation follows [2]. Each symbol is also defined again in the “where” block under the equation that first uses it.</p>
-  <div class="tw"><table class="nt">
-    <tr><th>Symbol</th><th>Meaning</th><th>First used</th></tr>
-    <tr><td>\(x=(x_1,\dots,x_n)\)</td><td>Decision vector: the point at which the objective is evaluated</td><td>§1</td></tr>
-    <tr><td>\(n\)</td><td>Number of decision variables (dimension of the problem)</td><td>§1</td></tr>
-    <tr><td>\(k\)</td><td>Index of a decision variable or a coordinate direction, \(k=1,\dots,n\)</td><td>§1</td></tr>
-    <tr><td>\(\ell_k,\ u_k\)</td><td>Lower and upper bound on variable \(x_k\)</td><td>§1</td></tr>
-    <tr><td>\(z_k\)</td><td>Variable \(x_k\) after min-max normalization to \([0,1]\) <span class="ub">Added by user</span></td><td>§1</td></tr>
-    <tr><td>\(f(x)\)</td><td>Objective function: the scalar quantity to be minimized</td><td>§1</td></tr>
-    <tr><td>\(\mathbb{R}^n\)</td><td>Space of real vectors with \(n\) components</td><td>§1</td></tr>
-    <tr><td>\(\Omega\)</td><td>Search space after normalization, the unit hypercube \([0,1]^n\)</td><td>§1</td></tr>
-    <tr><td>\(h,\ \sigma\)</td><td>Step size of a finite-difference estimate, and the size of the measurement noise <span class="ub">Added by user</span></td><td>§1</td></tr>
-    <tr><td>\(\hat{x}\)</td><td>A local minimizer of \(f\)</td><td>§1</td></tr>
-    <tr><td>\(x^*,\ f^*\)</td><td>Global minimizer of \(f\), and the global minimum value \(f^*=f(x^*)\)</td><td>§1</td></tr>
-    <tr><td>\(\Delta\)</td><td>Spacing between neighbouring samples in one dimension <span class="ub">Added by user</span></td><td>§2</td></tr>
-    <tr><td>\(\tau\)</td><td>Tolerance: the largest acceptable error \(f_{\min}-f^*\) <span class="ub">Added by user</span></td><td>§2</td></tr>
-    <tr><td>\(K\)</td><td>Lipschitz constant: upper bound on the rate of change of \(f\) per unit distance. In §3 and §4 also a trial value</td><td>§3</td></tr>
-    <tr><td>\(K^*\)</td><td>The true (smallest valid) Lipschitz constant of \(f\) <span class="ub">Added by user</span></td><td>§4</td></tr>
-    <tr><td>\(\lVert v\rVert\)</td><td>Euclidean norm (length) of a vector \(v\): \(\sqrt{v_1^2+\dots+v_n^2}\)</td><td>§3</td></tr>
-    <tr><td>\(i,\ j\)</td><td>Indices of hyperrectangles in the partition. \(j\) denotes the candidate under test</td><td>§3</td></tr>
-    <tr><td>\(c_i\)</td><td>Center point of hyperrectangle \(i\), where \(f\) is evaluated</td><td>§3</td></tr>
-    <tr><td>\(d_i\)</td><td>Size of hyperrectangle \(i\): its center-vertex distance, half the length of its diagonal</td><td>§3</td></tr>
-    <tr><td>\(L(x)\)</td><td>Lower envelope: the pointwise maximum of the Lipschitz cones of all samples <span class="ub">Added by user</span></td><td>§3</td></tr>
-    <tr><td>\(K_1,\ K_2\)</td><td>Lowest and highest trial \(K\) for which a box has the lowest floor <span class="ub">Added by user</span></td><td>§3</td></tr>
-    <tr><td>\(m\)</td><td>Number of hyperrectangles. Each evaluation creates one hyperrectangle, so \(m\) is also the number of evaluations</td><td>§4</td></tr>
-    <tr><td>\(f_{\min}\)</td><td>Lowest objective value found so far (the incumbent)</td><td>§4</td></tr>
-    <tr><td>\(\varepsilon\)</td><td>Desired relative accuracy, the only hyperparameter of DIRECT (typical value \(10^{-4}\))</td><td>§4</td></tr>
-    <tr><td>\(N\)</td><td>Number of samples fitted by a surrogate model <span class="ub">Added by user</span></td><td>§4</td></tr>
-    <tr><td>\(M\)</td><td>Set of dimensions along which a hyperrectangle has its maximum side length</td><td>§5</td></tr>
-    <tr><td>\(\delta\)</td><td>One third of the maximum side length of the hyperrectangle being divided</td><td>§5</td></tr>
-    <tr><td>\(e_k\)</td><td>Unit vector along coordinate \(k\) (1 in position \(k\), 0 elsewhere)</td><td>§1, §5</td></tr>
-    <tr><td>\(w_k\)</td><td>Better of the two new values sampled along dimension \(k\)</td><td>§5</td></tr>
-    <tr><td>\(S\)</td><td>Set of potentially optimal hyperrectangles selected in one iteration</td><td>§6</td></tr>
-    <tr><td>\(t,\ T\)</td><td>Iteration counter, and the maximum number of iterations</td><td>§6</td></tr>
-    <tr><td>\(f_{\text{median}}\)</td><td>Median of all objective values sampled so far</td><td>§11</td></tr>
-    <tr><td>\(a,\ b\)</td><td>An added constant and a positive multiplier applied to \(f\) (scaling test)</td><td>§11</td></tr>
-  </table></div>
+  <h2><span class="n">1</span>Partial shading gives several power peaks</h2>
+  <p>Each panel has bypass diodes. Under partial shading, the diodes across the shaded cells conduct, and the I-V curve of the array falls in steps. The P-V curve then has one peak for each step. Only the highest peak is the global maximum power point (GMPP).</p>
+  <p>A local tracker, such as perturb and observe (P&amp;O) or incremental conductance (INC), climbs the nearest peak and stays there. On pattern R1, P&amp;O reaches 34.9 % and INC 35.1 % of the GMPP power after 4 s. <span class="tagc">Idea C reaches 99.98 %.</span></p>
 </section>
-
-<section class="col">
-  <h2><span class="n">1 · [2, §1, §2.1]</span>The problem class: bound-constrained black-box global optimization</h2>
-  <p class="idea"><b>Core idea</b>DIRECT finds the <em>global</em> minimizer of an objective function that is available only through point evaluations, over a feasible region defined by lower and upper bounds on each variable.</p>
-  <div class="eqm">\[ \min_{x\in\mathbb{R}^n} f(x) \quad \text{subject to} \quad \ell_k \le x_k \le u_k,\qquad k=1,\dots,n \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(x=(x_1,\dots,x_n)\) is the <span class="kt">decision vector</span>, the set of inputs that the algorithm chooses,</li>
-    <li>\(n\) is the number of decision variables,</li>
-    <li>\(f(x)\) is the <span class="kt">objective function</span>, a single number to be made as small as possible,</li>
-    <li>\(\mathbb{R}^n\) is the space of real vectors with \(n\) components,</li>
-    <li>\(\ell_k\) and \(u_k\) are the lower and upper bounds of variable \(x_k\). Together they define the <span class="kt">feasible region</span>, a box.</li>
-  </ul></div>
-
-  <h3>Min-max normalization <span class="ub">Added by user</span></h3>
-  <p>Because the feasible region is a box, DIRECT applies <span class="kt">min-max normalization</span> to each variable separately:</p>
-  <div class="eqm">\[ z_k=\frac{x_k-\ell_k}{u_k-\ell_k},\qquad k=1,\dots,n \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(x_k\) is the original variable, in its physical units,</li>
-    <li>\(\ell_k\) and \(u_k\) are its lower and upper bounds,</li>
-    <li>\(z_k\) is the normalized variable, equal to 0 at the lower bound and 1 at the upper bound.</li>
-  </ul></div>
-  <p>DIRECT searches in \(z\). Before each evaluation it maps the point back with the inverse:</p>
-  <div class="eqm solo">\[ x_k=\ell_k+z_k\,(u_k-\ell_k) \]</div>
-  <p>The search space becomes the <span class="kt">unit hypercube</span> \(\Omega=[0,1]^n\).</p>
-  <p><b>Why “without loss of generality”.</b> The map is an <span class="kt">affine map</span> (a scaling plus a shift). It is one-to-one and keeps the order of points along each axis. The normalized problem therefore has the same minimizer, mapped to \(z\), and the same minimum value \(f^*\).</p>
-  <p><b>Why DIRECT needs it.</b> DIRECT compares side lengths to find the longest sides (the set \(M\) of section 5), and it ranks boxes by their size \(d_i\). Both comparisons need a common scale. A side in volts and a side in amperes cannot be compared. After normalization every side starts at length 1.</p>
-  <p><b>Caution.</b> The normalization does not change the problem, but it does change the iterates. Distances are measured in normalized units, so the chosen bounds decide which sides count as long and how \(d_i\) weighs one variable against another. With a wider range for one variable, DIRECT samples a different sequence of points, although the minimizer is the same.</p>
-
-  <p>Four terms define the setting:</p>
-  <div class="def"><span class="kt">Black-box objective.</span> The algorithm can query \(f(x)\) at any \(x\in\Omega\), but has no analytic expression and no gradient.</div>
-  <div class="def"><span class="kt">Expensive evaluation.</span> Each query has a cost (a simulation run, a laboratory test, a settling time). The cost of an algorithm is therefore counted in <span class="kt">function evaluations</span>, not in arithmetic operations.</div>
-  <div class="def"><span class="kt">Multimodal objective.</span> \(f\) has several local minimizers. A point \(\hat{x}\) is a <span class="kt">local minimizer</span> if \(f(\hat{x})\le f(x)\) in some neighbourhood of \(\hat{x}\). The set of starting points from which a descent method reaches \(\hat{x}\) is its <span class="kt">basin of attraction</span>.</div>
-  <div class="def"><span class="kt">Global minimizer.</span> A point \(x^*\) with \(f(x^*)\le f(x)\) for all \(x\in\Omega\). Its value is \(f^*\).</div>
-
-  <h3>What “expensive” refers to <span class="ub">Added by user</span></h3>
-  <p>“Expensive” describes each evaluation of \(f\), not DIRECT. DIRECT does not make an evaluation cheaper. It reduces the number of evaluations needed to reach a good point. Its own overhead between evaluations is small:</p>
-  <ul>
-    <li><b>Memory.</b> DIRECT stores one hyperrectangle per evaluation: its center, its side lengths and \(f(c_i)\). Memory therefore grows linearly with the number of evaluations \(m\).</li>
-    <li><b>Selection.</b> Only the lowest point of each size level can lie on the hull (section 4), so the hull is built from one point per level. A plain implementation costs about \(O(m\log m)\) operations per iteration, where \(O(\cdot)\) is the usual order-of-growth notation.</li>
-    <li><b>Division.</b> Sorting the \(w_k\) values and creating the new boxes is simple arithmetic.</li>
-  </ul>
-  <p>For hundreds or thousands of evaluations, this overhead takes microseconds to milliseconds, which is negligible next to one expensive evaluation. It becomes noticeable only in very long runs, at about \(10^5\) evaluations or more.</p>
-  <div class="note app"><span class="lab">Application note: MPPT</span>
-    <p>One evaluation is one converter settling period, typically milliseconds. DIRECT's arithmetic in the controller takes far less time. The real limit is memory, because the box list grows with every sample. A controller that must suit Simulink Coder therefore caps DIRECT with a fixed evaluation budget and stores the boxes in fixed-size persistent arrays.</p>
-  </div>
-
-  <h3>Derivative-free optimization <span class="ub">Added by user</span></h3>
-  <p><b>Roles.</b> The objective \(f\) maps one input vector \(x\) to one number. The optimizer, here DIRECT, chooses the inputs, reads the returned values, and searches for the \(x\) that makes \(f\) smallest. The function \(f\) itself does not return the minimum.</p>
-  <p><span class="kt">Derivative-free</span> describes the optimizer, not the function. A gradient-based method, such as gradient descent or Newton's method, uses the <span class="kt">gradient</span> \(\nabla f\), the vector of partial derivatives \(\partial f/\partial x_k\), to choose its step. A derivative-free method uses only values of \(f\). It does without derivatives for one of three reasons:</p>
-  <ul>
-    <li><b>The derivative is not accessible.</b> \(f\) is a black box, such as compiled simulation code or a physical plant.</li>
-    <li><b>The derivative does not exist everywhere.</b> \(f\) has kinks or jumps, so it is not a <span class="kt">smooth function</span>. The knees of a P-V curve under partial shading are an example.</li>
-    <li><b>The derivative is too costly or too noisy to estimate.</b> The standard estimate is a forward <span class="kt">finite difference</span>:</li>
-  </ul>
-  <div class="eqm">\[ \frac{\partial f}{\partial x_k}\approx\frac{f(x+h\,e_k)-f(x)}{h} \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(\partial f/\partial x_k\) is the partial derivative of \(f\) along variable \(k\),</li>
-    <li>\(h\) is a small step size,</li>
-    <li>\(e_k\) is the unit vector along variable \(k\).</li>
-  </ul></div>
-  <p>A full gradient in \(n\) variables costs \(n+1\) evaluations. A measurement noise of size \(\sigma\) in \(f\) gives an error of order \(\sigma/h\) in the estimate, so a small step amplifies the noise.</p>
-  <p>The main families of derivative-free methods are [11, 15]:</p>
-  <ul>
-    <li><b>Direct search:</b> Hooke-Jeeves [16], Nelder-Mead [17] and pattern search compare values at nearby trial points.</li>
-    <li><b>Model-based methods:</b> trust-region interpolation methods and Bayesian optimization fit a surrogate model to the samples (section 4).</li>
-    <li><b>Stochastic population methods:</b> genetic algorithms and particle swarm optimization (PSO).</li>
-    <li><b>Deterministic Lipschitzian methods:</b> DIRECT and its variants.</li>
-  </ul>
-  <p><b>Name clash.</b> A <span class="kt">direct search method</span> belongs to the family in the first item of this list. DIRECT is the acronym of DIviding RECTangles. The two are unrelated.</p>
-  <div class="note app"><span class="lab">Application note: MPPT</span>
-    <p>P&amp;O and INC estimate the slope dP/dV or dI/dV from two consecutive measurements. They are local finite-difference methods, which is why they stop at the nearest peak. DIRECT uses no slope estimate. It decides from sampled values and box sizes only.</p>
-  </div>
-
-  <p>A local method (gradient descent, Nelder-Mead, hill climbing) converges to the minimizer of the basin in which it starts. Global optimization must decide which basin to search, and that decision is the subject of these notes.</p>
-  <p>DIRECT came from <span class="kt">Lipschitzian global optimization</span> [3, 4, 5], a deterministic branch-and-bound method. Its main change is that it does not need the Lipschitz constant, hence the title of [1]: “Lipschitzian optimization without the Lipschitz constant.” A later revision by Jones adds nonlinear inequality constraints and integer variables [6].</p>
-</section>
-
 <div class="fig">
-  <canvas id="c1" aria-label="A one-dimensional multimodal objective with three local minima"></canvas>
-  <p class="cap"><b>Figure 1.</b> A one-dimensional multimodal test function on \([0,1]\), used in all 1-D figures below. It has three local minimizers. The marked one is the global minimizer \(x^*\). A descent method that starts at \(x=0.8\) converges to the right-hand local minimizer and stays there.</p>
+  <div class="plate"><img src="img/fig_pv_patterns.png" alt="P-V curves of the nine shading patterns, with the global and local peaks marked" loading="lazy"></div>
+  <p class="cap"><b>Figure 1.</b> The nine shading patterns of the project at 25 °C. Filled dot: GMPP. Open dots: local peaks. Six patterns have two to four peaks.</p>
 </div>
-
-<div class="col">
-  <div class="note"><span class="lab">Analogy</span>
-    <p>Hyperparameter tuning of a neural network is a typical instance. Each evaluation is a full training run, the validation loss has no usable gradient with respect to the learning rate or the depth, and the loss surface has several local minima. The engineer has a fixed budget of training runs and wants the best configuration, not the nearest one.</p>
-  </div>
+<div class="fig">
+  <div class="plate"><img src="img/fig_startup_R1.png" alt="Start-up on pattern R1 for the five global searches and the two local trackers" loading="lazy"></div>
+  <p class="cap"><b>Figure 2.</b> Start-up on pattern R1 in Simulink, with sensor noise. Grey band: global search. P&amp;O and INC stop on a local peak near 35 % of the GMPP power. Every global search reaches the GMPP.</p>
 </div>
 
 <section class="col">
-  <h2><span class="n">2 · [2, §2.1 and footnote 1]</span>What finitely many samples can certify</h2>
-  <p class="idea"><b>Core idea</b>If the only assumption is that \(f\) is continuous, no deterministic algorithm can guarantee the global minimum unless its sample points eventually become dense in \(\Omega\).</p>
-  <p>The proof in [2] is by construction. Assume a <span class="kt">deterministic algorithm</span> A converges to the global minimum of every continuous function without dense sampling. Then for some function \(f\) there is an interval \([\tilde{x}-\delta,\ \tilde{x}+\delta]\) that A never samples.</p>
-<p>Define \(\tilde{f}\) equal to \(f\) outside this interval, with \(\tilde{f}(\tilde{x})=f^*-1\) and linear interpolation in between. The function \(\tilde{f}\) is continuous.</p>
-<p>Because A is deterministic and sees identical values, it produces identical iterates and misses the new minimum \(f^*-1\). This contradicts the assumption.</p>
+  <h2><span class="n">2</span>Global MPPT is a black-box search</h2>
+  <p>The tracker sets one variable, the duty \(D\) of the converter, and must find the duty of the GMPP. Four properties define the problem:</p>
+  <ul>
+    <li><b>Black box.</b> The tracker can measure the power \(P(D)\) at any duty, but it has no formula for \(P(D)\) and no derivative. The curve changes with irradiance, temperature and shading.</li>
+    <li><b>Expensive evaluation.</b> Each measurement is one test of 40 ms, and during the test the array runs below its peak. The cost of a search is therefore the number of tests, not the arithmetic between them.</li>
+    <li><b>Multimodal.</b> \(P(D)\) has one peak for each current step (section 1).</li>
+    <li><b>Bounded range.</b> The duty lies in \([D_{lo},D_{hi}]=[0.30,0.78]\). A search can work on the normalized variable \(z=(D-D_{lo})/(D_{hi}-D_{lo})\in[0,1]\). This map keeps the order of the points and the location of the peak.</li>
+  </ul>
+  <p>P&amp;O and INC estimate the slope \(dP/dV\) from two consecutive measurements. They are local finite-difference methods, so they climb the nearest peak. A global search uses only measured values, and it must decide which peak to climb. Idea C adds one more piece of information: the measured current, which the physics of the array makes monotone (part 2, section 1).</p>
+  <p>The project compares trackers by their <b>tracking efficiency</b>:</p>
+  <div class="eq">\[ \eta=\frac{\int P\,dt}{\int P_{\mathrm{GMPP}}\,dt} \]</div>
+  <div class="where"><ul>
+    <li>\(P\) is the power that the tracker takes from the array, and \(P_{\mathrm{GMPP}}\) is the power at the GMPP at each instant,</li>
+    <li>the integrals run over the whole test profile: a start-up, a ramp, a cloud event or a full day.</li>
+  </ul></div>
+  <p>A tracker loses energy in two ways: during the search, when it tests duties far from the peak, and after a wrong decision, when it holds a local peak. The ratio \(\eta\) counts both losses in one unit. The EN 50530 standard uses the same ratio for the dynamic MPPT efficiency of inverters [8].</p>
+  <div class="key"><span class="lab">For Idea C</span><p>A good global search makes few tests, and it ends on the right peak. Idea C gets both from one bound: the bound decides where to test next and when to stop. Over four full days, all the searches of Idea C cost 0.016 % of the energy.</p></div>
 </section>
-
-<div class="fig">
-  <canvas id="c2" style="height:220px" aria-label="Two continuous functions that agree at every sample but differ inside a gap"></canvas>
-  <p class="cap"><b>Figure 2.</b> The construction of the proof. The solid and the dashed functions agree at every sample. Only the dashed function has a lower minimum, inside the unsampled interval. No algorithm can distinguish them from these data.</p>
+<div class="fig figc">
+  <canvas id="c1" style="height:260px" aria-label="The test curve: power against normalized voltage with three peaks"></canvas>
+  <p class="cap"><b>Figure 3.</b> The test curve of the theory figures: \(P(v)=v\,I(v)\) on the normalized voltage \(v\in[0,1]\). The current \(I(v)\) falls in three steps, as in a string with three bypass groups, so the power has three peaks. The global peak is the left one. A search sees only the points that it tests.</p>
 </div>
 
 <section class="col">
-  <p>The consequence sets the design space for every global method. Either it accepts <span class="kt">everywhere-dense</span> convergence, or it assumes more structure about \(f\) so that it can bound \(f\) between samples. Section 3 introduces the classical assumption.</p>
-  <div class="note"><span class="lab">Analogy</span>
-    <p>This is the sampling problem of signal processing. Without a bandwidth assumption, samples of a signal say nothing about its values between the samples, because a high-frequency component can hide there. The Nyquist-Shannon theorem recovers the signal only because it <em>assumes</em> a bandlimit. In optimization, the Lipschitz constant of section 3 plays the role of that bandlimit.</p>
-  </div>
-  <h3>Three clarifications of the proof <span class="ub">Added by user</span></h3>
-  <ol class="steps">
-    <li><b>The interpolation exists only on paper.</b> The linear interpolation builds the counterexample \(\tilde{f}\). The algorithm never computes \(\tilde{f}\). A sees only its own samples, and those values are identical for \(f\) and \(\tilde{f}\).</li>
-    <li><b>Under continuity alone, no finite sampling rate is enough.</b> A continuous dip can be arbitrarily narrow, so any finite set of samples leaves room for a deeper minimum. This is why the requirement is “dense in the limit”, not “dense enough”.</li>
-    <li><b>Determinism matters.</b> The sample points of A follow from its rules, so the counterexample can place the dip where A never samples.</li>
-  </ol>
-  <p>With a Lipschitz bound (section 3), a finite spacing becomes enough. In one dimension with samples at spacing \(\Delta\), every point lies within \(\Delta/2\) of a sample. The function can fall by at most \(K\Delta/2\) over that distance, so</p>
-  <div class="eqm">\[ f_{\min}-f^*\le\frac{K\Delta}{2},\qquad\text{so the spacing }\ \Delta=\frac{2\tau}{K}\ \text{ guarantees }\ f_{\min}-f^*\le\tau \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(\Delta\) is the spacing between neighbouring samples,</li>
-    <li>\(f_{\min}\) is the best sampled value, and \(f^*\) is the global minimum,</li>
-    <li>\(K\) is the Lipschitz constant,</li>
-    <li>\(\tau\) is the <span class="kt">tolerance</span>, the largest acceptable error in the minimum value.</li>
+  <h2><span class="n">3</span>What finitely many tests can prove</h2>
+  <p>If the only assumption is that \(P\) is continuous, no finite set of tests can prove where the global peak is. The proof is a construction. Assume that a deterministic search finds the global maximum of every continuous function without testing everywhere densely. Then, for some function \(P\), there is an interval that the search never tests. Build \(\tilde P\) equal to \(P\) outside this interval, with a narrow spike inside that is higher than every tested value. \(\tilde P\) is continuous. The search sees identical values, makes identical tests, and misses the spike.</p>
+</section>
+<div class="fig figc">
+  <canvas id="c2" style="height:220px" aria-label="Two continuous functions that agree at every test but differ inside a gap"></canvas>
+  <p class="cap"><b>Figure 4.</b> The solid and the dashed functions agree at every test. Only the dashed function has a higher peak, inside the untested interval. No search can tell them apart from these data.</p>
+</div>
+<section class="col">
+  <ul>
+    <li><b>The spike exists only on paper.</b> The search never sees \(\tilde P\). It sees only its own tests, and these give the same values for \(P\) and \(\tilde P\).</li>
+    <li><b>No finite spacing is enough under continuity alone,</b> because a spike can be as narrow as one likes. A search can only promise the global peak "in the limit", when its tests become dense everywhere.</li>
+    <li><b>With a bound on the slope, a finite spacing is enough.</b> If \(P\) cannot change faster than \(K\) per unit of \(v\), tests at spacing \(\Delta\) leave every point within \(\Delta/2\) of a test, so</li>
+  </ul>
+  <div class="eq">\[ P^*-P_{\mathrm{best}}\ \le\ \frac{K\Delta}{2},\qquad\text{so the spacing }\ \Delta=\frac{2\tau}{K}\ \text{ guarantees }\ P^*-P_{\mathrm{best}}\le\tau \]</div>
+  <div class="where"><ul>
+    <li>\(P^*\) is the global maximum and \(P_{\mathrm{best}}\) the best tested value,</li>
+    <li>\(\tau\) is the largest error that the search accepts.</li>
   </ul></div>
-  <p>This completes the Nyquist analogy. Without a bandlimit, no sampling rate recovers a signal. With a bandlimit, the Nyquist rate is enough. In the same way, without a Lipschitz bound no spacing certifies the minimum, and with one the spacing \(2\tau/K\) is enough.</p>
+  <p>This is the sampling problem of signal processing. Samples say nothing about a signal between them unless a bandlimit is assumed, and the Nyquist-Shannon theorem works only because it assumes one. The slope bound \(K\) plays the role of the bandlimit. Idea C needs an assumption too. It uses one that every PV array satisfies by its physics: the current never rises when the voltage rises.</p>
 </section>
 
 <section class="col">
-  <h2><span class="n">3 · [2, §2.1, Eq. 2]</span>Lipschitz continuity and Lipschitzian branch-and-bound</h2>
-  <p class="idea"><b>Core idea</b>If the rate of change of \(f\) is bounded by a known constant \(K\), one sample gives a guaranteed lower bound of \(f\) over a whole region. The search can then refine the region whose lower bound is lowest.</p>
-  <p>A function is <span class="kt">Lipschitz continuous</span> with constant \(K\) if</p>
-  <div class="eqm">\[ |f(x)-f(x')|\le K\,\lVert x-x'\rVert\qquad\text{for all }x,x'\in\Omega \tag{2} \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(x\) and \(x'\) are any two points of the search space \(\Omega\),</li>
-    <li>\(|f(x)-f(x')|\) is the change in the objective between them,</li>
-    <li>\(\lVert x-x'\rVert\) is the <span class="kt">Euclidean norm</span> of their difference, the straight-line distance \(\sqrt{(x_1-x'_1)^2+\dots+(x_n-x'_n)^2}\),</li>
-    <li>\(K>0\) is the <span class="kt">Lipschitz constant</span>, in units of objective per unit distance.</li>
+  <h2><span class="n">4</span>The Lipschitz bound and the searches built on it</h2>
+  <h3>4.1 One test bounds a whole region</h3>
+  <p>A function is <b>Lipschitz continuous</b> with constant \(K\) if</p>
+  <div class="eq">\[ |P(x)-P(x')|\ \le\ K\,|x-x'|\qquad\text{for all } x,x' \text{ in the range} \]</div>
+  <div class="where"><ul>
+    <li>\(K\gt0\) is the largest rate at which \(P\) can change, in power per unit of \(x\),</li>
+    <li>for a differentiable \(P\), the smallest valid \(K\) is the largest value of \(|P'(x)|\).</li>
   </ul></div>
-
-  <h3>Geometric meaning: the Lipschitz hourglass <span class="ub">Added by user</span></h3>
-  <p>In one dimension, take any point on the graph and draw two lines through it with slopes \(+K\) and \(-K\). They form a double cone, like an hourglass lying on its side. The whole graph stays outside the upper and lower parts of that cone. Seen from one sample, this means \(f\) can rise or fall at most \(K\) per unit distance, which is exactly the floor \(f(c)-K\,d\) that DIRECT uses. We call this picture the <span class="kt">Lipschitz hourglass</span>.</p>
-  <p>Stated precisely, inequality (2) confines the graph to the left and right wedges between the two lines (the sideways hourglass, or bow tie). The upper and lower wedges are forbidden. Figure 3 lets you test this.</p>
-  <p><b>Relation to the derivative.</b> For a differentiable \(f\), the smallest valid \(K\) is the <span class="kt">supremum</span> (least upper bound) of \(|f'(x)|\) over \(\Omega\).</p>
-<p>For example, \(\sin x\) has \(K=1\), and \(x^2\) on \([0,1]\) has \(K=2\). A Lipschitz function need not be differentiable: \(|x|\) has a kink at 0 and is Lipschitz with \(K=1\).</p>
-<p>Continuity alone is not enough: \(\sqrt{x}\) on \([0,1]\) is continuous, but its slope is unbounded near 0, so no finite \(K\) exists.</p>
-<p>The classes nest as bounded derivative \(\subset\) Lipschitz \(\subset\) continuous, and neither inclusion reverses.</p>
-  <p>The condition is named after the mathematician Rudolf Lipschitz. Engineers meet it in two places: the slew rate of an amplifier (see the analogy below), and the Picard-Lindelöf theorem, which guarantees a unique solution of an ordinary differential equation when its right-hand side is Lipschitz in the state.</p>
-  <div class="note app"><span class="lab">Application note: MPPT</span>
-    <p>For a P-V curve, \(K\) is the steepest slope of \(P\) against \(V\). It occurs on the falling side of the knees, where a bypass diode turns on. \(K\) is finite but unknown in advance, because it changes with shading and temperature. That is the case DIRECT is built for.</p>
-  </div>
+  <p>The bound works like the slew rate of an amplifier: an output that cannot change faster than SR is known within \(\pm\text{SR}\,\Delta t\) for the next \(\Delta t\) after one sample. Through a test point, draw two lines with slopes \(+K\) and \(-K\). The curve must stay in the left and right wedges between them, so the upper wedge is forbidden. One test at \(x_0\) therefore gives a <b>ceiling</b> on the whole axis: \(P(x)\le P(x_0)+K\,|x-x_0|\). For a P-V curve, \(K\) is the steepest slope, on the falling side of a knee where a bypass diode turns on. It is finite, but it changes with shading and temperature and is not known in advance.</p>
 </section>
-
-<div class="fig">
-  <canvas id="cH" style="height:330px;touch-action:pan-y;cursor:ew-resize" aria-label="Lipschitz hourglass through a movable anchor point on the test function"></canvas>
+<div class="fig figc">
+  <canvas id="cH" style="height:320px;touch-action:pan-y;cursor:ew-resize" aria-label="Lipschitz hourglass through a movable test point on the test curve"></canvas>
   <div class="ctrl">
-    <label for="hx">Anchor x₀ <input id="hx" type="range" min="0.02" max="0.98" step="0.002" value="0.36"></label>
+    <label for="hx">Test point x₀ <input id="hx" type="range" min="0.02" max="0.98" step="0.002" value="0.5"></label>
     <label for="hk">K <input id="hk" type="range" min="0.2" max="10" step="0.05" value="2"></label>
-    <label for="hd"><input id="hd" type="checkbox"> Show the floor of a box with half-width d = 0.1</label>
+    <label for="hd"><input id="hd" type="checkbox"> Show the ceiling of a box with half-width d = 0.1</label>
   </div>
   <div class="stats" id="hv"></div>
-  <p class="cap"><b>Figure 3.</b> <span class="ub">Added by user</span> The Lipschitz hourglass on the test function.</p>
-<p class="cap"><b>Controls.</b> Drag across the plot, or use the slider, to move the anchor point \((x_0,f(x_0))\). The two lines through it have slopes \(+K\) and \(-K\).</p>
-<p class="cap"><b>Reading the plot.</b> <span class="key" style="background:var(--curve)"></span>The left and right wedges are allowed. <span class="key" style="background:var(--warn)"></span>The upper and lower wedges are forbidden. Where the curve enters a forbidden wedge, it turns <span style="color:var(--warn)">magenta</span>. The chosen \(K\) is then below the Lipschitz constant (about 5.9), and the bound fails.</p>
-<p class="cap"><b>Box option.</b> With the box option on, the amber V and the dashed line show the floor \(f(c)-K\,d\) of a box centred at the anchor: the bottom of the lower wedge, cut at distance \(d\).</p>
+  <p class="cap"><b>Figure 5.</b> The Lipschitz hourglass. Drag across the plot, or use the slider, to move the test point. <span class="key-dot" style="background:var(--curve)"></span>The left and right wedges are allowed. <span class="key-dot" style="background:var(--warn)"></span>The upper and lower wedges are forbidden. Where the curve enters a forbidden wedge, it turns magenta: the chosen \(K\) is below the true Lipschitz constant, and the ceiling is false there. With the box option on, the amber V shows the ceiling \(P(c)+K\,d\) of a box centred at the test point.</p>
 </div>
 
 <section class="col">
-  <h3>Hyperrectangles and their size <span class="ub">Added by user</span></h3>
-  <svg class="sk" viewBox="0 0 220 150" role="img" aria-label="A rectangle with its center and the center-vertex distance to one corner">
-    <rect class="bg" x="10" y="10" width="200" height="120"/><rect class="bx" x="10" y="10" width="200" height="120"/>
-    <line class="ac" x1="110" y1="70" x2="210" y2="10"/><circle class="dt" cx="110" cy="70" r="5"/>
-    <text class="tx" x="96" y="96">cᵢ</text><text class="tx" x="152" y="34" fill="var(--sel)">dᵢ</text>
-  </svg>
-  <p>DIRECT partitions \(\Omega\) into <span class="kt">hyperrectangles</span>: boxes whose sides are parallel to the coordinate axes (in one dimension, intervals). Each has its center \(c_i\) evaluated. Its <span class="kt">size</span> is always the <span class="kt">center-vertex distance</span> \(d_i\), the distance from the center to any corner, which is half the diagonal.</p>
-  <p><b>Why this measure.</b> The corners are the points farthest from the sampled center. So \(d_i\) is the largest distance over which \(f\) can drift from the one value that is known. Under the speed limit \(K\), the largest drop is \(K\,d_i\), which gives the floor \(f(c_i)-K\,d_i\). A larger \(d_i\) means more unexplored room in which a lower value could hide.</p>
-  <div class="eqm">\[ d_i=\tfrac{1}{2}\sqrt{s_1^2+s_2^2+\dots+s_n^2} \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(s_1,\dots,s_n\) are the side lengths of hyperrectangle \(i\) (after normalization),</li>
-    <li>in one dimension this is \(d_i=s_1/2\), half the interval length,</li>
-    <li>in two dimensions, for sides \(a\) and \(b\), it is \(d_i=\tfrac12\sqrt{a^2+b^2}\).</li>
-  </ul></div>
-  <p><span class="nd">n-D background</span> Examples in two dimensions: the unit square (\(1\times1\)) has \(d\approx0.707\). After one cut, a \(\tfrac13\times1\) box has \(d\approx0.527\). After both cuts, a \(\tfrac13\times\tfrac13\) box has \(d\approx0.236\).</p>
-<p>In one dimension, the interval \([0,\tfrac13]\) has \(d=\tfrac16\approx0.1667\), as in the table of Figure 4. Side lengths are powers of \(\tfrac13\), so only a limited set of sizes occurs. These <span class="kt">size levels</span> are the vertical columns of dots in Figure 6.</p>
-<p>The variant DIRECT-l measures distance with the infinity norm, so its \(d\) is half the longest side [2]. The original DIRECT uses the Euclidean form above.</p>
-  <p>Every point of a hyperrectangle lies within \(d_i\) of its center, so Eq. (2) gives a lower bound:</p>
-  <div class="eqm">\[ f(x)\ \ge\ f(c_i)-K\,d_i\qquad\text{for every }x\text{ in hyperrectangle }i \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(i\) is the index of a hyperrectangle in the partition,</li>
-    <li>\(c_i\) is its center point, and \(f(c_i)\) is the objective value measured there,</li>
-    <li>\(d_i\) is its size, the center-vertex distance,</li>
-    <li>\(f(c_i)-K\,d_i\) is the <span class="kt">lower bound</span>, or floor, of the box: no point of the hyperrectangle can have a lower objective value.</li>
-  </ul></div>
-  <p>The bound has two terms, and they correspond to the two goals of any global search:</p>
-  <ul>
-    <li>\(f(c_i)\) is small when the center value is good. This term favours <span class="kt">exploitation</span> (local search).</li>
-    <li>\(-K\,d_i\) is large in magnitude for a large cell. This term favours <span class="kt">exploration</span> (global search) of unsampled volume.</li>
-  </ul>
-  <p>The constant \(K\) is the weight between them. A larger \(K\) puts more emphasis on exploration.</p>
+  <h3>4.2 Box ceilings, and why only a few boxes can win</h3>
+  <p>A box (an interval) with its centre \(c_i\) tested and half-width \(d_i\) has the ceiling \(P(c_i)+K\,d_i\). The two terms are the two goals of every global search. \(P(c_i)\) is high when the centre is good, which favours <b>exploitation</b>. \(K\,d_i\) is large for a large box, which favours <b>exploration</b> of untested ground. \(K\) sets the weight between them.</p>
+  <p>One \(K\) applies to every box at once. Boxes of the same size add the same \(K\,d\), so in each size group the box with the best centre has the highest ceiling for every \(K\). The other boxes of the group are <b>dominated</b>: no \(K\) can make them win. At most one box per size can win, and each wins over its own range of \(K\). The switch point between two candidates \(a\) (larger) and \(b\) (smaller) is</p>
+  <div class="eq solo">\[ K=\frac{P(c_b)-P(c_a)}{d_a-d_b} \]</div>
+  <p>Below this \(K\) box \(b\) has the higher ceiling, and above it box \(a\). A dominated box is not discarded. It waits in the queue, and it can win once the best box of its size has been split. Keeping every box is what lets DIRECT promise the global peak in the limit (section 7).</p>
 </section>
-
-<div class="fig">
-  <canvas id="c3" style="height:330px" aria-label="Intervals with Lipschitz lower-bound cones"></canvas>
+<div class="fig figc">
+  <canvas id="c3" style="height:320px" aria-label="Intervals with Lipschitz ceilings on the test curve"></canvas>
   <div class="ctrl">
     <label for="k3">Lipschitz constant K <input id="k3" type="range" min="0" max="14" step="0.005" value="0.6"></label>
     <button id="sw3" type="button">Sweep K</button>
   </div>
   <div class="stats" id="k3v"></div>
   <div class="stats" id="k3log"></div>
-  <div class="tw"><table id="t3"></table></div>
-  <p class="cap"><b>Figure 4.</b> The partition after three DIRECT iterations. Each dot is a center value \(f(c_i)\). Each V falls with slope \(K\) from the box center, and its tips give the floor \(f(c_i)-K\,d_i\) (dashed line).</p>
-<p class="cap">The highlighted row is the interval that Lipschitzian branch-and-bound would refine at this \(K\). A small \(K\) selects the best center. A large \(K\) selects the largest interval.</p>
-<p class="cap"><span class="ub">Added by user</span> One trial \(K\) applies to every box at once, because the Lipschitz constant is a single property of the whole function. The V shapes differ in depth only because the boxes differ in size \(d_i\).</p>
-<p class="cap">Each V is the lower half of the Lipschitz hourglass of Figure 3. Only the lower half is drawn, because minimization needs a floor, not a ceiling. Where the curve falls below the V of its box, it turns <span style="color:var(--warn)">magenta</span>: the chosen \(K\) is below the Lipschitz constant (about 5.9), and the floor is invalid.</p>
-<p class="cap"><b>Table.</b> The table groups the boxes by size and shows the range of \(K\) over which each box has the lowest floor.</p>
-<p class="cap"><b>Sweep K</b> moves \(K\) slowly from 0 to 1.2 and ticks every box that wins on the way. It pauses at each \(K\) where the winner changes, and lists the change under the figure. Above the last switch point, the largest box keeps the lowest floor for every larger \(K\), so the sweep stops at 1.2. DIRECT's selection is exactly this sweep.</p>
-<p class="cap">The curve comes from the known test function and is drawn for reference. DIRECT sees only the dots.</p>
+  <div class="tw"><table id="t3" class="dt"></table></div>
+  <p class="cap"><b>Figure 6.</b> The boxes after three DIRECT iterations on the test curve. Each dot is a centre value \(P(c_i)\). Each V rises with slope \(K\) from the box centre, and its tips give the ceiling \(P(c_i)+K\,d_i\) (dashed). The highlighted box has the highest ceiling at this \(K\). A small \(K\) picks the best centre, and a large \(K\) picks the largest box. The table groups the boxes by size and gives the range of \(K\) over which each box wins. <b>Sweep K</b> moves \(K\) from 0 to 1.2, pauses at each switch point, and ticks every box that wins on the way. DIRECT selects exactly this set (section 5).</p>
 </div>
 
 <section class="col">
-  <h3>Why only a few boxes can ever win <span class="ub">Added by user</span></h3>
-  <p class="idea"><b>Core idea</b>Boxes of the same size subtract the same \(K\,d\). So within a size group, the box with the lowest center value has the lowest floor for every \(K\). The other boxes of that group are <span class="kt">dominated</span>: no value of \(K\) can make them win. At most one box per size can ever win.</p>
-  <p>The table of Figure 4 shows this. Its nine boxes come in three sizes, so there are only three candidates, and each wins over its own range of \(K\) (the numbers come from the table):</p>
-  <ul>
-    <li>the small box at the best center wins for small \(K\) (exploitation),</li>
-    <li>the best middle-sized box wins for medium \(K\),</li>
-    <li>the largest box wins for all large \(K\) (exploration).</li>
-  </ul>
-  <p>A switch point is the \(K\) at which two candidates have equal floors. For the two smallest sizes it is</p>
-  <div class="eqm">\[ K=\frac{f(c_a)-f(c_b)}{d_a-d_b}=\frac{-0.2561-(-0.2708)}{0.0556-0.0185}\approx0.396 \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(a\) is the best box of the larger size and \(b\) the best box of the smaller size,</li>
-    <li>below this \(K\) box \(b\) has the lower floor, and above it box \(a\) has.</li>
+  <h3>4.3 The Piyavskii-Shubert search</h3>
+  <p>With a known \(K\), every test gives a ceiling cone, and the cones together give one curve that \(P\) never exceeds, the <b>upper envelope</b>:</p>
+  <div class="eq">\[ U(x)=\min_i\big[P(x_i)+K\,|x-x_i|\big]\ \ge\ P(x) \]</div>
+  <div class="where"><ul>
+    <li>\(x_i\) are the tested points, and \(P(x_i)\) their measured powers,</li>
+    <li>each cone is a true statement ("\(P\) is at most this much here"). Where several cones cover one point, the lowest one is the strongest statement, so the envelope takes the minimum.</li>
   </ul></div>
-  <p>These switch points are the slopes of the hull edges in Figure 6. A dominance example from the same table: \([0.778,0.889]\) with \(f=-0.2500\) and \([0.556,0.667]\) with \(f=-0.2561\) have the same size, so their floors always differ by 0.0061, and the second box always wins.</p>
-  <p><b>Do the dominated boxes play no role?</b> They play no role in <em>this</em> iteration's choice, but they matter in four ways:</p>
-  <ol class="steps">
-    <li>They are never discarded. DIRECT has no pruning step, so every box stays in the partition with its sample.</li>
-    <li>They wait in a queue. Once the group winner is split, its pieces move to a smaller size, and the next best box of that size can win, for example \([0.778,0.889]\).</li>
-    <li>Their samples count towards \(f_{\min}\).</li>
-    <li>Keeping them is what makes DIRECT globally convergent (section 9): no region is dropped for good.</li>
+  <p>Between two neighbouring tests \(a\) and \(b\), the rising cone of \(a\) meets the falling cone of \(b\). There the envelope forms a tooth, with its tip at</p>
+  <div class="eq">\[ \hat x=\frac{x_a+x_b}{2}+\frac{P_b-P_a}{2K},\qquad \hat U=\frac{P_a+P_b}{2}+\frac{K\,(x_b-x_a)}{2} \]</div>
+  <div class="where"><ul>
+    <li>\(\hat U\) is the highest power that the gap between \(a\) and \(b\) can hide, and \(\hat x\) is where it could be.</li>
+  </ul></div>
+  <p>The search of Piyavskii [3] and Shubert [4] repeats four steps:</p>
+  <ol>
+    <li>Test both ends of the range.</li>
+    <li>Calculate the tooth tip \((\hat x,\hat U)\) of every gap.</li>
+    <li>Test at the highest tip. The test either finds a high power, or it pulls the envelope down at that place.</li>
+    <li>Stop when the highest tip is not above \((1+\varepsilon)\,P_{\mathrm{best}}\). The stop comes with a proof: \(P^*\le\hat U_{\max}\).</li>
   </ol>
-  <p>Branch-and-bound with a known \(K\) can lock a hopeless room for good (pruning, below). DIRECT has no valid \(K\), so it cannot prove that a box is hopeless. It only moves the box to the back of the queue.</p>
-
-  <h3>From floors to an algorithm: Piyavskii-Shubert and branch-and-bound <span class="ub">Added by user</span></h3>
-  <p class="idea"><b>Core idea</b>With a known \(K\), every sample gives a floor. The floors together form one curve that \(f\) never goes below, and a search can concentrate where that curve is lowest.</p>
-  <p><b>Lower envelope.</b> From each sample \(x_i\), draw the lower half of its hourglass: the two lines that fall with slope \(K\). Each such cone is a true statement, “\(f\) is at least this much here”, and it covers the whole axis. Where several cones cover one point, the highest one is the strongest true statement. The floor is therefore the <span class="kt">pointwise maximum</span> of the cones, called the <span class="kt">lower envelope</span>:</p>
-  <div class="eqm">\[ L(x)=\max_i\big[f(x_i)-K\,|x-x_i|\big]\ \le\ f(x) \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(x_i\) are the sampled points, and \(f(x_i)\) their values,</li>
-    <li>\(f(x_i)-K|x-x_i|\) is the lower half of the hourglass of sample \(i\),</li>
-    <li>\(\max_i\) takes the largest of these values at each \(x\),</li>
-    <li>\(L(x)\) is the lower envelope, a guaranteed floor of \(f\) when \(K\) is valid.</li>
-  </ul></div>
-  <p>Between two neighbouring samples, the cone falling from the left sample meets the cone falling from the right sample. There the envelope forms a downward tooth, with its tip where the two cones cross. The whole envelope looks like a saw blade turned upside down. The Piyavskii-Shubert algorithm [3, 4] samples at the tip of the deepest tooth, the point where \(f\) could be lowest, and then repeats.</p>
-  <p><b>The box-wise floor of DIRECT.</b> DIRECT uses a cheaper and looser floor. Inside hyperrectangle \(i\) it uses only the cone of the box's own center, \(f(c_i)-K|x-c_i|\). This floor jumps at every box boundary, and no bound exists along the jump. DIRECT accepts the looser floor because it needs one score per box, the bottom of its V, \(f(c_i)-K\,d_i\), and the center gives that score at once. DIRECT never builds an envelope. Figure 5 compares the two floors.</p>
+  <p>This is <b>best-first</b> search: always test where the bound is highest, and stop when no bound beats the best. <span class="tagc">Idea C has the same loop.</span> It replaces the cone \(P(x_i)+K|x-x_i|\) by the measured ceiling of part 2, which needs no \(K\).</p>
 </section>
+<div class="fig figc">
+  <canvas id="cS" style="height:320px" aria-label="Piyavskii-Shubert search on the test curve with the upper envelope and its tooth tips"></canvas>
+  <div class="ctrl">
+    <button id="sS" type="button">Step</button><button id="rS" type="button">Run</button><button id="zS" type="button">Reset</button>
+    <label for="kS">K <input id="kS" type="range" min="1" max="14" step="0.1" value="7"></label>
+  </div>
+  <div class="stats" id="vS"></div>
+  <p class="cap"><b>Figure 7.</b> The Piyavskii-Shubert search on the test curve, with \(\varepsilon=0.02\). Dashed line: the upper envelope \(U(x)\). <span class="key-dot" style="background:var(--muted)"></span>Small marks: the tooth tips. <span class="key-dot" style="background:var(--sel)"></span>The highest tip, which the next step tests. <span class="key-dot" style="background:var(--pt)"></span>Tests, numbered in order. Press <b>Step</b> to see each test pull the envelope down. Lower \(K\) below the true constant (about 5.9) and the curve rises above the envelope (magenta): the bound is then false, and the search can stop on the wrong peak.</p>
+</div>
 
-<div class="fig">
-  <canvas id="cE" style="height:330px" aria-label="DIRECT box-wise floor compared with the Piyavskii-Shubert lower envelope"></canvas>
+<section class="col">
+  <h3>4.4 The envelope, the box ceiling, and the certificate</h3>
+  <p>DIRECT uses a cheaper and looser ceiling than the envelope. Inside each box it uses only the cone of the box's own centre, \(P(c_i)+K|x-c_i|\). This ceiling jumps at every box boundary. DIRECT accepts the looser ceiling because it needs only one score per box, the top of its V, \(P(c_i)+K\,d_i\). Figure 8 shows both ceilings on the same tests. Choose one at a time to see each alone.</p>
+</section>
+<div class="fig figc">
+  <canvas id="cE" style="height:320px" aria-label="DIRECT box-wise ceiling compared with the Piyavskii-Shubert upper envelope"></canvas>
   <div class="ctrl">
     <label for="ek">K <input id="ek" type="range" min="0.2" max="10" step="0.05" value="2.3"></label>
-    <label for="em">Show <select id="em"><option value="both">both floors</option><option value="box">box-wise floor (DIRECT)</option><option value="env">Piyavskii-Shubert envelope</option></select></label>
+    <label for="em">Show <select id="em"><option value="both">both ceilings</option><option value="box">box-wise ceiling (DIRECT)</option><option value="env">upper envelope (Piyavskii-Shubert)</option></select></label>
   </div>
   <div class="stats" id="ev"></div>
-  <p class="cap"><b>Figure 5.</b> <span class="ub">Added by user</span> The samples are the box centers after three DIRECT iterations, as in Figure 4. One \(K\) applies to all boxes, as in Figure 4.</p>
-<p class="cap"><b>Legend.</b> <span class="key" style="background:var(--pt)"></span>Box-wise floor: the V of each box, from its own center only. <span class="key" style="background:var(--step)"></span>Step segments at the box boundaries, where the box-wise floor jumps. They follow a sketch by the user and carry no bound. <span class="key" style="background:var(--fg)"></span>Piyavskii-Shubert envelope (dashed): the pointwise maximum of all cones.</p>
-<p class="cap"><b>Example.</b> With \(K=2.3\), the box-wise floor just left of \(x=\tfrac13\) is about \(-0.55\), because it uses the center at \(\tfrac16\). The sample at about 0.389 is only 0.056 away, so the envelope there is near \(-0.30\). Both floors are valid for a valid \(K\), but the box-wise floor is looser. Magenta marks points where the curve falls below a shown floor.</p>
+  <p class="cap"><b>Figure 8.</b> The tests are the box centres of Figure 6. <span class="key-dot" style="background:var(--pt)"></span>Box-wise ceiling: the V of each box, from its own centre only. <span class="key-dot" style="background:var(--step)"></span>The jumps of the box-wise ceiling at the box boundaries, where it gives no bound. <span class="key-dot" style="background:var(--fg)"></span>Upper envelope (dashed): the minimum of all cones. Both ceilings are valid for a valid \(K\), but the envelope is tighter, because it uses every test. Magenta marks points where the curve rises above a shown ceiling.</p>
 </div>
-
 <section class="col">
-  <p><span class="kt">Branch-and-bound</span>. The general scheme behind these methods has four steps [5]:</p>
-  <ol class="steps">
-    <li><b>Branch:</b> split the search space into cells.</li>
-    <li><b>Bound:</b> compute a floor for each cell, here \(f(c_i)-K\,d_i\).</li>
-    <li><b>Select and refine:</b> split the cell with the lowest floor, the cell where the best value could hide.</li>
-    <li><b>Prune:</b> discard for good every cell whose floor is above \(f_{\min}\). No point of such a cell can beat the best value already found. This step is called <span class="kt">pruning</span>.</li>
-  </ol>
-  <div class="note"><span class="lab">Analogy</span>
-    <p>You search a building for its lowest point. Each room carries a sign: “nothing in here is lower than X”. You open the room with the lowest sign first. Once you have found a spot at height 3, you lock every room whose sign shows more than 3, without entering it.</p>
-  </div>
-  <p><b>Finite convergence with a certificate.</b> With a valid \(K\), the true minimum is always trapped between two known numbers:</p>
-  <div class="eqm">\[ \min_i\big[f(c_i)-K\,d_i\big]\ \le\ f^*\ \le\ f_{\min} \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>the <b>left side</b> is the lowest floor over all cells, a valid lower bound because \(K\) is valid,</li>
-    <li>\(f^*\) is the global minimum,</li>
-    <li>\(f_{\min}\) is the best sampled value, an upper bound on \(f^*\),</li>
-    <li>the difference between the outer terms is the <span class="kt">optimality gap</span>.</li>
+  <p>The searches of this section are forms of <b>branch-and-bound</b>: split the range into cells, bound each cell, refine the cell with the highest bound, and drop for good every cell whose bound is below the best value found. It is like a search of a building for its highest point, where each room carries a sign that says "nothing in here is higher than X". You open the room with the highest sign first, and you lock every room whose sign is below the best height already found. With a valid bound, the true maximum is always trapped between two known numbers:</p>
+  <div class="eq">\[ P_{\mathrm{best}}\ \le\ P^*\ \le\ \max_{\text{cells}}\ \text{ceiling} \]</div>
+  <div class="where"><ul>
+    <li>the difference of the outer terms is the <b>optimality gap</b>. A proven gap is a <b>certificate</b>: a bound on what the search can have missed.</li>
   </ul></div>
-  <p>The gap is a <span class="kt">certificate</span>, a proven bound on the error. Each split shrinks a cell by a factor of 3 along its divided sides, so \(K\,d_i\to0\) and the floors rise towards the sampled values. Choose a tolerance \(\tau\). Once the gap is below \(\tau\), the method stops with a guarantee. With a valid \(K\), this takes a finite number of iterations [2].</p>
-  <p><b>What DIRECT gives up.</b> Without a known \(K\), there are no valid floors, no gap and no certificate. This is why DIRECT stops on a budget (section 6).</p>
 
-  <div class="note"><span class="lab">Analogy</span>
-    <p>Slew rate is a Lipschitz constant in time. If an amplifier output cannot change faster than SR volts per microsecond, a sample of \(V\) at time \(t\) bounds the output within \(V\pm\text{SR}\cdot\Delta t\) for the next \(\Delta t\) microseconds. This is the hourglass of Figure 3, with time on the horizontal axis.</p>
-    <p><span class="ub">Added by user</span> The analogy also maps onto the methods. Classical Lipschitz optimization is like knowing the datasheet slew rate and using it to bound the output between samples. DIRECT is like knowing that the amplifier has some slew limit, but not the figure. Instead of guessing one value, DIRECT keeps every box that would matter for some value of SR.</p>
-  </div>
-  <h3>The limitation: K is unknown</h3>
-  <p>For a black-box function, \(K\) is not available. A valid value must bound the steepest slope anywhere in \(\Omega\), so it is usually large.</p>
-<p>For the test function of Figure 4 the estimated Lipschitz constant is about 6, set by the steep knees of the curve. Set the slider to 6 and the largest interval wins.</p>
-<p>An overestimate makes the method spend most evaluations on exploration and converge slowly. An underestimate gives invalid bounds that can discard the cell holding \(x^*\).</p>
-  <p>Hansen, Jaumard and Lu use estimates of \(K\) that vary across the domain [7]. Sergeyev and Kvasov combine local and global estimates with a reliability parameter \(r>1\) [8]. These methods perform well, but their speed and correctness depend on the choice of \(r\) [2].</p>
-  <p><span class="ub">Added by user</span> In these methods the constant differs from region to region. DIRECT assigns no box a \(K\) of its own. Every trial \(K\) applies to all boxes at once. What differs per box is the range of \(K\), from \(K_1\) to \(K_2\), over which it has the lowest floor. In the selection diagram of section 4 (Figure 6), \(K_1\) and \(K_2\) are the slopes of the hull edges on either side of the box's point.</p>
+  <h3>4.5 The catch: K is not known</h3>
+  <ul>
+    <li><b>A \(K\) that is too small gives a false bound</b> (magenta in Figures 5 to 8), and the search can stop on the wrong peak with a false certificate.</li>
+    <li><b>A \(K\) that is too large gives a true but loose bound,</b> and the search makes many tests.</li>
+    <li><b>The LIPO tracker</b> uses Piyavskii-Shubert in duty with \(k=1500\), a value tuned in simulation for one plant [10].</li>
+  </ul>
+  <div class="key"><span class="lab">For Idea C</span><p>There are two ways out. DIRECT accepts every \(K\) at once (section 5), so it can never drop a region and never prove a stop. Idea C measures its bound instead of assuming one: two tests and the monotone current give a ceiling that is true without any \(K\) (part 2, section 1). It keeps the best-first loop and the certificate of Piyavskii-Shubert.</p></div>
 </section>
 
 <section class="col">
-  <h2><span class="n">4 · [2, §2.1, Eqs. 3-4, Figs. 6-7]</span>Potentially optimal hyperrectangles</h2>
-  <p class="idea"><b>Core idea</b>DIRECT removes the need for \(K\). In each iteration it selects every hyperrectangle that would have the lowest floor for <em>at least one</em> value of \(K>0\), provided that floor promises a real improvement.</p>
-  <h3>The idea in five plain steps</h3>
-  <ol class="steps">
-    <li><b>Score.</b> For a chosen \(K\), each box gets the score \(f(c_i)-K\,d_i\), its floor. A lower score means a more promising box.</li>
-    <li><b>The ranking depends on \(K\).</b> With a small \(K\) the size barely counts, so the box with the best center value comes first (local search). With a large \(K\) the size dominates, so the biggest box comes first (global search).</li>
-    <li><b>\(K\) is unknown, so DIRECT ranks the boxes for every \(K\)</b>, and keeps each box that comes first at least once. <span class="kt">Potentially optimal</span> means exactly this: the box could be the best one to split, if \(K\) happened to have the right value.</li>
-    <li><b>Same-size boxes compete only on their center value</b>, so at most one box per size is in the running (dominance, section 3).</li>
-    <li><b>A sanity filter.</b> A winner must promise a real improvement over the best value so far, \(f_{\min}\). Otherwise it is skipped. This mostly removes tiny boxes next to the best point. The filter is \(\varepsilon\), explained below.</li>
+  <h2><span class="n">5</span>DIRECT: how the baseline works</h2>
+  <p class="src">Sources: the DIRECT method of Jones, Perttunen and Stuckman [1], reviewed by Jones and Martins [2], in the MPPT form of Nguyen and Low [5].</p>
+  <ol>
+    <li><b>First samples</b> at the centre of the duty range and at one sixth of the range from each end.</li>
+    <li><b>Shading test</b> (Eqs. (19) and (20) of [5]) on these three samples: uniform light or partial shading.</li>
+    <li><b>Global stage.</b> Divide the largest potentially optimal interval into three equal parts, and sample the centres of the two outer parts. Skip rules remove some samples near the ends of the range.</li>
+    <li><b>Local stage.</b> Divide the interval of the best sample until its length is 0.0025 or less.</li>
+    <li><b>Hand-over</b> to the local tracker at the duty of the best sample.</li>
   </ol>
-  <p>In the table of Figure 4, the three winners are the potentially optimal set, and DIRECT splits all three. The other six boxes can never rank first for any \(K\).</p>
-  <div class="note"><span class="lab">Analogy</span>
-    <p>An interview shortlist when the weighting is unknown. Each candidate has a test score (the center value) and untested potential (the size of the box). If you do not know how much to weight potential against score, you interview everyone who would rank first under <em>some</em> weighting. A candidate who ranks first under no weighting cannot be the best hire, so you skip them for now.</p>
-  </div>
-  <h3>Formal definition</h3>
-  <p>Let the partition contain \(m\) hyperrectangles and let \(f_{\min}\) be the best value found so far. Hyperrectangle \(j\) is potentially optimal if some \(K>0\) exists such that</p>
-  <div class="eqm">\[ f(c_j)-K\,d_j\ \le\ f(c_i)-K\,d_i,\qquad i=1,\dots,m \tag{3} \]
-  \[ f(c_j)-K\,d_j\ \le\ f_{\min}-\varepsilon\,|f_{\min}| \tag{4} \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(j\) is the hyperrectangle under test, and \(i\) runs over all \(m\) hyperrectangles of the partition,</li>
-    <li>\(m\) is the number of hyperrectangles. Each evaluation creates exactly one, so \(m\) also equals the number of evaluations,</li>
-    <li>\(K\) is a trial value of the Lipschitz constant, not a known one, and the same trial value applies to every box,</li>
-    <li>\(f_{\min}\) is the lowest objective value sampled so far,</li>
-    <li>\(\varepsilon\) is the desired relative accuracy, so \(\varepsilon|f_{\min}|\) is the smallest improvement that counts.</li>
+  <p>An interval \(j\) is <b>potentially optimal</b> if a constant \(K\gt0\) exists such that</p>
+  <div class="eq">\[ P_j+K\,d_j\ \ge\ P_i+K\,d_i\ \ \text{for every interval } i, \qquad P_j+K\,d_j\ \ge\ (1+\varepsilon)\,P_{\max} \]</div>
+  <div class="where"><ul>
+    <li>\(P_j\) is the power at the centre of interval \(j\), and \(d_j\) is half its length,</li>
+    <li>\(P_{\max}\) is the best power so far, and \(\varepsilon=0.03\) in [5].</li>
   </ul></div>
-  <p>Condition (3) states that \(j\) has the lowest floor for this \(K\). Condition (4) states that this floor improves on \(f_{\min}\) by at least the fraction \(\varepsilon\). The paper suggests \(\varepsilon\) equal to the desired relative accuracy, for example \(10^{-4}\).</p>
-
-  <h3>What ε does <span class="ub">Added by user</span></h3>
-  <p>\(\varepsilon\) is DIRECT's only hyperparameter. It sets the smallest improvement worth chasing, as a fraction of the best value so far. In words, condition (4) says: a box that wins for some \(K\) is split only if its floor promises a gain of at least \(\varepsilon|f_{\min}|\) over \(f_{\min}\), even under the most favourable \(K\) for that box, which is the largest \(K\) for which it wins, \(K_2\).</p>
-  <p><b>Worked example.</b> In the 1-D demo, \(f_{\min}\approx-0.2964\). With \(\varepsilon=10^{-4}\), the smallest gain that counts is \(0.2964\times10^{-4}\approx0.00003\), so a box needs a floor of about \(-0.29643\) or lower. In words, gains below 0.01% are not chased.</p>
-  <p><b>Which boxes it removes.</b> Mostly the tiniest boxes next to the best point. A small box at \(f_{\min}\) has a floor only a little below \(f_{\min}\), because \(K\,d\) is small, so it fails the test. Big boxes have deep floors and pass easily. That is why the dashed line in Figure 6 cuts only the left end of the hull.</p>
-  <div class="tw"><table class="tt">
-    <tr><th>\(\varepsilon\) on the Shubert function [2, §2.3.2]</th><th>Evaluations to reach 0.01% accuracy</th></tr>
-    <tr><td>0 (no filter)</td><td>more than 10,000</td></tr>
-    <tr><td>\(10^{-7}\)</td><td>5,713</td></tr>
-    <tr><td>\(10^{-4}\)</td><td>2,933</td></tr>
-  </table></div>
-  <p><b>Drawbacks.</b> Once DIRECT is in the right valley, \(\varepsilon\) also slows the final digits of refinement there. The margin also scales with \(|f_{\min}|\): it almost vanishes when \(f_{\min}\approx0\), and it changes when a constant is added to \(f\). The fix of Finkel and Kelley is in section 11.</p>
-  <div class="note app"><span class="lab">Application note: MPPT</span>
-    <p>With \(f=-P\), the margin is \(\varepsilon\) times the best power found. With a best power of 3,000 W and \(\varepsilon=10^{-4}\), a box must promise at least 0.3 W more to be worth a settling period.</p>
-  </div>
-  <p>Do not confuse this \(\varepsilon\) with the tolerance \(\tau\) (how close \(f_{\min}\) is to \(f^*\)) or with the \(\varepsilon\) of \(\varepsilon\)-greedy exploration (glossary).</p>
-
-  <h3>Geometric interpretation: the selection diagram</h3>
-  <p>Represent each hyperrectangle as a point \((d_i,\,f(c_i))\). This plot is the <span class="kt">selection diagram</span>. For fixed \(K\), the points with equal floor \(f-K\,d\) lie on a line of slope \(K\). Move this line up from below the point cloud. The first point it touches has the lowest floor for that \(K\). As \(K\) runs from 0 to \(\infty\), the touched points trace the <span class="kt">lower-right convex hull</span> of the cloud. These points satisfy condition (3).</p>
-  <p>Condition (4) removes the smallest hull points. Anchor a line at \((0,\ f_{\min}-\varepsilon|f_{\min}|)\) and rotate it upwards until it touches a point. That point minimizes \((f_i-f_{\min}+\varepsilon|f_{\min}|)/d_i\), and hull points smaller than it are not selected. The selection procedure is therefore: find this smallest selectable point, then follow the lower-right hull upwards. The Jarvis march computes the hull efficiently [9].</p>
-  <p><span class="ub">Added by user</span> The sweep of the Figure 4 slider and the rotating line of Figure 6 are the same operation seen in two plots. Figure 4 asks “which box wins at this \(K\)?” one \(K\) at a time, along the \(x\)-axis. Figure 6 shows the answer for all \(K\) at once, in the \((d,f)\) plane.</p>
+  <p>The first condition says that interval \(j\) has the highest box ceiling for some \(K\): it is one of the boxes that the sweep of Figure 6 ticks. For a large \(K\), the widest interval always qualifies, so DIRECT never discards a region. On this plant, DIRECT takes 11 to 15 tests on the nine patterns, and it stops on a fixed budget.</p>
 </section>
 
-<div class="fig">
-  <canvas id="c4" style="height:340px" aria-label="Selection diagram with a sweeping line of slope K"></canvas>
+<section class="col">
+  <h2><span class="n">6</span>Idea C on the test curve</h2>
+  <p>Figure 9 runs Idea C on the test curve of Figure 3, in normalized voltage. It tests both ends and the middle. Then it tests the corner of the open gap with the highest measured ceiling, \(v_{\mathrm{high}}\,I(v_{\mathrm{low}})\): the higher voltage of the two tests times the higher current. It stops when no gap is open. Compare it with Figure 7: the loop is the same as Piyavskii-Shubert, with no \(K\).</p>
+</section>
+<div class="fig figc">
+  <canvas id="c7" style="height:340px" aria-label="Idea C on the test curve: tests, gap ceilings and the open limit"></canvas>
   <div class="ctrl">
-    <button id="p4" type="button">Pause</button>
-    <label for="a4">Line angle <input id="a4" type="range" min="0" max="88" step="0.5" value="10"></label>
-    <label for="e4">ε <select id="e4"><option value="0.0001">10⁻⁴</option><option value="0.1">0.1</option><option value="0.3">0.3</option></select></label>
-    <span class="stats" id="a4v"></span>
-  </div>
-  <p class="cap"><b>Figure 6.</b> The selection diagram after five iterations, after [2, Figs. 6-7]. <span class="key" style="background:var(--pt)"></span>Hyperrectangles. <span class="key" style="background:var(--sel)"></span>Potentially optimal hyperrectangles, joined by the lower-right hull. The solid line has slope \(K\), and the ring marks the point it touches first. The dashed line is condition (4), anchored at \(f_{\min}-\varepsilon|f_{\min}|\). With \(\varepsilon=0.1\), the smaller hull point is no longer selected.</p>
-  <p class="cap"><span class="ub">Added by user</span> <b>How to read it.</b> Each dot is one box: further right means a bigger box (more unexplored room), lower means a better center value. The promising boxes sit low or far right, on the bottom-right edge of the cloud.</p>
-<p class="cap">Every point on the solid line has the same floor \(f-K\,d\), and that floor is where the line crosses the left axis \((d=0)\). Sliding the line up from below finds the lowest floor for that \(K\), the same box that Figure 4 highlights at that \(K\).</p>
-<p class="cap">Turning the line from flat to steep is the same as moving the Figure 4 slider from 0 upwards: a flat line touches the lowest dot (local search), and a steep line touches the rightmost dot (global search).</p>
-<p class="cap">Dots of one size line up in a vertical column, and only the bottom dot of a column can be touched. The dashed line is the \(\varepsilon\) filter: boxes left of the dot it touches are skipped.</p>
-</div>
-
-<section class="col">
-  <p>Three properties follow from the diagram:</p>
-  <ul>
-    <li>As \(K\to0\), the selection is the point with the lowest \(f(c_i)\), the most exploitative choice.</li>
-    <li>As \(K\to\infty\), the selection is the largest hyperrectangle with the best center value among the largest, the most exploratory choice.</li>
-    <li>Hyperrectangles of equal size form vertical columns. Only the lowest point of a column can be selected.</li>
-  </ul>
-  <p>Each iteration therefore spans the whole range from exploitation to exploration. DIRECT has no <span class="kt">hyperparameter</span> that sets this balance. Its only hyperparameter, \(\varepsilon\), prevents excessive local refinement [2, §2.2].</p>
-  <p>The hull points are a subset of the <span class="kt">non-dominated</span> (Pareto-optimal) points of the trade-off between size and center value [2, §2.3.2]. Some non-dominated points that lie inside the hull are not selected. Several later variants of DIRECT select them as well.</p>
-  <div class="note"><span class="lab">Analogy</span>
-    <p>Compare the lower confidence bound (LCB) rule of bandit algorithms and Bayesian optimization. LCB selects the option with the lowest value of (mean estimate \(-\ \kappa\cdot\) uncertainty), where the mean estimate is the predicted objective value of an option, the uncertainty is the spread of that prediction, and \(\kappa\) is a user-chosen weight on uncertainty.</p>
-<p>The floor \(f(c_i)-K\,d_i\) has the same form, with cell size as the uncertainty.</p>
-<p>DIRECT does not choose \(\kappa\). It selects every option that is optimal for some \(\kappa\), much as an investor who does not know their own risk preference holds every portfolio on the efficient frontier.</p>
-  </div>
-
-  <h3>Why the Lipschitz picture still matters <span class="ub">Added by user</span></h3>
-  <p class="idea"><b>Core idea</b>DIRECT drops only the <em>value</em> of \(K\), not the Lipschitz idea. Its whole selection rule is built on the Lipschitz floor.</p>
-  <ul>
-    <li>Condition (3) compares exactly the floor \(f(c_i)-K\,d_i\) of section 3.</li>
-    <li>DIRECT assumes that \(f\) has <em>some</em> finite Lipschitz constant. Only the number is unknown, like an amplifier with an unknown slew rate.</li>
-    <li>The convergence argument of section 9 uses the \(K\to\infty\) end of the sweep.</li>
-  </ul>
-  <p><b>The guarantee.</b> Let \(K^*\) be the true Lipschitz constant. Lipschitzian branch-and-bound with \(K^*\) would split the box with the lowest floor at \(K^*\). That box satisfies condition (3) for \(K=K^*\), so DIRECT selects it too, unless condition (4) removes it.</p>
-<p>Condition (4) removes it only if even this lowest valid floor lies above \(f_{\min}-\varepsilon|f_{\min}|\). In that case \(f^*\) itself lies above that value, so \(f_{\min}\) is already within the relative accuracy \(\varepsilon\) of \(f^*\).</p>
-<p>DIRECT therefore always makes the choice that a method knowing \(K^*\) would make, while that choice still matters. The price is that it also splits the winners for every other \(K\), which is the global drag of section 11.</p>
-  <p><b>What it loses</b> is the certificate of section 3, the gap between the lowest valid floor and \(f_{\min}\). This is why DIRECT stops on a budget.</p>
-  <div class="note app"><span class="lab">Application note: from Lipschitz to Ideas B and C</span>
-    <div class="tw"><table class="tt">
-      <tr><th>Method</th><th>What it knows</th><th>What it gets</th></tr>
-      <tr><td>Classical Lipschitz optimization</td><td>a valid \(K\)</td><td>valid floors and a certificate</td></tr>
-      <tr><td>DIRECT</td><td>only that some \(K\) exists</td><td>a sweep over all \(K\), no certificate, budget stop</td></tr>
-      <tr><td>Ideas B and C</td><td>a physical bound from the array: the measured current caps the power over part of the curve</td><td>a valid ceiling on part of the curve, which restores a stopping test</td></tr>
-    </table></div>
-  </div>
-
-  <h3>DIRECT builds no model of f <span class="ub">Added by user</span></h3>
-  <p class="idea"><b>Core idea</b>In practice DIRECT never fits a curve, never interpolates and never predicts values between samples. Each decision uses two numbers per hyperrectangle: the value at its center and its size.</p>
-  <p>The floor \(f(c_i)-K\,d_i\), taken over all \(K\), takes the place of a model. The curves in the figures of these notes come from the known test functions and are drawn for the reader. DIRECT sees only the dots. Likewise, the saw-tooth envelope of Figure 5 is a guaranteed floor, not an estimate of \(f\).</p>
-  <p>Model-based methods take the opposite approach. They fit a <span class="kt">surrogate model</span> to the samples and choose the next point from the model:</p>
-  <ul>
-    <li>quadratic interpolation models inside a <span class="kt">trust region</span>, as in Powell's derivative-free methods [15],</li>
-    <li><span class="kt">radial basis function</span> (RBF) surrogates,</li>
-    <li><span class="kt">Gaussian process</span> regression, also called kriging, in <span class="kt">Bayesian optimization</span>. The model gives a predicted value between samples and an uncertainty that grows with the distance from the nearest sample. The best-known method of this type is EGO (Efficient Global Optimization) by Jones, Schonlau and Welch [14], the same Jones who introduced DIRECT.</li>
-  </ul>
-  <p>Surrogates do not escape the result of section 2. A Gaussian process assumes a smoothness that its kernel sets, which is an assumption about \(f\) much like a Lipschitz bound. A dip narrower than that smoothness is interpolated over and missed.</p>
-  <p>Having no model gives DIRECT two advantages. There is no model to choose or to get wrong: no kernel, no smoothness level and no model order. There is also no fitting cost, while a Gaussian process fit costs of order \(N^3\) operations for \(N\) samples. The price is the weakness of [2, §2.3.3] (section 11 here): without a model, DIRECT cannot see trends such as linearity, monotonicity or a variable that has no effect.</p>
-  <div class="note app"><span class="lab">Application note: MPPT</span>
-    <p>The controller holds only samples of duty cycle and power. Nothing reconstructs the P-V curve between them.</p>
-  </div>
-</section>
-
-<section class="col">
-  <h2><span class="n">5 · [2, §2.1, Algorithm 1, Figs. 2-4]</span>Division of a hyperrectangle</h2>
-  <p class="idea"><b>Core idea</b>Every hyperrectangle has exactly one evaluated point, at its center. DIRECT divides a selected hyperrectangle into thirds, so that the old center stays the center of the middle part, and each division along one dimension costs only two new evaluations.</p>
-  <h3>Trisection in one dimension</h3>
-  <p>A bisection would place the old center on the new boundary, and its value would no longer represent a cell. <span class="kt">Trisection</span> keeps it at the center of the middle third and adds the centers of the two outer thirds.</p>
-  <h3>How the Figure 4 partition was built <span class="ub">Added by user</span></h3>
-  <p>The 1-D rule has three steps: cut the selected interval into thirds, reuse the old center as the center of the middle third, and evaluate the two outer centers. Each split costs two evaluations and divides the length by 3, so lengths run \(1,\tfrac13,\tfrac19,\dots\) and sizes \(d\) run \(0.5,\ 0.1667,\ 0.0556,\ 0.0185,\dots\) Figure 7 and the table below replay the first three iterations of the 1-D demo.</p>
-</section>
-
-<div class="fig">
-  <canvas id="cT" style="height:260px" aria-label="Partition of the interval after each of the first three iterations"></canvas>
-  <div class="tw"><table class="tt" id="tT"></table></div>
-  <p class="cap"><b>Figure 7.</b> <span class="ub">Added by user</span> The partition of \([0,1]\) after each iteration, from the start (top) to iteration 3 (bottom). Dots are box centers. <span class="key" style="background:var(--sel)"></span>Amber cells are the boxes selected for the next split. In iteration 2 all three boxes have equal size, so only the best center can win (dominance). The table is computed by the same engine as the figures.</p>
-</div>
-
-<section class="col">
-  <h3>Division in n dimensions <span class="nd">n-D background</span></h3>
-  <p>Let \(M\) be the set of dimensions with the maximum side length, and let \(\delta\) be one third of that length. DIRECT evaluates \(c\pm\delta e_k\) for every \(k\in M\). For each dimension it records the better of the two values:</p>
-  <div class="eqm">\[ w_k=\min\{\,f(c+\delta e_k),\ f(c-\delta e_k)\,\} \tag{1} \]</div>
-  <div class="where"><span>where</span><ul>
-    <li>\(c\) is the center of the hyperrectangle being divided,</li>
-    <li>\(M\) is the set of its longest dimensions, and \(k\in M\) is one of them,</li>
-    <li>\(\delta\) is one third of the longest side length,</li>
-    <li>\(e_k\) is the unit vector along dimension \(k\), so \(c\pm\delta e_k\) are the two points one third of a side away from \(c\), on either side,</li>
-    <li>\(w_k\) is the better (lower) of the two values sampled along dimension \(k\).</li>
-  </ul></div>
-  <p>The rule in four steps:</p>
-  <ol class="steps">
-    <li>Find the longest sides of the box. After normalization they start equal.</li>
-    <li>Sample \(\pm\delta\) along every longest side.</li>
-    <li>For each side, keep the better of its two values, \(w_k\).</li>
-    <li>Cut first along the side with the smallest \(w_k\), then cut the middle piece along the next side, in ascending order of \(w_k\).</li>
-  </ol>
-  <p>The first cut produces the largest new cells, so the best new values become centers of the largest cells. Section 4 favours large cells, so this rule biases the search towards good values. In [2] the authors report that this bias speeds up convergence without loss of the global property. Only the longest sides are divided, so all side lengths shrink and the aspect ratio stays bounded.</p>
-</section>
-
-<div class="fig">
-  <svg viewBox="0 0 700 330" role="img" aria-label="A square sampled along both dimensions, then trisected along the horizontal dimension first">
-    <rect class="bg" x="20" y="20" width="260" height="260" rx="2"/>
-    <rect class="bx" x="20" y="20" width="260" height="260"/>
-    <circle class="dt" cx="150" cy="150" r="6"/><text class="tx" x="160" y="145">6</text>
-    <circle class="dt2" cx="63.3" cy="150" r="6"/><text class="tx" x="73" y="145">4</text>
-    <circle class="dt2" cx="236.7" cy="150" r="6"/><text class="tx" x="246" y="145">8</text>
-    <circle class="dt2" cx="150" cy="63.3" r="6"/><text class="tx" x="160" y="58">7</text>
-    <circle class="dt2" cx="150" cy="236.7" r="6"/><text class="tx" x="160" y="231">9</text>
-    <text class="tm" x="150" y="306" text-anchor="middle">Evaluate c ± δe₁ and c ± δe₂</text>
-    <path class="ar" d="M300 150 H392 M382 141 L394 150 L382 159"/>
-    <rect class="bg" x="420" y="20" width="260" height="260" rx="2"/>
-    <rect class="bx" x="420" y="20" width="260" height="260"/>
-    <line class="bx" x1="506.7" y1="20" x2="506.7" y2="280"/><line class="bx" x1="593.3" y1="20" x2="593.3" y2="280"/>
-    <line class="bx" x1="506.7" y1="106.7" x2="593.3" y2="106.7"/><line class="bx" x1="506.7" y1="193.3" x2="593.3" y2="193.3"/>
-    <circle class="dt" cx="550" cy="150" r="6"/><text class="tx" x="560" y="145">6</text>
-    <circle class="dt" cx="463.3" cy="150" r="6"/><text class="tx" x="473" y="145">4</text>
-    <circle class="dt" cx="636.7" cy="150" r="6"/><text class="tx" x="646" y="145">8</text>
-    <circle class="dt" cx="550" cy="63.3" r="6"/><text class="tx" x="560" y="58">7</text>
-    <circle class="dt" cx="550" cy="236.7" r="6"/><text class="tx" x="560" y="231">9</text>
-    <text class="tm" x="550" y="306" text-anchor="middle">Divide along x₁ first (w₁ = 4), then x₂ (w₂ = 7)</text>
-  </svg>
-  <p class="cap"><b>Figure 8.</b> <span class="nd">n-D background</span> Division of the unit square, after [2, Fig. 3], with illustrative values. Here \(w_1=\min(4,8)=4\) and \(w_2=\min(7,9)=7\). Because \(w_1\lt w_2\), DIRECT divides along \(x_1\) first, so the points with values 4 and 8 become centers of the two largest cells. The middle cell is then divided along \(x_2\). Each of the five cells has its evaluated point at its center.</p>
-</div>
-
-<section class="col">
-  <div class="note"><span class="lab">Analogy</span>
-    <p>Compare the bisection method for root finding. Bisection halves the interval because a root needs only a sign change at the end points. DIRECT stores information at the <em>center</em> of each cell, so the division that reuses the stored point is a trisection. The choice of division follows from where the data sit.</p>
-  </div>
-  <div class="note app"><span class="lab">Application note: 1-D is enough for MPPT</span> <span class="ub">Added by user</span>
-    <p>A tracker with one converter has one decision variable, the duty cycle, so DIRECT runs in one dimension. Three things simplify.</p>
-<p>The size \(d\) is half the interval length. The division rule has no choice to make: there is only one side, so the \(w_k\) ordering step disappears and every split is a plain trisection. The curse of dimensionality of [2, §2.3.4] does not apply.</p>
-<p>The parts tagged <span class="nd">n-D background</span> remain useful for reading [2], whose test problems have two or more variables.</p>
-  </div>
-</section>
-
-<section class="col">
-  <h2><span class="n">6 · [2, §2.1, Algorithm 2]</span>The complete algorithm</h2>
-  <p class="idea"><b>Core idea</b>DIRECT alternates two operations until a budget is spent: select all potentially optimal hyperrectangles (section 4), then divide each of them (section 5).</p>
-  <ol class="steps">
-    <li>Normalize the search space to the unit hypercube. Evaluate \(f(c_1)\) at its center. Set \(f_{\min}=f(c_1)\), the evaluation counter \(m=1\) and the iteration counter \(t=0\).</li>
-    <li>Identify the set \(S\) of potentially optimal hyperrectangles.</li>
-    <li>For each \(j\in S\), sample and divide \(j\) with Algorithm 1. Update \(f_{\min}\) and \(m\).</li>
-    <li>Set \(t=t+1\). If \(t=T\) (or \(m\) reaches the evaluation budget), stop. Otherwise go to step 2.</li>
-  </ol>
-  <div class="where" style="border-radius:6px"><span>where</span><ul>
-    <li>\(c_1\) is the center of the unit hypercube, the point \((0.5,\dots,0.5)\),</li>
-    <li>\(m\) counts the function evaluations, and \(t\) counts the iterations,</li>
-    <li>\(S\) is the set of potentially optimal hyperrectangles of the current iteration,</li>
-    <li>\(T\) is the maximum number of iterations set by the user.</li>
-  </ul></div>
-  <p>The stopping rule is a budget. DIRECT has no test that certifies the global minimum, which is consistent with section 2. The evaluations of one iteration are independent, so they can run in parallel [2, §2.2].</p>
-</section>
-
-<section class="col">
-  <h2><span class="n">7 · Demonstration</span>DIRECT on the one-dimensional test function</h2>
-  <p>Each press of <b>Step</b> executes one iteration of Algorithm 2. The strip under the curve shows the partition, and the highlighted intervals are the set \(S\) of the next iteration. The right panel is the selection diagram of section 4 for the same state.</p>
-</section>
-
-<div class="fig">
-  <div class="two">
-    <canvas id="c7a" style="height:320px" aria-label="One-dimensional DIRECT run: objective, samples and partition"></canvas>
-    <canvas id="c7b" style="height:320px" aria-label="Selection diagram for the current state"></canvas>
-  </div>
-  <div class="ctrl">
-    <button id="s7" type="button">Step</button>
-    <button id="r7" type="button">Run 10 iterations</button>
-    <button id="z7" type="button">Reset</button>
-    <label for="e7">ε <select id="e7"><option value="0">0</option><option value="0.0001" selected>10⁻⁴</option><option value="0.01">0.01</option></select></label>
+    <button id="s7" type="button">Step</button><button id="r7" type="button">Run</button><button id="z7" type="button">Reset</button>
+    <label for="sp7">Split <select id="sp7"><option value="corner" selected>corner (project form)</option><option value="mid">midpoint</option></select></label>
   </div>
   <div class="stats" id="st7"></div>
-  <p class="cap"><b>Figure 9.</b> <span class="key" style="background:var(--pt)"></span>Evaluated points (larger dots: last iteration). <span class="key" style="background:var(--sel)"></span>Potentially optimal intervals.</p>
-<p class="cap"><b>What happens.</b> For three iterations \(f_{\min}\) lies in the basin of the right-hand local minimizer (\(f\approx-0.27\)). In iteration 4 a large interval on the left is selected through the exploratory end of the hull, and \(f_{\min}\) moves to the basin of \(x^*\) (\(f\approx-0.28\), then \(-0.295\)). Later iterations still divide large intervals elsewhere, which is the global drag of section 11.</p>
-<p class="cap"><span class="ub">Added by user</span> The strip under the curve is the whole partition: each cell is one interval (a 1-D hyperrectangle), and the ticks are its boundaries.</p>
-<p class="cap">The amber cells are the potentially optimal intervals, the set \(S\) that the next Step will split. They are the same boxes as the amber dots in the right panel, and “|S| next” counts them.</p>
-<p class="cap">The curve comes from the known test function and is drawn for reference. DIRECT sees only the dots.</p>
+  <p class="cap"><b>Figure 9.</b> Idea C with \(\varepsilon_c=0.02\) and a smallest gap of 0.02. Each horizontal bar is the measured ceiling of one gap: <span class="key-dot" style="background:var(--sel)"></span>open and highest (tested next), <span class="key-dot" style="background:var(--pt)"></span>open, <span class="key-dot" style="background:var(--ok)"></span>closed by the ceiling, <span class="key-dot" style="background:var(--muted)"></span>narrower than the smallest gap. Dashed line: the open limit \(1.02\,P_{\mathrm{best}}\). The strip under the plot shows the gaps. The search sees only the numbered tests.</p>
 </div>
-
 <section class="col">
-  <h3>How fast does it find the minimum? <span class="ub">Added by user</span></h3>
-  <p>The table is computed by the page's engine on the test function. It gives the first iteration at which \(f_{\min}\) is within a given relative error of \(f^*\). The stats line under Figure 9 shows the same milestones live.</p>
-  <div class="tw"><table class="tt" id="tF"></table></div>
-  <ol class="steps">
-    <li><b>Count evaluations, not iterations.</b> One iteration splits several boxes, at two evaluations each. For MPPT, one evaluation is one settling period.</li>
-    <li><b>DIRECT does not know it has found the minimum.</b> It has no certificate, so it keeps splitting boxes all over the axis. This is the dense sampling of section 9 and the global drag of section 11. A real controller must stop on a budget.</li>
-    <li><b>\(\varepsilon\) in action.</b> Both settings find the minimum at about the same time, but a larger \(\varepsilon\) wastes fewer evaluations polishing it (see the last column).</li>
-  </ol>
-  <p>This test curve is easy: one variable and three valleys. The examples in [2] need hundreds to thousands of evaluations.</p>
-</section>
-
-<section class="col">
-  <h2><span class="n">8 · Demonstration · [2, §2.2, Fig. 8]</span>DIRECT on a two-dimensional test function <span class="nd">n-D background</span></h2>
-  <p>The same implementation now partitions the unit square. The surface shows \(-f\), so the four local minima of \(f\) appear as peaks. The floor shows the partition, and the amber outlines are the potentially optimal hyperrectangles of the next iteration. Drag to rotate.</p>
-</section>
-
-<div class="fig">
-  <div id="t3d" aria-label="Three-dimensional view of DIRECT partitioning the unit square under a surface with four peaks"></div>
-  <div class="ctrl">
-    <button id="p8" type="button">Pause</button>
-    <button id="s8" type="button">Step</button>
-    <button id="z8" type="button">Restart</button>
-  </div>
-  <div class="stats" id="st8"></div>
-  <p class="cap"><b>Figure 10.</b> The cells become small near the minimizers and stay large in flat regions. Jones and Martins show the same clustering on the Branin and six-hump camel functions [2, Fig. 8], and Ljungberg et al. report it in a genetics application [10]. The clusters identify good starting points for a local optimizer.</p>
-</div>
-
-<section class="col">
-  <h2><span class="n">9 · [2, §2.1]</span>Convergence: everywhere-dense sampling</h2>
-  <p class="idea"><b>Core idea</b>In every iteration DIRECT divides one of the largest hyperrectangles. The largest cell size therefore tends to zero, the samples become dense in \(\Omega\), and \(f_{\min}\) converges to \(f^*\) if \(f\) is continuous near \(x^*\).</p>
-  <p>The argument has three steps.</p>
-<p>First, the largest hyperrectangle with the best center value among the largest is always potentially optimal: for \(K\) large enough it satisfies (3), and its floor \(f-K\,d\) falls below the threshold of (4).</p>
-<p>Second, because it is divided in every iteration, and there are finitely many cells of each size, the maximum size tends to zero.</p>
-<p>Third, for any \(x\in\Omega\) and any \(\delta>0\), DIRECT eventually samples a point within \(\delta\) of \(x\). Continuity of \(f\) at \(x^*\) then gives convergence of \(f_{\min}\) to \(f^*\).</p>
-  <p>Section 2 shows that this is the best possible guarantee for a continuous black box. Convergence to the global minimizer <em>only</em>, without dense sampling, needs extra knowledge about \(f\): a bound on its first or second derivatives, or a known functional form that allows lower bounds over subregions, for example through <span class="kt">interval analysis</span> [2].</p>
-  <div class="note"><span class="lab">Analogy</span>
-    <p>Mesh refinement in finite-element analysis has the same structure. Adaptive refinement concentrates elements where the error indicator is large, but a scheme that also refines the coarsest element from time to time cannot leave any region permanently unresolved.</p>
-  </div>
-</section>
-
-<section class="col">
-  <h2><span class="n">10 · [2, §2.2]</span>Strengths</h2>
+  <p>The table compares the searches on this curve. The page calculates it from the same code as the figures. It counts tests, because each test costs one settling period.</p>
+  <div class="tw"><table id="tF" class="dt"></table></div>
   <ul>
-    <li><b>Black-box.</b> DIRECT needs only function values, with no gradients and no Lipschitz constant.</li>
-    <li><b>Global convergence</b> for continuous functions, in the everywhere-dense sense of section 9 [1].</li>
-    <li><b>Deterministic.</b> Repeated runs give identical iterates, so no statistics over runs are necessary.</li>
-    <li><b>Parallel.</b> An iteration usually selects several hyperrectangles, and their evaluations are independent.</li>
-    <li><b>No exploration-exploitation hyperparameter.</b> The balance comes from the selection over all \(K\). Genetic algorithms, by contrast, need a population size, a selection bias and a mutation rate. The only hyperparameter, \(\varepsilon\), has a direct meaning: the desired relative accuracy.</li>
+    <li><b>Idea C knows when it is done.</b> It stops with a certificate after a few tests and hands over to the local stage.</li>
+    <li><b>DIRECT does not know.</b> It finds the peak, but it keeps splitting boxes all over the axis, because it has no certificate. A real controller must stop it on a budget.</li>
+    <li><b>Piyavskii-Shubert</b> also stops with a certificate, but only with a valid \(K\), which a tracker does not know in advance. Even with a valid \(K\) it needs many more tests here. A valid \(K\) must cover the steepest knee, so the cones are loose everywhere else. The measured ceiling of Idea C is tight wherever the current is flat.</li>
   </ul>
-  <p>Variants of DIRECT remain competitive. In a comparison of derivative-free solvers on problems with up to 300 variables, the DIRECT variant glcCluster was among the best performers [11].</p>
-</section>
-
-<section class="col wk">
-  <h2><span class="n">11 · [2, §2.3, §3.1]</span>Weaknesses, with the reported evidence</h2>
-  <h3>Slow refinement near the solution<span class="sec">§2.3.1</span></h3>
-  <p class="idea"><b>Core idea</b>DIRECT keeps a share of each iteration on exploration after it has found the basin of \(x^*\). This <span class="kt">global drag</span> slows the final digits of accuracy.</p>
-  <p>On \(f=1+x_1+x_2\) with \(\varepsilon=10^{-4}\), DIRECT reaches 1% accuracy in 90 evaluations but needs 616 for 0.01%. After 497 evaluations the selection diagram has 10 size levels with a selected point. Ties raise the count to 38 selected hyperrectangles, and only one of them contains the minimizer.</p>
-  <div class="note"><span class="lab">Analogy</span>
-    <p>This is \(\varepsilon\)-greedy exploration with a constant \(\varepsilon\) in reinforcement learning. A fixed fraction of actions stays exploratory forever, so the policy approaches the optimum but converges slowly at the end. Methods that decay the exploration rate correspond to DIRECT variants that reduce global search near the solution.</p>
-  </div>
-  <h3>Over-refinement of a local minimizer<span class="sec">§2.3.2</span></h3>
-  <p>If DIRECT finds a sub-optimal basin early, it can refine it to excessive accuracy.</p>
-<p>On the Shubert function with \(\varepsilon=0\), 255 of the first 415 evaluations lie near one local minimizer, in cells with center-vertex distances down to \(10^{-7}\). The cell that contains a global minimizer is large but has a poor center value, so it sits high in its column of the selection diagram.</p>
-<p>A larger \(\varepsilon\) reduces the cost of 0.01% accuracy (table in section 4), but \(\varepsilon>0\) also slows the final refinement of \(x^*\) itself.</p>
-  <h3>No exploitation of local trends<span class="sec">§2.3.3</span></h3>
-  <p>The selection uses only the center value and the size of each cell. It ignores linearity, monotonicity and irrelevant variables. On the Branin function DIRECT reaches 1% accuracy in 51 evaluations. With an added third variable that has no effect on \(f\), it needs 839.</p>
-  <h3>Degradation in higher dimensions<span class="sec">§2.3.4</span> <span class="nd">n-D background</span></h3>
-  <p>To isolate \(x^*\) in a cell of side \(3^{-8}\approx1.5\times10^{-4}\), DIRECT must trisect the cell 8 times in each of \(n\) dimensions, while it also divides cells for exploration. On \(1+x_1+\dots+x_5\), the original algorithm needs 14,492 evaluations for 1% accuracy.</p>
-  <h3>Inflexible partition<span class="sec">§2.3.5</span></h3>
-  <p>DIRECT samples only cell centers. It approaches the boundary of \(\Omega\) but never samples it, so an optimum on the boundary converges slowly. It also cannot accept a user-supplied starting point or an initial design such as a Latin hypercube.</p>
-  <h3>Sensitivity to additive scaling<span class="sec">§3.1</span></h3>
-  <p>Adding a constant \(a\) to \(f\) does not change the problem, but it changes \(|f_{\min}|\) in condition (4), and so changes the selected set [12]. When \(f_{\min}\) is close to zero, the margin \(\varepsilon|f_{\min}|\) almost vanishes and allows excessive local search [13].</p>
-<p>Finkel and Kelley replace the right side of (4) with \(f_{\min}-\varepsilon(f_{\text{median}}-f_{\min})\) [12], where \(f_{\text{median}}\) is the median of all values sampled so far. An added constant shifts \(f_{\text{median}}\) and \(f_{\min}\) by the same amount, so their difference does not change.</p>
-<p>With this change DIRECT gives identical iterates on \(f\) and on \(a+b\,f\) for any \(a\) and any \(b>0\), a property called <span class="kt">strong homogeneity</span>.</p>
 </section>
 
 <section class="col">
-  <h2><span class="n">12 · [2, §1]</span>Applications, and the MPPT case</h2>
-  <p>Jones and Martins list low-dimensional applications in genetics, surgery, air transport, power generation, astronomy, fuel-cell management, photovoltaic systems, hard-disk design and aircraft routing [2]. The common feature is an expensive black-box objective with few variables and several local optima.</p>
-  <div class="note app"><span class="lab">Application note: global MPPT</span>
-    <p>For maximum power point tracking under partial shading, \(x\) is the normalized duty cycle \((n=1)\), \(f=-P\), and one evaluation is one converter settling period.</p>
-<p>The dimension weakness of §2.3.4 does not apply. Global drag (§2.3.1) does apply, which is why DIRECT-based trackers usually stop on a small budget and hand over to a local method.</p>
-<p>A maximum power point near a duty-cycle limit is a boundary optimum (§2.3.5). With \(f=-P\), the margin of condition (4) scales with the power level (§3.1).</p>
-  <p>Part 2 (sections 13 to 24) develops this case: the published DIRECT trackers for MPPT, what they leave open, and Ideas B and C.</p>
-    <p>The PV array also supplies the extra knowledge that section 9 names. The array current does not increase with voltage, so a current measured at one operating point bounds the power at every higher voltage. That is a lower bound of \(f\) over a subregion. The measured-ceiling check in Ideas B and C uses this property.</p>
-  </div>
+  <h2><span class="n">7</span>DIRECT seen from Idea C: strengths and weaknesses</h2>
+  <p>Jones and Martins list the strengths and the weaknesses of DIRECT, with evidence [2]. The table sets each one against Idea C.</p>
+</section>
+<div class="tw"><table>
+  <tr><th>Property of DIRECT [2]</th><th>What it means for DIRECT</th><th>Idea C</th></tr>
+  <tr class="grp"><td colspan="3">Strengths</td></tr>
+  <tr><td>Needs only values: no gradient and no \(K\)</td><td>Works on any black box</td><td>Also needs no gradient and no \(K\). It uses the measured voltage and current of each test</td></tr>
+  <tr><td>Deterministic</td><td>Repeated runs give the same tests</td><td>Also deterministic</td></tr>
+  <tr><td>One parameter, \(\varepsilon\), with a clear meaning</td><td>No tuning of exploration against exploitation</td><td>Two parameters with a clear meaning: \(\varepsilon_c\) (margin) and \(\tau\) (smallest gap)</td></tr>
+  <tr><td>Global convergence</td><td>Only in the limit, when the tests become dense everywhere (section 3)</td><td>Stops after a finite number of tests, with a certificate, under its conditions (part 2, section 9)</td></tr>
+  <tr class="grp"><td colspan="3">Weaknesses</td></tr>
+  <tr><td>No natural stop rule</td><td>Runs on a budget of tests. Sergeyev and Kvasov: "it is difficult to apply for DIRECT some meaningful stopping criterion" [9]</td><td>Certificate stop: no gap can beat the best power by more than 2 %</td></tr>
+  <tr><td>Slow refinement near the solution</td><td>A share of each iteration stays on exploration, like a constant exploration rate in reinforcement learning. On \(1+x_1+x_2\), 1 % accuracy in 90 evaluations, 0.01 % in 616 [2]</td><td>Stops at gap width \(\tau\) and hands the last climb to the parabolic local stage</td></tr>
+  <tr><td>Over-refinement of a local peak</td><td>On the Shubert function, 255 of the first 415 evaluations near one local minimizer [2]</td><td>A region whose ceiling is below the best power is closed for good, so a ruled-out peak is never refined</td></tr>
+  <tr><td>No use of local trends</td><td>Uses only centre values and box sizes [2]</td><td>Uses the one trend that the physics guarantees: the current never rises with the voltage</td></tr>
+  <tr><td>Never tests the boundary</td><td>An optimum at the end of the range converges slowly [2]</td><td>Tests both ends of the range first</td></tr>
+  <tr><td>Sensitive to an added constant</td><td>The margin \(\varepsilon\,|f_{\min}|\) changes with an offset of \(f\) [11]</td><td>The open test is a ratio of powers, and power has a physical zero</td></tr>
+</table></div>
+<section class="col">
+  <div class="key"><span class="lab">In the final tests</span><p>DIRECT ends on a wrong peak in <span class="tagd">26 of 99</span> Simulink start-ups and in <span class="tagd">10.2 %</span> of the static start-ups. Idea C: <span class="tagc">1 of 99</span> and <span class="tagc">0.78 %</span>. Both take 0.51 s per search on average, so the difference is reliability, not speed.</p></div>
 
-  <h2><span class="n">Summary</span>DIRECT in four statements</h2>
-  <ol class="steps">
-    <li>A known Lipschitz constant \(K\) would give each hyperrectangle the floor \(f(c_i)-K\,d_i\), which weighs exploitation against exploration.</li>
-    <li>DIRECT selects every hyperrectangle that minimizes this floor for some \(K>0\): the lower-right convex hull of the \((d,f)\) diagram, cut at the small end by the \(\varepsilon\) condition.</li>
-    <li>It divides each selected cell by trisection along its longest sides, reuses the center value, and gives the best new values the largest cells.</li>
-    <li>Because a largest cell is divided in every iteration, the samples become dense and \(f_{\min}\to f^*\). In practice the run ends on an evaluation budget.</li>
-  </ol>
+  <h2><span class="n">8</span>The other baselines</h2>
+  <ul>
+    <li><b>PSO</b> (particle swarm optimization, Ishaque et al. [6]) and <b>GWO</b> (grey wolf optimization, Mohanty et al. [7]) move a population of duties for a fixed number of iterations. A search takes 2.4 to 2.6 s, about five times as long as Idea C. They find the right peak, but they lose energy during the long search: 95.66 % and 90.83 % on the cloud events in Simulink, against <span class="tagc">98.72 %</span> for Idea C.</li>
+    <li><b>P&amp;O and INC from start-up</b> track only the nearest peak. They are the reference for a curve with one peak.</li>
+    <li>All five global searches hand over to the same local stage (part 2, section 7). Only the search differs between them.</li>
+  </ul>
 
-  <h3>References</h3>
+  <h2><span class="n">References</span>Sources of this part</h2>
   <ol class="refs">
-    <li>D. R. Jones, C. D. Perttunen and B. E. Stuckman, “Lipschitzian optimization without the Lipschitz constant,” <i>J. Optim. Theory Appl.</i>, vol. 79, no. 1, pp. 157-181, 1993, doi 10.1007/BF00941892.</li>
-    <li>D. R. Jones and J. R. R. A. Martins, “The DIRECT algorithm: 25 years later,” <i>J. Global Optim.</i>, vol. 79, no. 3, pp. 521-566, 2021, doi 10.1007/s10898-020-00952-6. Local copy: <code>Literature/jones2021direct25_author.pdf</code>.</li>
-    <li>S. A. Piyavskii, “An algorithm for finding the absolute extremum of a function,” <i>USSR Comput. Math. Math. Phys.</i>, vol. 12, no. 4, pp. 57-67, 1972, doi 10.1016/0041-5553(72)90115-2.</li>
-    <li>B. Shubert, “A sequential method seeking the global maximum of a function,” <i>SIAM J. Numer. Anal.</i>, vol. 9, no. 3, pp. 379-388, 1972, doi 10.1137/0709036.</li>
-    <li>P. Hansen and B. Jaumard, “Lipschitz optimization,” in <i>Handbook of Global Optimization</i>, R. Horst and P. M. Pardalos, Eds. Boston, MA: Springer, 1995, pp. 407-493 (book chapter).</li>
-    <li>D. R. Jones, “Direct global optimization algorithm,” in <i>Encyclopedia of Optimization</i>, C. A. Floudas and P. M. Pardalos, Eds. Boston, MA: Springer, 2001, pp. 431-440 (book chapter).</li>
-    <li>P. Hansen, B. Jaumard and S. H. Lu, “On using estimates of Lipschitz constants in global optimization,” <i>J. Optim. Theory Appl.</i>, vol. 75, no. 1, pp. 195-200, 1992, doi 10.1007/BF00939912.</li>
-    <li>Y. D. Sergeyev and D. E. Kvasov, <i>Deterministic Global Optimization: An Introduction to the Diagonal Approach</i>. New York: Springer, 2017, doi 10.1007/978-1-4939-7199-2 (book).</li>
-    <li>R. A. Jarvis, “On the identification of the convex hull of a finite set of points in the plane,” <i>Inf. Process. Lett.</i>, vol. 2, no. 1, pp. 18-21, 1973, doi 10.1016/0020-0190(73)90020-3.</li>
-    <li>K. Ljungberg, S. Holmgren and Ö. Carlborg, “Simultaneous search for multiple QTL using the global optimization algorithm DIRECT,” <i>Bioinformatics</i>, vol. 20, no. 12, pp. 1887-1895, 2004, doi 10.1093/bioinformatics/bth175.</li>
-    <li>L. M. Rios and N. V. Sahinidis, “Derivative-free optimization: a review of algorithms and comparison of software implementations,” <i>J. Global Optim.</i>, vol. 56, pp. 1247-1293, 2013, doi 10.1007/s10898-012-9951-y.</li>
-    <li>D. E. Finkel and C. T. Kelley, “Additive scaling and the DIRECT algorithm,” <i>J. Global Optim.</i>, vol. 36, no. 4, pp. 597-608, 2006, doi 10.1007/s10898-006-9029-9.</li>
-    <li>Y. D. Sergeyev and D. E. Kvasov, “Global search based on efficient diagonal partitions and a set of Lipschitz constants,” <i>SIAM J. Optim.</i>, vol. 16, no. 3, pp. 910-937, 2006, doi 10.1137/040621132.</li>
-    <li>D. R. Jones, M. Schonlau and W. J. Welch, “Efficient global optimization of expensive black-box functions,” <i>J. Global Optim.</i>, vol. 13, no. 4, pp. 455-492, 1998, doi 10.1023/A:1008306431147. <span class="ub">Added by user</span></li>
-    <li>A. R. Conn, K. Scheinberg and L. N. Vicente, <i>Introduction to Derivative-Free Optimization</i>. Philadelphia: SIAM, 2009, doi 10.1137/1.9780898718768 (book). <span class="ub">Added by user</span></li>
-    <li>R. Hooke and T. A. Jeeves, “‘Direct search’ solution of numerical and statistical problems,” <i>J. ACM</i>, vol. 8, no. 2, pp. 212-229, 1961, doi 10.1145/321062.321069. <span class="ub">Added by user</span></li>
-    <li>J. A. Nelder and R. Mead, “A simplex method for function minimization,” <i>Comput. J.</i>, vol. 7, no. 4, pp. 308-313, 1965, doi 10.1093/comjnl/7.4.308. <span class="ub">Added by user</span></li>
+    <li>D. R. Jones, C. D. Perttunen and B. E. Stuckman, “Lipschitzian optimization without the Lipschitz constant,” <i>J. Optim. Theory Appl.</i>, vol. 79, no. 1, pp. 157-181, 1993.</li>
+    <li>D. R. Jones and J. R. R. A. Martins, “The DIRECT algorithm: 25 years later,” <i>J. Global Optim.</i>, vol. 79, no. 3, pp. 521-566, 2021.</li>
+    <li>S. A. Piyavskii, “An algorithm for finding the absolute extremum of a function,” <i>USSR Comput. Math. Math. Phys.</i>, vol. 12, no. 4, pp. 57-67, 1972.</li>
+    <li>B. O. Shubert, “A sequential method seeking the global maximum of a function,” <i>SIAM J. Numer. Anal.</i>, vol. 9, no. 3, pp. 379-388, 1972.</li>
+    <li>T. L. Nguyen and K.-S. Low, “A global maximum power point tracking scheme employing DIRECT search algorithm for photovoltaic systems,” <i>IEEE Trans. Ind. Electron.</i>, vol. 57, no. 10, pp. 3456-3467, 2010.</li>
+    <li>K. Ishaque, Z. Salam, M. Amjad and S. Mekhilef, “An improved particle swarm optimization (PSO)-based MPPT for PV with reduced steady-state oscillation,” <i>IEEE Trans. Power Electron.</i>, vol. 27, no. 8, pp. 3627-3638, 2012.</li>
+    <li>S. Mohanty, B. Subudhi and P. K. Ray, “A new MPPT design using grey wolf optimization technique for photovoltaic system under partial shading conditions,” <i>IEEE Trans. Sustain. Energy</i>, vol. 7, no. 1, pp. 181-188, 2016.</li>
+    <li>EN 50530:2010+A1:2013, <i>Overall efficiency of grid connected photovoltaic inverters</i>. The ramp sequences of this project come from a TÜV Rheinland test report that lists them (report CN21VE2D 001).</li>
+    <li>Y. D. Sergeyev and D. E. Kvasov, <i>Deterministic Global Optimization: An Introduction to the Diagonal Approach</i>. New York: Springer, 2017 (book).</li>
+    <li>W. Li, G. Zhang, T. Pan, Z. Zhang, Y. Geng and J. Wang, “A Lipschitz optimization-based MPPT algorithm for photovoltaic system under partial shading condition,” <i>IEEE Access</i>, vol. 7, pp. 126323-126333, 2019.</li>
+    <li>D. E. Finkel and C. T. Kelley, “Additive scaling and the DIRECT algorithm,” <i>J. Global Optim.</i>, vol. 36, no. 4, pp. 597-608, 2006.</li>
   </ol>
-  <p class="refs">All numerical results in sections 4, 10 and 11 that cite [2] come from [2]. The test functions in Figures 1 to 10 are illustrative and do not come from [2].</p>
-</section>
+  <p class="src">The test curve of Figures 3 to 9 is an illustration, not the project array. The numerical results that cite [2] come from [2].</p>
 
-<section class="col">
-  <h2><span class="n">Appendix</span>Glossary of terms</h2>
-  <p>Terms in the order of first use.</p>
-  <dl class="gl">
-    <dt><span class="kt">Objective function</span></dt><dd>The function \(f\) whose value the optimization minimizes (or maximizes). Also called the cost function or fitness function.</dd>
-    <dt><span class="kt">Decision variable, decision vector</span></dt><dd>One input \(x_k\) that the algorithm can choose, and the vector \(x\) of all of them.</dd>
-    <dt><span class="kt">Feasible region</span></dt><dd>The set of inputs that satisfy all constraints. For DIRECT it is a box defined by bounds on each variable.</dd>
-    <dt><span class="kt">Bound-constrained problem</span></dt><dd>A problem whose only constraints are a lower and an upper limit on each variable.</dd>
-    <dt><span class="kt">Min-max normalization</span> <span class="ub">Added by user</span></dt><dd>Rescaling of a variable from its range \([\ell,u]\) to \([0,1]\) by subtracting \(\ell\) and dividing by \(u-\ell\).</dd>
-    <dt><span class="kt">Affine map</span> <span class="ub">Added by user</span></dt><dd>A linear scaling followed by a shift. It maps straight lines to straight lines, and with a positive scale it keeps the order of points along each axis.</dd>
-    <dt><span class="kt">Black-box function</span></dt><dd>A function that is known only through its output values at chosen inputs. Its formula and derivatives are not available.</dd>
-    <dt><span class="kt">Function evaluation</span></dt><dd>One computation or measurement of \(f\) at one input. The standard unit of cost for black-box methods.</dd>
-    <dt><span class="kt">Multimodal function</span></dt><dd>A function with more than one local minimum.</dd>
-    <dt><span class="kt">Local minimizer</span></dt><dd>A point whose objective value is not higher than that of any point in some neighbourhood around it.</dd>
-    <dt><span class="kt">Global minimizer</span></dt><dd>A point whose objective value is not higher than that of any point in the whole feasible region.</dd>
-    <dt><span class="kt">Basin of attraction</span></dt><dd>The set of starting points from which a descent method converges to a given local minimizer.</dd>
-    <dt><span class="kt">Derivative-free optimization</span></dt><dd>Optimization that uses function values only, without gradients.</dd>
-    <dt><span class="kt">Gradient</span> <span class="ub">Added by user</span></dt><dd>The vector of partial derivatives of \(f\). It points in the direction of steepest increase.</dd>
-    <dt><span class="kt">Smooth function</span> <span class="ub">Added by user</span></dt><dd>A function with continuous derivatives (to the order that the context needs). It has no kinks and no jumps.</dd>
-    <dt><span class="kt">Finite difference</span> <span class="ub">Added by user</span></dt><dd>An estimate of a derivative from function values at nearby points, such as \([f(x+h)-f(x)]/h\).</dd>
-    <dt><span class="kt">Direct search method</span> <span class="ub">Added by user</span></dt><dd>A derivative-free method that compares function values at trial points around the current point, such as Hooke-Jeeves, Nelder-Mead or pattern search. Not related to DIRECT.</dd>
-    <dt><span class="kt">Descent (local) method</span></dt><dd>A method that moves only to points with lower objective values, such as gradient descent, Nelder-Mead or hill climbing.</dd>
-    <dt><span class="kt">Deterministic algorithm</span></dt><dd>An algorithm with no random elements. The same input always gives the same sequence of points.</dd>
-    <dt><span class="kt">Dense set (everywhere dense)</span></dt><dd>A set of points that comes arbitrarily close to every point of the region. For any point and any distance \(\delta>0\), some sample lies within \(\delta\) of it.</dd>
-    <dt><span class="kt">Tolerance</span> <span class="ub">Added by user</span></dt><dd>The largest error the user accepts in the minimum value, written \(\tau\) in these notes.</dd>
-    <dt><span class="kt">Lipschitz continuous function</span></dt><dd>A function whose change between two points never exceeds a constant \(K\) times their distance. \(K\) is the Lipschitz constant.</dd>
-    <dt><span class="kt">Lipschitz constant, smallest</span> <span class="ub">Added by user</span></dt><dd>The smallest \(K\) for which inequality (2) holds. Every larger value is also a valid Lipschitz constant.</dd>
-    <dt><span class="kt">Lipschitz hourglass</span> <span class="ub">Added by user</span></dt><dd>The name used in these notes for the two lines of slope \(\pm K\) through a point of the graph. The graph stays in the left and right wedges between them.</dd>
-    <dt><span class="kt">Supremum (sup)</span> <span class="ub">Added by user</span></dt><dd>The least upper bound of a set of numbers. It equals the maximum when the maximum exists.</dd>
-    <dt><span class="kt">Euclidean norm</span></dt><dd>The ordinary straight-line length of a vector, the square root of the sum of its squared components.</dd>
-    <dt><span class="kt">Hyperrectangle</span></dt><dd>The \(n\)-dimensional form of a rectangle: a box with sides parallel to the coordinate axes. In one dimension it is an interval.</dd>
-    <dt><span class="kt">Unit hypercube</span></dt><dd>The hyperrectangle \([0,1]^n\), with all sides of length 1.</dd>
-    <dt><span class="kt">Partition</span></dt><dd>A division of the search space into non-overlapping cells that together cover it.</dd>
-    <dt><span class="kt">Center-vertex distance (box size)</span></dt><dd>The distance from the center of a hyperrectangle to any of its corners, half its diagonal. These notes call it the size \(d_i\) of the box.</dd>
-    <dt><span class="kt">Size level</span> <span class="ub">Added by user</span></dt><dd>The group of all boxes with the same size \(d_i\). They form one vertical column in the selection diagram.</dd>
-    <dt><span class="kt">Lower bound (floor)</span></dt><dd>A value that the objective is guaranteed not to go below over a given region.</dd>
-    <dt><span class="kt">Exploitation (local search)</span></dt><dd>Sampling near points that already have good values, to refine them.</dd>
-    <dt><span class="kt">Exploration (global search)</span></dt><dd>Sampling in large regions that have few samples, to find better basins.</dd>
-    <dt><span class="kt">Dominated box</span> <span class="ub">Added by user</span></dt><dd>A box with a worse center value than another box of the same size. It has a higher floor for every \(K\), so it cannot be selected in the current iteration. It stays in the partition and can win later.</dd>
-    <dt><span class="kt">Lower envelope</span> <span class="ub">Added by user</span></dt><dd>Here, the curve \(L(x)\) that bounds \(f\) from below, built from the Lipschitz cones of all samples.</dd>
-    <dt><span class="kt">Pointwise maximum (upper envelope)</span> <span class="ub">Added by user</span></dt><dd>The function that takes, at each point, the largest value of a family of functions. The lower envelope \(L(x)\) is the pointwise maximum of the cones, which other texts call the upper envelope of the cones. Both names describe the same curve.</dd>
-    <dt><span class="kt">Branch-and-bound</span></dt><dd>A search scheme that repeatedly divides the space (branch), computes a bound on each part (bound), and refines or discards parts based on these bounds.</dd>
-    <dt><span class="kt">Pruning</span> <span class="ub">Added by user</span></dt><dd>The branch-and-bound step that discards a cell for good because its lower bound is above the best value found.</dd>
-    <dt><span class="kt">Certificate (optimality gap)</span> <span class="ub">Added by user</span></dt><dd>The difference between the best value found and the lowest valid lower bound. It is a proven upper limit on the error of the best value found.</dd>
-    <dt><span class="kt">Potentially optimal hyperrectangle</span></dt><dd>A hyperrectangle that has the lowest floor for at least one \(K>0\) and whose floor improves on \(f_{\min}\) by at least \(\varepsilon|f_{\min}|\) (Eqs. 3 and 4).</dd>
-    <dt><span class="kt">Selection diagram</span> <span class="ub">Added by user</span></dt><dd>The plot of all boxes as points \((d_i,f(c_i))\), used to find the potentially optimal boxes (Figure 6).</dd>
-    <dt><span class="kt">Convex hull (lower-right)</span></dt><dd>The convex hull of a point set is the smallest convex polygon that contains all points. The lower-right part is the chain of its edges visible from below and from the right.</dd>
-    <dt><span class="kt">Jarvis march</span></dt><dd>An algorithm that builds a convex hull by moving from one hull point to the next, choosing the point that makes the smallest turn. Also called gift wrapping.</dd>
-    <dt><span class="kt">Non-dominated (Pareto-optimal) point</span></dt><dd>A point for which no other point is better in one criterion without being worse in another. Here the two criteria are a large size and a low center value.</dd>
-    <dt><span class="kt">Hyperparameter</span></dt><dd>A setting of an algorithm chosen by the user before the run, as opposed to a quantity the algorithm computes.</dd>
-    <dt><span class="kt">Incumbent</span></dt><dd>The best point found so far, with value \(f_{\min}\).</dd>
-    <dt><span class="kt">Surrogate model</span> <span class="ub">Added by user</span></dt><dd>A cheap approximation of an expensive objective, fitted to the samples and used to choose new samples.</dd>
-    <dt><span class="kt">Trust region</span> <span class="ub">Added by user</span></dt><dd>A neighbourhood of the current point in which a local model of \(f\) is trusted. Its size grows or shrinks with the success of each step.</dd>
-    <dt><span class="kt">Radial basis function (RBF)</span> <span class="ub">Added by user</span></dt><dd>A function of the distance from a center point. A weighted sum of RBFs, one per sample, gives an interpolating surrogate.</dd>
-    <dt><span class="kt">Gaussian process (kriging)</span> <span class="ub">Added by user</span></dt><dd>A statistical model that gives, at every point, a predicted value and an uncertainty. A kernel function sets how strongly values at two points are correlated, and so sets the assumed smoothness.</dd>
-    <dt><span class="kt">Bayesian optimization</span> <span class="ub">Added by user</span></dt><dd>Global optimization that fits a probabilistic surrogate, usually a Gaussian process, and samples where a rule such as expected improvement or the lower confidence bound is best.</dd>
-    <dt><span class="kt">Trisection</span></dt><dd>Division of an interval or a side into three equal parts.</dd>
-    <dt><span class="kt">Convergence</span></dt><dd>The property that the best value found approaches the global minimum as the number of iterations grows.</dd>
-    <dt><span class="kt">Interval analysis</span></dt><dd>A method that computes guaranteed bounds of a function over a box from its formula, using interval arithmetic.</dd>
-    <dt><span class="kt">Global drag</span></dt><dd>The term of [2] for the slowdown of final refinement caused by the exploratory selections that DIRECT keeps making in every iteration.</dd>
-    <dt><span class="kt">Latin hypercube</span></dt><dd>A sampling design that places one sample in each row and column of a grid in every dimension, to spread an initial set of points.</dd>
-    <dt><span class="kt">Additive and multiplicative scaling</span></dt><dd>Replacing \(f\) by \(a+b\,f\), with a constant \(a\) and a positive constant \(b\). Neither changes the location of the minimizer.</dd>
-    <dt><span class="kt">Strong homogeneity</span></dt><dd>The property that an algorithm produces the same sequence of points on \(f\) and on \(a+b\,f\) for any \(a\) and any \(b>0\).</dd>
-    <dt><span class="kt">Lower confidence bound (LCB)</span></dt><dd>A selection rule in bandit algorithms and Bayesian optimization that picks the option with the lowest predicted value minus a multiple \(\kappa\) of its uncertainty.</dd>
-    <dt><span class="kt">\(\varepsilon\)-greedy exploration</span></dt><dd>A reinforcement-learning rule that picks a random action with probability \(\varepsilon\) and the best-known action otherwise. This \(\varepsilon\) is unrelated to the \(\varepsilon\) of DIRECT.</dd>
-    <dt><span class="kt">Slew rate</span></dt><dd>The maximum rate of change of an amplifier output voltage, usually given in V/µs.</dd>
-  </dl>
-  <p style="margin-top:2rem;font:500 .9rem var(--f-mono)"><a href="ideas.html" style="color:var(--curve)">Continue to part 2: DIRECT on MPPT, Ideas B and C (sections 13 to 24) →</a></p>
+  <div class="next"><span></span><a href="ideas.html">Part 2: the Idea C method →</a></div>
 </section>
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const col=()=>({mu:css('--muted'),ln:css('--line'),fg:css('--fg'),cv:css('--curve'),pt:css('--pt'),sel:css('--sel'),sf:css('--surface'),wn:css('--warn'),st:css('--step')});
-const reduce=false;/* the user asked (2026-11-21) to animate even with the OS reduce-motion setting on */
+const col=()=>({mu:css('--muted'),ln:css('--line'),fg:css('--fg'),cv:css('--curve'),pt:css('--pt'),sel:css('--sel'),wn:css('--warn'),ok:css('--ok'),st:css('--step'),soft:css('--soft')});
 const fmt=(v,p=3)=>Math.abs(v)<1e-12?'0':(+v.toFixed(p)).toString();
 
-/* Illustrative test functions. f1: 1-D, three local minima. f2: 2-D, four local minima. */
+/* Test curve: normalized voltage v in [0,1], current in three steps (a string of three bypass groups). */
 const sg=(v,k)=>1/(1+Math.exp((v-k)/0.012));
-const P1=v=>v*(0.58*sg(v,0.34)+0.12*sg(v,0.67)+0.30*sg(v,0.97));
-const f1=x=>-P1(x[0]);
-const gs=(x,y,a,b,s)=>Math.exp(-((x-a)**2+(y-b)**2)/(2*s*s));
-const P2=(x,y)=>gs(x,y,.72,.28,.09)+.8*gs(x,y,.25,.7,.12)+.65*gs(x,y,.3,.22,.07)+.5*gs(x,y,.78,.8,.1);
-const f2=x=>-P2(x[0],x[1]);
+const Iv=v=>0.58*sg(v,0.34)+0.12*sg(v,0.67)+0.30*sg(v,0.97);
+const P=v=>v*Iv(v);
+const f1=x=>-P(x[0]);
+const N1=4000;let gx=0,gP=0;const peaks=[];
+for(let i=1;i<N1;i++){const a=P((i-1)/N1),b=P(i/N1),c=P((i+1)/N1);if(b>a&&b>=c)peaks.push(i/N1);if(b>gP){gP=b;gx=i/N1}}
+let Ktrue=0;for(let i=0;i<N1;i++)Ktrue=Math.max(Ktrue,Math.abs(P((i+1)/N1)-P(i/N1))*N1);
 
-/* DIRECT (Jones et al. 1993, as in Jones and Martins 2021, Algorithms 1 and 2). Side of a box along k = 3^-lv[k]. */
+/* DIRECT (Jones et al. 1993, as in Jones and Martins 2021, Algorithms 1 and 2), minimizing f = -P. */
 function Direct(f,n,eps){
   const R=[];let fmin,best,it=0;
   const dOf=lv=>0.5*Math.sqrt(lv.reduce((s,l)=>s+Math.pow(9,-l),0));
@@ -923,8 +424,7 @@ function cv(id){const c=$(id),dpr=devicePixelRatio||1,w=c.clientWidth,h=c.client
 function frame(g,w,h,xr,yr,o={}){
   const m=Object.assign({l:50,r:14,t:26,b:40},o.m||{}),C=col();
   const X=v=>m.l+(v-xr[0])/(xr[1]-xr[0])*(w-m.l-m.r),Y=v=>h-m.b-(v-yr[0])/(yr[1]-yr[0])*(h-m.t-m.b);
-  g.font='11px '+css('--f-mono');g.lineWidth=1;
-  g.textAlign='center';g.textBaseline='top';
+  g.font='11px '+css('--f-mono');g.lineWidth=1;g.textAlign='center';g.textBaseline='top';
   for(const t of o.xt||[]){g.strokeStyle=C.ln;g.beginPath();g.moveTo(X(t),m.t);g.lineTo(X(t),h-m.b);g.stroke();g.fillStyle=C.mu;g.fillText(fmt(t),X(t),h-m.b+5)}
   g.textAlign='right';g.textBaseline='middle';
   for(const t of o.yt||[]){g.strokeStyle=C.ln;g.beginPath();g.moveTo(m.l,Y(t));g.lineTo(w-m.r,Y(t));g.stroke();g.fillStyle=C.mu;g.fillText(fmt(t),m.l-6,Y(t))}
@@ -935,80 +435,29 @@ function frame(g,w,h,xr,yr,o={}){
 function curve(g,F,fn,color,width=2,dash){g.strokeStyle=color;g.lineWidth=width;g.setLineDash(dash||[]);g.beginPath();
   for(let i=0;i<=500;i++){const x=i/500,y=fn(x);i?g.lineTo(F.X(x),F.Y(y)):g.moveTo(F.X(x),F.Y(y))}g.stroke();g.setLineDash([])}
 function dot(g,x,y,r,fill,stroke){g.beginPath();g.arc(x,y,r,0,7);if(fill){g.fillStyle=fill;g.fill()}if(stroke){g.strokeStyle=stroke;g.lineWidth=2;g.stroke()}}
-const N1=4000,fx=x=>f1([x]);let gx=0,gf=0;const locs=[];
-for(let i=1;i<N1;i++){const a=fx((i-1)/N1),b=fx(i/N1),c=fx((i+1)/N1);if(b<a&&b<=c)locs.push(i/N1);if(b<gf){gf=b;gx=i/N1}}
+function violPath(g,F,above){let n=0,pen=false;g.strokeStyle=F.C.wn;g.lineWidth=3.4;g.beginPath();
+  for(let i=0;i<=800;i++){const x=i/800,y=P(x);if(above(x,y)){if(!pen){n++;g.moveTo(F.X(x),F.Y(y))}else g.lineTo(F.X(x),F.Y(y));pen=true}else pen=false}
+  g.stroke();return n}
 
-/* Fig 1 */
-function draw1(){const{g,w,h}=cv('#c1');const F=frame(g,w,h,[0,1],[-.33,.02],{xt:[0,.25,.5,.75,1],yt:[-.3,-.2,-.1,0],yl:'f(x)',xl:'x'});
-  F.clip();curve(g,F,fx,F.C.cv,2.2);g.restore();
-  g.font='12px '+css('--f-body');g.textAlign='center';g.textBaseline='top';
-  for(const x of locs){const gl=Math.abs(x-gx)<1e-6;dot(g,F.X(x),F.Y(fx(x)),gl?6:4.5,gl?F.C.sel:F.C.pt);
-    g.fillStyle=gl?F.C.sel:F.C.mu;g.fillText(gl?'global minimizer x*':'local minimizer',F.X(x),F.Y(fx(x))+10)}}
+/* Figure 3: the test curve */
+function draw1(){const{g,w,h}=cv('#c1');const F=frame(g,w,h,[0,1],[-.02,.36],{xt:[0,.25,.5,.75,1],yt:[0,.1,.2,.3],yl:'P(v)',xl:'v'});
+  F.clip();curve(g,F,P,F.C.cv,2.2);g.restore();
+  g.font='12px '+css('--f-body');g.textAlign='center';g.textBaseline='bottom';
+  for(const x of peaks){const gl=Math.abs(x-gx)<1e-6;dot(g,F.X(x),F.Y(P(x)),gl?6:4.5,gl?F.C.sel:F.C.pt);
+    g.fillStyle=gl?F.C.sel:F.C.mu;g.fillText(gl?'global peak':'local peak',F.X(x),F.Y(P(x))-9)}}
 
-/* Fig 2 */
-const s2=x=>.5+.22*Math.sin(2*Math.PI*1.4*x+.6),h2=x=>s2(x)-.62*Math.exp(-(((x-.6)/.013)**2));
-function draw2(){const{g,w,h}=cv('#c2');const F=frame(g,w,h,[0,1],[-.25,.85],{xt:[0,.5,1],m:{t:14,b:28,l:20}});
+/* Figure 4: a hidden spike between the tests */
+const s2=x=>.45+.2*Math.sin(2*Math.PI*1.4*x+.6),h2=x=>s2(x)+.62*Math.exp(-(((x-.6)/.013)**2));
+function draw2(){const{g,w,h}=cv('#c2');const F=frame(g,w,h,[0,1],[0,1.15],{xt:[0,.5,1],m:{t:14,b:28,l:20}});
   g.fillStyle=css('--soft');g.fillRect(F.X(.52),F.m.t,F.X(.68)-F.X(.52),h-F.m.t-F.m.b);
   F.clip();curve(g,F,h2,F.C.sel,1.6,[5,4]);curve(g,F,s2,F.C.cv,2.2);g.restore();
   for(let k=0;k<10;k++){const x=.05+k*.1;if(x>.52&&x<.68)continue;dot(g,F.X(x),F.Y(s2(x)),4.5,F.C.pt)}
-  g.fillStyle=F.C.mu;g.font='12px '+css('--f-body');g.textAlign='center';g.textBaseline='top';g.fillText('unsampled interval',F.X(.6),F.m.t+4)}
+  g.fillStyle=F.C.mu;g.font='12px '+css('--f-body');g.textAlign='center';g.textBaseline='bottom';g.fillText('untested interval',F.X(.6),h-F.m.b-4)}
 
-/* Fig 3: Lipschitz cones */
-const D3=run(f1,1,1e-4,3);
-let swept=new Set(),sweepDone=false,sweepT=null;
-let Ktrue=0;for(let i=0;i<N1;i++)Ktrue=Math.max(Ktrue,Math.abs(fx((i+1)/N1)-fx(i/N1))*N1);
-function draw3(){const K=+$('#k3').value;const{g,w,h}=cv('#c3');
-  const F=frame(g,w,h,[0,1],[-.8,.03],{xt:[0,1/3,2/3,1],yt:[-.75,-.5,-.25,0],yl:'f(x)',xl:'x'});
-  const B=D3.R.slice().sort((a,b)=>a.c[0]-b.c[0]);let win=B[0];for(const r of B)if(r.f-K*r.d<win.f-K*win.d-1e-12)win=r;
-  F.clip();curve(g,F,fx,F.C.cv,1.6);
-  for(const r of B){const c=r.c[0],lo=c-r.d,hi=c+r.d,tip=r.f-K*r.d,W=r===win;
-    g.strokeStyle=F.C.ln;g.lineWidth=1;g.beginPath();g.moveTo(F.X(lo),F.m.t);g.lineTo(F.X(lo),h-F.m.b);g.stroke();
-    g.strokeStyle=W?F.C.sel:F.C.pt;g.lineWidth=W?2.4:1.3;g.globalAlpha=W?1:.75;
-    g.beginPath();g.moveTo(F.X(lo),F.Y(tip));g.lineTo(F.X(c),F.Y(r.f));g.lineTo(F.X(hi),F.Y(tip));g.stroke();
-    g.setLineDash([3,3]);g.beginPath();g.moveTo(F.X(lo),F.Y(tip));g.lineTo(F.X(hi),F.Y(tip));g.stroke();g.setLineDash([]);g.globalAlpha=1}
-  const bad=new Set();for(let i=0;i<=800;i++){const x=i/800,r=boxOf(B,x);if(fx(x)<r.f-K*Math.abs(x-r.c[0])-1e-9)bad.add(r)}
-  violPath(g,F,x=>{const r=boxOf(B,x);return fx(x)<r.f-K*Math.abs(x-r.c[0])-1e-9});
-  g.restore();for(const r of B)dot(g,F.X(r.c[0]),F.Y(r.f),4.5,r===win?F.C.sel:F.C.pt);
-  $('#k3v').innerHTML=`K = <b>${(+K).toFixed(2)}</b> · lowest bound: interval [${fmt(win.c[0]-win.d)}, ${fmt(win.c[0]+win.d)}] · `+(bad.size?`<b style="color:var(--warn)">K below the Lipschitz constant (≈ ${Ktrue.toFixed(1)}): bound violated in ${bad.size} box${bad.size>1?'es':''}</b>`:`bound valid in every box (Lipschitz constant ≈ ${Ktrue.toFixed(1)})`);
-  const G=kGroups(B);let rows='<tr><th>interval</th><th>f(cᵢ)</th><th>dᵢ</th><th>f(cᵢ) − K·dᵢ</th><th>lowest floor for K in</th></tr>';
-  for(const g of G){rows+=`<tr class="grp"><td colspan="5">size dᵢ = ${g.d.toFixed(4)} · ${g.list.length} box${g.list.length>1?'es':''}</td></tr>`;
-    for(const r of g.list){const isW=r===g.best&&g.wins,cls=[r===win?'win':'',isW?'':'dom',swept.has(r)?'swept':''].join(' ');
-      const rng=isW?`${g.K1.toFixed(3)} to ${g.K2===Infinity?'∞':g.K2.toFixed(3)}`:(r===g.best?'never (beaten by other sizes)':`never (dominated by [${fmt(g.best.c[0]-g.best.d)}, ${fmt(g.best.c[0]+g.best.d)}])`);
-      rows+=`<tr class="${cls}"><td>[${fmt(r.c[0]-r.d)}, ${fmt(r.c[0]+r.d)}]</td><td>${r.f.toFixed(4)}</td><td>${r.d.toFixed(4)}</td><td>${(r.f-K*r.d).toFixed(4)}</td><td>${rng}</td></tr>`}}
-  $('#t3').innerHTML=rows;
-  if(sweepDone){const sel=D3.select(1e-4),same=sel.length===swept.size&&sel.every(r=>swept.has(r));
-    $('#k3v').innerHTML+=` · <b>sweep: ${swept.size} boxes won for some K</b>${same?', the same set that DIRECT selects in this state (ε = 10⁻⁴)':''}`}}
-function kGroups(B){const G=new Map();for(const r of B){const k=r.d.toPrecision(10);if(!G.has(k))G.set(k,{d:r.d,list:[]});G.get(k).list.push(r)}
-  const A=[...G.values()];A.forEach(g=>{g.list.sort((a,b)=>a.f-b.f);g.best=g.list[0]});
-  for(const j of A){let K1=0,K2=Infinity;for(const i of A){if(i===j)continue;if(i.d<j.d)K1=Math.max(K1,(j.best.f-i.best.f)/(j.d-i.d));else K2=Math.min(K2,(i.best.f-j.best.f)/(i.d-j.d))}j.K1=K1;j.K2=K2;j.wins=K1<=K2&&K2>0}
-  return A.sort((a,b)=>b.d-a.d)}
-$('#k3').addEventListener('input',draw3);
-function winnerAt(K){const B=D3.R.slice().sort((a,b)=>a.c[0]-b.c[0]);let w=B[0];for(const r of B)if(r.f-K*r.d<w.f-K*w.d-1e-12)w=r;return w}
-$('#sw3').addEventListener('click',()=>{clearInterval(sweepT);swept=new Set();sweepDone=false;
-  /* Item 24: slow sweep over the range where the winner changes, with a pause and a log line at each switch */
-  const MAX=1.2,dK=0.01,lg=$('#k3log'),iv=r=>`[${fmt(r.c[0]-r.d)}, ${fmt(r.c[0]+r.d)}]`;
-  let K=0,prev=winnerAt(0),pause=0;swept.add(prev);lg.innerHTML=`K = 0.000: the lowest floor is in ${iv(prev)}`;
-  $('#k3').value=0;draw3();
-  sweepT=setInterval(()=>{if(pause>0){pause--;return}
-    K=Math.min(MAX,K+dK);const w=winnerAt(K);
-    if(w!==prev){let a=K-dK,b=K;for(let n=0;n<40;n++){const m=(a+b)/2;winnerAt(m)===prev?a=m:b=m}
-      lg.innerHTML+=`<br>K = ${b.toFixed(3)}: the lowest floor moves from ${iv(prev)} to ${iv(w)}`;prev=w;swept.add(w);pause=22}
-    $('#k3').value=K;
-    if(K>=MAX){clearInterval(sweepT);sweepT=null;sweepDone=true;
-      const dMax=Math.max(...D3.R.map(r=>r.d));
-      if(prev.d===dMax)lg.innerHTML+=`<br>From here on, the largest box ${iv(prev)} keeps the lowest floor for every larger K.`}
-    draw3()},40)});
-
-/* Shared helpers for the floor figures (added by user) */
-function boxOf(B,x){return B.find(b=>x>=b.c[0]-b.d-1e-12&&x<=b.c[0]+b.d+1e-12)||B[B.length-1]}
-function violPath(g,F,below){let n=0,pen=false;g.strokeStyle=F.C.wn;g.lineWidth=3.4;g.beginPath();
-  for(let i=0;i<=800;i++){const x=i/800,y=fx(x);if(below(x,y)){if(!pen){n++;g.moveTo(F.X(x),F.Y(y))}else g.lineTo(F.X(x),F.Y(y));pen=true}else pen=false}
-  g.stroke();return n}
-
-/* Fig 3: Lipschitz hourglass (added by user) */
+/* Figure 5: Lipschitz hourglass */
 let FH=null;const cH=$('#cH');
-function drawH(){const K=+$('#hk').value,x0=+$('#hx').value,y0=fx(x0),show=$('#hd').checked;const{g,w,h}=cv('#cH');
-  const F=frame(g,w,h,[0,1],[-.62,.3],{xt:[0,.25,.5,.75,1],yt:[-.6,-.4,-.2,0,.2],yl:'f(x)',xl:'x'});FH=F;
+function drawH(){const K=+$('#hk').value,x0=+$('#hx').value,y0=P(x0),show=$('#hd').checked;const{g,w,h}=cv('#cH');
+  const F=frame(g,w,h,[0,1],[-.3,.62],{xt:[0,.25,.5,.75,1],yt:[-.2,0,.2,.4,.6],yl:'P(v)',xl:'v'});FH=F;
   const up=x=>y0+K*Math.abs(x-x0),dn=x=>y0-K*Math.abs(x-x0);
   const poly=(pts,c,a)=>{g.globalAlpha=a;g.fillStyle=c;g.beginPath();pts.forEach(([x,y],i)=>i?g.lineTo(F.X(x),F.Y(y)):g.moveTo(F.X(x),F.Y(y)));g.closePath();g.fill();g.globalAlpha=1};
   F.clip();
@@ -1017,149 +466,159 @@ function drawH(){const K=+$('#hk').value,x0=+$('#hx').value,y0=fx(x0),show=$('#h
   poly([[x0,y0],[0,up(0)],[0,dn(0)]],F.C.cv,.13);poly([[x0,y0],[1,up(1)],[1,dn(1)]],F.C.cv,.13);
   g.strokeStyle=F.C.fg;g.lineWidth=1.3;g.beginPath();g.moveTo(F.X(0),F.Y(up(0)));g.lineTo(F.X(x0),F.Y(y0));g.lineTo(F.X(1),F.Y(up(1)));
   g.moveTo(F.X(0),F.Y(dn(0)));g.lineTo(F.X(x0),F.Y(y0));g.lineTo(F.X(1),F.Y(dn(1)));g.stroke();
-  curve(g,F,fx,F.C.cv,2);
+  curve(g,F,P,F.C.cv,2);
   const n=violPath(g,F,(x,y)=>Math.abs(y-y0)>K*Math.abs(x-x0)+1e-9);
-  if(show){const d=.1,fl=y0-K*d;g.strokeStyle=F.C.sel;g.lineWidth=2.4;g.beginPath();g.moveTo(F.X(x0-d),F.Y(fl));g.lineTo(F.X(x0),F.Y(y0));g.lineTo(F.X(x0+d),F.Y(fl));g.stroke();
-    g.setLineDash([4,3]);g.beginPath();g.moveTo(F.X(x0-d),F.Y(fl));g.lineTo(F.X(x0+d),F.Y(fl));g.stroke();g.setLineDash([])}
+  if(show){const d=.1,cl=y0+K*d;g.strokeStyle=F.C.sel;g.lineWidth=2.4;g.beginPath();g.moveTo(F.X(x0-d),F.Y(cl));g.lineTo(F.X(x0),F.Y(y0));g.lineTo(F.X(x0+d),F.Y(cl));g.stroke();
+    g.setLineDash([4,3]);g.beginPath();g.moveTo(F.X(x0-d),F.Y(cl));g.lineTo(F.X(x0+d),F.Y(cl));g.stroke();g.setLineDash([])}
   g.restore();dot(g,F.X(x0),F.Y(y0),6,F.C.sel);
-  $('#hv').innerHTML=`x₀ = <b>${x0.toFixed(3)}</b>, f(x₀) = <b>${y0.toFixed(4)}</b>, K = <b>${K.toFixed(2)}</b> · `+(n?`<b style="color:var(--warn)">the curve enters a forbidden wedge at ${n} place${n>1?'s':''}: K is too small here (Lipschitz constant ≈ ${Ktrue.toFixed(1)})</b>`:'the curve stays inside the allowed wedges')+(show?` · box floor f(c) − K·d = ${(y0-K*.1).toFixed(4)}`:'')}
+  $('#hv').innerHTML=`x₀ = <b>${x0.toFixed(3)}</b>, P(x₀) = <b>${y0.toFixed(4)}</b>, K = <b>${K.toFixed(2)}</b> · `+(n?`<b style="color:var(--warn)">the curve enters a forbidden wedge at ${n} place${n>1?'s':''}: K is too small (Lipschitz constant ≈ ${Ktrue.toFixed(1)})</b>`:'the curve stays inside the allowed wedges')+(show?` · box ceiling P(c) + K·d = ${(y0+K*.1).toFixed(4)}`:'')}
 function hxFrom(e){if(!FH)return;const r=cH.getBoundingClientRect(),x=(e.clientX-r.left-FH.m.l)/(r.width-FH.m.l-FH.m.r);$('#hx').value=Math.min(.98,Math.max(.02,x));drawH()}
 cH.addEventListener('pointerdown',e=>{cH.setPointerCapture(e.pointerId);hxFrom(e)});
 cH.addEventListener('pointermove',e=>{if(e.buttons)hxFrom(e)});
 ['#hx','#hk'].forEach(s=>$(s).addEventListener('input',drawH));$('#hd').addEventListener('change',drawH);
 
-/* Fig 5: box-wise floor versus Piyavskii-Shubert envelope (added by user) */
+/* Figure 6: box ceilings after three DIRECT iterations (internal values f = -P) */
+const D3=run(f1,1,1e-4,3);
+let swept=new Set(),sweepDone=false,sweepT=null;
+function boxOf(B,x){return B.find(b=>x>=b.c[0]-b.d-1e-12&&x<=b.c[0]+b.d+1e-12)||B[B.length-1]}
+function kGroups(B){const G=new Map();for(const r of B){const k=r.d.toPrecision(10);if(!G.has(k))G.set(k,{d:r.d,list:[]});G.get(k).list.push(r)}
+  const A=[...G.values()];A.forEach(g=>{g.list.sort((a,b)=>a.f-b.f);g.best=g.list[0]});
+  for(const j of A){let K1=0,K2=Infinity;for(const i of A){if(i===j)continue;if(i.d<j.d)K1=Math.max(K1,(j.best.f-i.best.f)/(j.d-i.d));else K2=Math.min(K2,(i.best.f-j.best.f)/(i.d-j.d))}j.K1=K1;j.K2=K2;j.wins=K1<=K2&&K2>0}
+  return A.sort((a,b)=>b.d-a.d)}
+function winnerAt(K){const B=D3.R.slice().sort((a,b)=>a.c[0]-b.c[0]);let w=B[0];for(const r of B)if(r.f-K*r.d<w.f-K*w.d-1e-12)w=r;return w}
+function draw3(){const K=+$('#k3').value;const{g,w,h}=cv('#c3');
+  const F=frame(g,w,h,[0,1],[-.03,.8],{xt:[0,1/3,2/3,1],yt:[0,.25,.5,.75],yl:'P(v)',xl:'v'});
+  const B=D3.R.slice().sort((a,b)=>a.c[0]-b.c[0]);const win=winnerAt(K);
+  F.clip();curve(g,F,P,F.C.cv,1.6);
+  for(const r of B){const c=r.c[0],lo=c-r.d,hi=c+r.d,top=-r.f+K*r.d,W=r===win;
+    g.strokeStyle=F.C.ln;g.lineWidth=1;g.beginPath();g.moveTo(F.X(lo),F.m.t);g.lineTo(F.X(lo),h-F.m.b);g.stroke();
+    g.strokeStyle=W?F.C.sel:F.C.pt;g.lineWidth=W?2.4:1.3;g.globalAlpha=W?1:.75;
+    g.beginPath();g.moveTo(F.X(lo),F.Y(top));g.lineTo(F.X(c),F.Y(-r.f));g.lineTo(F.X(hi),F.Y(top));g.stroke();
+    g.setLineDash([3,3]);g.beginPath();g.moveTo(F.X(lo),F.Y(top));g.lineTo(F.X(hi),F.Y(top));g.stroke();g.setLineDash([]);g.globalAlpha=1}
+  const bad=new Set();for(let i=0;i<=800;i++){const x=i/800,r=boxOf(B,x);if(P(x)>-r.f+K*Math.abs(x-r.c[0])+1e-9)bad.add(r)}
+  violPath(g,F,(x,y)=>{const r=boxOf(B,x);return y>-r.f+K*Math.abs(x-r.c[0])+1e-9});
+  g.restore();for(const r of B)dot(g,F.X(r.c[0]),F.Y(-r.f),4.5,r===win?F.C.sel:F.C.pt);
+  $('#k3v').innerHTML=`K = <b>${(+K).toFixed(2)}</b> · highest ceiling: interval [${fmt(win.c[0]-win.d)}, ${fmt(win.c[0]+win.d)}] · `+(bad.size?`<b style="color:var(--warn)">K below the Lipschitz constant (≈ ${Ktrue.toFixed(1)}): ceiling false in ${bad.size} box${bad.size>1?'es':''}</b>`:`ceiling true in every box (Lipschitz constant ≈ ${Ktrue.toFixed(1)})`);
+  const G=kGroups(B);let rows='<tr><th>interval</th><th>P(cᵢ)</th><th>dᵢ</th><th>P(cᵢ) + K·dᵢ</th><th>highest ceiling for K in</th></tr>';
+  for(const gr of G){rows+=`<tr class="grp"><td colspan="5">size dᵢ = ${gr.d.toFixed(4)} · ${gr.list.length} box${gr.list.length>1?'es':''}</td></tr>`;
+    for(const r of gr.list){const isW=r===gr.best&&gr.wins,cls=[r===win?'win':'',isW?'':'dom',swept.has(r)?'swept':''].join(' ');
+      const rng=isW?`${gr.K1.toFixed(3)} to ${gr.K2===Infinity?'∞':gr.K2.toFixed(3)}`:(r===gr.best?'never (beaten by other sizes)':`never (dominated by [${fmt(gr.best.c[0]-gr.best.d)}, ${fmt(gr.best.c[0]+gr.best.d)}])`);
+      rows+=`<tr class="${cls}"><td>[${fmt(r.c[0]-r.d)}, ${fmt(r.c[0]+r.d)}]</td><td>${(-r.f).toFixed(4)}</td><td>${r.d.toFixed(4)}</td><td>${(-r.f+K*r.d).toFixed(4)}</td><td>${rng}</td></tr>`}}
+  $('#t3').innerHTML=rows;
+  if(sweepDone){const sel=D3.select(1e-4),same=sel.length===swept.size&&sel.every(r=>swept.has(r));
+    $('#k3v').innerHTML+=` · <b>sweep: ${swept.size} boxes won for some K</b>${same?', the same set that DIRECT selects in this state':''}`}}
+$('#k3').addEventListener('input',draw3);
+$('#sw3').addEventListener('click',()=>{clearInterval(sweepT);swept=new Set();sweepDone=false;
+  const MAX=1.2,dK=0.01,lg=$('#k3log'),iv=r=>`[${fmt(r.c[0]-r.d)}, ${fmt(r.c[0]+r.d)}]`;
+  let K=0,prev=winnerAt(0),pause=0;swept.add(prev);lg.innerHTML=`K = 0.000: the highest ceiling is in ${iv(prev)}`;
+  $('#k3').value=0;draw3();
+  sweepT=setInterval(()=>{if(pause>0){pause--;return}
+    K=Math.min(MAX,K+dK);const wv=winnerAt(K);
+    if(wv!==prev){let a=K-dK,b=K;for(let n=0;n<40;n++){const m=(a+b)/2;winnerAt(m)===prev?a=m:b=m}
+      lg.innerHTML+=`<br>K = ${b.toFixed(3)}: the highest ceiling moves from ${iv(prev)} to ${iv(wv)}`;prev=wv;swept.add(wv);pause=22}
+    $('#k3').value=K;
+    if(K>=MAX){clearInterval(sweepT);sweepT=null;sweepDone=true;
+      const dMax=Math.max(...D3.R.map(r=>r.d));
+      if(prev.d===dMax)lg.innerHTML+=`<br>From here on, the largest box ${iv(prev)} keeps the highest ceiling for every larger K.`}
+    draw3()},40)});
+
+/* Figure 7: Piyavskii-Shubert search (maximum form of Shubert 1972) */
+const EPS=0.02;let PS=[],psDone=false,psT=null;
+function psTeeth(S,K){const s=S.slice().sort((a,b)=>a.x-b.x),T=[];
+  for(let i=0;i+1<s.length;i++){const a=s[i],b=s[i+1];let x=(a.x+b.x)/2+(b.P-a.P)/(2*K);x=Math.min(b.x,Math.max(a.x,x));
+    T.push({a,b,x,U:Math.min(a.P+K*(x-a.x),b.P+K*(b.x-x))})}return T}
+function psStep(S,K){const T=psTeeth(S,K),Pb=Math.max(...S.map(s=>s.P));let t=T[0];for(const q of T)if(q.U>t.U)t=q;
+  if(t.U<=(1+EPS)*Pb||S.length>=PSCAP)return false;S.push({x:t.x,P:P(t.x),n:S.length+1});return true}
+const PSCAP=400;
+function psReset(){clearInterval(psT);psT=null;PS=[0,1].map((x,i)=>({x,P:P(x),n:i+1}));psDone=false;drawS()}
+function drawS(){const K=+$('#kS').value;const{g,w,h}=cv('#cS');
+  const T=psTeeth(PS,K),Pb=Math.max(...PS.map(s=>s.P));let top=T[0];for(const q of T)if(q.U>top.U)top=q;
+  const yM=Math.max(.5,top.U*1.08),yst=yM>2?1:yM>1?.5:.25,yt=[];for(let v=0;v<yM;v+=yst)yt.push(+v.toFixed(2));
+  const F=frame(g,w,h,[0,1],[-.02*yM,yM],{xt:[0,.25,.5,.75,1],yt,yl:'P(v)',xl:'v'});
+  const env=x=>Math.min(...PS.map(s=>s.P+K*Math.abs(x-s.x)));
+  const stop=top.U<=(1+EPS)*Pb;if(stop)psDone=true;
+  F.clip();curve(g,F,P,F.C.cv,1.6);
+  g.strokeStyle=F.C.fg;g.lineWidth=1.6;g.setLineDash([6,4]);g.beginPath();for(let i=0;i<=900;i++){const x=i/900,y=env(x);i?g.lineTo(F.X(x),F.Y(y)):g.moveTo(F.X(x),F.Y(y))}g.stroke();g.setLineDash([]);
+  g.strokeStyle=F.C.ok;g.lineWidth=1;g.setLineDash([2,3]);g.beginPath();g.moveTo(F.m.l,F.Y((1+EPS)*Pb));g.lineTo(w-F.m.r,F.Y((1+EPS)*Pb));g.stroke();g.setLineDash([]);
+  const nv=violPath(g,F,(x,y)=>y>env(x)+1e-9);
+  if(!stop){g.strokeStyle=F.C.sel;g.lineWidth=1.2;g.setLineDash([3,3]);g.beginPath();g.moveTo(F.X(top.x),F.Y(top.U));g.lineTo(F.X(top.x),F.Y(P(top.x)));g.stroke();g.setLineDash([])}
+  g.restore();
+  for(const q of T)if(q!==top||stop)dot(g,F.X(q.x),F.Y(q.U),3,F.C.mu);
+  if(!stop)dot(g,F.X(top.x),F.Y(top.U),6,F.C.sel);
+  const bi=PS.reduce((b,s)=>s.P>b.P?s:b,PS[0]);
+  g.font='11px '+css('--f-mono');g.textAlign='center';g.textBaseline='top';
+  for(const s of PS){dot(g,F.X(s.x),F.Y(s.P),s===bi?5.5:4.5,s===bi&&stop?F.C.ok:F.C.pt);g.fillStyle=F.C.fg;g.fillText(String(s.n),F.X(s.x),F.Y(s.P)+7)}
+  $('#vS').innerHTML=`tests <b>${PS.length}</b> · P<sub>best</sub> = <b>${Pb.toFixed(4)}</b> (${(100*Pb/gP).toFixed(2)} % of the true maximum ${gP.toFixed(4)}) · highest tip Û = <b>${top.U.toFixed(4)}</b>, Û / P<sub>best</sub> = ${(top.U/Pb).toFixed(3)} · `+
+    (stop?`<b style="color:var(--ok)">stopped: no tip above 1.02 P<sub>best</sub>, certificate P* ≤ ${top.U.toFixed(4)}</b>`:'searching')+
+    (nv?` · <b style="color:var(--warn)">K below the Lipschitz constant (≈ ${Ktrue.toFixed(1)}): the envelope is false</b>`:'')}
+$('#sS').addEventListener('click',()=>{if(!psDone)psStep(PS,+$('#kS').value);drawS()});
+$('#rS').addEventListener('click',()=>{clearInterval(psT);psT=setInterval(()=>{if(psDone||!psStep(PS,+$('#kS').value)){clearInterval(psT);psT=null}drawS()},450)});
+$('#zS').addEventListener('click',psReset);$('#kS').addEventListener('input',psReset);
+
+/* Figure 8: box-wise ceiling against the upper envelope */
 function drawE(){const K=+$('#ek').value,mode=$('#em').value,showB=mode!=='env',showE=mode!=='box';const{g,w,h}=cv('#cE');
-  const F=frame(g,w,h,[0,1],[-.8,.03],{xt:[0,1/3,2/3,1],yt:[-.75,-.5,-.25,0],yl:'f(x)',xl:'x'});
+  const F=frame(g,w,h,[0,1],[-.03,.8],{xt:[0,1/3,2/3,1],yt:[0,.25,.5,.75],yl:'P(v)',xl:'v'});
   const B=D3.R.slice().sort((a,b)=>a.c[0]-b.c[0]);
-  const bf=x=>{const r=boxOf(B,x);return r.f-K*Math.abs(x-r.c[0])},env=x=>Math.max(...B.map(r=>r.f-K*Math.abs(x-r.c[0])));
-  F.clip();curve(g,F,fx,F.C.cv,1.6);
-  if(showB){for(const r of B){const c=r.c[0],tip=r.f-K*r.d;g.strokeStyle=F.C.pt;g.lineWidth=1.4;g.beginPath();g.moveTo(F.X(c-r.d),F.Y(tip));g.lineTo(F.X(c),F.Y(r.f));g.lineTo(F.X(c+r.d),F.Y(tip));g.stroke()}
-    g.strokeStyle=F.C.st;g.lineWidth=2.6;for(let i=0;i+1<B.length;i++){const a=B[i],b=B[i+1],x=a.c[0]+a.d;g.beginPath();g.moveTo(F.X(x),F.Y(a.f-K*a.d));g.lineTo(F.X(x),F.Y(b.f-K*b.d));g.stroke()}}
+  const bc=x=>{const r=boxOf(B,x);return -r.f+K*Math.abs(x-r.c[0])},env=x=>Math.min(...B.map(r=>-r.f+K*Math.abs(x-r.c[0])));
+  F.clip();curve(g,F,P,F.C.cv,1.6);
+  if(showB){for(const r of B){const c=r.c[0],top=-r.f+K*r.d;g.strokeStyle=F.C.pt;g.lineWidth=1.4;g.beginPath();g.moveTo(F.X(c-r.d),F.Y(top));g.lineTo(F.X(c),F.Y(-r.f));g.lineTo(F.X(c+r.d),F.Y(top));g.stroke()}
+    g.strokeStyle=F.C.st;g.lineWidth=2.6;for(let i=0;i+1<B.length;i++){const a=B[i],b=B[i+1],x=a.c[0]+a.d;g.beginPath();g.moveTo(F.X(x),F.Y(-a.f+K*a.d));g.lineTo(F.X(x),F.Y(-b.f+K*b.d));g.stroke()}}
   if(showE){g.strokeStyle=F.C.fg;g.lineWidth=2;g.setLineDash([6,4]);g.beginPath();for(let i=0;i<=900;i++){const x=i/900,y=env(x);i?g.lineTo(F.X(x),F.Y(y)):g.moveTo(F.X(x),F.Y(y))}g.stroke();g.setLineDash([])}
-  const nb=showB?violPath(g,F,(x,y)=>y<bf(x)-1e-9):0,ne=showE?violPath(g,F,(x,y)=>y<env(x)-1e-9):0;
-  g.restore();for(const r of B)dot(g,F.X(r.c[0]),F.Y(r.f),4.5,F.C.pt);
+  const nb=showB?violPath(g,F,(x,y)=>y>bc(x)+1e-9):0,ne=showE?violPath(g,F,(x,y)=>y>env(x)+1e-9):0;
+  g.restore();for(const r of B)dot(g,F.X(r.c[0]),F.Y(-r.f),4.5,F.C.pt);
   const bl=boxOf(B,1/3-1e-6);
-  $('#ev').innerHTML=`K = <b>${K.toFixed(2)}</b> · just left of x = 1/3: box-wise floor <b>${(bl.f-K*bl.d).toFixed(3)}</b>, envelope <b>${env(1/3).toFixed(3)}</b> · `+((nb||ne)?`<b style="color:var(--warn)">curve below ${nb&&ne?'both floors':nb?'the box-wise floor':'the envelope'} (K below ≈ ${Ktrue.toFixed(1)})</b>`:'both floors valid')}
+  $('#ev').innerHTML=`K = <b>${K.toFixed(2)}</b> · just left of v = 1/3: box-wise ceiling <b>${(-bl.f+K*bl.d).toFixed(3)}</b>, envelope <b>${env(1/3).toFixed(3)}</b> · `+((nb||ne)?`<b style="color:var(--warn)">curve above ${nb&&ne?'both ceilings':nb?'the box-wise ceiling':'the envelope'} (K below ≈ ${Ktrue.toFixed(1)})</b>`:'both ceilings true')}
 $('#ek').addEventListener('input',drawE);$('#em').addEventListener('change',drawE);
 
-/* Fig 4: sweeping line in the (d, f) diagram */
-const D4=run(f1,1,1e-4,5);let play4=!reduce,ang=10;
-const vis={c4:true};
-function selPlot(g,w,h,D,e){
-  const R=D.R,dm=Math.max(...R.map(r=>r.d)),fl=Math.min(...R.map(r=>r.f)),fh=Math.max(...R.map(r=>r.f));
-  const F=frame(g,w,h,[0,dm*1.08],[fl-.05,fh+.02],{xt:[0,+(dm/2).toPrecision(2),+dm.toPrecision(2)],yt:[-.3,-.2,-.1,0].filter(v=>v>fl-.05&&v<fh+.02),yl:'f(cᵢ), center value',xl:'dᵢ, center-vertex distance'});
-  const S=new Set(D.select(e)),H=[...S].sort((a,b)=>a.d-b.d);
-  g.strokeStyle=F.C.sel;g.lineWidth=1.5;g.beginPath();H.forEach((r,i)=>i?g.lineTo(F.X(r.d),F.Y(r.f)):g.moveTo(F.X(r.d),F.Y(r.f)));g.stroke();
-  for(const r of R)if(!S.has(r))dot(g,F.X(r.d),F.Y(r.f),3.5,F.C.pt);
-  for(const r of H)dot(g,F.X(r.d),F.Y(r.f),5,F.C.sel);
-  return{F,S}}
-function draw4(){const{g,w,h}=cv('#c4');const e=+$('#e4').value;const{F}=selPlot(g,w,h,D4,e);
-  const fm=D4.fmin,a=fm-e*Math.abs(fm);let sl=Infinity;for(const r of D4.R){const s=(r.f-a)/r.d;if(s<sl)sl=s}
-  F.clip();g.strokeStyle=F.C.mu;g.lineWidth=1.3;g.setLineDash([5,4]);g.beginPath();g.moveTo(F.X(0),F.Y(a));
-  const dE=Math.max(...D4.R.map(r=>r.d))*1.08;g.lineTo(F.X(dE),F.Y(a+sl*dE));g.stroke();g.setLineDash([]);
-  const t=Math.tan(ang*Math.PI/180);let best=null,bv=Infinity;
-  for(const r of D4.R){const px=F.X(r.d),py=h-F.Y(r.f),v=py-t*px;if(v<bv-1e-9||(Math.abs(v-bv)<=1e-9&&r.d>best.d)){bv=v;best=r}}
-  const yAt=px=>h-(bv+t*px);g.strokeStyle=F.C.fg;g.lineWidth=1.6;g.beginPath();g.moveTo(F.m.l,yAt(F.m.l));g.lineTo(w-F.m.r,yAt(w-F.m.r));g.stroke();g.restore();
-  dot(g,F.X(best.d),F.Y(best.f),9,null,F.C.fg);dot(g,F.X(0),F.Y(a),4,F.C.mu);
-  const sx=(F.X(1)-F.X(0)),sy=(F.Y(0)-F.Y(1));const K=t*sx/sy;
-  $('#a4v').innerHTML=`K ≈ <b>${K<1e3?K.toFixed(2):'very large'}</b> · touched: d = ${best.d.toFixed(4)}, f(c) = ${best.f.toFixed(4)}`}
-$('#a4').addEventListener('input',e=>{ang=+e.target.value;draw4()});
-$('#e4').addEventListener('change',draw4);
-$('#p4').addEventListener('click',()=>{play4=!play4;$('#p4').textContent=play4?'Pause':'Play'});
-if(!play4)$('#p4').textContent='Play';
-let t4=0;(function loop4(ts){requestAnimationFrame(loop4);if(!play4||!vis.c4)return;if(ts-t4<40)return;t4=ts;ang=ang>=88?0:ang+.6;$('#a4').value=ang;draw4()})(0);
+/* Figure 9: Idea C on the test curve. Ceiling of a gap = higher voltage x higher current. */
+const EC=0.02,TAU=0.02,TH=0.1;
+function cornerV(a,b){const R=b.v/a.I;let lo=a.v,hi=b.v;for(let k=0;k<60;k++){const m=(lo+hi)/2;(m/Math.max(Iv(m),1e-12))<R?lo=m:hi=m}
+  const w=b.v-a.v;return Math.min(b.v-TH*w,Math.max(a.v+TH*w,(lo+hi)/2))}
+const mkS=(v,n)=>({v,I:Iv(v),P:P(v),n});
+function icGaps(S){const s=S.slice().sort((a,b)=>a.v-b.v),Pb=Math.max(...S.map(q=>q.P)),G=[];let best=null;
+  for(let i=0;i+1<s.length;i++){const a=s[i],b=s[i+1],U=b.v*a.I,wd=b.v-a.v,narrow=wd<=TAU,open=U>(1+EC)*Pb&&!narrow,gp={a,b,U,wd,narrow,open};G.push(gp);if(open&&(!best||U>best.U))best=gp}
+  return{G,best,Pb}}
+function icStep(S,split){const E=icGaps(S);if(!E.best||S.length>=64)return false;
+  const v=split==='mid'?(E.best.a.v+E.best.b.v)/2:cornerV(E.best.a,E.best.b);S.push(mkS(v,S.length+1));return true}
+let IC=[],icT=null;
+function icReset(){clearInterval(icT);icT=null;IC=[0,.5,1].map((v,i)=>mkS(v,i+1));draw7()}
+function draw7(){const{g,w,h}=cv('#c7');const E=icGaps(IC),done=!E.best;
+  const F=frame(g,w,h,[0,1],[-.02,.62],{xt:[0,.25,.5,.75,1],yt:[0,.2,.4,.6],yl:'P(v)',xl:'v',m:{b:62}});
+  F.clip();curve(g,F,P,F.C.mu,1.3);
+  g.strokeStyle=F.C.wn;g.setLineDash([6,4]);g.lineWidth=1.2;g.beginPath();g.moveTo(F.m.l,F.Y((1+EC)*E.Pb));g.lineTo(w-F.m.r,F.Y((1+EC)*E.Pb));g.stroke();g.setLineDash([]);
+  g.restore();
+  g.font='11px '+css('--f-mono');g.textAlign='center';g.textBaseline='bottom';
+  for(const gp of E.G){const c=gp===E.best?F.C.sel:gp.open?F.C.pt:gp.narrow?F.C.mu:F.C.ok,x1=F.X(gp.a.v),x2=F.X(gp.b.v),over=gp.U>.62,y=over?F.m.t-2:F.Y(gp.U);
+    g.strokeStyle=c;g.lineWidth=gp===E.best?3.2:2;g.beginPath();g.moveTo(x1+1,y);g.lineTo(x2-1,y);g.stroke();
+    if(over){g.fillStyle=c;g.fillText('▲'+(gp.U/E.Pb).toFixed(2),(x1+x2)/2,F.m.t-4)}
+    const y0=h-F.m.b+24;g.fillStyle=c;g.globalAlpha=.35;g.fillRect(x1,y0,x2-x1,10);g.globalAlpha=1;g.strokeStyle=F.C.mu;g.lineWidth=1;g.strokeRect(x1,y0,x2-x1,10)}
+  const bi=IC.reduce((b,s)=>s.P>b.P?s:b,IC[0]);
+  for(const s of IC){dot(g,F.X(s.v),F.Y(s.P),s===bi?6:4.5,s===bi&&done?F.C.ok:F.C.pt);g.fillStyle=F.C.fg;g.fillText(String(s.n),F.X(s.v),F.Y(s.P)-7)}
+  let cert=1;for(const gp of E.G){if(gp.a===bi||gp.b===bi)continue;cert=Math.max(cert,gp.U/E.Pb)}
+  $('#st7').innerHTML=`tests <b>${IC.length}</b> · P<sub>best</sub> = <b>${E.Pb.toFixed(4)}</b> = <b>${(100*E.Pb/gP).toFixed(2)} %</b> of the true maximum · `+(done?`<b style="color:var(--ok)">stopped: no open gap, certificate holds, hand over to the local stage</b>`:'searching')+` · highest ceiling away from the best test / P<sub>best</sub> = ${cert.toFixed(3)}`}
+$('#s7').addEventListener('click',()=>{icStep(IC,$('#sp7').value);draw7()});
+$('#r7').addEventListener('click',()=>{clearInterval(icT);icT=setInterval(()=>{if(!icStep(IC,$('#sp7').value)){clearInterval(icT);icT=null}draw7()},450)});
+$('#z7').addEventListener('click',icReset);$('#sp7').addEventListener('change',icReset);
 
-/* Fig 6: live 1-D run */
-let D7,timer7=null,hits7={};
-function reset7(){clearInterval(timer7);timer7=null;hits7={};D7=Direct(f1,1,+$('#e7').value);draw7()}
-function draw7(){
-  {const{g,w,h}=cv('#c7a');const F=frame(g,w,h,[0,1],[-.33,.02],{xt:[0,.25,.5,.75,1],yt:[-.3,-.2,-.1,0],yl:'f(x)',xl:'x',m:{b:58}});
-   F.clip();curve(g,F,fx,F.C.cv,1.6);g.restore();
-   const S=new Set(D7.select()),y0=h-F.m.b+22;
-   for(const r of D7.R){const a=F.X(r.c[0]-r.d),b=F.X(r.c[0]+r.d);
-     g.fillStyle=S.has(r)?F.C.sel:css('--soft');g.fillRect(a,y0,b-a,10);g.strokeStyle=F.C.mu;g.lineWidth=1;g.strokeRect(a,y0,b-a,10)}
-   for(const r of D7.R){const nw=r.born===D7.it&&D7.it>0;dot(g,F.X(r.c[0]),F.Y(r.f),nw?5:3.2,F.C.pt)}
-   const b=D7.best;dot(g,F.X(b.c[0]),F.Y(b.f),8,null,F.C.sel)}
-  {const{g,w,h}=cv('#c7b');selPlot(g,w,h,D7,D7.eps)}
-  const b=D7.best;
-  $('#st7').innerHTML=`iteration t = <b>${D7.it}</b> · evaluations m = <b>${D7.R.length}</b> · x(f<sub>min</sub>) = <b>${b.c[0].toFixed(4)}</b>, f<sub>min</sub> = <b>${b.f.toFixed(4)}</b> · |S| next = <b>${D7.select().length}</b><br>reference: x* = ${gx.toFixed(4)}, f* = ${gf.toFixed(4)}<br>${MILE.map(([lab,tol])=>{if(!(lab in hits7)&&(b.f-FS)/Math.abs(FS)<=tol)hits7[lab]=D7.it;return `within ${lab}: ${lab in hits7?'<b>t = '+hits7[lab]+'</b>':'not yet'}`}).join(' · ')}`}
-$('#s7').addEventListener('click',()=>{D7.step();draw7()});
-$('#r7').addEventListener('click',()=>{clearInterval(timer7);let k=0;timer7=setInterval(()=>{D7.step();draw7();if(++k>=10){clearInterval(timer7);timer7=null}},reduce?0:350)});
-$('#z7').addEventListener('click',reset7);$('#e7').addEventListener('change',reset7);
+/* Comparison table on the test curve */
+(function(){const firstWithin=(vals,tol)=>{let b=-Infinity;for(let i=0;i<vals.length;i++){b=Math.max(b,vals[i]);if(b>=(1-tol)*gP)return i+1}return null};
+  const rows=[];
+  for(const sp of ['corner','mid']){const S=[0,.5,1].map((v,i)=>mkS(v,i+1));while(icStep(S,sp));const vals=S.map(s=>s.P);
+    rows.push([`Idea C, ${sp==='corner'?'corner split':'midpoint split'}`,firstWithin(vals,.01),firstWithin(vals,.001),`${S.length} tests, with a certificate (within 2 %)`])}
+  {const Kv=Math.ceil(Ktrue*1.2*10)/10,S=[0,1].map((x,i)=>({x,P:P(x),n:i+1}));while(psStep(S,Kv));const vals=S.map(s=>s.P);
+    rows.push([`Piyavskii-Shubert, K = ${Kv}`,firstWithin(vals,.01),firstWithin(vals,.001),S.length>=PSCAP?`no stop within ${PSCAP} tests`:`${S.length} tests, with a certificate (K known)`])}
+  {const D=run(f1,1,1e-4,10),vals=D.R.map(r=>-r.f);rows.push(['DIRECT, ε = 10⁻⁴',firstWithin(vals,.01),firstWithin(vals,.001),`no stop rule (${D.R.length} tests after 10 iterations)`])}
+  $('#tF').innerHTML='<tr><th>Search</th><th>tests to within 1 %</th><th>tests to within 0.1 %</th><th>end of the search</th></tr>'+rows.map(r=>`<tr${r[0].startsWith('Idea C, corner')?' class="ic"':''}><td>${r[0]}</td><td>${r[1]??'not before the stop'}</td><td>${r[2]??'not before the stop'}</td><td>${r[3]}</td></tr>`).join('')})();
 
-/* Fig 7: partition trace (added by user) */
-const TR=(()=>{const D=Direct(f1,1,1e-4),rows=[];for(let t=0;t<=3;t++){const S=new Set(D.select());rows.push({t,m:D.R.length,boxes:D.R.map(r=>({a:r.c[0]-r.d,b:r.c[0]+r.d,c:r.c[0],f:r.f,d:r.d,s:S.has(r)}))});if(t<3)D.step()}return rows})();
-function drawT(){const{g,w,h}=cv('#cT');const C=col(),L=104,R=14,rowH=(h-30)/TR.length,X=v=>L+v*(w-L-R);
-  g.font='11px '+css('--f-mono');g.textBaseline='middle';
-  TR.forEach((row,k)=>{const y=10+k*rowH+rowH/2;g.fillStyle=C.mu;g.textAlign='left';g.fillText(k===0?'start':'after it. '+k,8,y-7);g.fillText('m = '+row.m,8,y+8);
-    for(const b of row.boxes){g.fillStyle=b.s?C.sel:css('--soft');g.fillRect(X(b.a),y-9,X(b.b)-X(b.a),18);g.strokeStyle=C.mu;g.lineWidth=1;g.strokeRect(X(b.a),y-9,X(b.b)-X(b.a),18);dot(g,X(b.c),y,3.5,C.pt)}});
-  g.textAlign='center';g.textBaseline='top';g.fillStyle=C.mu;[0,1/3,2/3,1].forEach(v=>g.fillText(fmt(v),X(v),h-16))}
-(function(){const rows=[];for(let t=0;t<3;t++){const cur=TR[t],nxt=TR[t+1];
-  for(const b of cur.boxes.filter(o=>o.s)){const same=cur.boxes.filter(o=>Math.abs(o.d-b.d)<1e-9);
-    const why=cur.boxes.length===1?'the only box':same.length===cur.boxes.length?'all boxes have equal size, so only the best center can win':same.length>1?'best center of its size level':'the only box of its size, on the hull';
-    const kids=nxt.boxes.filter(o=>o.a>=b.a-1e-9&&o.b<=b.b+1e-9).map(o=>o.c.toFixed(3)).join(', ');
-    rows.push(`<tr><td>${t+1}</td><td>[${fmt(b.a)}, ${fmt(b.b)}], f(c) = ${b.f.toFixed(3)}</td><td>${why}</td><td>${kids}</td><td>${nxt.m}</td></tr>`)}}
-  $('#tT').innerHTML='<tr><th>Iteration</th><th>Box split</th><th>Why this box</th><th>New box centers</th><th>Evaluations after</th></tr>'+rows.join('')})();
-
-/* Fig 9 milestones and speed table (added by user) */
-let FS=0;for(let i=0;i<=40000;i++)FS=Math.min(FS,fx(i/40000));
-const MILE=[['1%',.01],['0.1%',.001],['0.01%',.0001]];
-(function(){const out={};
-  for(const e of [0.01,1e-4]){const D=Direct(f1,1,e),hit={};for(let k=0;k<23;k++){D.step();const er=(D.fmin-FS)/Math.abs(FS);for(const [lab,tol] of MILE)if(er<=tol&&!hit[lab])hit[lab]=`iteration ${D.it}, ${D.R.length} evaluations`}hit.end=D.R.length;out[e]=hit}
-  $('#tF').innerHTML='<tr><th>ε</th><th>within 1%</th><th>within 0.1%</th><th>within 0.01%</th><th>evaluations by iteration 23</th></tr>'+[0.01,1e-4].map(e=>`<tr><td>${e===0.01?'0.01':'10⁻⁴'}</td>${MILE.map(([lab])=>`<td>${out[e][lab]||'not reached'}</td>`).join('')}<td>${out[e].end}</td></tr>`).join('')})();
-
-/* Visibility and redraw */
-new IntersectionObserver(es=>es.forEach(e=>vis[e.target.id]=e.isIntersecting)).observe($('#c4'));
-function drawAll(){draw1();draw2();drawH();draw3();drawE();drawT();draw4();draw7();if(window.tint3)tint3()}
-reset7();drawAll();
+/* Draw and redraw */
+function drawAll(){draw1();draw2();drawH();draw3();drawS();drawE();draw7()}
+PS=[0,1].map((x,i)=>({x,P:P(x),n:i+1}));IC=[0,.5,1].map((v,i)=>mkS(v,i+1));
+drawAll();
 let rz;new ResizeObserver(()=>{clearTimeout(rz);rz=setTimeout(drawAll,60)}).observe(document.body);
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',drawAll);
 new MutationObserver(drawAll).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 document.fonts&&document.fonts.ready.then(drawAll);
-
-/* Fig 7: three.js view of the 2-D run */
-(function(){
-  const host=$('#t3d');
-  if(!window.THREE){host.textContent='The 3-D view needs three.js, and it did not load.';return}
-  const R3=new THREE.WebGLRenderer({antialias:true,alpha:true});R3.setPixelRatio(Math.min(devicePixelRatio||1,2));host.appendChild(R3.domElement);
-  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(36,1,.05,20);cam.position.set(1.25,1.0,1.35);cam.lookAt(0,.12,0);
-  scene.add(new THREE.HemisphereLight(0xffffff,0x808080,.95));const dl=new THREE.DirectionalLight(0xffffff,.55);dl.position.set(1,2,.6);scene.add(dl);
-  const grp=new THREE.Group();scene.add(grp);const H=.5,MAX=6000;
-  const geo=new THREE.PlaneGeometry(1,1,90,90);geo.rotateX(-Math.PI/2);
-  const pos=geo.attributes.position;for(let i=0;i<pos.count;i++)pos.setY(i,P2(pos.getX(i)+.5,pos.getZ(i)+.5)*H);geo.computeVertexNormals();
-  const surfM=new THREE.MeshLambertMaterial({transparent:true,opacity:.5,side:THREE.DoubleSide,depthWrite:false});grp.add(new THREE.Mesh(geo,surfM));
-  const lines=(op)=>{const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(MAX*24),3));const l=new THREE.LineSegments(g,new THREE.LineBasicMaterial({transparent:true,opacity:op}));grp.add(l);return l};
-  const part=lines(.75),selL=lines(1),pins=lines(.3);
-  const tex=document.createElement('canvas');tex.width=tex.height=32;const tg=tex.getContext('2d');tg.fillStyle='#fff';tg.beginPath();tg.arc(16,16,14,0,7);tg.fill();
-  const ptsG=new THREE.BufferGeometry();ptsG.setAttribute('position',new THREE.BufferAttribute(new Float32Array(MAX*3),3));
-  const ptsM=new THREE.PointsMaterial({size:.026,map:new THREE.CanvasTexture(tex),alphaTest:.5});grp.add(new THREE.Points(ptsG,ptsM));
-  function edges(A,o,r,y){const hx=Math.pow(3,-r.lv[0])/2,hz=Math.pow(3,-r.lv[1])/2,x0=r.c[0]-hx-.5,x1=r.c[0]+hx-.5,z0=r.c[1]-hz-.5,z1=r.c[1]+hz-.5;
-    A.set([x0,y,z0,x1,y,z0,x1,y,z0,x1,y,z1,x1,y,z1,x0,y,z1,x0,y,z1,x0,y,z0],o);return o+24}
-  let D,hold=0;
-  function sync(){const R=D.R.slice(0,MAX),S=D.select();
-    let A=part.geometry.attributes.position.array,o=0;for(const r of R)o=edges(A,o,r,0);part.geometry.setDrawRange(0,o/3);part.geometry.attributes.position.needsUpdate=true;
-    A=selL.geometry.attributes.position.array;o=0;for(const r of S.slice(0,MAX))o=edges(A,o,r,.003);selL.geometry.setDrawRange(0,o/3);selL.geometry.attributes.position.needsUpdate=true;
-    const PA=ptsG.attributes.position.array,LA=pins.geometry.attributes.position.array;
-    R.forEach((r,i)=>{const x=r.c[0]-.5,z=r.c[1]-.5,y=-r.f*H;PA.set([x,y+.004,z],i*3);LA.set([x,0,z,x,y,z],i*6)});
-    ptsG.setDrawRange(0,R.length);ptsG.attributes.position.needsUpdate=true;pins.geometry.setDrawRange(0,R.length*2);pins.geometry.attributes.position.needsUpdate=true;
-    $('#st8').innerHTML=`iteration t = <b>${D.it}</b> · evaluations m = <b>${D.R.length}</b> · x(f<sub>min</sub>) = (<b>${D.best.c[0].toFixed(3)}</b>, <b>${D.best.c[1].toFixed(3)}</b>), f<sub>min</sub> = <b>${D.best.f.toFixed(4)}</b> · reference: x* ≈ (0.72, 0.28), f* ≈ −1.0`}
-  const restart=()=>{D=Direct(f2,2,1e-4);sync();hold=0};
-  const step=()=>{if(D.it<24&&D.R.length<1800){D.step();sync();return true}return false};
-  window.tint3=()=>{surfM.color.set(css('--curve'));part.material.color.set(css('--muted'));selL.material.color.set(css('--sel'));pins.material.color.set(css('--pt'));ptsM.color.set(css('--pt'))};tint3();
-  function size(){const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;R3.setSize(w,h,false);R3.domElement.style.width='100%';cam.aspect=w/h;cam.updateProjectionMatrix()}
-  new ResizeObserver(size).observe(host);size();
-  let playing=!reduce,visible=true,last=0,acc=0;
-  new IntersectionObserver(es=>{visible=es[0].isIntersecting}).observe(host);
-  let drag=null;host.addEventListener('pointerdown',e=>{drag=e.clientX;host.setPointerCapture(e.pointerId)});
-  host.addEventListener('pointermove',e=>{if(drag===null)return;grp.rotation.y+=(e.clientX-drag)*.01;drag=e.clientX});
-  host.addEventListener('pointerup',()=>{drag=null});host.addEventListener('pointercancel',()=>{drag=null});
-  $('#p8').textContent=playing?'Pause':'Play';
-  $('#p8').addEventListener('click',()=>{playing=!playing;$('#p8').textContent=playing?'Pause':'Play'});
-  $('#s8').addEventListener('click',()=>{if(!step())restart()});$('#z8').addEventListener('click',restart);
-  restart();
-  (function tick(t){requestAnimationFrame(tick);if(!visible)return;const dt=Math.min(.1,(t-last)/1000||0);last=t;
-    if(playing){grp.rotation.y+=dt*.12;acc+=dt;if(acc>.8){acc=0;if(!step()){hold+=.8;if(hold>3)restart()}}}
-    R3.render(scene,cam)})(0);
-})();
 </script>
+
+</body>
+</html>
