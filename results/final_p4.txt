@@ -1,0 +1,31 @@
+run_final_p4.m, 24-Nov-2026 10:10:14
+Month  1: day 20, daily clearness 0.86 (median 0.86)
+Month  4: day 29, daily clearness 0.85 (median 0.85)
+Month  7: day  3, daily clearness 0.53 (median 0.53)
+Month 10: day  8, daily clearness 0.74 (median 0.74)
+Day 01-20 open   : 2089 curves, 12 cloud spells, 13.0 h of daylight
+Day 01-20 morning: 2089 curves, 12 cloud spells, 13.0 h of daylight
+Day 04-29 open   : 2145 curves, 12 cloud spells, 14.0 h of daylight
+Day 04-29 morning: 2145 curves, 12 cloud spells, 14.0 h of daylight
+Day 07-03 open   : 2065 curves, 12 cloud spells, 14.0 h of daylight
+Day 07-03 morning: 2065 curves, 12 cloud spells, 14.0 h of daylight
+Day 10-08 open   : 2253 curves, 12 cloud spells, 14.0 h of daylight
+Day 10-08 morning: 2253 curves, 12 cloud spells, 14.0 h of daylight
+120 day runs in 3007 s on 8 workers
+
+Variant                    Tr    open ratio/srch morning ratio/srch  srch loss
+DIRECT (paper)              0     99.927/    458     99.903/    449     0.0144
+DIRECT (paper)            300     99.907/    812     99.888/    810     0.0320
+DIRECT (paper)            900     99.921/    527     99.900/    522     0.0174
+Idea B + Parabolic          0     99.969/    450     99.914/    441     0.0137
+Idea B + Parabolic        300     99.952/    808     99.935/    808     0.0303
+Idea B + Parabolic        900     99.962/    523     99.937/    518     0.0166
+Idea C + Parabolic          0     99.976/    449     99.917/    440     0.0128
+Idea C + Parabolic        300     99.952/    807     99.935/    809     0.0296
+Idea C + Parabolic        900     99.968/    521     99.940/    519     0.0157
+PSO + Parabolic             0     99.919/    443     99.867/    433     0.0638
+PSO + Parabolic           300     99.834/    798     99.814/    796     0.1490
+PSO + Parabolic           900     99.900/    515     99.881/    508     0.0787
+GWO + Parabolic             0     99.842/    445     99.802/    433     0.1310
+GWO + Parabolic           300     99.655/    798     99.635/    796     0.3277
+GWO + Parabolic           900     99.814/    515     99.792/    509     0.1644

@@ -478,3 +478,122 @@
   year    = {2023},
   doi     = {10.1109/JESTPE.2021.3137521}
 }
+
+% Added 2026-11-21: sources of the new baselines and the local stage.
+@article{ishaque2012pso,
+  author  = {Ishaque, Kashif and Salam, Zainal and Amjad, Muhammad and Mekhilef, Saad},
+  title   = {An Improved Particle Swarm Optimization ({PSO})-Based {MPPT} for {PV} With Reduced Steady-State Oscillation},
+  journal = {IEEE Transactions on Power Electronics},
+  volume  = {27},
+  number  = {8},
+  pages   = {3627--3638},
+  year    = {2012},
+  doi     = {10.1109/TPEL.2012.2185713}
+}
+
+@article{mohanty2016gwo,
+  author  = {Mohanty, Satyajit and Subudhi, Bidyadhar and Ray, Pravat Kumar},
+  title   = {A New {MPPT} Design Using Grey Wolf Optimization Technique for Photovoltaic System Under Partial Shading Conditions},
+  journal = {IEEE Transactions on Sustainable Energy},
+  volume  = {7},
+  number  = {1},
+  pages   = {181--188},
+  year    = {2016},
+  doi     = {10.1109/TSTE.2015.2482120}
+}
+
+@article{liu2008vsinc,
+  author  = {Liu, Fangrui and Duan, Shanxu and Liu, Fei and Liu, Bangyin and Kang, Yong},
+  title   = {A Variable Step Size {INC} {MPPT} Method for {PV} Systems},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {55},
+  number  = {7},
+  pages   = {2622--2628},
+  year    = {2008},
+  doi     = {10.1109/TIE.2008.920550}
+}
+
+@article{matthiesen2020mmp,
+  author  = {Matthiesen, Bho and Hellings, Christoph and Jorswieck, Eduard A. and Utschick, Wolfgang},
+  title   = {Mixed Monotonic Programming for Fast Global Optimization},
+  journal = {IEEE Transactions on Signal Processing},
+  volume  = {68},
+  pages   = {2529--2544},
+  year    = {2020},
+  doi     = {10.1109/TSP.2020.2983284},
+  note    = {Local copy: arXiv 1910.07853}
+}
+
+% ===========================================================
+% F. LOCAL STAGE AFTER A SEARCH (added 2026-11-21)
+% ===========================================================
+% All read in full before the parabolic stage (mppt.local = 3) was built.
+% PDFs in docs/references/ (local only, gitignored).
+
+@article{pai2011parabolic,
+  author  = {Pai, Fu-Sheng and Chao, Ru-Min and Ko, Shin Hong and Lee, Tai-Sheng},
+  title   = {Performance Evaluation of Parabolic Prediction to Maximum Power
+             Point Tracking for {PV} Array},
+  journal = {IEEE Transactions on Sustainable Energy},
+  volume  = {2},
+  number  = {1},
+  pages   = {60--68},
+  year    = {2011},
+  doi     = {10.1109/TSTE.2010.2078844},
+  note    = {Parabola P(D) through three duties, vertex as the next duty, shifting
+             procedure. PDF: pai2011_parabolic_prediction_mppt.pdf (IEEE Xplore,
+             NIT Andhra Pradesh access).}
+}
+
+@article{sera2008dppo,
+  author  = {Sera, Dezso and Teodorescu, Remus and Hantschel, Jochen and Knoll, Michael},
+  title   = {Optimized Maximum Power Point Tracker for Fast-Changing
+             Environmental Conditions},
+  journal = {IEEE Transactions on Industrial Electronics},
+  volume  = {55},
+  number  = {7},
+  pages   = {2629--2637},
+  year    = {2008},
+  doi     = {10.1109/TIE.2008.924036},
+  note    = {dP-P&O, Eq. (1): dP = 2 Px - P(k+1) - P(k). Read in the reprint in the
+             PhD thesis of D. Sera, Aalborg University (sera_phd_thesis_with_tie2008_dpPO.pdf).}
+}
+
+@inproceedings{sera2006improved,
+  author    = {Sera, Dezso and Kerekes, Tamas and Teodorescu, Remus and Blaabjerg, Frede},
+  title     = {Improved {MPPT} Method for Rapidly Changing Environmental Conditions},
+  booktitle = {Proc. IEEE International Symposium on Industrial Electronics (ISIE)},
+  volume    = {2},
+  pages     = {1420--1425},
+  year      = {2006},
+  note      = {NOT A JOURNAL PAPER. First form of the dP measurement. Cited from
+               the publication list of the thesis of D. Sera.}
+}
+
+@article{andrean2018review,
+  author  = {Andrean, Victor and Chang, Pei Cheng and Lian, Kuo Lung},
+  title   = {A Review and New Problems Discovery of Four Simple Decentralized
+             Maximum Power Point Tracking Algorithms---Perturb and Observe,
+             Incremental Conductance, Golden Section Search, and Newton's
+             Quadratic Interpolation},
+  journal = {Energies},
+  volume  = {11},
+  number  = {11},
+  pages   = {2966},
+  year    = {2018},
+  doi     = {10.3390/en11112966},
+  note    = {Open access. NQI trap, failure of interpolation trackers when old
+             points are not measured again, EN 50530 ramp test (Table B.2, row 4).
+             PDF: andrean2018_po_inc_gss_nqi_review.pdf.}
+}
+
+@book{brent1973minimization,
+  author    = {Brent, Richard P.},
+  title     = {Algorithms for Minimization without Derivatives},
+  publisher = {Prentice-Hall},
+  address   = {Englewood Cliffs, NJ},
+  year      = {1973},
+  note      = {Chapter 5, sections 4 and 5: procedure localmin (golden section and
+               successive parabolic interpolation). Scan from the author's page,
+               brent1973_minimization_without_derivatives.pdf.}
+}

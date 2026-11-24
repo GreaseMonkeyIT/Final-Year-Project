@@ -19,7 +19,11 @@ function build_mppt_4x4(perGroup)
 %     Irradiance schedule  From Workspace block. It reads Gsched from the
 %                          model workspace: each row is [t, G(:)'], and
 %                          the value holds until the next row.
-%     PV Array 4x4         see add_pv_array
+%     PV Array 4x4         see add_pv_array. The model variable pv_T is
+%                          the cell temperature [degC].
+%     Sensors and ADC      sensors and the 12-bit ADC of the TMS320F28379D
+%                          (sensor_adc.m). The model variable sens selects
+%                          it (sens.on) and holds its values. Off by default.
 %     Controller           subsystem with inputs Vpv and Ipv and output D.
 %                          It holds only the MATLAB Function block "MPPT",
 %                          which calls mppt_controller.m at the control
@@ -70,6 +74,7 @@ assignin(ws, 'Cin',     c.Cin);
 assignin(ws, 'Cin_esr', c.Cin_esr);
 assignin(ws, 'Rload',   c.Rload);
 assignin(ws, 'mppt',    cfg.mppt);
+assignin(ws, 'sens',    cfg.sens);
 assignin(ws, 'Gsched',  [0, 1000 * ones(1, nG)]);
 assignin(ws, 'Tstop',   2);
 assignin(ws, 'Tlog',    5e-4);
@@ -166,8 +171,42 @@ add_line(ctl, 'MPPT/3', 'Im/1',  'autorouting', 'smart');
 add_line(ctl, 'MPPT/4', 'ph/1',  'autorouting', 'smart');
 add_line(ctl, 'MPPT/5', 'np/1',  'autorouting', 'smart');
 
-add_line(mdl, 'PS-Simulink Vpv/1', 'Controller/1', 'autorouting', 'smart');
-add_line(mdl, 'PS-Simulink Ipv/1', 'Controller/2', 'autorouting', 'smart');
+%% Sensors and ADC (added 2026-11-21, docs/notes/final_test_plan.md, step 0.2)
+% Between the plant and the controller. With sens.on = 0 the block passes
+% the exact values. src/plant/sensor_adc.m has the model and
+% pv4x4_config.m the values. The Random Number block gives four standard
+% normal samples at each control sample: sensor V, sensor I, ADC V, ADC I.
+sen = [mdl '/Sensors and ADC'];
+add_block('built-in/Subsystem', sen, 'Position', [360 470 450 560]);
+add_block('simulink/Sources/In1',  [sen '/V'],  'Position', [30 40 60 54]);
+add_block('simulink/Sources/In1',  [sen '/I'],  'Position', [30 90 60 104]);
+add_block('simulink/Sinks/Out1',   [sen '/Vm'], 'Position', [380 40 410 54]);
+add_block('simulink/Sinks/Out1',   [sen '/Im'], 'Position', [380 90 410 104]);
+add_block('simulink/Sources/Random Number', [sen '/Noise'], 'Position', [30 140 80 170], ...
+          'Mean', 'zeros(1,4)', 'Variance', 'ones(1,4)', 'Seed', 'sens.seed + (0:3)', ...
+          'SampleTime', 'mppt.Tc');
+mfs = add_block('simulink/User-Defined Functions/MATLAB Function', [sen '/ADC'], ...
+                'Position', [170 30 290 180]);
+scfg = get_param(mfs, 'MATLABFunctionConfiguration');
+scfg.FunctionScript = sprintf([ ...
+    'function [Vm, Im] = ADC(V, I, w, sens)\n' ...
+    '%% One call per control sample. The model is in sensor_adc.m.\n' ...
+    '[Vm, Im] = sensor_adc(V, I, w, sens);\n']);
+scfg.UpdateMethod = 'Discrete';
+scfg.SampleTime   = 'mppt.Tc';
+chs = find(sfroot, '-isa', 'Stateflow.EMChart', 'Path', getfullname(mfs));
+dts = find(chs, '-isa', 'Stateflow.Data', 'Name', 'sens');
+dts.Scope = 'Parameter';
+add_line(sen, 'V/1', 'ADC/1', 'autorouting', 'smart');
+add_line(sen, 'I/1', 'ADC/2', 'autorouting', 'smart');
+add_line(sen, 'Noise/1', 'ADC/3', 'autorouting', 'smart');
+add_line(sen, 'ADC/1', 'Vm/1', 'autorouting', 'smart');
+add_line(sen, 'ADC/2', 'Im/1', 'autorouting', 'smart');
+
+add_line(mdl, 'PS-Simulink Vpv/1', 'Sensors and ADC/1', 'autorouting', 'smart');
+add_line(mdl, 'PS-Simulink Ipv/1', 'Sensors and ADC/2', 'autorouting', 'smart');
+add_line(mdl, 'Sensors and ADC/1', 'Controller/1', 'autorouting', 'smart');
+add_line(mdl, 'Sensors and ADC/2', 'Controller/2', 'autorouting', 'smart');
 
 % A real controller writes the new duty to the PWM one sample after it
 % reads the ADC. The delay also breaks the algebraic loop between the

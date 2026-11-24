@@ -10,15 +10,24 @@ function [v, i] = pv_static_point(Vc, Ic, Rin)
 %   the first curve point below the line, then interpolate linearly
 %   between that point and the point before it. If the curve never goes
 %   below the line, the point is the last curve point (near Voc).
+%   The loop form (2026-11-21) gives the same point as find and interp1,
+%   and MATLAB Coder accepts it (static_run.m).
 
-f = Ic - Vc / Rin;
-k = find(f < 0, 1);
-if isempty(k) || k == 1
+k = 0;
+for j = 1:numel(Vc)
+    if Ic(j) - Vc(j) / Rin < 0
+        k = j;
+        break
+    end
+end
+if k <= 1
     v = Vc(end);
     i = Ic(end);
 else
-    t = f(k-1) / (f(k-1) - f(k));
+    f1 = Ic(k-1) - Vc(k-1) / Rin;
+    f2 = Ic(k) - Vc(k) / Rin;
+    t = f1 / (f1 - f2);
     v = Vc(k-1) + t * (Vc(k) - Vc(k-1));
-    i = interp1(Vc, Ic, v);
+    i = Ic(k-1) + (v - Vc(k-1)) / (Vc(k) - Vc(k-1)) * (Ic(k) - Ic(k-1));
 end
 end

@@ -1,0 +1,24 @@
+check_bench.m, 21-Nov-2026 20:28:25
+90 sweeps in 318 s on 4 workers
+
+Gate 0.1: temperature coefficients, P0 at 1000 W/m^2 (Simscape sweep)
+  Voc  model -0.3399 %/K, datasheet -0.34 %/K, difference +0.0 % PASS
+  Isc  model +0.0500 %/K, datasheet +0.05 %/K, difference -0.0 % PASS
+  Pmax model -0.4204 %/K, datasheet -0.40 %/K, difference -5.1 % PASS
+  Pmax at 25/45/65 degC: [5194.1 4761.8 4320.6] W
+Gate 0.1 PASS
+
+Gate 0.3: static model against Simscape, GMPP difference [%]
+  90 cases: mean |dP| 0.0001 %, max |dP| 0.0014 %, max |dV| 0.034 V
+  Worst: PV4x4_sweep, P3, 65 degC, scale 1.0: static 2231.40 W at 99.80 V, Simscape 2231.43 W at 99.80 V
+Gate 0.3 PASS
+
+Gate 0.2: sensors and ADC (sensor_adc.m, typical values)
+  ADC SNR, full-scale sine: 69.0 dB (datasheet 69.1 dB typical) PASS
+  ADC noise: 0.513 LSB rms (expected 0.508)
+  Voltage at 150 V: mean error +0.590 % (expected +0.589 %), noise 0.033 V rms (0.0221 %)
+  Current at 30 A:  mean error +1.521 %, noise 0.0069 A rms (0.0229 %)
+  Power noise: 0.0322 % rms of the power
+  Resolution: 48.8 mV per LSB on Vpv, 13.1 mA per LSB on Ipv
+  Switch off: exact values returned PASS
+Gate 0.2 PASS

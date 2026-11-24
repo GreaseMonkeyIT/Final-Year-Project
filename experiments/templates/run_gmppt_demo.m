@@ -1,5 +1,11 @@
 %RUN_GMPPT_DEMO Run the global searches (DIRECT, Ideas B and C) in MPPT_4x4.slx and compare them with P&O.
 %
+%   Note of 2026-11-21: this script is a record of the preliminary study.
+%   Its algorithm numbers and result files are those of the preliminary
+%   study, not of the current tracker (README.md, section "Templates").
+%   The current scripts are experiments/run_gmppt_baseline.m and
+%   experiments/run_gmppt_restart_tests.m.
+%
 %   Task T4 of HANDOFF_ideas_B_C.md. The script runs MPPT_4x4.slx for each
 %   case of the section "Cases", once for each algorithm in the list algs:
 %     1 P&O (reference), 3 DIRECT, 4 Idea B, 5 Idea C.

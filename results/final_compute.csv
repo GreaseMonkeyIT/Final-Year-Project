@@ -1,0 +1,8 @@
+variant,us_per_decision,us_per_search_decision,us_p99_decision,us_per_sample,t_search_s,decisions,E_run_4s_J,E_search_J
+DIRECT (paper),0.0522,0.2010,0.3363,0.00448,0.550,187,1.2308e-03,9.8855e-06
+Idea B + Parabolic,0.0842,0.1417,0.2135,0.00454,0.500,184,1.2478e-03,6.1544e-06
+Idea C + Parabolic,0.0849,0.1622,0.1978,0.00450,0.450,186,1.2386e-03,6.3630e-06
+PSO + Parabolic,0.0883,0.0956,0.3364,0.00426,2.560,136,1.1723e-03,2.1031e-05
+GWO + Parabolic,0.0997,0.1124,0.4537,0.00491,2.400,138,1.3505e-03,2.3175e-05
+P&O from start-up,0.0171,NaN,0.0725,0.00439,0.000,201,1.2077e-03,0.0000e+00
+INC from start-up,0.0139,NaN,0.0725,0.00439,0.000,201,1.2075e-03,0.0000e+00

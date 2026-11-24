@@ -1,0 +1,15 @@
+oahu_fit.m, 21-Nov-2026 21:15:54. 123 days, 17 sensors.
+Edges (|change of kt| > 0.3): 302066, 152612 down and 149454 up
+  Percentiles 5/25/50/75/95:
+  change of kt (down)       [0.312 0.368 0.465 0.613 0.825]
+  10-90 duration [s]        [1.6 2.51 3.52 4.98 8.09]
+  largest rate [W/m^2/s]    [34.8 77.68 122.8 182.1 305.4]
+  kt in the shade (low end) [0.278 0.424 0.561 0.713 0.916]
+  kt in the light (high end)[0.762 0.968 1.09 1.2 1.36]
+Velocity windows: 1337 (R^2 >= 0.8, >= 10 pairs)
+  speed [m/s]               [7.19 9.74 12 14.7 22.6]
+  direction of motion [deg] median 251 (circular), 25-75 %: [229 271]
+  edge width [m]            [16.6 25.4 36.2 53.5 100] (56825 edges)
+Edge rate: 16.5 edges per sensor-hour of daylight (Z < 70 deg)
+Shade duration [s]          [4 11 33 107 558] (148574 spells)
+Cloud enhancement: largest kt of a day [1.2 1.38 1.48 1.56 1.73], fraction kt > 1.05 median NaN

@@ -1,0 +1,612 @@
+<title>Idea C MPPT Notes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global',scale:1},options:{enableMenu:false}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<style>
+/* Layout: one reading column of about 76ch. Figures and wide tables use the 980px frame. Revision notes: short sections, key boxes, tables, interactive figures. */
+:root{
+  --bg:#f3f6f7;--surface:#ffffff;--fg:#14212b;--muted:#53636f;--line:#d3dce2;--soft:#e7eef1;
+  --accent:#0d6e6e;--c:#1f66c1;--d:#b9521f;--plate:#ffffff;
+  --curve:#0d7272;--pt:#2c4f86;--sel:#c27200;--warn:#c2185b;--ok:#1e8a4c;--step:#d32f2f;
+  --f-display:"Space Grotesk",system-ui,sans-serif;
+  --f-body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1519;--surface:#161e24;--fg:#e3ebf0;--muted:#97a6b1;--line:#2b3741;--soft:#1d2830;
+  --accent:#5cc4c4;--c:#86b6f2;--d:#f0935f;--plate:#ffffff;
+  --curve:#52c4c4;--pt:#94b6ec;--sel:#f0ad3a;--warn:#f06292;--ok:#5fd38d;--step:#ff6b6b;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1519;--surface:#161e24;--fg:#e3ebf0;--muted:#97a6b1;--line:#2b3741;--soft:#1d2830;
+  --accent:#5cc4c4;--c:#86b6f2;--d:#f0935f;--plate:#ffffff;
+  --curve:#52c4c4;--pt:#94b6ec;--sel:#f0ad3a;--warn:#f06292;--ok:#5fd38d;--step:#ff6b6b;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.65 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.6rem 4rem}
+main{max-width:980px;margin:0 auto}
+.col{max-width:76ch;margin:0 auto}
+nav.pages{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 auto 2rem;max-width:76ch}
+nav.pages a{font:500 .8rem var(--f-mono);color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:.3rem .7rem;background:var(--surface)}
+nav.pages a[aria-current="page"]{color:var(--accent);border-color:var(--accent)}
+nav.pages a:hover{border-color:var(--accent)}
+.eyebrow{font:500 .76rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 clamp(1.9rem,5vw,2.7rem)/1.1 var(--f-display);letter-spacing:-.02em;text-wrap:balance;margin:.35rem 0 .8rem}
+h2{font:600 1.45rem/1.25 var(--f-display);text-wrap:balance;margin:3rem 0 .6rem;letter-spacing:-.01em}
+h2 .n{display:block;font:500 .76rem var(--f-mono);letter-spacing:.07em;color:var(--muted);margin-bottom:.2rem}
+h3{font:600 1.08rem/1.35 var(--f-display);margin:1.7rem 0 .3rem}
+p,li{margin:.55rem 0}
+ul,ol{padding-left:1.3rem}
+.lede{font-size:1.04rem;color:var(--muted)}
+.key{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.75rem 1.1rem;margin:1.2rem 0}
+.key .lab{font:500 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.15rem}
+.key p,.key li{margin:.35rem 0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.6rem;margin:1.2rem 0}
+.facts div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.6rem .85rem;min-width:0}
+.facts b{display:block;font:500 .72rem var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+.facts span{font-size:.92rem}
+.eq{background:var(--soft);border-radius:6px 6px 0 0;padding:.3rem 1rem;margin:1rem 0 0;overflow-x:auto;overflow-y:hidden}
+.eq.solo{border-radius:6px;margin-bottom:1rem}
+.where{background:var(--surface);border:1px solid var(--soft);border-top:0;border-radius:0 0 6px 6px;padding:.4rem 1rem .5rem;margin:0 0 1.1rem;font-size:.93rem}
+.where ul{margin:.15rem 0;padding-left:1.2rem}
+.where li{margin:.2rem 0}
+mjx-container[display="true"]{font-size:100%!important;margin:.4em 0!important}
+mjx-container{color:var(--fg)}
+.fig{margin:1.5rem 0}
+.plate{background:var(--plate);border:1px solid var(--line);border-radius:8px;padding:10px}
+.plate img{display:block;width:100%;height:auto}
+.figc{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px}
+.figc canvas{display:block;width:100%;height:300px}
+.cap{color:var(--muted);font-size:.88rem;line-height:1.55;margin:.55rem 2px 0}
+.cap b{color:var(--fg);font-weight:600}
+.ctrl{display:flex;flex-wrap:wrap;gap:.55rem .9rem;align-items:center;font-size:.9rem;margin-top:.7rem}
+.ctrl label{display:flex;gap:.5rem;align-items:center;color:var(--muted)}
+.ctrl input[type=range]{width:min(240px,55vw);accent-color:var(--curve)}
+.ctrl input[type=checkbox]{accent-color:var(--curve)}
+button,select{font:500 .86rem var(--f-body);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:.35rem .8rem;cursor:pointer}
+button:hover{border-color:var(--curve)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{font:400 .8rem/1.55 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;margin-top:.55rem}
+.stats b{color:var(--fg);font-weight:500}
+.key-dot{display:inline-block;width:.7em;height:.7em;border-radius:50%;margin:0 .3em 0 .1em;vertical-align:baseline}
+.tw{overflow-x:auto;margin:.9rem 0}
+table{border-collapse:collapse;font-size:.88rem;width:100%;min-width:520px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:.4rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font:500 .74rem var(--f-mono);letter-spacing:.05em;text-transform:uppercase}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-size:.84rem}
+tr.ic td{color:var(--c);font-weight:600}
+table.dt{font-family:var(--f-mono);font-size:.8rem}
+table.dt td,table.dt th{text-align:right}
+table.dt td:first-child,table.dt th:first-child{text-align:left}
+#tF td:last-child,#tF th:last-child{text-align:left}
+tr.win td{color:var(--sel);font-weight:500}
+tr.dom td,tr.dim td{opacity:.55}
+tr.grp td{background:var(--soft);color:var(--muted);font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .6rem}
+tr.swept td:first-child::before{content:"✓ ";color:var(--sel)}
+.tagc{color:var(--c);font-weight:600}
+.tagd{color:var(--d);font-weight:600}
+.src{font-size:.86rem;color:var(--muted)}
+.refs{font-size:.86rem;color:var(--muted);padding-left:1.6rem}
+.refs li{margin:.4rem 0}
+.refs i{color:var(--fg)}
+.next{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);font:500 .86rem var(--f-mono)}
+a{color:var(--accent)}
+code{font:400 .86em var(--f-mono)}
+@media (max-width:640px){.figc canvas{height:250px}}
+</style>
+
+<main>
+<nav class="pages" aria-label="Pages">
+  <a href="index.html" aria-current="page">1 · Search problem and theory</a>
+  <a href="ideas.html">2 · Idea C method</a>
+  <a href="results.html">3 · Example and results</a>
+</nav>
+
+<header class="col">
+  <div class="eyebrow">EE449 Major Project · Revision notes · Part 1 of 3</div>
+  <h1>The search problem and the theory behind Idea C</h1>
+  <p class="lede">Idea C is the main global search of this project. This part builds the theory that Idea C rests on, one step at a time: the search problem, what samples can and cannot prove, the Lipschitz bound, the Piyavskii-Shubert search and the DIRECT baseline. Each step ends with what it means for Idea C. Part 2 gives Idea C itself. Part 3 gives a worked example and the final results of 24 November 2026.</p>
+  <div class="facts">
+    <div><b>Array</b><span>4 × 4 Emmvee E325P72, 325 W each, 5.2 kW rated. V<sub>oc</sub> 183.2 V, I<sub>sc</sub> 36.44 A at STC. Three bypass diodes per panel.</span></div>
+    <div><b>Converter</b><span>Averaged buck-boost, direct duty control. Duty range 0.30 to 0.78. A higher duty gives a lower array voltage.</span></div>
+    <div><b>Controller</b><span>One decision each 20 ms. One search test lasts 40 ms, and the controller averages its last quarter.</span></div>
+    <div><b>Test benches</b><span>Simulink with Simscape Electrical (MATLAB R2025b), and a compiled static bench on the static I-V curves.</span></div>
+  </div>
+</header>
+
+<section class="col">
+  <h2><span class="n">1</span>Partial shading gives several power peaks</h2>
+  <p>Each panel has bypass diodes. Under partial shading, the diodes across the shaded cells conduct, and the I-V curve of the array falls in steps. The P-V curve then has one peak for each step. Only the highest peak is the global maximum power point (GMPP).</p>
+  <p>A local tracker, such as perturb and observe (P&amp;O) or incremental conductance (INC), climbs the nearest peak and stays there. On pattern R1, P&amp;O reaches 34.9 % and INC 35.1 % of the GMPP power after 4 s. <span class="tagc">Idea C reaches 99.98 %.</span></p>
+</section>
+<div class="fig">
+  <div class="plate"><img src="img/fig_pv_patterns.png" alt="P-V curves of the nine shading patterns, with the global and local peaks marked" loading="lazy"></div>
+  <p class="cap"><b>Figure 1.</b> The nine shading patterns of the project at 25 °C. Filled dot: GMPP. Open dots: local peaks. Six patterns have two to four peaks.</p>
+</div>
+<div class="fig">
+  <div class="plate"><img src="img/fig_startup_R1.png" alt="Start-up on pattern R1 for the five global searches and the two local trackers" loading="lazy"></div>
+  <p class="cap"><b>Figure 2.</b> Start-up on pattern R1 in Simulink, with sensor noise. Grey band: global search. P&amp;O and INC stop on a local peak near 35 % of the GMPP power. Every global search reaches the GMPP.</p>
+</div>
+
+<section class="col">
+  <h2><span class="n">2</span>Global MPPT is a black-box search</h2>
+  <p>The tracker sets one variable, the duty \(D\) of the converter, and must find the duty of the GMPP. Four properties define the problem:</p>
+  <ul>
+    <li><b>Black box.</b> The tracker can measure the power \(P(D)\) at any duty, but it has no formula for \(P(D)\) and no derivative. The curve changes with irradiance, temperature and shading.</li>
+    <li><b>Expensive evaluation.</b> Each measurement is one test of 40 ms, and during the test the array runs below its peak. The cost of a search is therefore the number of tests, not the arithmetic between them.</li>
+    <li><b>Multimodal.</b> \(P(D)\) has one peak for each current step (section 1).</li>
+    <li><b>Bounded range.</b> The duty lies in \([D_{lo},D_{hi}]=[0.30,0.78]\). A search can work on the normalized variable \(z=(D-D_{lo})/(D_{hi}-D_{lo})\in[0,1]\). This map keeps the order of the points and the location of the peak.</li>
+  </ul>
+  <p>P&amp;O and INC estimate the slope \(dP/dV\) from two consecutive measurements. They are local finite-difference methods, so they climb the nearest peak. A global search uses only measured values, and it must decide which peak to climb. Idea C adds one more piece of information: the measured current, which the physics of the array makes monotone (part 2, section 1).</p>
+  <p>The project compares trackers by their <b>tracking efficiency</b>:</p>
+  <div class="eq">\[ \eta=\frac{\int P\,dt}{\int P_{\mathrm{GMPP}}\,dt} \]</div>
+  <div class="where"><ul>
+    <li>\(P\) is the power that the tracker takes from the array, and \(P_{\mathrm{GMPP}}\) is the power at the GMPP at each instant,</li>
+    <li>the integrals run over the whole test profile: a start-up, a ramp, a cloud event or a full day.</li>
+  </ul></div>
+  <p>A tracker loses energy in two ways: during the search, when it tests duties far from the peak, and after a wrong decision, when it holds a local peak. The ratio \(\eta\) counts both losses in one unit. The EN 50530 standard uses the same ratio for the dynamic MPPT efficiency of inverters [8].</p>
+  <div class="key"><span class="lab">For Idea C</span><p>A good global search makes few tests, and it ends on the right peak. Idea C gets both from one bound: the bound decides where to test next and when to stop. Over four full days, all the searches of Idea C cost 0.016 % of the energy.</p></div>
+</section>
+<div class="fig figc">
+  <canvas id="c1" style="height:260px" aria-label="The test curve: power against normalized voltage with three peaks"></canvas>
+  <p class="cap"><b>Figure 3.</b> The test curve of the theory figures: \(P(v)=v\,I(v)\) on the normalized voltage \(v\in[0,1]\). The current \(I(v)\) falls in three steps, as in a string with three bypass groups, so the power has three peaks. The global peak is the left one. A search sees only the points that it tests.</p>
+</div>
+
+<section class="col">
+  <h2><span class="n">3</span>What finitely many tests can prove</h2>
+  <p>If the only assumption is that \(P\) is continuous, no finite set of tests can prove where the global peak is. The proof is a construction. Assume that a deterministic search finds the global maximum of every continuous function without testing everywhere densely. Then, for some function \(P\), there is an interval that the search never tests. Build \(\tilde P\) equal to \(P\) outside this interval, with a narrow spike inside that is higher than every tested value. \(\tilde P\) is continuous. The search sees identical values, makes identical tests, and misses the spike.</p>
+</section>
+<div class="fig figc">
+  <canvas id="c2" style="height:220px" aria-label="Two continuous functions that agree at every test but differ inside a gap"></canvas>
+  <p class="cap"><b>Figure 4.</b> The solid and the dashed functions agree at every test. Only the dashed function has a higher peak, inside the untested interval. No search can tell them apart from these data.</p>
+</div>
+<section class="col">
+  <ul>
+    <li><b>The spike exists only on paper.</b> The search never sees \(\tilde P\). It sees only its own tests, and these give the same values for \(P\) and \(\tilde P\).</li>
+    <li><b>No finite spacing is enough under continuity alone,</b> because a spike can be as narrow as one likes. A search can only promise the global peak "in the limit", when its tests become dense everywhere.</li>
+    <li><b>With a bound on the slope, a finite spacing is enough.</b> If \(P\) cannot change faster than \(K\) per unit of \(v\), tests at spacing \(\Delta\) leave every point within \(\Delta/2\) of a test, so</li>
+  </ul>
+  <div class="eq">\[ P^*-P_{\mathrm{best}}\ \le\ \frac{K\Delta}{2},\qquad\text{so the spacing }\ \Delta=\frac{2\tau}{K}\ \text{ guarantees }\ P^*-P_{\mathrm{best}}\le\tau \]</div>
+  <div class="where"><ul>
+    <li>\(P^*\) is the global maximum and \(P_{\mathrm{best}}\) the best tested value,</li>
+    <li>\(\tau\) is the largest error that the search accepts.</li>
+  </ul></div>
+  <p>This is the sampling problem of signal processing. Samples say nothing about a signal between them unless a bandlimit is assumed, and the Nyquist-Shannon theorem works only because it assumes one. The slope bound \(K\) plays the role of the bandlimit. Idea C needs an assumption too. It uses one that every PV array satisfies by its physics: the current never rises when the voltage rises.</p>
+</section>
+
+<section class="col">
+  <h2><span class="n">4</span>The Lipschitz bound and the searches built on it</h2>
+  <h3>4.1 One test bounds a whole region</h3>
+  <p>A function is <b>Lipschitz continuous</b> with constant \(K\) if</p>
+  <div class="eq">\[ |P(x)-P(x')|\ \le\ K\,|x-x'|\qquad\text{for all } x,x' \text{ in the range} \]</div>
+  <div class="where"><ul>
+    <li>\(K\gt0\) is the largest rate at which \(P\) can change, in power per unit of \(x\),</li>
+    <li>for a differentiable \(P\), the smallest valid \(K\) is the largest value of \(|P'(x)|\).</li>
+  </ul></div>
+  <p>The bound works like the slew rate of an amplifier: an output that cannot change faster than SR is known within \(\pm\text{SR}\,\Delta t\) for the next \(\Delta t\) after one sample. Through a test point, draw two lines with slopes \(+K\) and \(-K\). The curve must stay in the left and right wedges between them, so the upper wedge is forbidden. One test at \(x_0\) therefore gives a <b>ceiling</b> on the whole axis: \(P(x)\le P(x_0)+K\,|x-x_0|\). For a P-V curve, \(K\) is the steepest slope, on the falling side of a knee where a bypass diode turns on. It is finite, but it changes with shading and temperature and is not known in advance.</p>
+</section>
+<div class="fig figc">
+  <canvas id="cH" style="height:320px;touch-action:pan-y;cursor:ew-resize" aria-label="Lipschitz hourglass through a movable test point on the test curve"></canvas>
+  <div class="ctrl">
+    <label for="hx">Test point x₀ <input id="hx" type="range" min="0.02" max="0.98" step="0.002" value="0.5"></label>
+    <label for="hk">K <input id="hk" type="range" min="0.2" max="10" step="0.05" value="2"></label>
+    <label for="hd"><input id="hd" type="checkbox"> Show the ceiling of a box with half-width d = 0.1</label>
+  </div>
+  <div class="stats" id="hv"></div>
+  <p class="cap"><b>Figure 5.</b> The Lipschitz hourglass. Drag across the plot, or use the slider, to move the test point. <span class="key-dot" style="background:var(--curve)"></span>The left and right wedges are allowed. <span class="key-dot" style="background:var(--warn)"></span>The upper and lower wedges are forbidden. Where the curve enters a forbidden wedge, it turns magenta: the chosen \(K\) is below the true Lipschitz constant, and the ceiling is false there. With the box option on, the amber V shows the ceiling \(P(c)+K\,d\) of a box centred at the test point.</p>
+</div>
+
+<section class="col">
+  <h3>4.2 Box ceilings, and why only a few boxes can win</h3>
+  <p>A box (an interval) with its centre \(c_i\) tested and half-width \(d_i\) has the ceiling \(P(c_i)+K\,d_i\). The two terms are the two goals of every global search. \(P(c_i)\) is high when the centre is good, which favours <b>exploitation</b>. \(K\,d_i\) is large for a large box, which favours <b>exploration</b> of untested ground. \(K\) sets the weight between them.</p>
+  <p>One \(K\) applies to every box at once. Boxes of the same size add the same \(K\,d\), so in each size group the box with the best centre has the highest ceiling for every \(K\). The other boxes of the group are <b>dominated</b>: no \(K\) can make them win. At most one box per size can win, and each wins over its own range of \(K\). The switch point between two candidates \(a\) (larger) and \(b\) (smaller) is</p>
+  <div class="eq solo">\[ K=\frac{P(c_b)-P(c_a)}{d_a-d_b} \]</div>
+  <p>Below this \(K\) box \(b\) has the higher ceiling, and above it box \(a\). A dominated box is not discarded. It waits in the queue, and it can win once the best box of its size has been split. Keeping every box is what lets DIRECT promise the global peak in the limit (section 7).</p>
+</section>
+<div class="fig figc">
+  <canvas id="c3" style="height:320px" aria-label="Intervals with Lipschitz ceilings on the test curve"></canvas>
+  <div class="ctrl">
+    <label for="k3">Lipschitz constant K <input id="k3" type="range" min="0" max="14" step="0.005" value="0.6"></label>
+    <button id="sw3" type="button">Sweep K</button>
+  </div>
+  <div class="stats" id="k3v"></div>
+  <div class="stats" id="k3log"></div>
+  <div class="tw"><table id="t3" class="dt"></table></div>
+  <p class="cap"><b>Figure 6.</b> The boxes after three DIRECT iterations on the test curve. Each dot is a centre value \(P(c_i)\). Each V rises with slope \(K\) from the box centre, and its tips give the ceiling \(P(c_i)+K\,d_i\) (dashed). The highlighted box has the highest ceiling at this \(K\). A small \(K\) picks the best centre, and a large \(K\) picks the largest box. The table groups the boxes by size and gives the range of \(K\) over which each box wins. <b>Sweep K</b> moves \(K\) from 0 to 1.2, pauses at each switch point, and ticks every box that wins on the way. DIRECT selects exactly this set (section 5).</p>
+</div>
+
+<section class="col">
+  <h3>4.3 The Piyavskii-Shubert search</h3>
+  <p>With a known \(K\), every test gives a ceiling cone, and the cones together give one curve that \(P\) never exceeds, the <b>upper envelope</b>:</p>
+  <div class="eq">\[ U(x)=\min_i\big[P(x_i)+K\,|x-x_i|\big]\ \ge\ P(x) \]</div>
+  <div class="where"><ul>
+    <li>\(x_i\) are the tested points, and \(P(x_i)\) their measured powers,</li>
+    <li>each cone is a true statement ("\(P\) is at most this much here"). Where several cones cover one point, the lowest one is the strongest statement, so the envelope takes the minimum.</li>
+  </ul></div>
+  <p>Between two neighbouring tests \(a\) and \(b\), the rising cone of \(a\) meets the falling cone of \(b\). There the envelope forms a tooth, with its tip at</p>
+  <div class="eq">\[ \hat x=\frac{x_a+x_b}{2}+\frac{P_b-P_a}{2K},\qquad \hat U=\frac{P_a+P_b}{2}+\frac{K\,(x_b-x_a)}{2} \]</div>
+  <div class="where"><ul>
+    <li>\(\hat U\) is the highest power that the gap between \(a\) and \(b\) can hide, and \(\hat x\) is where it could be.</li>
+  </ul></div>
+  <p>The search of Piyavskii [3] and Shubert [4] repeats four steps:</p>
+  <ol>
+    <li>Test both ends of the range.</li>
+    <li>Calculate the tooth tip \((\hat x,\hat U)\) of every gap.</li>
+    <li>Test at the highest tip. The test either finds a high power, or it pulls the envelope down at that place.</li>
+    <li>Stop when the highest tip is not above \((1+\varepsilon)\,P_{\mathrm{best}}\). The stop comes with a proof: \(P^*\le\hat U_{\max}\).</li>
+  </ol>
+  <p>This is <b>best-first</b> search: always test where the bound is highest, and stop when no bound beats the best. <span class="tagc">Idea C has the same loop.</span> It replaces the cone \(P(x_i)+K|x-x_i|\) by the measured ceiling of part 2, which needs no \(K\).</p>
+</section>
+<div class="fig figc">
+  <canvas id="cS" style="height:320px" aria-label="Piyavskii-Shubert search on the test curve with the upper envelope and its tooth tips"></canvas>
+  <div class="ctrl">
+    <button id="sS" type="button">Step</button><button id="rS" type="button">Run</button><button id="zS" type="button">Reset</button>
+    <label for="kS">K <input id="kS" type="range" min="1" max="14" step="0.1" value="7"></label>
+  </div>
+  <div class="stats" id="vS"></div>
+  <p class="cap"><b>Figure 7.</b> The Piyavskii-Shubert search on the test curve, with \(\varepsilon=0.02\). Dashed line: the upper envelope \(U(x)\). <span class="key-dot" style="background:var(--muted)"></span>Small marks: the tooth tips. <span class="key-dot" style="background:var(--sel)"></span>The highest tip, which the next step tests. <span class="key-dot" style="background:var(--pt)"></span>Tests, numbered in order. Press <b>Step</b> to see each test pull the envelope down. Lower \(K\) below the true constant (about 5.9) and the curve rises above the envelope (magenta): the bound is then false, and the search can stop on the wrong peak.</p>
+</div>
+
+<section class="col">
+  <h3>4.4 The envelope, the box ceiling, and the certificate</h3>
+  <p>DIRECT uses a cheaper and looser ceiling than the envelope. Inside each box it uses only the cone of the box's own centre, \(P(c_i)+K|x-c_i|\). This ceiling jumps at every box boundary. DIRECT accepts the looser ceiling because it needs only one score per box, the top of its V, \(P(c_i)+K\,d_i\). Figure 8 shows both ceilings on the same tests. Choose one at a time to see each alone.</p>
+</section>
+<div class="fig figc">
+  <canvas id="cE" style="height:320px" aria-label="DIRECT box-wise ceiling compared with the Piyavskii-Shubert upper envelope"></canvas>
+  <div class="ctrl">
+    <label for="ek">K <input id="ek" type="range" min="0.2" max="10" step="0.05" value="2.3"></label>
+    <label for="em">Show <select id="em"><option value="both">both ceilings</option><option value="box">box-wise ceiling (DIRECT)</option><option value="env">upper envelope (Piyavskii-Shubert)</option></select></label>
+  </div>
+  <div class="stats" id="ev"></div>
+  <p class="cap"><b>Figure 8.</b> The tests are the box centres of Figure 6. <span class="key-dot" style="background:var(--pt)"></span>Box-wise ceiling: the V of each box, from its own centre only. <span class="key-dot" style="background:var(--step)"></span>The jumps of the box-wise ceiling at the box boundaries, where it gives no bound. <span class="key-dot" style="background:var(--fg)"></span>Upper envelope (dashed): the minimum of all cones. Both ceilings are valid for a valid \(K\), but the envelope is tighter, because it uses every test. Magenta marks points where the curve rises above a shown ceiling.</p>
+</div>
+<section class="col">
+  <p>The searches of this section are forms of <b>branch-and-bound</b>: split the range into cells, bound each cell, refine the cell with the highest bound, and drop for good every cell whose bound is below the best value found. It is like a search of a building for its highest point, where each room carries a sign that says "nothing in here is higher than X". You open the room with the highest sign first, and you lock every room whose sign is below the best height already found. With a valid bound, the true maximum is always trapped between two known numbers:</p>
+  <div class="eq">\[ P_{\mathrm{best}}\ \le\ P^*\ \le\ \max_{\text{cells}}\ \text{ceiling} \]</div>
+  <div class="where"><ul>
+    <li>the difference of the outer terms is the <b>optimality gap</b>. A proven gap is a <b>certificate</b>: a bound on what the search can have missed.</li>
+  </ul></div>
+
+  <h3>4.5 The catch: K is not known</h3>
+  <ul>
+    <li><b>A \(K\) that is too small gives a false bound</b> (magenta in Figures 5 to 8), and the search can stop on the wrong peak with a false certificate.</li>
+    <li><b>A \(K\) that is too large gives a true but loose bound,</b> and the search makes many tests.</li>
+    <li><b>The LIPO tracker</b> uses Piyavskii-Shubert in duty with \(k=1500\), a value tuned in simulation for one plant [10].</li>
+  </ul>
+  <div class="key"><span class="lab">For Idea C</span><p>There are two ways out. DIRECT accepts every \(K\) at once (section 5), so it can never drop a region and never prove a stop. Idea C measures its bound instead of assuming one: two tests and the monotone current give a ceiling that is true without any \(K\) (part 2, section 1). It keeps the best-first loop and the certificate of Piyavskii-Shubert.</p></div>
+</section>
+
+<section class="col">
+  <h2><span class="n">5</span>DIRECT: how the baseline works</h2>
+  <p class="src">Sources: the DIRECT method of Jones, Perttunen and Stuckman [1], reviewed by Jones and Martins [2], in the MPPT form of Nguyen and Low [5].</p>
+  <ol>
+    <li><b>First samples</b> at the centre of the duty range and at one sixth of the range from each end.</li>
+    <li><b>Shading test</b> (Eqs. (19) and (20) of [5]) on these three samples: uniform light or partial shading.</li>
+    <li><b>Global stage.</b> Divide the largest potentially optimal interval into three equal parts, and sample the centres of the two outer parts. Skip rules remove some samples near the ends of the range.</li>
+    <li><b>Local stage.</b> Divide the interval of the best sample until its length is 0.0025 or less.</li>
+    <li><b>Hand-over</b> to the local tracker at the duty of the best sample.</li>
+  </ol>
+  <p>An interval \(j\) is <b>potentially optimal</b> if a constant \(K\gt0\) exists such that</p>
+  <div class="eq">\[ P_j+K\,d_j\ \ge\ P_i+K\,d_i\ \ \text{for every interval } i, \qquad P_j+K\,d_j\ \ge\ (1+\varepsilon)\,P_{\max} \]</div>
+  <div class="where"><ul>
+    <li>\(P_j\) is the power at the centre of interval \(j\), and \(d_j\) is half its length,</li>
+    <li>\(P_{\max}\) is the best power so far, and \(\varepsilon=0.03\) in [5].</li>
+  </ul></div>
+  <p>The first condition says that interval \(j\) has the highest box ceiling for some \(K\): it is one of the boxes that the sweep of Figure 6 ticks. For a large \(K\), the widest interval always qualifies, so DIRECT never discards a region. On this plant, DIRECT takes 11 to 15 tests on the nine patterns, and it stops on a fixed budget.</p>
+</section>
+
+<section class="col">
+  <h2><span class="n">6</span>Idea C on the test curve</h2>
+  <p>Figure 9 runs Idea C on the test curve of Figure 3, in normalized voltage. It tests both ends and the middle. Then it tests the corner of the open gap with the highest measured ceiling, \(v_{\mathrm{high}}\,I(v_{\mathrm{low}})\): the higher voltage of the two tests times the higher current. It stops when no gap is open. Compare it with Figure 7: the loop is the same as Piyavskii-Shubert, with no \(K\).</p>
+</section>
+<div class="fig figc">
+  <canvas id="c7" style="height:340px" aria-label="Idea C on the test curve: tests, gap ceilings and the open limit"></canvas>
+  <div class="ctrl">
+    <button id="s7" type="button">Step</button><button id="r7" type="button">Run</button><button id="z7" type="button">Reset</button>
+    <label for="sp7">Split <select id="sp7"><option value="corner" selected>corner (project form)</option><option value="mid">midpoint</option></select></label>
+  </div>
+  <div class="stats" id="st7"></div>
+  <p class="cap"><b>Figure 9.</b> Idea C with \(\varepsilon_c=0.02\) and a smallest gap of 0.02. Each horizontal bar is the measured ceiling of one gap: <span class="key-dot" style="background:var(--sel)"></span>open and highest (tested next), <span class="key-dot" style="background:var(--pt)"></span>open, <span class="key-dot" style="background:var(--ok)"></span>closed by the ceiling, <span class="key-dot" style="background:var(--muted)"></span>narrower than the smallest gap. Dashed line: the open limit \(1.02\,P_{\mathrm{best}}\). The strip under the plot shows the gaps. The search sees only the numbered tests.</p>
+</div>
+<section class="col">
+  <p>The table compares the searches on this curve. The page calculates it from the same code as the figures. It counts tests, because each test costs one settling period.</p>
+  <div class="tw"><table id="tF" class="dt"></table></div>
+  <ul>
+    <li><b>Idea C knows when it is done.</b> It stops with a certificate after a few tests and hands over to the local stage.</li>
+    <li><b>DIRECT does not know.</b> It finds the peak, but it keeps splitting boxes all over the axis, because it has no certificate. A real controller must stop it on a budget.</li>
+    <li><b>Piyavskii-Shubert</b> also stops with a certificate, but only with a valid \(K\), which a tracker does not know in advance. Even with a valid \(K\) it needs many more tests here. A valid \(K\) must cover the steepest knee, so the cones are loose everywhere else. The measured ceiling of Idea C is tight wherever the current is flat.</li>
+  </ul>
+</section>
+
+<section class="col">
+  <h2><span class="n">7</span>DIRECT seen from Idea C: strengths and weaknesses</h2>
+  <p>Jones and Martins list the strengths and the weaknesses of DIRECT, with evidence [2]. The table sets each one against Idea C.</p>
+</section>
+<div class="tw"><table>
+  <tr><th>Property of DIRECT [2]</th><th>What it means for DIRECT</th><th>Idea C</th></tr>
+  <tr class="grp"><td colspan="3">Strengths</td></tr>
+  <tr><td>Needs only values: no gradient and no \(K\)</td><td>Works on any black box</td><td>Also needs no gradient and no \(K\). It uses the measured voltage and current of each test</td></tr>
+  <tr><td>Deterministic</td><td>Repeated runs give the same tests</td><td>Also deterministic</td></tr>
+  <tr><td>One parameter, \(\varepsilon\), with a clear meaning</td><td>No tuning of exploration against exploitation</td><td>Two parameters with a clear meaning: \(\varepsilon_c\) (margin) and \(\tau\) (smallest gap)</td></tr>
+  <tr><td>Global convergence</td><td>Only in the limit, when the tests become dense everywhere (section 3)</td><td>Stops after a finite number of tests, with a certificate, under its conditions (part 2, section 9)</td></tr>
+  <tr class="grp"><td colspan="3">Weaknesses</td></tr>
+  <tr><td>No natural stop rule</td><td>Runs on a budget of tests. Sergeyev and Kvasov: "it is difficult to apply for DIRECT some meaningful stopping criterion" [9]</td><td>Certificate stop: no gap can beat the best power by more than 2 %</td></tr>
+  <tr><td>Slow refinement near the solution</td><td>A share of each iteration stays on exploration, like a constant exploration rate in reinforcement learning. On \(1+x_1+x_2\), 1 % accuracy in 90 evaluations, 0.01 % in 616 [2]</td><td>Stops at gap width \(\tau\) and hands the last climb to the parabolic local stage</td></tr>
+  <tr><td>Over-refinement of a local peak</td><td>On the Shubert function, 255 of the first 415 evaluations near one local minimizer [2]</td><td>A region whose ceiling is below the best power is closed for good, so a ruled-out peak is never refined</td></tr>
+  <tr><td>No use of local trends</td><td>Uses only centre values and box sizes [2]</td><td>Uses the one trend that the physics guarantees: the current never rises with the voltage</td></tr>
+  <tr><td>Never tests the boundary</td><td>An optimum at the end of the range converges slowly [2]</td><td>Tests both ends of the range first</td></tr>
+  <tr><td>Sensitive to an added constant</td><td>The margin \(\varepsilon\,|f_{\min}|\) changes with an offset of \(f\) [11]</td><td>The open test is a ratio of powers, and power has a physical zero</td></tr>
+</table></div>
+<section class="col">
+  <div class="key"><span class="lab">In the final tests</span><p>DIRECT ends on a wrong peak in <span class="tagd">26 of 99</span> Simulink start-ups and in <span class="tagd">10.2 %</span> of the static start-ups. Idea C: <span class="tagc">1 of 99</span> and <span class="tagc">0.78 %</span>. Both take 0.51 s per search on average, so the difference is reliability, not speed.</p></div>
+
+  <h2><span class="n">8</span>The other baselines</h2>
+  <ul>
+    <li><b>PSO</b> (particle swarm optimization, Ishaque et al. [6]) and <b>GWO</b> (grey wolf optimization, Mohanty et al. [7]) move a population of duties for a fixed number of iterations. A search takes 2.4 to 2.6 s, about five times as long as Idea C. They find the right peak, but they lose energy during the long search: 95.66 % and 90.83 % on the cloud events in Simulink, against <span class="tagc">98.72 %</span> for Idea C.</li>
+    <li><b>P&amp;O and INC from start-up</b> track only the nearest peak. They are the reference for a curve with one peak.</li>
+    <li>All five global searches hand over to the same local stage (part 2, section 7). Only the search differs between them.</li>
+  </ul>
+
+  <h2><span class="n">References</span>Sources of this part</h2>
+  <ol class="refs">
+    <li>D. R. Jones, C. D. Perttunen and B. E. Stuckman, “Lipschitzian optimization without the Lipschitz constant,” <i>J. Optim. Theory Appl.</i>, vol. 79, no. 1, pp. 157-181, 1993.</li>
+    <li>D. R. Jones and J. R. R. A. Martins, “The DIRECT algorithm: 25 years later,” <i>J. Global Optim.</i>, vol. 79, no. 3, pp. 521-566, 2021.</li>
+    <li>S. A. Piyavskii, “An algorithm for finding the absolute extremum of a function,” <i>USSR Comput. Math. Math. Phys.</i>, vol. 12, no. 4, pp. 57-67, 1972.</li>
+    <li>B. O. Shubert, “A sequential method seeking the global maximum of a function,” <i>SIAM J. Numer. Anal.</i>, vol. 9, no. 3, pp. 379-388, 1972.</li>
+    <li>T. L. Nguyen and K.-S. Low, “A global maximum power point tracking scheme employing DIRECT search algorithm for photovoltaic systems,” <i>IEEE Trans. Ind. Electron.</i>, vol. 57, no. 10, pp. 3456-3467, 2010.</li>
+    <li>K. Ishaque, Z. Salam, M. Amjad and S. Mekhilef, “An improved particle swarm optimization (PSO)-based MPPT for PV with reduced steady-state oscillation,” <i>IEEE Trans. Power Electron.</i>, vol. 27, no. 8, pp. 3627-3638, 2012.</li>
+    <li>S. Mohanty, B. Subudhi and P. K. Ray, “A new MPPT design using grey wolf optimization technique for photovoltaic system under partial shading conditions,” <i>IEEE Trans. Sustain. Energy</i>, vol. 7, no. 1, pp. 181-188, 2016.</li>
+    <li>EN 50530:2010+A1:2013, <i>Overall efficiency of grid connected photovoltaic inverters</i>. The ramp sequences of this project come from a TÜV Rheinland test report that lists them (report CN21VE2D 001).</li>
+    <li>Y. D. Sergeyev and D. E. Kvasov, <i>Deterministic Global Optimization: An Introduction to the Diagonal Approach</i>. New York: Springer, 2017 (book).</li>
+    <li>W. Li, G. Zhang, T. Pan, Z. Zhang, Y. Geng and J. Wang, “A Lipschitz optimization-based MPPT algorithm for photovoltaic system under partial shading condition,” <i>IEEE Access</i>, vol. 7, pp. 126323-126333, 2019.</li>
+    <li>D. E. Finkel and C. T. Kelley, “Additive scaling and the DIRECT algorithm,” <i>J. Global Optim.</i>, vol. 36, no. 4, pp. 597-608, 2006.</li>
+  </ol>
+  <p class="src">The test curve of Figures 3 to 9 is an illustration, not the project array. The numerical results that cite [2] come from [2].</p>
+
+  <div class="next"><span></span><a href="ideas.html">Part 2: the Idea C method →</a></div>
+</section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const col=()=>({mu:css('--muted'),ln:css('--line'),fg:css('--fg'),cv:css('--curve'),pt:css('--pt'),sel:css('--sel'),wn:css('--warn'),ok:css('--ok'),st:css('--step'),soft:css('--soft')});
+const fmt=(v,p=3)=>Math.abs(v)<1e-12?'0':(+v.toFixed(p)).toString();
+
+/* Test curve: normalized voltage v in [0,1], current in three steps (a string of three bypass groups). */
+const sg=(v,k)=>1/(1+Math.exp((v-k)/0.012));
+const Iv=v=>0.58*sg(v,0.34)+0.12*sg(v,0.67)+0.30*sg(v,0.97);
+const P=v=>v*Iv(v);
+const f1=x=>-P(x[0]);
+const N1=4000;let gx=0,gP=0;const peaks=[];
+for(let i=1;i<N1;i++){const a=P((i-1)/N1),b=P(i/N1),c=P((i+1)/N1);if(b>a&&b>=c)peaks.push(i/N1);if(b>gP){gP=b;gx=i/N1}}
+let Ktrue=0;for(let i=0;i<N1;i++)Ktrue=Math.max(Ktrue,Math.abs(P((i+1)/N1)-P(i/N1))*N1);
+
+/* DIRECT (Jones et al. 1993, as in Jones and Martins 2021, Algorithms 1 and 2), minimizing f = -P. */
+function Direct(f,n,eps){
+  const R=[];let fmin,best,it=0;
+  const dOf=lv=>0.5*Math.sqrt(lv.reduce((s,l)=>s+Math.pow(9,-l),0));
+  const add=(c,lv,v)=>{const r={c,lv:lv.slice(),f:v,d:dOf(lv),born:it};R.push(r);if(fmin===undefined||v<fmin){fmin=v;best=r}return r};
+  const c0=Array(n).fill(.5);add(c0,Array(n).fill(0),f(c0));
+  function select(e=eps){
+    const G=new Map();
+    for(const r of R){const k=r.d.toPrecision(10),g=G.get(k);
+      if(!g||r.f<g.f-1e-12)G.set(k,{d:r.d,f:r.f,list:[r]});else if(Math.abs(r.f-g.f)<=1e-12)g.list.push(r)}
+    const A=[...G.values()],out=[];
+    for(const j of A){let K1=0,K2=Infinity;
+      for(const i of A){if(i===j)continue;
+        if(i.d<j.d)K1=Math.max(K1,(j.f-i.f)/(j.d-i.d));else K2=Math.min(K2,(i.f-j.f)/(i.d-j.d))}
+      if(K1<=K2&&K2>0&&(K2===Infinity||j.f-K2*j.d<=fmin-e*Math.abs(fmin)))out.push(...j.list)}
+    return out}
+  function divide(r){
+    const m=Math.min(...r.lv),dl=Math.pow(3,-m)/3,M=[];r.lv.forEach((l,k)=>{if(l===m)M.push(k)});
+    const S=M.map(k=>{const a=r.c.slice(),b=r.c.slice();a[k]+=dl;b[k]-=dl;const fa=f(a),fb=f(b);return{k,a,b,fa,fb,w:Math.min(fa,fb)}}).sort((p,q)=>p.w-q.w);
+    for(const s of S){r.lv[s.k]++;add(s.a,r.lv,s.fa);add(s.b,r.lv,s.fb)}
+    r.d=dOf(r.lv)}
+  function step(){const S=select();it++;S.forEach(divide);return S.length}
+  return{R,step,select,eps,get fmin(){return fmin},get best(){return best},get it(){return it}};
+}
+const run=(f,n,e,k)=>{const D=Direct(f,n,e);for(let i=0;i<k;i++)D.step();return D};
+
+/* Canvas helpers */
+function cv(id){const c=$(id),dpr=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;
+  c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);return{g,w,h}}
+function frame(g,w,h,xr,yr,o={}){
+  const m=Object.assign({l:50,r:14,t:26,b:40},o.m||{}),C=col();
+  const X=v=>m.l+(v-xr[0])/(xr[1]-xr[0])*(w-m.l-m.r),Y=v=>h-m.b-(v-yr[0])/(yr[1]-yr[0])*(h-m.t-m.b);
+  g.font='11px '+css('--f-mono');g.lineWidth=1;g.textAlign='center';g.textBaseline='top';
+  for(const t of o.xt||[]){g.strokeStyle=C.ln;g.beginPath();g.moveTo(X(t),m.t);g.lineTo(X(t),h-m.b);g.stroke();g.fillStyle=C.mu;g.fillText(fmt(t),X(t),h-m.b+5)}
+  g.textAlign='right';g.textBaseline='middle';
+  for(const t of o.yt||[]){g.strokeStyle=C.ln;g.beginPath();g.moveTo(m.l,Y(t));g.lineTo(w-m.r,Y(t));g.stroke();g.fillStyle=C.mu;g.fillText(fmt(t),m.l-6,Y(t))}
+  g.fillStyle=C.mu;g.textAlign='left';g.textBaseline='top';if(o.yl)g.fillText(o.yl,8,6);
+  g.textAlign='right';g.textBaseline='bottom';if(o.xl)g.fillText(o.xl,w-m.r,h-2);
+  const clip=()=>{g.save();g.beginPath();g.rect(m.l,m.t,w-m.l-m.r,h-m.t-m.b);g.clip()};
+  return{X,Y,m,C,clip}}
+function curve(g,F,fn,color,width=2,dash){g.strokeStyle=color;g.lineWidth=width;g.setLineDash(dash||[]);g.beginPath();
+  for(let i=0;i<=500;i++){const x=i/500,y=fn(x);i?g.lineTo(F.X(x),F.Y(y)):g.moveTo(F.X(x),F.Y(y))}g.stroke();g.setLineDash([])}
+function dot(g,x,y,r,fill,stroke){g.beginPath();g.arc(x,y,r,0,7);if(fill){g.fillStyle=fill;g.fill()}if(stroke){g.strokeStyle=stroke;g.lineWidth=2;g.stroke()}}
+function violPath(g,F,above){let n=0,pen=false;g.strokeStyle=F.C.wn;g.lineWidth=3.4;g.beginPath();
+  for(let i=0;i<=800;i++){const x=i/800,y=P(x);if(above(x,y)){if(!pen){n++;g.moveTo(F.X(x),F.Y(y))}else g.lineTo(F.X(x),F.Y(y));pen=true}else pen=false}
+  g.stroke();return n}
+
+/* Figure 3: the test curve */
+function draw1(){const{g,w,h}=cv('#c1');const F=frame(g,w,h,[0,1],[-.02,.36],{xt:[0,.25,.5,.75,1],yt:[0,.1,.2,.3],yl:'P(v)',xl:'v'});
+  F.clip();curve(g,F,P,F.C.cv,2.2);g.restore();
+  g.font='12px '+css('--f-body');g.textAlign='center';g.textBaseline='bottom';
+  for(const x of peaks){const gl=Math.abs(x-gx)<1e-6;dot(g,F.X(x),F.Y(P(x)),gl?6:4.5,gl?F.C.sel:F.C.pt);
+    g.fillStyle=gl?F.C.sel:F.C.mu;g.fillText(gl?'global peak':'local peak',F.X(x),F.Y(P(x))-9)}}
+
+/* Figure 4: a hidden spike between the tests */
+const s2=x=>.45+.2*Math.sin(2*Math.PI*1.4*x+.6),h2=x=>s2(x)+.62*Math.exp(-(((x-.6)/.013)**2));
+function draw2(){const{g,w,h}=cv('#c2');const F=frame(g,w,h,[0,1],[0,1.15],{xt:[0,.5,1],m:{t:14,b:28,l:20}});
+  g.fillStyle=css('--soft');g.fillRect(F.X(.52),F.m.t,F.X(.68)-F.X(.52),h-F.m.t-F.m.b);
+  F.clip();curve(g,F,h2,F.C.sel,1.6,[5,4]);curve(g,F,s2,F.C.cv,2.2);g.restore();
+  for(let k=0;k<10;k++){const x=.05+k*.1;if(x>.52&&x<.68)continue;dot(g,F.X(x),F.Y(s2(x)),4.5,F.C.pt)}
+  g.fillStyle=F.C.mu;g.font='12px '+css('--f-body');g.textAlign='center';g.textBaseline='bottom';g.fillText('untested interval',F.X(.6),h-F.m.b-4)}
+
+/* Figure 5: Lipschitz hourglass */
+let FH=null;const cH=$('#cH');
+function drawH(){const K=+$('#hk').value,x0=+$('#hx').value,y0=P(x0),show=$('#hd').checked;const{g,w,h}=cv('#cH');
+  const F=frame(g,w,h,[0,1],[-.3,.62],{xt:[0,.25,.5,.75,1],yt:[-.2,0,.2,.4,.6],yl:'P(v)',xl:'v'});FH=F;
+  const up=x=>y0+K*Math.abs(x-x0),dn=x=>y0-K*Math.abs(x-x0);
+  const poly=(pts,c,a)=>{g.globalAlpha=a;g.fillStyle=c;g.beginPath();pts.forEach(([x,y],i)=>i?g.lineTo(F.X(x),F.Y(y)):g.moveTo(F.X(x),F.Y(y)));g.closePath();g.fill();g.globalAlpha=1};
+  F.clip();
+  poly([[0,up(0)],[x0,y0],[1,up(1)],[1,60],[0,60]],F.C.wn,.11);
+  poly([[0,dn(0)],[x0,y0],[1,dn(1)],[1,-60],[0,-60]],F.C.wn,.11);
+  poly([[x0,y0],[0,up(0)],[0,dn(0)]],F.C.cv,.13);poly([[x0,y0],[1,up(1)],[1,dn(1)]],F.C.cv,.13);
+  g.strokeStyle=F.C.fg;g.lineWidth=1.3;g.beginPath();g.moveTo(F.X(0),F.Y(up(0)));g.lineTo(F.X(x0),F.Y(y0));g.lineTo(F.X(1),F.Y(up(1)));
+  g.moveTo(F.X(0),F.Y(dn(0)));g.lineTo(F.X(x0),F.Y(y0));g.lineTo(F.X(1),F.Y(dn(1)));g.stroke();
+  curve(g,F,P,F.C.cv,2);
+  const n=violPath(g,F,(x,y)=>Math.abs(y-y0)>K*Math.abs(x-x0)+1e-9);
+  if(show){const d=.1,cl=y0+K*d;g.strokeStyle=F.C.sel;g.lineWidth=2.4;g.beginPath();g.moveTo(F.X(x0-d),F.Y(cl));g.lineTo(F.X(x0),F.Y(y0));g.lineTo(F.X(x0+d),F.Y(cl));g.stroke();
+    g.setLineDash([4,3]);g.beginPath();g.moveTo(F.X(x0-d),F.Y(cl));g.lineTo(F.X(x0+d),F.Y(cl));g.stroke();g.setLineDash([])}
+  g.restore();dot(g,F.X(x0),F.Y(y0),6,F.C.sel);
+  $('#hv').innerHTML=`x₀ = <b>${x0.toFixed(3)}</b>, P(x₀) = <b>${y0.toFixed(4)}</b>, K = <b>${K.toFixed(2)}</b> · `+(n?`<b style="color:var(--warn)">the curve enters a forbidden wedge at ${n} place${n>1?'s':''}: K is too small (Lipschitz constant ≈ ${Ktrue.toFixed(1)})</b>`:'the curve stays inside the allowed wedges')+(show?` · box ceiling P(c) + K·d = ${(y0+K*.1).toFixed(4)}`:'')}
+function hxFrom(e){if(!FH)return;const r=cH.getBoundingClientRect(),x=(e.clientX-r.left-FH.m.l)/(r.width-FH.m.l-FH.m.r);$('#hx').value=Math.min(.98,Math.max(.02,x));drawH()}
+cH.addEventListener('pointerdown',e=>{cH.setPointerCapture(e.pointerId);hxFrom(e)});
+cH.addEventListener('pointermove',e=>{if(e.buttons)hxFrom(e)});
+['#hx','#hk'].forEach(s=>$(s).addEventListener('input',drawH));$('#hd').addEventListener('change',drawH);
+
+/* Figure 6: box ceilings after three DIRECT iterations (internal values f = -P) */
+const D3=run(f1,1,1e-4,3);
+let swept=new Set(),sweepDone=false,sweepT=null;
+function boxOf(B,x){return B.find(b=>x>=b.c[0]-b.d-1e-12&&x<=b.c[0]+b.d+1e-12)||B[B.length-1]}
+function kGroups(B){const G=new Map();for(const r of B){const k=r.d.toPrecision(10);if(!G.has(k))G.set(k,{d:r.d,list:[]});G.get(k).list.push(r)}
+  const A=[...G.values()];A.forEach(g=>{g.list.sort((a,b)=>a.f-b.f);g.best=g.list[0]});
+  for(const j of A){let K1=0,K2=Infinity;for(const i of A){if(i===j)continue;if(i.d<j.d)K1=Math.max(K1,(j.best.f-i.best.f)/(j.d-i.d));else K2=Math.min(K2,(i.best.f-j.best.f)/(i.d-j.d))}j.K1=K1;j.K2=K2;j.wins=K1<=K2&&K2>0}
+  return A.sort((a,b)=>b.d-a.d)}
+function winnerAt(K){const B=D3.R.slice().sort((a,b)=>a.c[0]-b.c[0]);let w=B[0];for(const r of B)if(r.f-K*r.d<w.f-K*w.d-1e-12)w=r;return w}
+function draw3(){const K=+$('#k3').value;const{g,w,h}=cv('#c3');
+  const F=frame(g,w,h,[0,1],[-.03,.8],{xt:[0,1/3,2/3,1],yt:[0,.25,.5,.75],yl:'P(v)',xl:'v'});
+  const B=D3.R.slice().sort((a,b)=>a.c[0]-b.c[0]);const win=winnerAt(K);
+  F.clip();curve(g,F,P,F.C.cv,1.6);
+  for(const r of B){const c=r.c[0],lo=c-r.d,hi=c+r.d,top=-r.f+K*r.d,W=r===win;
+    g.strokeStyle=F.C.ln;g.lineWidth=1;g.beginPath();g.moveTo(F.X(lo),F.m.t);g.lineTo(F.X(lo),h-F.m.b);g.stroke();
+    g.strokeStyle=W?F.C.sel:F.C.pt;g.lineWidth=W?2.4:1.3;g.globalAlpha=W?1:.75;
+    g.beginPath();g.moveTo(F.X(lo),F.Y(top));g.lineTo(F.X(c),F.Y(-r.f));g.lineTo(F.X(hi),F.Y(top));g.stroke();
+    g.setLineDash([3,3]);g.beginPath();g.moveTo(F.X(lo),F.Y(top));g.lineTo(F.X(hi),F.Y(top));g.stroke();g.setLineDash([]);g.globalAlpha=1}
+  const bad=new Set();for(let i=0;i<=800;i++){const x=i/800,r=boxOf(B,x);if(P(x)>-r.f+K*Math.abs(x-r.c[0])+1e-9)bad.add(r)}
+  violPath(g,F,(x,y)=>{const r=boxOf(B,x);return y>-r.f+K*Math.abs(x-r.c[0])+1e-9});
+  g.restore();for(const r of B)dot(g,F.X(r.c[0]),F.Y(-r.f),4.5,r===win?F.C.sel:F.C.pt);
+  $('#k3v').innerHTML=`K = <b>${(+K).toFixed(2)}</b> · highest ceiling: interval [${fmt(win.c[0]-win.d)}, ${fmt(win.c[0]+win.d)}] · `+(bad.size?`<b style="color:var(--warn)">K below the Lipschitz constant (≈ ${Ktrue.toFixed(1)}): ceiling false in ${bad.size} box${bad.size>1?'es':''}</b>`:`ceiling true in every box (Lipschitz constant ≈ ${Ktrue.toFixed(1)})`);
+  const G=kGroups(B);let rows='<tr><th>interval</th><th>P(cᵢ)</th><th>dᵢ</th><th>P(cᵢ) + K·dᵢ</th><th>highest ceiling for K in</th></tr>';
+  for(const gr of G){rows+=`<tr class="grp"><td colspan="5">size dᵢ = ${gr.d.toFixed(4)} · ${gr.list.length} box${gr.list.length>1?'es':''}</td></tr>`;
+    for(const r of gr.list){const isW=r===gr.best&&gr.wins,cls=[r===win?'win':'',isW?'':'dom',swept.has(r)?'swept':''].join(' ');
+      const rng=isW?`${gr.K1.toFixed(3)} to ${gr.K2===Infinity?'∞':gr.K2.toFixed(3)}`:(r===gr.best?'never (beaten by other sizes)':`never (dominated by [${fmt(gr.best.c[0]-gr.best.d)}, ${fmt(gr.best.c[0]+gr.best.d)}])`);
+      rows+=`<tr class="${cls}"><td>[${fmt(r.c[0]-r.d)}, ${fmt(r.c[0]+r.d)}]</td><td>${(-r.f).toFixed(4)}</td><td>${r.d.toFixed(4)}</td><td>${(-r.f+K*r.d).toFixed(4)}</td><td>${rng}</td></tr>`}}
+  $('#t3').innerHTML=rows;
+  if(sweepDone){const sel=D3.select(1e-4),same=sel.length===swept.size&&sel.every(r=>swept.has(r));
+    $('#k3v').innerHTML+=` · <b>sweep: ${swept.size} boxes won for some K</b>${same?', the same set that DIRECT selects in this state':''}`}}
+$('#k3').addEventListener('input',draw3);
+$('#sw3').addEventListener('click',()=>{clearInterval(sweepT);swept=new Set();sweepDone=false;
+  const MAX=1.2,dK=0.01,lg=$('#k3log'),iv=r=>`[${fmt(r.c[0]-r.d)}, ${fmt(r.c[0]+r.d)}]`;
+  let K=0,prev=winnerAt(0),pause=0;swept.add(prev);lg.innerHTML=`K = 0.000: the highest ceiling is in ${iv(prev)}`;
+  $('#k3').value=0;draw3();
+  sweepT=setInterval(()=>{if(pause>0){pause--;return}
+    K=Math.min(MAX,K+dK);const wv=winnerAt(K);
+    if(wv!==prev){let a=K-dK,b=K;for(let n=0;n<40;n++){const m=(a+b)/2;winnerAt(m)===prev?a=m:b=m}
+      lg.innerHTML+=`<br>K = ${b.toFixed(3)}: the highest ceiling moves from ${iv(prev)} to ${iv(wv)}`;prev=wv;swept.add(wv);pause=22}
+    $('#k3').value=K;
+    if(K>=MAX){clearInterval(sweepT);sweepT=null;sweepDone=true;
+      const dMax=Math.max(...D3.R.map(r=>r.d));
+      if(prev.d===dMax)lg.innerHTML+=`<br>From here on, the largest box ${iv(prev)} keeps the highest ceiling for every larger K.`}
+    draw3()},40)});
+
+/* Figure 7: Piyavskii-Shubert search (maximum form of Shubert 1972) */
+const EPS=0.02;let PS=[],psDone=false,psT=null;
+function psTeeth(S,K){const s=S.slice().sort((a,b)=>a.x-b.x),T=[];
+  for(let i=0;i+1<s.length;i++){const a=s[i],b=s[i+1];let x=(a.x+b.x)/2+(b.P-a.P)/(2*K);x=Math.min(b.x,Math.max(a.x,x));
+    T.push({a,b,x,U:Math.min(a.P+K*(x-a.x),b.P+K*(b.x-x))})}return T}
+function psStep(S,K){const T=psTeeth(S,K),Pb=Math.max(...S.map(s=>s.P));let t=T[0];for(const q of T)if(q.U>t.U)t=q;
+  if(t.U<=(1+EPS)*Pb||S.length>=PSCAP)return false;S.push({x:t.x,P:P(t.x),n:S.length+1});return true}
+const PSCAP=400;
+function psReset(){clearInterval(psT);psT=null;PS=[0,1].map((x,i)=>({x,P:P(x),n:i+1}));psDone=false;drawS()}
+function drawS(){const K=+$('#kS').value;const{g,w,h}=cv('#cS');
+  const T=psTeeth(PS,K),Pb=Math.max(...PS.map(s=>s.P));let top=T[0];for(const q of T)if(q.U>top.U)top=q;
+  const yM=Math.max(.5,top.U*1.08),yst=yM>2?1:yM>1?.5:.25,yt=[];for(let v=0;v<yM;v+=yst)yt.push(+v.toFixed(2));
+  const F=frame(g,w,h,[0,1],[-.02*yM,yM],{xt:[0,.25,.5,.75,1],yt,yl:'P(v)',xl:'v'});
+  const env=x=>Math.min(...PS.map(s=>s.P+K*Math.abs(x-s.x)));
+  const stop=top.U<=(1+EPS)*Pb;if(stop)psDone=true;
+  F.clip();curve(g,F,P,F.C.cv,1.6);
+  g.strokeStyle=F.C.fg;g.lineWidth=1.6;g.setLineDash([6,4]);g.beginPath();for(let i=0;i<=900;i++){const x=i/900,y=env(x);i?g.lineTo(F.X(x),F.Y(y)):g.moveTo(F.X(x),F.Y(y))}g.stroke();g.setLineDash([]);
+  g.strokeStyle=F.C.ok;g.lineWidth=1;g.setLineDash([2,3]);g.beginPath();g.moveTo(F.m.l,F.Y((1+EPS)*Pb));g.lineTo(w-F.m.r,F.Y((1+EPS)*Pb));g.stroke();g.setLineDash([]);
+  const nv=violPath(g,F,(x,y)=>y>env(x)+1e-9);
+  if(!stop){g.strokeStyle=F.C.sel;g.lineWidth=1.2;g.setLineDash([3,3]);g.beginPath();g.moveTo(F.X(top.x),F.Y(top.U));g.lineTo(F.X(top.x),F.Y(P(top.x)));g.stroke();g.setLineDash([])}
+  g.restore();
+  for(const q of T)if(q!==top||stop)dot(g,F.X(q.x),F.Y(q.U),3,F.C.mu);
+  if(!stop)dot(g,F.X(top.x),F.Y(top.U),6,F.C.sel);
+  const bi=PS.reduce((b,s)=>s.P>b.P?s:b,PS[0]);
+  g.font='11px '+css('--f-mono');g.textAlign='center';g.textBaseline='top';
+  for(const s of PS){dot(g,F.X(s.x),F.Y(s.P),s===bi?5.5:4.5,s===bi&&stop?F.C.ok:F.C.pt);g.fillStyle=F.C.fg;g.fillText(String(s.n),F.X(s.x),F.Y(s.P)+7)}
+  $('#vS').innerHTML=`tests <b>${PS.length}</b> · P<sub>best</sub> = <b>${Pb.toFixed(4)}</b> (${(100*Pb/gP).toFixed(2)} % of the true maximum ${gP.toFixed(4)}) · highest tip Û = <b>${top.U.toFixed(4)}</b>, Û / P<sub>best</sub> = ${(top.U/Pb).toFixed(3)} · `+
+    (stop?`<b style="color:var(--ok)">stopped: no tip above 1.02 P<sub>best</sub>, certificate P* ≤ ${top.U.toFixed(4)}</b>`:'searching')+
+    (nv?` · <b style="color:var(--warn)">K below the Lipschitz constant (≈ ${Ktrue.toFixed(1)}): the envelope is false</b>`:'')}
+$('#sS').addEventListener('click',()=>{if(!psDone)psStep(PS,+$('#kS').value);drawS()});
+$('#rS').addEventListener('click',()=>{clearInterval(psT);psT=setInterval(()=>{if(psDone||!psStep(PS,+$('#kS').value)){clearInterval(psT);psT=null}drawS()},450)});
+$('#zS').addEventListener('click',psReset);$('#kS').addEventListener('input',psReset);
+
+/* Figure 8: box-wise ceiling against the upper envelope */
+function drawE(){const K=+$('#ek').value,mode=$('#em').value,showB=mode!=='env',showE=mode!=='box';const{g,w,h}=cv('#cE');
+  const F=frame(g,w,h,[0,1],[-.03,.8],{xt:[0,1/3,2/3,1],yt:[0,.25,.5,.75],yl:'P(v)',xl:'v'});
+  const B=D3.R.slice().sort((a,b)=>a.c[0]-b.c[0]);
+  const bc=x=>{const r=boxOf(B,x);return -r.f+K*Math.abs(x-r.c[0])},env=x=>Math.min(...B.map(r=>-r.f+K*Math.abs(x-r.c[0])));
+  F.clip();curve(g,F,P,F.C.cv,1.6);
+  if(showB){for(const r of B){const c=r.c[0],top=-r.f+K*r.d;g.strokeStyle=F.C.pt;g.lineWidth=1.4;g.beginPath();g.moveTo(F.X(c-r.d),F.Y(top));g.lineTo(F.X(c),F.Y(-r.f));g.lineTo(F.X(c+r.d),F.Y(top));g.stroke()}
+    g.strokeStyle=F.C.st;g.lineWidth=2.6;for(let i=0;i+1<B.length;i++){const a=B[i],b=B[i+1],x=a.c[0]+a.d;g.beginPath();g.moveTo(F.X(x),F.Y(-a.f+K*a.d));g.lineTo(F.X(x),F.Y(-b.f+K*b.d));g.stroke()}}
+  if(showE){g.strokeStyle=F.C.fg;g.lineWidth=2;g.setLineDash([6,4]);g.beginPath();for(let i=0;i<=900;i++){const x=i/900,y=env(x);i?g.lineTo(F.X(x),F.Y(y)):g.moveTo(F.X(x),F.Y(y))}g.stroke();g.setLineDash([])}
+  const nb=showB?violPath(g,F,(x,y)=>y>bc(x)+1e-9):0,ne=showE?violPath(g,F,(x,y)=>y>env(x)+1e-9):0;
+  g.restore();for(const r of B)dot(g,F.X(r.c[0]),F.Y(-r.f),4.5,F.C.pt);
+  const bl=boxOf(B,1/3-1e-6);
+  $('#ev').innerHTML=`K = <b>${K.toFixed(2)}</b> · just left of v = 1/3: box-wise ceiling <b>${(-bl.f+K*bl.d).toFixed(3)}</b>, envelope <b>${env(1/3).toFixed(3)}</b> · `+((nb||ne)?`<b style="color:var(--warn)">curve above ${nb&&ne?'both ceilings':nb?'the box-wise ceiling':'the envelope'} (K below ≈ ${Ktrue.toFixed(1)})</b>`:'both ceilings true')}
+$('#ek').addEventListener('input',drawE);$('#em').addEventListener('change',drawE);
+
+/* Figure 9: Idea C on the test curve. Ceiling of a gap = higher voltage x higher current. */
+const EC=0.02,TAU=0.02,TH=0.1;
+function cornerV(a,b){const R=b.v/a.I;let lo=a.v,hi=b.v;for(let k=0;k<60;k++){const m=(lo+hi)/2;(m/Math.max(Iv(m),1e-12))<R?lo=m:hi=m}
+  const w=b.v-a.v;return Math.min(b.v-TH*w,Math.max(a.v+TH*w,(lo+hi)/2))}
+const mkS=(v,n)=>({v,I:Iv(v),P:P(v),n});
+function icGaps(S){const s=S.slice().sort((a,b)=>a.v-b.v),Pb=Math.max(...S.map(q=>q.P)),G=[];let best=null;
+  for(let i=0;i+1<s.length;i++){const a=s[i],b=s[i+1],U=b.v*a.I,wd=b.v-a.v,narrow=wd<=TAU,open=U>(1+EC)*Pb&&!narrow,gp={a,b,U,wd,narrow,open};G.push(gp);if(open&&(!best||U>best.U))best=gp}
+  return{G,best,Pb}}
+function icStep(S,split){const E=icGaps(S);if(!E.best||S.length>=64)return false;
+  const v=split==='mid'?(E.best.a.v+E.best.b.v)/2:cornerV(E.best.a,E.best.b);S.push(mkS(v,S.length+1));return true}
+let IC=[],icT=null;
+function icReset(){clearInterval(icT);icT=null;IC=[0,.5,1].map((v,i)=>mkS(v,i+1));draw7()}
+function draw7(){const{g,w,h}=cv('#c7');const E=icGaps(IC),done=!E.best;
+  const F=frame(g,w,h,[0,1],[-.02,.62],{xt:[0,.25,.5,.75,1],yt:[0,.2,.4,.6],yl:'P(v)',xl:'v',m:{b:62}});
+  F.clip();curve(g,F,P,F.C.mu,1.3);
+  g.strokeStyle=F.C.wn;g.setLineDash([6,4]);g.lineWidth=1.2;g.beginPath();g.moveTo(F.m.l,F.Y((1+EC)*E.Pb));g.lineTo(w-F.m.r,F.Y((1+EC)*E.Pb));g.stroke();g.setLineDash([]);
+  g.restore();
+  g.font='11px '+css('--f-mono');g.textAlign='center';g.textBaseline='bottom';
+  for(const gp of E.G){const c=gp===E.best?F.C.sel:gp.open?F.C.pt:gp.narrow?F.C.mu:F.C.ok,x1=F.X(gp.a.v),x2=F.X(gp.b.v),over=gp.U>.62,y=over?F.m.t-2:F.Y(gp.U);
+    g.strokeStyle=c;g.lineWidth=gp===E.best?3.2:2;g.beginPath();g.moveTo(x1+1,y);g.lineTo(x2-1,y);g.stroke();
+    if(over){g.fillStyle=c;g.fillText('▲'+(gp.U/E.Pb).toFixed(2),(x1+x2)/2,F.m.t-4)}
+    const y0=h-F.m.b+24;g.fillStyle=c;g.globalAlpha=.35;g.fillRect(x1,y0,x2-x1,10);g.globalAlpha=1;g.strokeStyle=F.C.mu;g.lineWidth=1;g.strokeRect(x1,y0,x2-x1,10)}
+  const bi=IC.reduce((b,s)=>s.P>b.P?s:b,IC[0]);
+  for(const s of IC){dot(g,F.X(s.v),F.Y(s.P),s===bi?6:4.5,s===bi&&done?F.C.ok:F.C.pt);g.fillStyle=F.C.fg;g.fillText(String(s.n),F.X(s.v),F.Y(s.P)-7)}
+  let cert=1;for(const gp of E.G){if(gp.a===bi||gp.b===bi)continue;cert=Math.max(cert,gp.U/E.Pb)}
+  $('#st7').innerHTML=`tests <b>${IC.length}</b> · P<sub>best</sub> = <b>${E.Pb.toFixed(4)}</b> = <b>${(100*E.Pb/gP).toFixed(2)} %</b> of the true maximum · `+(done?`<b style="color:var(--ok)">stopped: no open gap, certificate holds, hand over to the local stage</b>`:'searching')+` · highest ceiling away from the best test / P<sub>best</sub> = ${cert.toFixed(3)}`}
+$('#s7').addEventListener('click',()=>{icStep(IC,$('#sp7').value);draw7()});
+$('#r7').addEventListener('click',()=>{clearInterval(icT);icT=setInterval(()=>{if(!icStep(IC,$('#sp7').value)){clearInterval(icT);icT=null}draw7()},450)});
+$('#z7').addEventListener('click',icReset);$('#sp7').addEventListener('change',icReset);
+
+/* Comparison table on the test curve */
+(function(){const firstWithin=(vals,tol)=>{let b=-Infinity;for(let i=0;i<vals.length;i++){b=Math.max(b,vals[i]);if(b>=(1-tol)*gP)return i+1}return null};
+  const rows=[];
+  for(const sp of ['corner','mid']){const S=[0,.5,1].map((v,i)=>mkS(v,i+1));while(icStep(S,sp));const vals=S.map(s=>s.P);
+    rows.push([`Idea C, ${sp==='corner'?'corner split':'midpoint split'}`,firstWithin(vals,.01),firstWithin(vals,.001),`${S.length} tests, with a certificate (within 2 %)`])}
+  {const Kv=Math.ceil(Ktrue*1.2*10)/10,S=[0,1].map((x,i)=>({x,P:P(x),n:i+1}));while(psStep(S,Kv));const vals=S.map(s=>s.P);
+    rows.push([`Piyavskii-Shubert, K = ${Kv}`,firstWithin(vals,.01),firstWithin(vals,.001),S.length>=PSCAP?`no stop within ${PSCAP} tests`:`${S.length} tests, with a certificate (K known)`])}
+  {const D=run(f1,1,1e-4,10),vals=D.R.map(r=>-r.f);rows.push(['DIRECT, ε = 10⁻⁴',firstWithin(vals,.01),firstWithin(vals,.001),`no stop rule (${D.R.length} tests after 10 iterations)`])}
+  $('#tF').innerHTML='<tr><th>Search</th><th>tests to within 1 %</th><th>tests to within 0.1 %</th><th>end of the search</th></tr>'+rows.map(r=>`<tr${r[0].startsWith('Idea C, corner')?' class="ic"':''}><td>${r[0]}</td><td>${r[1]??'not before the stop'}</td><td>${r[2]??'not before the stop'}</td><td>${r[3]}</td></tr>`).join('')})();
+
+/* Draw and redraw */
+function drawAll(){draw1();draw2();drawH();draw3();drawS();drawE();draw7()}
+PS=[0,1].map((x,i)=>({x,P:P(x),n:i+1}));IC=[0,.5,1].map((v,i)=>mkS(v,i+1));
+drawAll();
+let rz;new ResizeObserver(()=>{clearTimeout(rz);rz=setTimeout(drawAll,60)}).observe(document.body);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',drawAll);
+new MutationObserver(drawAll).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+document.fonts&&document.fonts.ready.then(drawAll);
+</script>

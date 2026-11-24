@@ -1,5 +1,11 @@
 %RUN_GMPPT_RESTART Restart of the global search after a change of the shading.
 %
+%   Note of 2026-11-21: this script is a record of the preliminary study.
+%   Its algorithm numbers and result files are those of the preliminary
+%   study, not of the current tracker (README.md, section "Templates").
+%   The current scripts are experiments/run_gmppt_baseline.m and
+%   experiments/run_gmppt_restart_tests.m.
+%
 %   Task T5 of HANDOFF_ideas_B_C.md. During P&O, the controller starts a
 %   new search if |P - P_ref| > mppt.dP_restart * P_ref, or after
 %   mppt.T_rescan seconds of P&O (mppt_controller.m). P_ref is the power

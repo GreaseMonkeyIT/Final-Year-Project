@@ -1,0 +1,12 @@
+run_final_compute.m, 24-Nov-2026 11:03:05
+
+PC: AMD Ryzen 9 8940HX, one core, P_core = 3.4 W (estimate). 20 passes of each run.
+Mean over the patterns P0, P1, P3, R1. Times of one call [us], energies [J].
+Variant                   us/dec us/srchdec    us p99  us/sample t srch s    dec   E run 4 s    E search
+DIRECT (paper)            0.0522     0.2010    0.3363    0.00448    0.550    187   1.231e-03   9.885e-06
+Idea B + Parabolic        0.0842     0.1417    0.2135    0.00454    0.500    184   1.248e-03   6.154e-06
+Idea C + Parabolic        0.0849     0.1622    0.1978    0.00450    0.450    186   1.239e-03   6.363e-06
+PSO + Parabolic           0.0883     0.0956    0.3364    0.00426    2.560    136   1.172e-03   2.103e-05
+GWO + Parabolic           0.0997     0.1124    0.4537    0.00491    2.400    138   1.351e-03   2.318e-05
+P&O from start-up         0.0171        NaN    0.0725    0.00439    0.000    201   1.208e-03   0.000e+00
+INC from start-up         0.0139        NaN    0.0725    0.00439    0.000    201   1.208e-03   0.000e+00

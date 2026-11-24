@@ -1,5 +1,11 @@
 %RUN_SETTLING_CHECK Check that each search probe settles before the tracker uses it.
 %
+%   Note of 2026-11-21: this script is a record of the preliminary study.
+%   Its algorithm numbers and result files are those of the preliminary
+%   study, not of the current tracker (README.md, section "Templates").
+%   The current scripts are experiments/run_gmppt_baseline.m and
+%   experiments/run_gmppt_restart_tests.m.
+%
 %   The ceiling V1 x I2 of Ideas B and C holds only if each probe is in
 %   steady state. The settling check of run_po_demo.m covers P&O steps of
 %   0.005 in duty. The searches of DIRECT, Idea B and Idea C jump by up

@@ -1,6 +1,6 @@
 # Mini project (EE420 Microgrids and Smart Grids): P&O and INC on the 4 x 4 PV array
 
-This folder holds the mini project report, the simulation results of 29 September 2026, and the reference papers that the report cites.
+This folder holds the mini project report, the MATLAB code and the Simulink models of the simulation runs, the results of 29 September 2026, and the reference papers that the report cites.
 
 ## Contents
 
@@ -8,13 +8,39 @@ This folder holds the mini project report, the simulation results of 29 Septembe
 |---|---|
 | `MiniProject_EE420_Report_PO_INC.docx` | The mini project report for EE420 Microgrids and Smart Grids, in the format of the IEEE A4 conference template (two columns). Edit this file. |
 | `MiniProject_EE420_Report_PO_INC.pdf` | The same report as a PDF, 8 pages. |
-| `conference-template-a4 (4) (1).docx` | The IEEE A4 conference template, with no change. |
+| `Code/` | The MATLAB code and the two Simulink models of the runs (see "Code and models") |
 | `Simulation_Results/` | The saved results of the simulation runs of 29 September 2026, with no change. |
 | `Simulation_Results/derived_metrics.csv` | Tracking time and energy ratio of each run. The report calculates these from the saved waveforms. No new simulation was run. |
 | `Simulation_Results/derive_metrics.py` | The script that writes `derived_metrics.csv` from `mppt_results.mat`. |
 | `Reference_Papers/` | PDF copies of the cited papers. The number in each file name is the reference number in the report. |
 
-The code and the build scripts of these runs are in `MidReview_PO_INC_2026-09-29.zip` in the project root.
+## Code and models
+
+The code in `Code/` is the code of the runs of 29 September 2026, with no change.
+
+| File | Content |
+|---|---|
+| `pv4x4_config.m` | All values: panel, array, bypass diode, converter, P&O and INC |
+| `shading_patterns.m` | The nine shading patterns P0 to P3 and R1 to R5 |
+| `mppt_controller.m` | The tracker. `mppt.alg = 1` is P&O and `mppt.alg = 2` is INC. The block "MPPT" in `MPPT_4x4.slx` calls it every 50 us |
+| `PV4x4_sweep.slx` | The voltage-sweep testbench: the 4 x 4 array and a controlled voltage source. It gives the P-V curves |
+| `MPPT_4x4.slx` | The 4 x 4 array, an averaged buck-boost converter into 10 Ohm, and the tracker |
+| `run_pv4x4_sweeps.m` | Sweeps each pattern. Writes the curves and the global peak of each pattern |
+| `run_po_demo.m` | Runs each case with P&O and with INC (24 runs). Writes the result table and the figures |
+| `graph_menu.m`, `plots/` | A menu that draws one graph from the saved results, and one function for each figure. The run scripts also use `plots/` |
+
+The two models are complete. Some code comments name the build scripts that made the models, but these scripts are not in this folder. On 21 November 2026, the two models were made again from these scripts and all the runs were done again. The new `mppt_results.csv` and `pv4x4_peaks.csv` were the same as the files in `Simulation_Results/`.
+
+The two models were saved in MATLAB R2025b. Simscape Electrical models cannot be saved for an earlier release, so R2024b cannot open them.
+
+To run the simulations again:
+
+1. Open MATLAB R2025b or later, with Simulink, Simscape and Simscape Electrical.
+2. Set `Code/` as the current folder.
+3. Run `run_pv4x4_sweeps`. It takes about 1 min.
+4. Run `run_po_demo`. It takes about 5 min.
+
+The scripts write their results into `Code/results/`. They do not change `Simulation_Results/`. Do not put `Code/` and the main project folder on the MATLAB path at the same time, because both folders have files with the same names.
 
 ## Results files
 

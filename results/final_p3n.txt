@@ -1,0 +1,51 @@
+run_final_p3n.m, 24-Nov-2026 11:03:44
+Set A: 40 events, curves in 253 s
+Set B: 100 pattern steps (from 230 draws)
+2800 runs
+Runs done in 29 s
+
+Set A: 40 cloud events
+Variant                Noise     Eta mean/min   Srch  Wrong   tRec mean/max s  NoRec
+DIRECT (paper)             1   98.638/ 93.912     40      0    1.097/   1.982      0
+DIRECT (paper)             3   98.676/ 94.989     40      0    1.092/   2.002      0
+DIRECT (paper)            10   98.681/ 94.989     40      0    1.040/   1.982      0
+DIRECT (paper)            30   98.716/ 94.764     40      0    0.937/   1.862      0
+Idea B + Parabolic         1   99.020/ 96.837     40      0    1.112/   2.042      0
+Idea B + Parabolic         3   99.028/ 96.837     40      0    1.109/   2.042      0
+Idea B + Parabolic        10   98.865/ 93.094     40      0    1.056/   2.042      0
+Idea B + Parabolic        30   98.622/ 90.497     40      0    0.889/   1.782      0
+Idea C + Parabolic         1   98.989/ 95.961     40      0    1.048/   1.962      0
+Idea C + Parabolic         3   98.983/ 95.946     40      0    1.054/   1.962      0
+Idea C + Parabolic        10   98.849/ 94.898     40      0    0.983/   2.042      0
+Idea C + Parabolic        30   98.563/ 90.673     40      0    0.843/   1.622      0
+PSO + Parabolic            1   95.761/ 90.917     40      0    3.294/   4.222     21
+PSO + Parabolic            3   95.732/ 90.799     40      0    3.223/   4.222     19
+PSO + Parabolic           10   95.581/ 90.604     40      0    3.112/   4.202     17
+PSO + Parabolic           30   95.433/ 86.671     40      0    2.880/   3.582     15
+GWO + Parabolic            1   90.685/ 81.206     40      0    3.226/   4.102     20
+GWO + Parabolic            3   90.686/ 81.201     40      0    3.264/   4.102     23
+GWO + Parabolic           10   90.619/ 81.201     40      0    3.199/   4.102     22
+GWO + Parabolic           30   90.533/ 81.255     40      0    2.999/   3.462     19
+
+Set B: pattern steps
+Variant                Noise     Eta mean/min   Srch  Wrong   tRec mean/max s  NoRec
+DIRECT (paper)             1   96.911/ 68.885     85     12    0.826/   1.462     13
+DIRECT (paper)             3   96.991/ 68.885     86     12    0.830/   1.462     12
+DIRECT (paper)            10   96.990/ 68.885     86     12    0.832/   1.382     12
+DIRECT (paper)            30   96.971/ 68.876     85     12    0.917/   5.322     12
+Idea B + Parabolic         1   96.137/ 68.579     88      6    1.192/   5.822      7
+Idea B + Parabolic         3   96.120/ 68.622     88      6    1.193/   5.722      7
+Idea B + Parabolic        10   96.209/ 68.619     89      6    1.181/   5.162      7
+Idea B + Parabolic        30   96.532/ 68.609     90      5    1.195/   5.002      6
+Idea C + Parabolic         1   96.109/ 68.620     90      6    1.120/   5.762      7
+Idea C + Parabolic         3   96.131/ 68.619     90      7    1.067/   5.902      8
+Idea C + Parabolic        10   96.121/ 68.664     92      5    1.081/   5.742      7
+Idea C + Parabolic        30   96.138/ 68.677     90      6    1.091/   5.422      8
+PSO + Parabolic            1   92.378/ 68.640     92      8    2.973/   5.202      9
+PSO + Parabolic            3   92.381/ 68.615     92      8    2.973/   5.102      9
+PSO + Parabolic           10   92.383/ 68.653     92      7    3.009/   5.542      8
+PSO + Parabolic           30   92.383/ 68.628     93      5    2.997/   4.882      7
+GWO + Parabolic            1   84.851/ 68.677     92      7    2.866/   4.502      8
+GWO + Parabolic            3   84.803/ 68.675     92      8    2.856/   4.602      9
+GWO + Parabolic           10   84.787/ 68.672     93      7    2.860/   4.522      7
+GWO + Parabolic           30   84.708/ 68.654     94      9    2.880/   5.182      8

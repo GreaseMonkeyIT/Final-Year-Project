@@ -1,5 +1,11 @@
 %GMPPT_STATIC_CHECK Run the global searches on the static curves and compare with Python.
 %
+%   Note of 2026-11-21: this script is a record of the preliminary study.
+%   Its algorithm numbers and result files are those of the preliminary
+%   study, not of the current tracker (README.md, section "Templates").
+%   The current scripts are experiments/run_gmppt_baseline.m and
+%   experiments/run_gmppt_restart_tests.m.
+%
 %   Task T2 of HANDOFF_ideas_B_C.md. The script finds porting errors
 %   before the slower Simulink runs. It uses no Simulink.
 %

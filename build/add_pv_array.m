@@ -25,7 +25,8 @@ function blk = add_pv_array(sys, name, pos, cfg, perGroup)
 %     + and - (physical)  the array terminals.
 %
 %   The panel and diode blocks read the variables pv_Ngrp, pv_Isc,
-%   pv_Voc, pv_n, pv_Rs, pv_Ir0, byp_Vf, byp_Ron, and byp_Goff. The caller
+%   pv_Voc, pv_n, pv_Rs, pv_Ir0, pv_TIPH1, pv_EG, pv_TXIS1, pv_TRS1,
+%   pv_Tmeas, pv_T, byp_Vf, byp_Ron, and byp_Goff. The caller
 %   must put these variables in the model workspace (see pv_workspace_vars).
 %   The number of groups is part of the structure: to change it, change
 %   cfg.mod.Nbyp and build the model again.
@@ -84,6 +85,12 @@ for c = 1:Np
             set_param(pv, 'prm', 'ee.enum.sources.solar_cell_prm.datasheet', ...
                       'Isc', 'pv_Isc', 'Voc', 'pv_Voc', 'Ir0', 'pv_Ir0', ...
                       'ec', 'pv_n', 'Rs', 'pv_Rs', 'N_series', 'pv_Ngrp');
+            % Temperature (added 2026-11-21). TFIXED stays a compile-time
+            % parameter: as a run-time parameter it made MPPT_4x4.slx 60 %
+            % slower (31.3 s against 19.6 s for 2 s of P3, 2026-11-21). A
+            % new pv_T thus compiles the network again (a few seconds).
+            set_param(pv, 'TIPH1', 'pv_TIPH1', 'EG', 'pv_EG', 'TXIS1', 'pv_TXIS1', ...
+                      'TRS1', 'pv_TRS1', 'Tmeas', 'pv_Tmeas', 'TFIXED', 'pv_T');
 
             d = add_block(sprintf('ee_lib/Semiconductors &\nConverters/Diode'), [blk '/D_' sfx], ...
                           'Position', [x+110 y+15 x+140 y+55], 'Orientation', 'up');

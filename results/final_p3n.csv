@@ -1,0 +1,2801 @@
+set,case,variant,noise_scale,eta_pct,searches,wrong_end,t_recovery_s
+A,1,DIRECT (paper),1,98.622,1,0,0.932
+A,1,DIRECT (paper),3,98.621,1,0,0.912
+A,1,DIRECT (paper),10,98.618,1,0,0.912
+A,1,DIRECT (paper),30,98.627,1,0,0.772
+A,1,Idea B + Parabolic,1,98.810,1,0,0.892
+A,1,Idea B + Parabolic,3,98.810,1,0,0.872
+A,1,Idea B + Parabolic,10,98.805,1,0,0.852
+A,1,Idea B + Parabolic,30,98.737,1,0,0.792
+A,1,Idea C + Parabolic,1,98.795,1,0,0.932
+A,1,Idea C + Parabolic,3,98.794,1,0,0.892
+A,1,Idea C + Parabolic,10,98.792,1,0,0.892
+A,1,Idea C + Parabolic,30,98.811,1,0,0.832
+A,1,PSO + Parabolic,1,93.561,1,0,NaN
+A,1,PSO + Parabolic,3,93.535,1,0,NaN
+A,1,PSO + Parabolic,10,93.521,1,0,NaN
+A,1,PSO + Parabolic,30,93.516,1,0,NaN
+A,1,GWO + Parabolic,1,85.865,1,0,2.792
+A,1,GWO + Parabolic,3,84.640,1,0,NaN
+A,1,GWO + Parabolic,10,84.642,1,0,NaN
+A,1,GWO + Parabolic,30,84.524,1,0,NaN
+A,2,DIRECT (paper),1,99.469,1,0,1.192
+A,2,DIRECT (paper),3,99.469,1,0,1.092
+A,2,DIRECT (paper),10,99.469,1,0,1.092
+A,2,DIRECT (paper),30,99.470,1,0,1.132
+A,2,Idea B + Parabolic,1,99.574,1,0,1.192
+A,2,Idea B + Parabolic,3,99.580,1,0,1.332
+A,2,Idea B + Parabolic,10,99.582,1,0,1.332
+A,2,Idea B + Parabolic,30,99.550,1,0,0.772
+A,2,Idea C + Parabolic,1,99.596,1,0,1.052
+A,2,Idea C + Parabolic,3,99.592,1,0,1.252
+A,2,Idea C + Parabolic,10,99.584,1,0,0.912
+A,2,Idea C + Parabolic,30,99.584,1,0,0.672
+A,2,PSO + Parabolic,1,98.043,1,0,NaN
+A,2,PSO + Parabolic,3,98.040,1,0,NaN
+A,2,PSO + Parabolic,10,97.916,1,0,NaN
+A,2,PSO + Parabolic,30,97.903,1,0,2.632
+A,2,GWO + Parabolic,1,95.121,1,0,NaN
+A,2,GWO + Parabolic,3,95.304,1,0,NaN
+A,2,GWO + Parabolic,10,95.215,1,0,NaN
+A,2,GWO + Parabolic,30,94.604,1,0,NaN
+A,3,DIRECT (paper),1,98.965,1,0,1.232
+A,3,DIRECT (paper),3,98.962,1,0,1.172
+A,3,DIRECT (paper),10,98.964,1,0,1.092
+A,3,DIRECT (paper),30,98.954,1,0,0.932
+A,3,Idea B + Parabolic,1,99.085,1,0,1.192
+A,3,Idea B + Parabolic,3,99.086,1,0,1.172
+A,3,Idea B + Parabolic,10,99.087,1,0,1.172
+A,3,Idea B + Parabolic,30,99.052,1,0,0.992
+A,3,Idea C + Parabolic,1,99.121,1,0,1.072
+A,3,Idea C + Parabolic,3,99.118,1,0,1.052
+A,3,Idea C + Parabolic,10,99.115,1,0,1.052
+A,3,Idea C + Parabolic,30,99.079,1,0,0.912
+A,3,PSO + Parabolic,1,95.439,1,0,3.232
+A,3,PSO + Parabolic,3,95.437,1,0,3.212
+A,3,PSO + Parabolic,10,95.429,1,0,3.212
+A,3,PSO + Parabolic,30,95.418,1,0,2.912
+A,3,GWO + Parabolic,1,88.578,1,0,3.232
+A,3,GWO + Parabolic,3,88.579,1,0,3.212
+A,3,GWO + Parabolic,10,88.581,1,0,3.212
+A,3,GWO + Parabolic,30,88.550,1,0,3.212
+A,4,DIRECT (paper),1,98.969,1,0,0.842
+A,4,DIRECT (paper),3,98.969,1,0,0.842
+A,4,DIRECT (paper),10,98.963,1,0,0.862
+A,4,DIRECT (paper),30,98.968,1,0,0.922
+A,4,Idea B + Parabolic,1,99.346,1,0,0.742
+A,4,Idea B + Parabolic,3,99.374,1,0,0.742
+A,4,Idea B + Parabolic,10,99.296,1,0,0.742
+A,4,Idea B + Parabolic,30,99.353,1,0,0.822
+A,4,Idea C + Parabolic,1,99.254,1,0,0.802
+A,4,Idea C + Parabolic,3,99.240,1,0,0.782
+A,4,Idea C + Parabolic,10,99.222,1,0,0.782
+A,4,Idea C + Parabolic,30,99.134,1,0,0.782
+A,4,PSO + Parabolic,1,95.873,1,0,NaN
+A,4,PSO + Parabolic,3,95.860,1,0,NaN
+A,4,PSO + Parabolic,10,95.856,1,0,NaN
+A,4,PSO + Parabolic,30,95.811,1,0,NaN
+A,4,GWO + Parabolic,1,91.474,1,0,NaN
+A,4,GWO + Parabolic,3,91.420,1,0,NaN
+A,4,GWO + Parabolic,10,91.415,1,0,NaN
+A,4,GWO + Parabolic,30,91.343,1,0,NaN
+A,5,DIRECT (paper),1,99.437,1,0,1.342
+A,5,DIRECT (paper),3,99.437,1,0,1.282
+A,5,DIRECT (paper),10,99.434,1,0,1.122
+A,5,DIRECT (paper),30,99.420,1,0,1.162
+A,5,Idea B + Parabolic,1,99.508,1,0,1.342
+A,5,Idea B + Parabolic,3,99.507,1,0,1.342
+A,5,Idea B + Parabolic,10,99.503,1,0,1.122
+A,5,Idea B + Parabolic,30,99.484,1,0,1.122
+A,5,Idea C + Parabolic,1,99.470,1,0,1.342
+A,5,Idea C + Parabolic,3,99.471,1,0,1.362
+A,5,Idea C + Parabolic,10,99.466,1,0,1.122
+A,5,Idea C + Parabolic,30,99.448,1,0,1.122
+A,5,PSO + Parabolic,1,97.214,1,0,3.522
+A,5,PSO + Parabolic,3,97.213,1,0,3.522
+A,5,PSO + Parabolic,10,97.055,1,0,3.342
+A,5,PSO + Parabolic,30,97.044,1,0,3.342
+A,5,GWO + Parabolic,1,93.474,1,0,3.342
+A,5,GWO + Parabolic,3,93.474,1,0,3.362
+A,5,GWO + Parabolic,10,93.462,1,0,3.122
+A,5,GWO + Parabolic,30,93.460,1,0,3.122
+A,6,DIRECT (paper),1,98.778,1,0,0.962
+A,6,DIRECT (paper),3,98.779,1,0,0.982
+A,6,DIRECT (paper),10,98.780,1,0,0.902
+A,6,DIRECT (paper),30,98.777,1,0,0.822
+A,6,Idea B + Parabolic,1,98.876,1,0,0.902
+A,6,Idea B + Parabolic,3,98.876,1,0,0.882
+A,6,Idea B + Parabolic,10,98.870,1,0,0.842
+A,6,Idea B + Parabolic,30,98.880,1,0,0.842
+A,6,Idea C + Parabolic,1,98.949,1,0,0.782
+A,6,Idea C + Parabolic,3,98.949,1,0,0.762
+A,6,Idea C + Parabolic,10,98.944,1,0,0.722
+A,6,Idea C + Parabolic,30,98.912,1,0,0.722
+A,6,PSO + Parabolic,1,93.589,1,0,NaN
+A,6,PSO + Parabolic,3,93.585,1,0,NaN
+A,6,PSO + Parabolic,10,93.734,1,0,NaN
+A,6,PSO + Parabolic,30,93.727,1,0,NaN
+A,6,GWO + Parabolic,1,86.155,1,0,3.062
+A,6,GWO + Parabolic,3,86.155,1,0,3.062
+A,6,GWO + Parabolic,10,86.155,1,0,2.882
+A,6,GWO + Parabolic,30,86.152,1,0,2.882
+A,7,DIRECT (paper),1,99.519,1,0,1.312
+A,7,DIRECT (paper),3,99.518,1,0,1.312
+A,7,DIRECT (paper),10,99.516,1,0,1.212
+A,7,DIRECT (paper),30,99.512,1,0,1.012
+A,7,Idea B + Parabolic,1,99.655,1,0,1.232
+A,7,Idea B + Parabolic,3,99.653,1,0,1.212
+A,7,Idea B + Parabolic,10,99.652,1,0,1.212
+A,7,Idea B + Parabolic,30,99.615,1,0,0.672
+A,7,Idea C + Parabolic,1,99.582,1,0,1.272
+A,7,Idea C + Parabolic,3,99.583,1,0,1.252
+A,7,Idea C + Parabolic,10,99.581,1,0,1.252
+A,7,Idea C + Parabolic,30,99.574,1,0,0.672
+A,7,PSO + Parabolic,1,98.036,1,0,3.192
+A,7,PSO + Parabolic,3,98.036,1,0,3.172
+A,7,PSO + Parabolic,10,97.024,1,0,3.192
+A,7,PSO + Parabolic,30,97.015,1,0,2.912
+A,7,GWO + Parabolic,1,94.510,1,0,3.312
+A,7,GWO + Parabolic,3,94.507,1,0,3.252
+A,7,GWO + Parabolic,10,94.484,1,0,3.092
+A,7,GWO + Parabolic,30,94.471,1,0,3.212
+A,8,DIRECT (paper),1,99.558,1,0,1.982
+A,8,DIRECT (paper),3,99.558,1,0,1.982
+A,8,DIRECT (paper),10,99.557,1,0,1.982
+A,8,DIRECT (paper),30,99.538,1,0,1.282
+A,8,Idea B + Parabolic,1,99.631,1,0,2.042
+A,8,Idea B + Parabolic,3,99.631,1,0,2.042
+A,8,Idea B + Parabolic,10,99.632,1,0,2.042
+A,8,Idea B + Parabolic,30,99.622,1,0,1.402
+A,8,Idea C + Parabolic,1,99.635,1,0,1.962
+A,8,Idea C + Parabolic,3,99.635,1,0,1.962
+A,8,Idea C + Parabolic,10,99.636,1,0,2.042
+A,8,Idea C + Parabolic,30,99.611,1,0,1.262
+A,8,PSO + Parabolic,1,97.916,1,0,4.162
+A,8,PSO + Parabolic,3,97.916,1,0,4.162
+A,8,PSO + Parabolic,10,97.908,1,0,4.202
+A,8,PSO + Parabolic,30,97.876,1,0,2.822
+A,8,GWO + Parabolic,1,95.165,1,0,4.102
+A,8,GWO + Parabolic,3,95.166,1,0,4.102
+A,8,GWO + Parabolic,10,95.163,1,0,4.102
+A,8,GWO + Parabolic,30,95.120,1,0,3.462
+A,9,DIRECT (paper),1,99.447,1,0,1.182
+A,9,DIRECT (paper),3,99.443,1,0,1.222
+A,9,DIRECT (paper),10,99.440,1,0,0.802
+A,9,DIRECT (paper),30,99.448,1,0,1.062
+A,9,Idea B + Parabolic,1,99.639,1,0,1.162
+A,9,Idea B + Parabolic,3,99.642,1,0,1.162
+A,9,Idea B + Parabolic,10,99.625,1,0,1.162
+A,9,Idea B + Parabolic,30,99.585,1,0,0.282
+A,9,Idea C + Parabolic,1,99.634,1,0,1.162
+A,9,Idea C + Parabolic,3,99.633,1,0,1.162
+A,9,Idea C + Parabolic,10,99.625,1,0,0.982
+A,9,Idea C + Parabolic,30,99.606,1,0,0.702
+A,9,PSO + Parabolic,1,98.502,1,0,NaN
+A,9,PSO + Parabolic,3,98.469,1,0,NaN
+A,9,PSO + Parabolic,10,98.356,1,0,2.062
+A,9,PSO + Parabolic,30,97.968,1,0,2.062
+A,9,GWO + Parabolic,1,97.347,1,0,NaN
+A,9,GWO + Parabolic,3,97.391,1,0,NaN
+A,9,GWO + Parabolic,10,97.369,1,0,NaN
+A,9,GWO + Parabolic,30,96.719,1,0,NaN
+A,10,DIRECT (paper),1,95.519,1,0,0.782
+A,10,DIRECT (paper),3,95.507,1,0,0.782
+A,10,DIRECT (paper),10,95.822,1,0,0.822
+A,10,DIRECT (paper),30,95.632,1,0,0.962
+A,10,Idea B + Parabolic,1,96.837,1,0,0.822
+A,10,Idea B + Parabolic,3,96.837,1,0,0.802
+A,10,Idea B + Parabolic,10,96.853,1,0,0.762
+A,10,Idea B + Parabolic,30,96.515,1,0,0.922
+A,10,Idea C + Parabolic,1,96.553,1,0,0.582
+A,10,Idea C + Parabolic,3,96.507,1,0,0.582
+A,10,Idea C + Parabolic,10,96.349,1,0,0.642
+A,10,Idea C + Parabolic,30,96.252,1,0,0.982
+A,10,PSO + Parabolic,1,93.677,1,0,NaN
+A,10,PSO + Parabolic,3,94.008,1,0,NaN
+A,10,PSO + Parabolic,10,93.940,1,0,NaN
+A,10,PSO + Parabolic,30,93.593,1,0,NaN
+A,10,GWO + Parabolic,1,90.781,1,0,NaN
+A,10,GWO + Parabolic,3,90.801,1,0,NaN
+A,10,GWO + Parabolic,10,90.880,1,0,NaN
+A,10,GWO + Parabolic,30,91.795,1,0,NaN
+A,11,DIRECT (paper),1,98.465,1,0,0.832
+A,11,DIRECT (paper),3,98.464,1,0,0.832
+A,11,DIRECT (paper),10,98.453,1,0,0.772
+A,11,DIRECT (paper),30,98.464,1,0,0.752
+A,11,Idea B + Parabolic,1,98.545,1,0,0.792
+A,11,Idea B + Parabolic,3,98.547,1,0,0.772
+A,11,Idea B + Parabolic,10,98.537,1,0,0.752
+A,11,Idea B + Parabolic,30,98.529,1,0,0.732
+A,11,Idea C + Parabolic,1,98.564,1,0,0.792
+A,11,Idea C + Parabolic,3,98.562,1,0,0.792
+A,11,Idea C + Parabolic,10,98.549,1,0,0.752
+A,11,Idea C + Parabolic,30,98.499,1,0,0.732
+A,11,PSO + Parabolic,1,93.011,1,0,NaN
+A,11,PSO + Parabolic,3,93.014,1,0,NaN
+A,11,PSO + Parabolic,10,93.000,1,0,2.472
+A,11,PSO + Parabolic,30,92.905,1,0,2.452
+A,11,GWO + Parabolic,1,83.188,1,0,NaN
+A,11,GWO + Parabolic,3,83.188,1,0,NaN
+A,11,GWO + Parabolic,10,82.887,1,0,NaN
+A,11,GWO + Parabolic,30,82.892,1,0,NaN
+A,12,DIRECT (paper),1,99.581,1,0,1.462
+A,12,DIRECT (paper),3,99.580,1,0,1.462
+A,12,DIRECT (paper),10,99.579,1,0,1.322
+A,12,DIRECT (paper),30,99.567,1,0,1.522
+A,12,Idea B + Parabolic,1,99.696,1,0,1.422
+A,12,Idea B + Parabolic,3,99.696,1,0,1.422
+A,12,Idea B + Parabolic,10,99.691,1,0,1.422
+A,12,Idea B + Parabolic,30,99.675,1,0,1.002
+A,12,Idea C + Parabolic,1,99.596,1,0,1.542
+A,12,Idea C + Parabolic,3,99.596,1,0,1.542
+A,12,Idea C + Parabolic,10,99.594,1,0,1.542
+A,12,Idea C + Parabolic,30,99.588,1,0,1.102
+A,12,PSO + Parabolic,1,98.265,1,0,3.702
+A,12,PSO + Parabolic,3,98.263,1,0,3.702
+A,12,PSO + Parabolic,10,98.244,1,0,3.702
+A,12,PSO + Parabolic,30,98.231,1,0,3.222
+A,12,GWO + Parabolic,1,95.123,1,0,3.502
+A,12,GWO + Parabolic,3,95.120,1,0,3.502
+A,12,GWO + Parabolic,10,95.113,1,0,3.362
+A,12,GWO + Parabolic,30,95.094,1,0,3.222
+A,13,DIRECT (paper),1,99.445,1,0,1.212
+A,13,DIRECT (paper),3,99.445,1,0,1.252
+A,13,DIRECT (paper),10,99.439,1,0,1.072
+A,13,DIRECT (paper),30,99.439,1,0,0.992
+A,13,Idea B + Parabolic,1,99.561,1,0,1.452
+A,13,Idea B + Parabolic,3,99.562,1,0,1.452
+A,13,Idea B + Parabolic,10,99.558,1,0,1.072
+A,13,Idea B + Parabolic,30,99.533,1,0,0.612
+A,13,Idea C + Parabolic,1,99.577,1,0,1.252
+A,13,Idea C + Parabolic,3,99.575,1,0,1.252
+A,13,Idea C + Parabolic,10,99.563,1,0,0.912
+A,13,Idea C + Parabolic,30,99.496,1,0,0.672
+A,13,PSO + Parabolic,1,97.932,1,0,NaN
+A,13,PSO + Parabolic,3,97.930,1,0,NaN
+A,13,PSO + Parabolic,10,97.798,1,0,NaN
+A,13,PSO + Parabolic,30,97.662,1,0,NaN
+A,13,GWO + Parabolic,1,95.291,1,0,NaN
+A,13,GWO + Parabolic,3,95.290,1,0,NaN
+A,13,GWO + Parabolic,10,94.963,1,0,NaN
+A,13,GWO + Parabolic,30,94.676,1,0,NaN
+A,14,DIRECT (paper),1,99.173,1,0,1.182
+A,14,DIRECT (paper),3,99.171,1,0,1.202
+A,14,DIRECT (paper),10,99.162,1,0,1.322
+A,14,DIRECT (paper),30,99.156,1,0,1.102
+A,14,Idea B + Parabolic,1,99.284,1,0,1.322
+A,14,Idea B + Parabolic,3,99.284,1,0,1.382
+A,14,Idea B + Parabolic,10,99.287,1,0,1.182
+A,14,Idea B + Parabolic,30,99.257,1,0,1.422
+A,14,Idea C + Parabolic,1,99.287,1,0,1.282
+A,14,Idea C + Parabolic,3,99.287,1,0,1.342
+A,14,Idea C + Parabolic,10,99.283,1,0,1.142
+A,14,Idea C + Parabolic,30,99.272,1,0,1.382
+A,14,PSO + Parabolic,1,95.927,1,0,3.482
+A,14,PSO + Parabolic,3,95.925,1,0,3.482
+A,14,PSO + Parabolic,10,95.913,1,0,3.582
+A,14,PSO + Parabolic,30,95.905,1,0,3.582
+A,14,GWO + Parabolic,1,90.423,1,0,3.302
+A,14,GWO + Parabolic,3,90.424,1,0,3.282
+A,14,GWO + Parabolic,10,90.432,1,0,3.142
+A,14,GWO + Parabolic,30,90.419,1,0,3.382
+A,15,DIRECT (paper),1,98.694,1,0,0.962
+A,15,DIRECT (paper),3,98.693,1,0,0.982
+A,15,DIRECT (paper),10,98.697,1,0,0.982
+A,15,DIRECT (paper),30,98.681,1,0,0.982
+A,15,Idea B + Parabolic,1,98.809,1,0,0.942
+A,15,Idea B + Parabolic,3,98.809,1,0,0.962
+A,15,Idea B + Parabolic,10,98.800,1,0,0.962
+A,15,Idea B + Parabolic,30,98.761,1,0,0.742
+A,15,Idea C + Parabolic,1,98.881,1,0,0.822
+A,15,Idea C + Parabolic,3,98.882,1,0,0.842
+A,15,Idea C + Parabolic,10,98.879,1,0,0.842
+A,15,Idea C + Parabolic,30,98.733,1,0,0.922
+A,15,PSO + Parabolic,1,93.322,1,0,NaN
+A,15,PSO + Parabolic,3,93.335,1,0,NaN
+A,15,PSO + Parabolic,10,93.330,1,0,NaN
+A,15,PSO + Parabolic,30,93.329,1,0,2.782
+A,15,GWO + Parabolic,1,85.662,1,0,NaN
+A,15,GWO + Parabolic,3,85.663,1,0,NaN
+A,15,GWO + Parabolic,10,85.661,1,0,NaN
+A,15,GWO + Parabolic,30,85.554,1,0,2.782
+A,16,DIRECT (paper),1,99.299,1,0,0.922
+A,16,DIRECT (paper),3,99.300,1,0,0.922
+A,16,DIRECT (paper),10,99.295,1,0,0.922
+A,16,DIRECT (paper),30,99.290,1,0,0.922
+A,16,Idea B + Parabolic,1,99.550,1,0,0.962
+A,16,Idea B + Parabolic,3,99.533,1,0,0.962
+A,16,Idea B + Parabolic,10,99.543,1,0,1.102
+A,16,Idea B + Parabolic,30,99.512,1,0,0.942
+A,16,Idea C + Parabolic,1,99.408,1,0,1.002
+A,16,Idea C + Parabolic,3,99.409,1,0,1.002
+A,16,Idea C + Parabolic,10,99.402,1,0,0.982
+A,16,Idea C + Parabolic,30,99.349,1,0,1.062
+A,16,PSO + Parabolic,1,97.602,1,0,NaN
+A,16,PSO + Parabolic,3,97.605,1,0,NaN
+A,16,PSO + Parabolic,10,97.596,1,0,2.382
+A,16,PSO + Parabolic,30,97.570,1,0,NaN
+A,16,GWO + Parabolic,1,93.605,1,0,NaN
+A,16,GWO + Parabolic,3,93.604,1,0,NaN
+A,16,GWO + Parabolic,10,93.729,1,0,NaN
+A,16,GWO + Parabolic,30,93.821,1,0,NaN
+A,17,DIRECT (paper),1,99.569,1,0,1.332
+A,17,DIRECT (paper),3,99.567,1,0,1.332
+A,17,DIRECT (paper),10,99.564,1,0,1.332
+A,17,DIRECT (paper),30,99.539,1,0,1.452
+A,17,Idea B + Parabolic,1,99.375,1,0,1.312
+A,17,Idea B + Parabolic,3,99.373,1,0,1.332
+A,17,Idea B + Parabolic,10,98.736,1,0,0.892
+A,17,Idea B + Parabolic,30,98.386,1,0,0.292
+A,17,Idea C + Parabolic,1,99.488,1,0,1.192
+A,17,Idea C + Parabolic,3,99.393,1,0,1.112
+A,17,Idea C + Parabolic,10,98.782,1,0,0.672
+A,17,Idea C + Parabolic,30,98.388,1,0,0.172
+A,17,PSO + Parabolic,1,98.830,1,0,NaN
+A,17,PSO + Parabolic,3,97.995,1,0,NaN
+A,17,PSO + Parabolic,10,97.864,1,0,NaN
+A,17,PSO + Parabolic,30,98.574,1,0,NaN
+A,17,GWO + Parabolic,1,98.816,1,0,NaN
+A,17,GWO + Parabolic,3,98.790,1,0,NaN
+A,17,GWO + Parabolic,10,97.765,1,0,NaN
+A,17,GWO + Parabolic,30,96.560,1,0,NaN
+A,18,DIRECT (paper),1,98.958,1,0,1.272
+A,18,DIRECT (paper),3,98.960,1,0,1.292
+A,18,DIRECT (paper),10,98.955,1,0,1.252
+A,18,DIRECT (paper),30,98.952,1,0,0.952
+A,18,Idea B + Parabolic,1,99.067,1,0,1.312
+A,18,Idea B + Parabolic,3,99.065,1,0,1.312
+A,18,Idea B + Parabolic,10,99.053,1,0,1.292
+A,18,Idea B + Parabolic,30,99.065,1,0,1.292
+A,18,Idea C + Parabolic,1,99.131,1,0,1.152
+A,18,Idea C + Parabolic,3,99.132,1,0,1.152
+A,18,Idea C + Parabolic,10,99.128,1,0,1.132
+A,18,Idea C + Parabolic,30,99.112,1,0,1.132
+A,18,PSO + Parabolic,1,94.886,1,0,3.472
+A,18,PSO + Parabolic,3,94.886,1,0,3.472
+A,18,PSO + Parabolic,10,94.881,1,0,3.452
+A,18,PSO + Parabolic,30,94.888,1,0,3.172
+A,18,GWO + Parabolic,1,88.903,1,0,3.332
+A,18,GWO + Parabolic,3,88.902,1,0,3.312
+A,18,GWO + Parabolic,10,88.907,1,0,3.292
+A,18,GWO + Parabolic,30,88.916,1,0,3.012
+A,19,DIRECT (paper),1,98.649,1,0,1.072
+A,19,DIRECT (paper),3,98.651,1,0,1.052
+A,19,DIRECT (paper),10,98.642,1,0,1.052
+A,19,DIRECT (paper),30,98.638,1,0,0.672
+A,19,Idea B + Parabolic,1,98.720,1,0,1.152
+A,19,Idea B + Parabolic,3,98.723,1,0,1.152
+A,19,Idea B + Parabolic,10,98.695,1,0,1.332
+A,19,Idea B + Parabolic,30,98.577,1,0,0.852
+A,19,Idea C + Parabolic,1,98.768,1,0,1.112
+A,19,Idea C + Parabolic,3,98.768,1,0,1.132
+A,19,Idea C + Parabolic,10,98.736,1,0,1.332
+A,19,Idea C + Parabolic,30,98.634,1,0,0.652
+A,19,PSO + Parabolic,1,93.988,1,0,2.792
+A,19,PSO + Parabolic,3,93.991,1,0,2.792
+A,19,PSO + Parabolic,10,94.010,1,0,2.812
+A,19,PSO + Parabolic,30,93.887,1,0,2.932
+A,19,GWO + Parabolic,1,85.606,1,0,NaN
+A,19,GWO + Parabolic,3,85.610,1,0,NaN
+A,19,GWO + Parabolic,10,85.689,1,0,NaN
+A,19,GWO + Parabolic,30,85.182,1,0,2.812
+A,20,DIRECT (paper),1,98.741,1,0,1.032
+A,20,DIRECT (paper),3,98.741,1,0,1.052
+A,20,DIRECT (paper),10,98.740,1,0,1.052
+A,20,DIRECT (paper),30,98.737,1,0,0.732
+A,20,Idea B + Parabolic,1,98.878,1,0,1.052
+A,20,Idea B + Parabolic,3,98.877,1,0,1.092
+A,20,Idea B + Parabolic,10,98.873,1,0,1.112
+A,20,Idea B + Parabolic,30,98.842,1,0,0.972
+A,20,Idea C + Parabolic,1,98.969,1,0,0.892
+A,20,Idea C + Parabolic,3,98.968,1,0,0.912
+A,20,Idea C + Parabolic,10,98.954,1,0,0.952
+A,20,Idea C + Parabolic,30,98.946,1,0,0.972
+A,20,PSO + Parabolic,1,94.439,1,0,NaN
+A,20,PSO + Parabolic,3,94.449,1,0,3.012
+A,20,PSO + Parabolic,10,94.444,1,0,3.032
+A,20,PSO + Parabolic,30,94.416,1,0,2.872
+A,20,GWO + Parabolic,1,86.589,1,0,3.012
+A,20,GWO + Parabolic,3,86.599,1,0,NaN
+A,20,GWO + Parabolic,10,87.008,1,0,NaN
+A,20,GWO + Parabolic,30,86.582,1,0,3.012
+A,21,DIRECT (paper),1,98.798,1,0,0.652
+A,21,DIRECT (paper),3,98.798,1,0,0.652
+A,21,DIRECT (paper),10,98.783,1,0,0.672
+A,21,DIRECT (paper),30,98.775,1,0,0.812
+A,21,Idea B + Parabolic,1,98.948,1,0,0.492
+A,21,Idea B + Parabolic,3,98.949,1,0,0.492
+A,21,Idea B + Parabolic,10,98.955,1,0,0.432
+A,21,Idea B + Parabolic,30,99.129,1,0,0.452
+A,21,Idea C + Parabolic,1,98.745,1,0,0.492
+A,21,Idea C + Parabolic,3,98.746,1,0,0.492
+A,21,Idea C + Parabolic,10,98.748,1,0,0.432
+A,21,Idea C + Parabolic,30,98.939,1,0,0.412
+A,21,PSO + Parabolic,1,94.770,1,0,2.852
+A,21,PSO + Parabolic,3,94.716,1,0,2.852
+A,21,PSO + Parabolic,10,94.698,1,0,2.792
+A,21,PSO + Parabolic,30,94.788,1,0,2.772
+A,21,GWO + Parabolic,1,87.165,1,0,2.692
+A,21,GWO + Parabolic,3,87.171,1,0,2.692
+A,21,GWO + Parabolic,10,87.168,1,0,2.632
+A,21,GWO + Parabolic,30,87.138,1,0,2.612
+A,22,DIRECT (paper),1,98.889,1,0,1.372
+A,22,DIRECT (paper),3,98.889,1,0,1.312
+A,22,DIRECT (paper),10,98.889,1,0,1.192
+A,22,DIRECT (paper),30,98.876,1,0,1.092
+A,22,Idea B + Parabolic,1,99.021,1,0,1.232
+A,22,Idea B + Parabolic,3,99.019,1,0,1.212
+A,22,Idea B + Parabolic,10,99.013,1,0,1.212
+A,22,Idea B + Parabolic,30,98.976,1,0,1.412
+A,22,Idea C + Parabolic,1,99.035,1,0,1.232
+A,22,Idea C + Parabolic,3,99.031,1,0,1.212
+A,22,Idea C + Parabolic,10,99.025,1,0,1.212
+A,22,Idea C + Parabolic,30,98.994,1,0,1.412
+A,22,PSO + Parabolic,1,95.125,1,0,3.272
+A,22,PSO + Parabolic,3,95.120,1,0,3.252
+A,22,PSO + Parabolic,10,95.121,1,0,3.252
+A,22,PSO + Parabolic,30,95.135,1,0,NaN
+A,22,GWO + Parabolic,1,87.607,1,0,3.252
+A,22,GWO + Parabolic,3,87.610,1,0,3.212
+A,22,GWO + Parabolic,10,87.603,1,0,3.212
+A,22,GWO + Parabolic,30,87.461,1,0,3.112
+A,23,DIRECT (paper),1,99.425,1,0,1.162
+A,23,DIRECT (paper),3,99.424,1,0,1.162
+A,23,DIRECT (paper),10,99.422,1,0,1.142
+A,23,DIRECT (paper),30,99.398,1,0,0.762
+A,23,Idea B + Parabolic,1,99.570,1,0,1.122
+A,23,Idea B + Parabolic,3,99.562,1,0,1.142
+A,23,Idea B + Parabolic,10,99.562,1,0,1.142
+A,23,Idea B + Parabolic,30,99.488,1,0,0.282
+A,23,Idea C + Parabolic,1,99.600,1,0,1.022
+A,23,Idea C + Parabolic,3,99.588,1,0,1.022
+A,23,Idea C + Parabolic,10,99.597,1,0,1.102
+A,23,Idea C + Parabolic,30,99.399,1,0,0.162
+A,23,PSO + Parabolic,1,98.467,1,0,NaN
+A,23,PSO + Parabolic,3,98.470,1,0,2.182
+A,23,PSO + Parabolic,10,98.458,1,0,2.182
+A,23,PSO + Parabolic,30,97.676,1,0,2.202
+A,23,GWO + Parabolic,1,96.261,1,0,NaN
+A,23,GWO + Parabolic,3,96.294,1,0,NaN
+A,23,GWO + Parabolic,10,96.432,1,0,NaN
+A,23,GWO + Parabolic,30,95.752,1,0,NaN
+A,24,DIRECT (paper),1,99.241,1,0,0.882
+A,24,DIRECT (paper),3,99.240,1,0,0.862
+A,24,DIRECT (paper),10,99.232,1,0,0.762
+A,24,DIRECT (paper),30,99.225,1,0,0.882
+A,24,Idea B + Parabolic,1,99.498,1,0,0.742
+A,24,Idea B + Parabolic,3,99.499,1,0,0.742
+A,24,Idea B + Parabolic,10,99.499,1,0,0.662
+A,24,Idea B + Parabolic,30,99.418,1,0,0.622
+A,24,Idea C + Parabolic,1,99.383,1,0,0.742
+A,24,Idea C + Parabolic,3,99.375,1,0,0.742
+A,24,Idea C + Parabolic,10,99.380,1,0,0.662
+A,24,Idea C + Parabolic,30,99.283,1,0,0.582
+A,24,PSO + Parabolic,1,96.885,1,0,2.582
+A,24,PSO + Parabolic,3,96.887,1,0,2.602
+A,24,PSO + Parabolic,10,96.889,1,0,2.502
+A,24,PSO + Parabolic,30,96.858,1,0,2.582
+A,24,GWO + Parabolic,1,92.112,1,0,NaN
+A,24,GWO + Parabolic,3,92.037,1,0,NaN
+A,24,GWO + Parabolic,10,91.999,1,0,NaN
+A,24,GWO + Parabolic,30,91.833,1,0,NaN
+A,25,DIRECT (paper),1,99.317,1,0,1.872
+A,25,DIRECT (paper),3,99.316,1,0,1.852
+A,25,DIRECT (paper),10,99.319,1,0,1.792
+A,25,DIRECT (paper),30,99.313,1,0,1.172
+A,25,Idea B + Parabolic,1,99.420,1,0,1.932
+A,25,Idea B + Parabolic,3,99.418,1,0,1.912
+A,25,Idea B + Parabolic,10,99.419,1,0,1.912
+A,25,Idea B + Parabolic,30,99.385,1,0,1.392
+A,25,Idea C + Parabolic,1,99.474,1,0,1.812
+A,25,Idea C + Parabolic,3,99.476,1,0,1.712
+A,25,Idea C + Parabolic,10,99.476,1,0,1.712
+A,25,Idea C + Parabolic,30,99.467,1,0,1.232
+A,25,PSO + Parabolic,1,97.164,1,0,4.092
+A,25,PSO + Parabolic,3,97.163,1,0,4.032
+A,25,PSO + Parabolic,10,97.157,1,0,3.992
+A,25,PSO + Parabolic,30,97.122,1,0,3.552
+A,25,GWO + Parabolic,1,93.087,1,0,3.892
+A,25,GWO + Parabolic,3,93.089,1,0,3.832
+A,25,GWO + Parabolic,10,93.090,1,0,3.812
+A,25,GWO + Parabolic,30,93.312,1,0,3.392
+A,26,DIRECT (paper),1,98.483,1,0,0.862
+A,26,DIRECT (paper),3,98.483,1,0,0.862
+A,26,DIRECT (paper),10,98.478,1,0,0.782
+A,26,DIRECT (paper),30,98.465,1,0,0.622
+A,26,Idea B + Parabolic,1,98.581,1,0,0.862
+A,26,Idea B + Parabolic,3,98.585,1,0,0.862
+A,26,Idea B + Parabolic,10,98.577,1,0,0.822
+A,26,Idea B + Parabolic,30,98.554,1,0,0.622
+A,26,Idea C + Parabolic,1,98.674,1,0,0.742
+A,26,Idea C + Parabolic,3,98.673,1,0,0.742
+A,26,Idea C + Parabolic,10,98.670,1,0,0.742
+A,26,Idea C + Parabolic,30,98.693,1,0,0.502
+A,26,PSO + Parabolic,1,92.363,1,0,2.582
+A,26,PSO + Parabolic,3,92.366,1,0,2.582
+A,26,PSO + Parabolic,10,92.186,1,0,2.582
+A,26,PSO + Parabolic,30,92.178,1,0,2.582
+A,26,GWO + Parabolic,1,83.585,1,0,NaN
+A,26,GWO + Parabolic,3,83.583,1,0,NaN
+A,26,GWO + Parabolic,10,83.575,1,0,NaN
+A,26,GWO + Parabolic,30,84.043,1,0,NaN
+A,27,DIRECT (paper),1,94.995,1,0,0.732
+A,27,DIRECT (paper),3,94.989,1,0,0.712
+A,27,DIRECT (paper),10,94.989,1,0,0.712
+A,27,DIRECT (paper),30,94.764,1,0,0.772
+A,27,Idea B + Parabolic,1,96.960,1,0,0.812
+A,27,Idea B + Parabolic,3,96.964,1,0,0.772
+A,27,Idea B + Parabolic,10,96.577,1,0,0.852
+A,27,Idea B + Parabolic,30,96.403,1,0,1.152
+A,27,Idea C + Parabolic,1,95.961,1,0,0.952
+A,27,Idea C + Parabolic,3,95.946,1,0,0.952
+A,27,Idea C + Parabolic,10,95.697,1,0,0.952
+A,27,Idea C + Parabolic,30,95.439,1,0,0.952
+A,27,PSO + Parabolic,1,93.523,1,0,NaN
+A,27,PSO + Parabolic,3,93.341,1,0,NaN
+A,27,PSO + Parabolic,10,93.440,1,0,NaN
+A,27,PSO + Parabolic,30,93.221,1,0,NaN
+A,27,GWO + Parabolic,1,90.444,1,0,NaN
+A,27,GWO + Parabolic,3,91.052,1,0,NaN
+A,27,GWO + Parabolic,10,91.081,1,0,NaN
+A,27,GWO + Parabolic,30,91.589,1,0,NaN
+A,28,DIRECT (paper),1,99.428,1,0,1.982
+A,28,DIRECT (paper),3,99.428,1,0,2.002
+A,28,DIRECT (paper),10,99.423,1,0,1.782
+A,28,DIRECT (paper),30,99.412,1,0,1.862
+A,28,Idea B + Parabolic,1,99.518,1,0,1.982
+A,28,Idea B + Parabolic,3,99.518,1,0,1.962
+A,28,Idea B + Parabolic,10,99.517,1,0,1.782
+A,28,Idea B + Parabolic,30,99.504,1,0,1.742
+A,28,Idea C + Parabolic,1,99.549,1,0,1.902
+A,28,Idea C + Parabolic,3,99.549,1,0,1.902
+A,28,Idea C + Parabolic,10,99.547,1,0,1.702
+A,28,Idea C + Parabolic,30,99.546,1,0,1.362
+A,28,PSO + Parabolic,1,97.633,1,0,4.222
+A,28,PSO + Parabolic,3,97.632,1,0,4.222
+A,28,PSO + Parabolic,10,97.630,1,0,3.782
+A,28,PSO + Parabolic,30,97.610,1,0,3.442
+A,28,GWO + Parabolic,1,94.397,1,0,4.062
+A,28,GWO + Parabolic,3,94.397,1,0,4.062
+A,28,GWO + Parabolic,10,94.388,1,0,3.742
+A,28,GWO + Parabolic,30,94.436,1,0,3.402
+A,29,DIRECT (paper),1,98.836,1,0,0.862
+A,29,DIRECT (paper),3,98.836,1,0,0.862
+A,29,DIRECT (paper),10,98.841,1,0,0.922
+A,29,DIRECT (paper),30,98.800,1,0,0.402
+A,29,Idea B + Parabolic,1,99.263,1,0,0.802
+A,29,Idea B + Parabolic,3,99.261,1,0,0.782
+A,29,Idea B + Parabolic,10,99.325,1,0,0.782
+A,29,Idea B + Parabolic,30,97.349,1,0,0.362
+A,29,Idea C + Parabolic,1,99.366,1,0,0.722
+A,29,Idea C + Parabolic,3,99.374,1,0,0.962
+A,29,Idea C + Parabolic,10,99.351,1,0,0.702
+A,29,Idea C + Parabolic,30,97.388,1,0,0.282
+A,29,PSO + Parabolic,1,97.287,1,0,NaN
+A,29,PSO + Parabolic,3,97.255,1,0,NaN
+A,29,PSO + Parabolic,10,97.108,1,0,NaN
+A,29,PSO + Parabolic,30,96.717,1,0,NaN
+A,29,GWO + Parabolic,1,93.827,1,0,NaN
+A,29,GWO + Parabolic,3,93.792,1,0,NaN
+A,29,GWO + Parabolic,10,93.804,1,0,NaN
+A,29,GWO + Parabolic,30,93.280,1,0,NaN
+A,30,DIRECT (paper),1,99.525,1,0,1.352
+A,30,DIRECT (paper),3,99.525,1,0,1.352
+A,30,DIRECT (paper),10,99.521,1,0,1.252
+A,30,DIRECT (paper),30,99.513,1,0,1.092
+A,30,Idea B + Parabolic,1,99.687,1,0,1.472
+A,30,Idea B + Parabolic,3,99.685,1,0,1.192
+A,30,Idea B + Parabolic,10,99.674,1,0,1.032
+A,30,Idea B + Parabolic,30,99.657,1,0,0.592
+A,30,Idea C + Parabolic,1,99.605,1,0,1.432
+A,30,Idea C + Parabolic,3,99.604,1,0,1.432
+A,30,Idea C + Parabolic,10,99.595,1,0,1.032
+A,30,Idea C + Parabolic,30,99.575,1,0,0.632
+A,30,PSO + Parabolic,1,98.033,1,0,3.272
+A,30,PSO + Parabolic,3,98.008,1,0,3.232
+A,30,PSO + Parabolic,10,97.972,1,0,3.352
+A,30,PSO + Parabolic,30,97.945,1,0,2.952
+A,30,GWO + Parabolic,1,94.876,1,0,NaN
+A,30,GWO + Parabolic,3,94.875,1,0,NaN
+A,30,GWO + Parabolic,10,94.745,1,0,3.192
+A,30,GWO + Parabolic,30,94.721,1,0,2.792
+A,31,DIRECT (paper),1,99.317,1,0,1.172
+A,31,DIRECT (paper),3,99.315,1,0,1.172
+A,31,DIRECT (paper),10,99.309,1,0,1.192
+A,31,DIRECT (paper),30,99.331,1,0,0.972
+A,31,Idea B + Parabolic,1,99.552,1,0,1.172
+A,31,Idea B + Parabolic,3,99.556,1,0,1.192
+A,31,Idea B + Parabolic,10,99.583,1,0,0.732
+A,31,Idea B + Parabolic,30,99.436,1,0,0.692
+A,31,Idea C + Parabolic,1,99.621,1,0,1.092
+A,31,Idea C + Parabolic,3,99.611,1,0,1.072
+A,31,Idea C + Parabolic,10,99.609,1,0,0.732
+A,31,Idea C + Parabolic,30,99.444,1,0,0.692
+A,31,PSO + Parabolic,1,98.440,1,0,NaN
+A,31,PSO + Parabolic,3,98.437,1,0,NaN
+A,31,PSO + Parabolic,10,98.427,1,0,NaN
+A,31,PSO + Parabolic,30,98.290,1,0,NaN
+A,31,GWO + Parabolic,1,96.967,1,0,NaN
+A,31,GWO + Parabolic,3,96.968,1,0,NaN
+A,31,GWO + Parabolic,10,96.358,1,0,NaN
+A,31,GWO + Parabolic,30,96.350,1,0,NaN
+A,32,DIRECT (paper),1,98.453,1,0,0.922
+A,32,DIRECT (paper),3,98.455,1,0,0.862
+A,32,DIRECT (paper),10,98.461,1,0,0.842
+A,32,DIRECT (paper),30,98.462,1,0,0.722
+A,32,Idea B + Parabolic,1,98.606,1,0,0.802
+A,32,Idea B + Parabolic,3,98.625,1,0,0.802
+A,32,Idea B + Parabolic,10,98.603,1,0,0.782
+A,32,Idea B + Parabolic,30,98.565,1,0,0.662
+A,32,Idea C + Parabolic,1,98.600,1,0,1.002
+A,32,Idea C + Parabolic,3,98.608,1,0,1.002
+A,32,Idea C + Parabolic,10,98.612,1,0,0.822
+A,32,Idea C + Parabolic,30,98.557,1,0,0.962
+A,32,PSO + Parabolic,1,92.817,1,0,NaN
+A,32,PSO + Parabolic,3,92.820,1,0,NaN
+A,32,PSO + Parabolic,10,92.849,1,0,NaN
+A,32,PSO + Parabolic,30,92.706,1,0,NaN
+A,32,GWO + Parabolic,1,84.079,1,0,2.622
+A,32,GWO + Parabolic,3,84.077,1,0,2.622
+A,32,GWO + Parabolic,10,84.035,1,0,NaN
+A,32,GWO + Parabolic,30,82.708,1,0,NaN
+A,33,DIRECT (paper),1,98.729,1,0,0.992
+A,33,DIRECT (paper),3,98.725,1,0,1.012
+A,33,DIRECT (paper),10,98.722,1,0,0.892
+A,33,DIRECT (paper),30,98.712,1,0,0.892
+A,33,Idea B + Parabolic,1,98.862,1,0,1.012
+A,33,Idea B + Parabolic,3,98.858,1,0,1.032
+A,33,Idea B + Parabolic,10,98.857,1,0,0.892
+A,33,Idea B + Parabolic,30,98.831,1,0,0.632
+A,33,Idea C + Parabolic,1,98.925,1,0,0.892
+A,33,Idea C + Parabolic,3,98.925,1,0,0.912
+A,33,Idea C + Parabolic,10,98.923,1,0,0.772
+A,33,Idea C + Parabolic,30,98.898,1,0,0.512
+A,33,PSO + Parabolic,1,93.753,1,0,3.052
+A,33,PSO + Parabolic,3,93.757,1,0,NaN
+A,33,PSO + Parabolic,10,93.750,1,0,NaN
+A,33,PSO + Parabolic,30,93.697,1,0,3.032
+A,33,GWO + Parabolic,1,86.445,1,0,3.032
+A,33,GWO + Parabolic,3,86.981,1,0,NaN
+A,33,GWO + Parabolic,10,86.438,1,0,2.932
+A,33,GWO + Parabolic,30,86.407,1,0,2.672
+A,34,DIRECT (paper),1,99.314,1,0,1.002
+A,34,DIRECT (paper),3,99.313,1,0,1.042
+A,34,DIRECT (paper),10,99.313,1,0,0.922
+A,34,DIRECT (paper),30,99.298,1,0,0.922
+A,34,Idea B + Parabolic,1,99.364,1,0,1.142
+A,34,Idea B + Parabolic,3,99.364,1,0,1.182
+A,34,Idea B + Parabolic,10,99.357,1,0,1.062
+A,34,Idea B + Parabolic,30,99.342,1,0,0.982
+A,34,Idea C + Parabolic,1,99.340,1,0,1.082
+A,34,Idea C + Parabolic,3,99.341,1,0,1.102
+A,34,Idea C + Parabolic,10,99.339,1,0,0.982
+A,34,Idea C + Parabolic,30,99.318,1,0,0.902
+A,34,PSO + Parabolic,1,96.144,1,0,NaN
+A,34,PSO + Parabolic,3,96.150,1,0,3.062
+A,34,PSO + Parabolic,10,96.114,1,0,3.142
+A,34,PSO + Parabolic,30,96.377,1,0,2.902
+A,34,GWO + Parabolic,1,91.800,1,0,3.082
+A,34,GWO + Parabolic,3,91.801,1,0,3.102
+A,34,GWO + Parabolic,10,91.797,1,0,2.982
+A,34,GWO + Parabolic,30,91.760,1,0,2.702
+A,35,DIRECT (paper),1,97.561,1,0,0.632
+A,35,DIRECT (paper),3,97.562,1,0,0.672
+A,35,DIRECT (paper),10,97.572,1,0,0.672
+A,35,DIRECT (paper),30,97.650,1,0,0.572
+A,35,Idea B + Parabolic,1,98.422,1,0,0.712
+A,35,Idea B + Parabolic,3,98.418,1,0,0.712
+A,35,Idea B + Parabolic,10,98.407,1,0,0.692
+A,35,Idea B + Parabolic,30,98.338,1,0,0.772
+A,35,Idea C + Parabolic,1,98.396,1,0,0.472
+A,35,Idea C + Parabolic,3,98.400,1,0,0.452
+A,35,Idea C + Parabolic,10,98.284,1,0,0.452
+A,35,Idea C + Parabolic,30,98.222,1,0,0.452
+A,35,PSO + Parabolic,1,93.877,1,0,2.832
+A,35,PSO + Parabolic,3,93.877,1,0,2.832
+A,35,PSO + Parabolic,10,93.958,1,0,2.932
+A,35,PSO + Parabolic,30,94.192,1,0,2.772
+A,35,GWO + Parabolic,1,86.651,1,0,2.812
+A,35,GWO + Parabolic,3,86.649,1,0,2.812
+A,35,GWO + Parabolic,10,86.610,1,0,2.852
+A,35,GWO + Parabolic,30,86.737,1,0,2.792
+A,36,DIRECT (paper),1,99.206,1,0,1.422
+A,36,DIRECT (paper),3,99.207,1,0,1.382
+A,36,DIRECT (paper),10,99.202,1,0,1.282
+A,36,DIRECT (paper),30,99.196,1,0,0.902
+A,36,Idea B + Parabolic,1,99.293,1,0,1.462
+A,36,Idea B + Parabolic,3,99.295,1,0,1.462
+A,36,Idea B + Parabolic,10,99.295,1,0,1.462
+A,36,Idea B + Parabolic,30,99.310,1,0,0.862
+A,36,Idea C + Parabolic,1,99.302,1,0,1.462
+A,36,Idea C + Parabolic,3,99.300,1,0,1.462
+A,36,Idea C + Parabolic,10,99.301,1,0,1.422
+A,36,Idea C + Parabolic,30,99.302,1,0,0.902
+A,36,PSO + Parabolic,1,96.322,1,0,3.662
+A,36,PSO + Parabolic,3,96.322,1,0,3.662
+A,36,PSO + Parabolic,10,96.319,1,0,3.622
+A,36,PSO + Parabolic,30,96.299,1,0,3.102
+A,36,GWO + Parabolic,1,90.813,1,0,3.382
+A,36,GWO + Parabolic,3,90.813,1,0,3.382
+A,36,GWO + Parabolic,10,90.812,1,0,3.382
+A,36,GWO + Parabolic,30,90.826,1,0,2.942
+A,37,DIRECT (paper),1,95.000,1,0,0.582
+A,37,DIRECT (paper),3,95.000,1,0,0.582
+A,37,DIRECT (paper),10,95.002,1,0,0.602
+A,37,DIRECT (paper),30,94.820,1,0,0.582
+A,37,Idea B + Parabolic,1,99.134,1,0,0.782
+A,37,Idea B + Parabolic,3,99.133,1,0,0.762
+A,37,Idea B + Parabolic,10,99.156,1,0,0.722
+A,37,Idea B + Parabolic,30,95.343,1,0,1.482
+A,37,Idea C + Parabolic,1,98.878,1,0,0.542
+A,37,Idea C + Parabolic,3,98.839,1,0,0.562
+A,37,Idea C + Parabolic,10,94.898,1,0,1.022
+A,37,Idea C + Parabolic,30,95.632,1,0,1.122
+A,37,PSO + Parabolic,1,95.326,1,0,2.602
+A,37,PSO + Parabolic,3,95.287,1,0,2.642
+A,37,PSO + Parabolic,10,91.524,1,0,NaN
+A,37,PSO + Parabolic,30,92.332,1,0,NaN
+A,37,GWO + Parabolic,1,89.798,1,0,2.702
+A,37,GWO + Parabolic,3,89.815,1,0,2.682
+A,37,GWO + Parabolic,10,89.638,1,0,2.642
+A,37,GWO + Parabolic,30,89.719,1,0,2.442
+A,38,DIRECT (paper),1,98.951,1,0,0.762
+A,38,DIRECT (paper),3,98.956,1,0,0.762
+A,38,DIRECT (paper),10,98.947,1,0,0.702
+A,38,DIRECT (paper),30,98.935,1,0,0.782
+A,38,Idea B + Parabolic,1,97.220,1,0,0.822
+A,38,Idea B + Parabolic,3,97.496,1,0,0.822
+A,38,Idea B + Parabolic,10,97.057,1,0,0.762
+A,38,Idea B + Parabolic,30,97.476,1,0,0.762
+A,38,Idea C + Parabolic,1,97.290,1,0,0.662
+A,38,Idea C + Parabolic,3,97.289,1,0,0.662
+A,38,Idea C + Parabolic,10,97.184,1,0,0.602
+A,38,Idea C + Parabolic,30,96.401,1,0,0.602
+A,38,PSO + Parabolic,1,94.754,1,0,NaN
+A,38,PSO + Parabolic,3,94.609,1,0,NaN
+A,38,PSO + Parabolic,10,94.479,1,0,NaN
+A,38,PSO + Parabolic,30,93.724,1,0,NaN
+A,38,GWO + Parabolic,1,91.337,1,0,NaN
+A,38,GWO + Parabolic,3,91.336,1,0,NaN
+A,38,GWO + Parabolic,10,91.230,1,0,NaN
+A,38,GWO + Parabolic,30,92.767,1,0,NaN
+A,39,DIRECT (paper),1,99.291,1,0,0.882
+A,39,DIRECT (paper),3,99.290,1,0,0.882
+A,39,DIRECT (paper),10,99.290,1,0,0.902
+A,39,DIRECT (paper),30,99.280,1,0,0.862
+A,39,Idea B + Parabolic,1,99.407,1,0,1.062
+A,39,Idea B + Parabolic,3,99.405,1,0,1.062
+A,39,Idea B + Parabolic,10,99.390,1,0,1.042
+A,39,Idea B + Parabolic,30,99.355,1,0,0.842
+A,39,Idea C + Parabolic,1,99.386,1,0,0.982
+A,39,Idea C + Parabolic,3,99.387,1,0,0.982
+A,39,Idea C + Parabolic,10,99.384,1,0,0.962
+A,39,Idea C + Parabolic,30,99.330,1,0,0.962
+A,39,PSO + Parabolic,1,96.783,1,0,NaN
+A,39,PSO + Parabolic,3,96.781,1,0,NaN
+A,39,PSO + Parabolic,10,96.755,1,0,NaN
+A,39,PSO + Parabolic,30,96.536,1,0,2.402
+A,39,GWO + Parabolic,1,93.270,1,0,NaN
+A,39,GWO + Parabolic,3,93.256,1,0,NaN
+A,39,GWO + Parabolic,10,93.225,1,0,NaN
+A,39,GWO + Parabolic,30,92.779,1,0,NaN
+A,40,DIRECT (paper),1,93.912,1,0,0.742
+A,40,DIRECT (paper),3,95.454,1,0,0.742
+A,40,DIRECT (paper),10,95.454,1,0,0.702
+A,40,DIRECT (paper),30,97.611,1,0,0.662
+A,40,Idea B + Parabolic,1,98.028,1,0,0.842
+A,40,Idea B + Parabolic,3,98.042,1,0,0.842
+A,40,Idea B + Parabolic,10,93.094,1,0,1.082
+A,40,Idea B + Parabolic,30,90.497,1,0,1.782
+A,40,Idea C + Parabolic,1,98.174,1,0,0.682
+A,40,Idea C + Parabolic,3,98.172,1,0,0.662
+A,40,Idea C + Parabolic,10,98.150,1,0,0.642
+A,40,Idea C + Parabolic,30,90.673,1,0,1.622
+A,40,PSO + Parabolic,1,90.917,1,0,NaN
+A,40,PSO + Parabolic,3,90.799,1,0,NaN
+A,40,PSO + Parabolic,10,90.604,1,0,NaN
+A,40,PSO + Parabolic,30,86.671,1,0,NaN
+A,40,GWO + Parabolic,1,81.206,1,0,NaN
+A,40,GWO + Parabolic,3,81.201,1,0,NaN
+A,40,GWO + Parabolic,10,81.201,1,0,NaN
+A,40,GWO + Parabolic,30,81.255,1,0,NaN
+B,1,DIRECT (paper),1,97.404,1,0,1.122
+B,1,DIRECT (paper),3,97.400,1,0,1.122
+B,1,DIRECT (paper),10,97.397,1,0,1.122
+B,1,DIRECT (paper),30,97.392,1,0,1.122
+B,1,Idea B + Parabolic,1,93.100,1,0,1.522
+B,1,Idea B + Parabolic,3,93.100,1,0,1.522
+B,1,Idea B + Parabolic,10,93.213,1,0,1.502
+B,1,Idea B + Parabolic,30,93.173,1,0,1.502
+B,1,Idea C + Parabolic,1,90.663,1,0,1.922
+B,1,Idea C + Parabolic,3,93.947,1,0,1.342
+B,1,Idea C + Parabolic,10,94.104,1,0,1.322
+B,1,Idea C + Parabolic,30,89.378,1,0,2.102
+B,1,PSO + Parabolic,1,86.662,1,0,3.722
+B,1,PSO + Parabolic,3,86.607,1,0,3.722
+B,1,PSO + Parabolic,10,86.004,1,0,3.822
+B,1,PSO + Parabolic,30,85.962,1,0,3.822
+B,1,GWO + Parabolic,1,78.598,1,0,3.522
+B,1,GWO + Parabolic,3,78.597,1,0,3.522
+B,1,GWO + Parabolic,10,78.599,1,0,3.522
+B,1,GWO + Parabolic,30,77.312,1,0,3.722
+B,2,DIRECT (paper),1,98.032,1,0,0.862
+B,2,DIRECT (paper),3,98.032,1,0,0.862
+B,2,DIRECT (paper),10,98.032,1,0,0.862
+B,2,DIRECT (paper),30,97.941,1,0,0.922
+B,2,Idea B + Parabolic,1,98.241,1,0,0.902
+B,2,Idea B + Parabolic,3,98.236,1,0,0.902
+B,2,Idea B + Parabolic,10,98.208,1,0,0.902
+B,2,Idea B + Parabolic,30,98.219,1,0,0.922
+B,2,Idea C + Parabolic,1,98.203,1,0,0.822
+B,2,Idea C + Parabolic,3,98.203,1,0,0.822
+B,2,Idea C + Parabolic,10,98.198,1,0,0.822
+B,2,Idea C + Parabolic,30,98.178,1,0,0.842
+B,2,PSO + Parabolic,1,95.187,1,0,2.822
+B,2,PSO + Parabolic,3,95.188,1,0,2.822
+B,2,PSO + Parabolic,10,95.181,1,0,2.822
+B,2,PSO + Parabolic,30,95.073,1,0,2.842
+B,2,GWO + Parabolic,1,86.648,1,0,2.622
+B,2,GWO + Parabolic,3,86.648,1,0,2.622
+B,2,GWO + Parabolic,10,86.648,1,0,2.622
+B,2,GWO + Parabolic,30,86.567,1,0,2.802
+B,3,DIRECT (paper),1,98.376,1,0,0.942
+B,3,DIRECT (paper),3,98.374,1,0,0.942
+B,3,DIRECT (paper),10,98.364,1,0,0.942
+B,3,DIRECT (paper),30,98.503,1,0,0.862
+B,3,Idea B + Parabolic,1,98.638,1,0,0.782
+B,3,Idea B + Parabolic,3,98.638,1,0,0.782
+B,3,Idea B + Parabolic,10,98.635,1,0,0.782
+B,3,Idea B + Parabolic,30,98.632,1,0,0.782
+B,3,Idea C + Parabolic,1,98.389,1,0,0.702
+B,3,Idea C + Parabolic,3,98.386,1,0,0.702
+B,3,Idea C + Parabolic,10,98.388,1,0,0.702
+B,3,Idea C + Parabolic,30,98.352,1,0,0.702
+B,3,PSO + Parabolic,1,94.817,1,0,2.782
+B,3,PSO + Parabolic,3,94.818,1,0,2.782
+B,3,PSO + Parabolic,10,94.818,1,0,2.782
+B,3,PSO + Parabolic,30,94.803,1,0,2.802
+B,3,GWO + Parabolic,1,86.122,1,0,2.622
+B,3,GWO + Parabolic,3,86.122,1,0,2.622
+B,3,GWO + Parabolic,10,86.122,1,0,2.622
+B,3,GWO + Parabolic,30,86.106,1,0,2.642
+B,4,DIRECT (paper),1,98.114,1,0,0.782
+B,4,DIRECT (paper),3,98.114,1,0,0.782
+B,4,DIRECT (paper),10,98.110,1,0,0.782
+B,4,DIRECT (paper),30,98.089,1,0,0.882
+B,4,Idea B + Parabolic,1,97.278,1,0,0.982
+B,4,Idea B + Parabolic,3,97.278,1,0,0.982
+B,4,Idea B + Parabolic,10,97.235,1,0,1.002
+B,4,Idea B + Parabolic,30,96.500,1,0,2.442
+B,4,Idea C + Parabolic,1,97.608,1,0,0.902
+B,4,Idea C + Parabolic,3,97.608,1,0,0.902
+B,4,Idea C + Parabolic,10,97.552,1,0,0.922
+B,4,Idea C + Parabolic,30,98.083,1,0,0.782
+B,4,PSO + Parabolic,1,93.787,1,0,2.762
+B,4,PSO + Parabolic,3,93.743,1,0,2.782
+B,4,PSO + Parabolic,10,93.779,1,0,2.762
+B,4,PSO + Parabolic,30,93.788,1,0,2.802
+B,4,GWO + Parabolic,1,85.721,1,0,2.782
+B,4,GWO + Parabolic,3,85.768,1,0,2.762
+B,4,GWO + Parabolic,10,85.424,1,0,2.922
+B,4,GWO + Parabolic,30,85.678,1,0,2.802
+B,5,DIRECT (paper),1,96.459,1,0,0.702
+B,5,DIRECT (paper),3,96.459,1,0,0.702
+B,5,DIRECT (paper),10,96.459,1,0,0.702
+B,5,DIRECT (paper),30,96.649,1,0,0.662
+B,5,Idea B + Parabolic,1,96.886,1,0,0.782
+B,5,Idea B + Parabolic,3,96.886,1,0,0.782
+B,5,Idea B + Parabolic,10,96.883,1,0,0.782
+B,5,Idea B + Parabolic,30,96.878,1,0,0.782
+B,5,Idea C + Parabolic,1,97.301,1,0,0.582
+B,5,Idea C + Parabolic,3,97.301,1,0,0.582
+B,5,Idea C + Parabolic,10,97.301,1,0,0.582
+B,5,Idea C + Parabolic,30,97.288,1,0,0.582
+B,5,PSO + Parabolic,1,92.552,1,0,2.662
+B,5,PSO + Parabolic,3,92.553,1,0,2.662
+B,5,PSO + Parabolic,10,92.558,1,0,2.662
+B,5,PSO + Parabolic,30,92.559,1,0,2.582
+B,5,GWO + Parabolic,1,84.367,1,0,2.662
+B,5,GWO + Parabolic,3,84.367,1,0,2.662
+B,5,GWO + Parabolic,10,84.365,1,0,2.662
+B,5,GWO + Parabolic,30,84.357,1,0,2.662
+B,6,DIRECT (paper),1,98.288,1,0,0.782
+B,6,DIRECT (paper),3,98.295,1,0,0.762
+B,6,DIRECT (paper),10,98.295,1,0,0.762
+B,6,DIRECT (paper),30,98.208,1,0,0.902
+B,6,Idea B + Parabolic,1,97.917,0,1,NaN
+B,6,Idea B + Parabolic,3,97.916,0,1,NaN
+B,6,Idea B + Parabolic,10,97.915,0,1,NaN
+B,6,Idea B + Parabolic,30,97.973,1,0,1.602
+B,6,Idea C + Parabolic,1,97.853,0,1,NaN
+B,6,Idea C + Parabolic,3,97.852,0,1,NaN
+B,6,Idea C + Parabolic,10,98.219,1,0,1.082
+B,6,Idea C + Parabolic,30,98.231,1,0,1.082
+B,6,PSO + Parabolic,1,97.921,0,1,NaN
+B,6,PSO + Parabolic,3,97.914,0,1,NaN
+B,6,PSO + Parabolic,10,97.921,0,1,NaN
+B,6,PSO + Parabolic,30,94.167,1,0,2.762
+B,6,GWO + Parabolic,1,97.920,0,1,NaN
+B,6,GWO + Parabolic,3,97.920,0,1,NaN
+B,6,GWO + Parabolic,10,88.819,1,0,2.682
+B,6,GWO + Parabolic,30,88.816,1,0,2.682
+B,7,DIRECT (paper),1,96.236,0,1,NaN
+B,7,DIRECT (paper),3,96.236,0,1,NaN
+B,7,DIRECT (paper),10,96.232,0,1,NaN
+B,7,DIRECT (paper),30,96.218,0,1,NaN
+B,7,Idea B + Parabolic,1,96.120,0,1,NaN
+B,7,Idea B + Parabolic,3,96.120,0,1,NaN
+B,7,Idea B + Parabolic,10,96.112,0,1,NaN
+B,7,Idea B + Parabolic,30,96.205,0,1,NaN
+B,7,Idea C + Parabolic,1,96.160,0,1,NaN
+B,7,Idea C + Parabolic,3,96.160,0,1,NaN
+B,7,Idea C + Parabolic,10,96.164,0,1,NaN
+B,7,Idea C + Parabolic,30,96.151,0,1,NaN
+B,7,PSO + Parabolic,1,96.169,0,1,NaN
+B,7,PSO + Parabolic,3,96.152,0,1,NaN
+B,7,PSO + Parabolic,10,96.153,0,1,NaN
+B,7,PSO + Parabolic,30,96.110,0,1,NaN
+B,7,GWO + Parabolic,1,96.182,0,1,NaN
+B,7,GWO + Parabolic,3,96.180,0,1,NaN
+B,7,GWO + Parabolic,10,96.145,0,1,NaN
+B,7,GWO + Parabolic,30,96.122,0,1,NaN
+B,8,DIRECT (paper),1,97.489,1,0,0.702
+B,8,DIRECT (paper),3,97.489,1,0,0.702
+B,8,DIRECT (paper),10,97.417,1,0,0.722
+B,8,DIRECT (paper),30,97.355,1,0,0.742
+B,8,Idea B + Parabolic,1,97.965,1,0,0.622
+B,8,Idea B + Parabolic,3,97.965,1,0,0.622
+B,8,Idea B + Parabolic,10,97.964,1,0,0.622
+B,8,Idea B + Parabolic,30,97.896,1,0,0.642
+B,8,Idea C + Parabolic,1,97.878,1,0,0.582
+B,8,Idea C + Parabolic,3,97.878,1,0,0.582
+B,8,Idea C + Parabolic,10,97.814,1,0,0.602
+B,8,Idea C + Parabolic,30,97.857,1,0,0.582
+B,8,PSO + Parabolic,1,92.170,1,0,2.782
+B,8,PSO + Parabolic,3,92.169,1,0,2.782
+B,8,PSO + Parabolic,10,92.163,1,0,2.782
+B,8,PSO + Parabolic,30,92.097,1,0,2.802
+B,8,GWO + Parabolic,1,82.782,1,0,2.622
+B,8,GWO + Parabolic,3,82.782,1,0,2.622
+B,8,GWO + Parabolic,10,82.779,1,0,2.622
+B,8,GWO + Parabolic,30,82.778,1,0,2.622
+B,9,DIRECT (paper),1,97.563,1,0,0.742
+B,9,DIRECT (paper),3,97.563,1,0,0.742
+B,9,DIRECT (paper),10,97.542,1,0,0.742
+B,9,DIRECT (paper),30,97.663,1,0,0.702
+B,9,Idea B + Parabolic,1,98.107,1,0,0.562
+B,9,Idea B + Parabolic,3,98.107,1,0,0.562
+B,9,Idea B + Parabolic,10,98.107,1,0,0.562
+B,9,Idea B + Parabolic,30,98.103,1,0,0.602
+B,9,Idea C + Parabolic,1,97.920,1,0,0.562
+B,9,Idea C + Parabolic,3,97.921,1,0,0.562
+B,9,Idea C + Parabolic,10,97.921,1,0,0.562
+B,9,Idea C + Parabolic,30,97.908,1,0,0.562
+B,9,PSO + Parabolic,1,93.283,1,0,2.722
+B,9,PSO + Parabolic,3,93.283,1,0,2.722
+B,9,PSO + Parabolic,10,93.283,1,0,2.722
+B,9,PSO + Parabolic,30,93.282,1,0,2.722
+B,9,GWO + Parabolic,1,83.451,1,0,2.562
+B,9,GWO + Parabolic,3,83.451,1,0,2.562
+B,9,GWO + Parabolic,10,83.454,1,0,2.562
+B,9,GWO + Parabolic,30,83.369,1,0,2.702
+B,10,DIRECT (paper),1,97.023,1,1,NaN
+B,10,DIRECT (paper),3,97.023,1,1,NaN
+B,10,DIRECT (paper),10,97.014,1,1,NaN
+B,10,DIRECT (paper),30,96.993,1,1,NaN
+B,10,Idea B + Parabolic,1,98.207,1,0,0.842
+B,10,Idea B + Parabolic,3,98.242,1,0,0.822
+B,10,Idea B + Parabolic,10,98.087,1,0,0.902
+B,10,Idea B + Parabolic,30,98.164,1,0,0.802
+B,10,Idea C + Parabolic,1,97.863,1,0,0.942
+B,10,Idea C + Parabolic,3,97.864,1,0,0.942
+B,10,Idea C + Parabolic,10,97.858,1,0,0.922
+B,10,Idea C + Parabolic,30,97.769,1,0,0.922
+B,10,PSO + Parabolic,1,93.892,1,0,2.862
+B,10,PSO + Parabolic,3,93.854,1,0,2.882
+B,10,PSO + Parabolic,10,93.890,1,0,2.862
+B,10,PSO + Parabolic,30,93.842,1,0,2.862
+B,10,GWO + Parabolic,1,85.773,1,0,2.702
+B,10,GWO + Parabolic,3,85.771,1,0,2.702
+B,10,GWO + Parabolic,10,85.848,1,0,2.662
+B,10,GWO + Parabolic,30,85.952,1,0,2.622
+B,11,DIRECT (paper),1,98.725,1,0,0.622
+B,11,DIRECT (paper),3,98.725,1,0,0.622
+B,11,DIRECT (paper),10,98.725,1,0,0.622
+B,11,DIRECT (paper),30,98.611,1,0,0.702
+B,11,Idea B + Parabolic,1,97.319,1,0,2.022
+B,11,Idea B + Parabolic,3,97.367,1,0,1.922
+B,11,Idea B + Parabolic,10,97.320,1,0,1.982
+B,11,Idea B + Parabolic,30,98.172,1,0,1.202
+B,11,Idea C + Parabolic,1,97.174,1,0,1.782
+B,11,Idea C + Parabolic,3,97.174,1,0,1.782
+B,11,Idea C + Parabolic,10,97.168,1,0,1.782
+B,11,Idea C + Parabolic,30,97.196,1,0,2.082
+B,11,PSO + Parabolic,1,93.644,1,0,3.782
+B,11,PSO + Parabolic,3,93.645,1,0,3.782
+B,11,PSO + Parabolic,10,93.640,1,0,3.782
+B,11,PSO + Parabolic,30,93.587,1,0,3.882
+B,11,GWO + Parabolic,1,84.767,1,0,3.502
+B,11,GWO + Parabolic,3,84.760,1,0,3.502
+B,11,GWO + Parabolic,10,84.740,1,0,3.502
+B,11,GWO + Parabolic,30,84.713,1,0,3.502
+B,12,DIRECT (paper),1,97.398,1,0,0.642
+B,12,DIRECT (paper),3,97.398,1,0,0.642
+B,12,DIRECT (paper),10,97.204,1,0,0.682
+B,12,DIRECT (paper),30,97.674,1,0,1.082
+B,12,Idea B + Parabolic,1,95.616,1,0,2.242
+B,12,Idea B + Parabolic,3,95.890,1,0,2.142
+B,12,Idea B + Parabolic,10,95.993,1,0,2.142
+B,12,Idea B + Parabolic,30,95.764,1,0,2.142
+B,12,Idea C + Parabolic,1,97.747,1,0,0.682
+B,12,Idea C + Parabolic,3,97.737,1,0,0.682
+B,12,Idea C + Parabolic,10,97.728,1,0,0.682
+B,12,Idea C + Parabolic,30,96.715,1,0,1.822
+B,12,PSO + Parabolic,1,92.562,1,0,2.802
+B,12,PSO + Parabolic,3,92.572,1,0,2.802
+B,12,PSO + Parabolic,10,92.459,1,0,2.802
+B,12,PSO + Parabolic,30,92.436,1,0,2.802
+B,12,GWO + Parabolic,1,83.578,1,0,2.642
+B,12,GWO + Parabolic,3,83.577,1,0,2.642
+B,12,GWO + Parabolic,10,83.580,1,0,2.642
+B,12,GWO + Parabolic,30,83.539,1,0,2.642
+B,13,DIRECT (paper),1,96.894,1,0,1.322
+B,13,DIRECT (paper),3,96.894,1,0,1.322
+B,13,DIRECT (paper),10,97.010,1,0,1.322
+B,13,DIRECT (paper),30,96.774,1,0,1.382
+B,13,Idea B + Parabolic,1,96.807,1,0,0.902
+B,13,Idea B + Parabolic,3,96.806,1,0,0.902
+B,13,Idea B + Parabolic,10,96.798,1,0,0.902
+B,13,Idea B + Parabolic,30,96.868,1,0,0.882
+B,13,Idea C + Parabolic,1,96.894,1,0,0.862
+B,13,Idea C + Parabolic,3,96.891,1,0,0.862
+B,13,Idea C + Parabolic,10,96.975,1,0,0.842
+B,13,Idea C + Parabolic,30,96.976,1,0,0.842
+B,13,PSO + Parabolic,1,92.273,1,0,2.882
+B,13,PSO + Parabolic,3,92.185,1,0,2.902
+B,13,PSO + Parabolic,10,92.186,1,0,2.902
+B,13,PSO + Parabolic,30,92.155,1,0,2.902
+B,13,GWO + Parabolic,1,84.620,1,0,2.742
+B,13,GWO + Parabolic,3,84.620,1,0,2.742
+B,13,GWO + Parabolic,10,84.691,1,0,2.722
+B,13,GWO + Parabolic,30,84.678,1,0,2.722
+B,14,DIRECT (paper),1,96.120,1,0,1.342
+B,14,DIRECT (paper),3,96.121,1,0,1.342
+B,14,DIRECT (paper),10,96.115,1,0,1.342
+B,14,DIRECT (paper),30,96.396,1,0,1.282
+B,14,Idea B + Parabolic,1,92.014,1,0,1.622
+B,14,Idea B + Parabolic,3,92.016,1,0,1.622
+B,14,Idea B + Parabolic,10,95.909,1,0,2.162
+B,14,Idea B + Parabolic,30,97.489,1,0,1.162
+B,14,Idea C + Parabolic,1,92.618,1,0,1.542
+B,14,Idea C + Parabolic,3,92.619,1,0,1.542
+B,14,Idea C + Parabolic,10,90.995,1,0,1.842
+B,14,Idea C + Parabolic,30,96.750,1,0,0.702
+B,14,PSO + Parabolic,1,91.010,1,0,2.962
+B,14,PSO + Parabolic,3,91.001,1,0,2.962
+B,14,PSO + Parabolic,10,91.011,1,0,2.962
+B,14,PSO + Parabolic,30,90.842,1,0,2.802
+B,14,GWO + Parabolic,1,82.362,1,0,2.802
+B,14,GWO + Parabolic,3,82.363,1,0,2.802
+B,14,GWO + Parabolic,10,82.365,1,0,2.802
+B,14,GWO + Parabolic,30,82.368,1,0,2.802
+B,15,DIRECT (paper),1,98.446,1,0,0.802
+B,15,DIRECT (paper),3,98.456,1,0,0.782
+B,15,DIRECT (paper),10,98.449,1,0,0.782
+B,15,DIRECT (paper),30,98.425,1,0,0.782
+B,15,Idea B + Parabolic,1,96.941,1,0,1.042
+B,15,Idea B + Parabolic,3,96.940,1,0,1.042
+B,15,Idea B + Parabolic,10,96.863,1,0,1.062
+B,15,Idea B + Parabolic,30,96.764,1,0,1.082
+B,15,Idea C + Parabolic,1,96.645,1,0,1.002
+B,15,Idea C + Parabolic,3,96.646,1,0,1.002
+B,15,Idea C + Parabolic,10,96.568,1,0,1.022
+B,15,Idea C + Parabolic,30,96.574,1,0,1.022
+B,15,PSO + Parabolic,1,92.351,1,0,3.082
+B,15,PSO + Parabolic,3,92.349,1,0,3.082
+B,15,PSO + Parabolic,10,92.337,1,0,3.082
+B,15,PSO + Parabolic,30,92.219,1,0,3.102
+B,15,GWO + Parabolic,1,84.453,1,0,2.962
+B,15,GWO + Parabolic,3,84.453,1,0,2.962
+B,15,GWO + Parabolic,10,84.379,1,0,2.982
+B,15,GWO + Parabolic,30,84.360,1,0,2.982
+B,16,DIRECT (paper),1,97.136,1,0,1.122
+B,16,DIRECT (paper),3,97.136,1,0,1.122
+B,16,DIRECT (paper),10,97.046,1,0,1.122
+B,16,DIRECT (paper),30,97.026,1,0,1.242
+B,16,Idea B + Parabolic,1,95.897,1,0,0.882
+B,16,Idea B + Parabolic,3,95.897,1,0,0.882
+B,16,Idea B + Parabolic,10,95.889,1,0,0.882
+B,16,Idea B + Parabolic,30,95.882,1,0,0.882
+B,16,Idea C + Parabolic,1,96.492,1,0,0.682
+B,16,Idea C + Parabolic,3,96.492,1,0,0.682
+B,16,Idea C + Parabolic,10,96.490,1,0,0.682
+B,16,Idea C + Parabolic,30,96.483,1,0,0.682
+B,16,PSO + Parabolic,1,90.604,1,0,2.922
+B,16,PSO + Parabolic,3,90.604,1,0,2.922
+B,16,PSO + Parabolic,10,90.604,1,0,2.922
+B,16,PSO + Parabolic,30,90.687,1,0,2.922
+B,16,GWO + Parabolic,1,82.617,1,0,2.762
+B,16,GWO + Parabolic,3,82.617,1,0,2.762
+B,16,GWO + Parabolic,10,82.616,1,0,2.762
+B,16,GWO + Parabolic,30,82.613,1,0,2.762
+B,17,DIRECT (paper),1,97.427,1,0,0.862
+B,17,DIRECT (paper),3,97.427,1,0,0.862
+B,17,DIRECT (paper),10,97.425,1,0,0.862
+B,17,DIRECT (paper),30,97.331,1,0,0.882
+B,17,Idea B + Parabolic,1,95.925,1,0,1.242
+B,17,Idea B + Parabolic,3,95.922,1,0,1.242
+B,17,Idea B + Parabolic,10,95.818,1,0,1.262
+B,17,Idea B + Parabolic,30,96.542,1,0,1.382
+B,17,Idea C + Parabolic,1,96.243,1,0,1.162
+B,17,Idea C + Parabolic,3,96.241,1,0,1.162
+B,17,Idea C + Parabolic,10,96.150,1,0,1.182
+B,17,Idea C + Parabolic,30,96.894,1,0,1.302
+B,17,PSO + Parabolic,1,92.262,1,0,2.982
+B,17,PSO + Parabolic,3,92.262,1,0,2.982
+B,17,PSO + Parabolic,10,92.295,1,0,2.982
+B,17,PSO + Parabolic,30,91.921,1,0,3.022
+B,17,GWO + Parabolic,1,83.798,1,0,2.962
+B,17,GWO + Parabolic,3,83.792,1,0,2.962
+B,17,GWO + Parabolic,10,83.524,1,0,3.042
+B,17,GWO + Parabolic,30,83.565,1,0,3.042
+B,18,DIRECT (paper),1,96.917,1,0,1.182
+B,18,DIRECT (paper),3,96.917,1,0,1.182
+B,18,DIRECT (paper),10,96.903,1,0,1.182
+B,18,DIRECT (paper),30,96.897,1,0,1.202
+B,18,Idea B + Parabolic,1,97.415,1,0,0.722
+B,18,Idea B + Parabolic,3,97.415,1,0,0.722
+B,18,Idea B + Parabolic,10,97.412,1,0,0.722
+B,18,Idea B + Parabolic,30,97.376,1,0,0.722
+B,18,Idea C + Parabolic,1,97.562,1,0,0.682
+B,18,Idea C + Parabolic,3,97.557,1,0,0.682
+B,18,Idea C + Parabolic,10,97.560,1,0,0.682
+B,18,Idea C + Parabolic,30,97.523,1,0,0.682
+B,18,PSO + Parabolic,1,92.973,1,0,2.802
+B,18,PSO + Parabolic,3,92.973,1,0,2.802
+B,18,PSO + Parabolic,10,92.986,1,0,2.802
+B,18,PSO + Parabolic,30,92.981,1,0,2.802
+B,18,GWO + Parabolic,1,83.615,1,0,2.602
+B,18,GWO + Parabolic,3,83.627,1,0,2.602
+B,18,GWO + Parabolic,10,83.625,1,0,2.602
+B,18,GWO + Parabolic,30,83.634,1,0,2.602
+B,19,DIRECT (paper),1,96.817,1,1,NaN
+B,19,DIRECT (paper),3,96.817,1,1,NaN
+B,19,DIRECT (paper),10,96.769,1,1,NaN
+B,19,DIRECT (paper),30,96.767,1,1,NaN
+B,19,Idea B + Parabolic,1,98.128,1,0,0.782
+B,19,Idea B + Parabolic,3,98.132,1,0,0.782
+B,19,Idea B + Parabolic,10,98.147,1,0,0.782
+B,19,Idea B + Parabolic,30,97.086,1,0,2.082
+B,19,Idea C + Parabolic,1,97.733,1,0,0.922
+B,19,Idea C + Parabolic,3,97.734,1,0,0.922
+B,19,Idea C + Parabolic,10,97.736,1,0,0.922
+B,19,Idea C + Parabolic,30,97.694,1,0,0.942
+B,19,PSO + Parabolic,1,93.703,1,0,2.882
+B,19,PSO + Parabolic,3,93.701,1,0,2.882
+B,19,PSO + Parabolic,10,93.659,1,0,2.902
+B,19,PSO + Parabolic,30,93.641,1,0,2.902
+B,19,GWO + Parabolic,1,85.208,1,0,2.842
+B,19,GWO + Parabolic,3,85.162,1,0,2.862
+B,19,GWO + Parabolic,10,85.218,1,0,2.722
+B,19,GWO + Parabolic,30,85.157,1,0,2.862
+B,20,DIRECT (paper),1,98.061,1,0,0.902
+B,20,DIRECT (paper),3,98.061,1,0,0.902
+B,20,DIRECT (paper),10,98.253,1,0,0.822
+B,20,DIRECT (paper),30,98.236,1,0,0.822
+B,20,Idea B + Parabolic,1,98.083,1,0,0.662
+B,20,Idea B + Parabolic,3,98.082,1,0,0.662
+B,20,Idea B + Parabolic,10,98.079,1,0,0.662
+B,20,Idea B + Parabolic,30,98.066,1,0,0.662
+B,20,Idea C + Parabolic,1,97.876,1,0,0.662
+B,20,Idea C + Parabolic,3,97.876,1,0,0.662
+B,20,Idea C + Parabolic,10,97.874,1,0,0.662
+B,20,Idea C + Parabolic,30,97.782,1,0,0.682
+B,20,PSO + Parabolic,1,92.357,1,0,2.782
+B,20,PSO + Parabolic,3,92.361,1,0,2.782
+B,20,PSO + Parabolic,10,92.348,1,0,2.782
+B,20,PSO + Parabolic,30,92.313,1,0,2.802
+B,20,GWO + Parabolic,1,82.703,1,0,2.622
+B,20,GWO + Parabolic,3,82.703,1,0,2.622
+B,20,GWO + Parabolic,10,82.704,1,0,2.622
+B,20,GWO + Parabolic,30,82.680,1,0,2.622
+B,21,DIRECT (paper),1,98.607,1,0,0.642
+B,21,DIRECT (paper),3,98.585,1,0,0.682
+B,21,DIRECT (paper),10,98.570,1,0,0.702
+B,21,DIRECT (paper),30,98.562,1,0,0.682
+B,21,Idea B + Parabolic,1,98.025,1,0,0.922
+B,21,Idea B + Parabolic,3,98.025,1,0,0.922
+B,21,Idea B + Parabolic,10,98.133,1,0,0.862
+B,21,Idea B + Parabolic,30,98.012,1,0,0.922
+B,21,Idea C + Parabolic,1,98.011,1,0,0.842
+B,21,Idea C + Parabolic,3,97.969,1,0,0.862
+B,21,Idea C + Parabolic,10,97.840,1,0,0.922
+B,21,Idea C + Parabolic,30,97.837,1,0,0.922
+B,21,PSO + Parabolic,1,94.299,1,0,2.862
+B,21,PSO + Parabolic,3,94.299,1,0,2.862
+B,21,PSO + Parabolic,10,94.288,1,0,2.862
+B,21,PSO + Parabolic,30,94.278,1,0,2.862
+B,21,GWO + Parabolic,1,85.181,1,0,2.722
+B,21,GWO + Parabolic,3,85.181,1,0,2.722
+B,21,GWO + Parabolic,10,85.262,1,0,2.682
+B,21,GWO + Parabolic,30,85.121,1,0,2.742
+B,22,DIRECT (paper),1,96.605,1,0,1.062
+B,22,DIRECT (paper),3,96.604,1,0,1.062
+B,22,DIRECT (paper),10,96.600,1,0,1.062
+B,22,DIRECT (paper),30,96.288,1,0,1.122
+B,22,Idea B + Parabolic,1,94.523,1,0,1.722
+B,22,Idea B + Parabolic,3,94.522,1,0,1.722
+B,22,Idea B + Parabolic,10,94.195,1,0,1.822
+B,22,Idea B + Parabolic,30,94.664,1,0,1.622
+B,22,Idea C + Parabolic,1,96.477,1,0,1.142
+B,22,Idea C + Parabolic,3,96.748,1,0,1.042
+B,22,Idea C + Parabolic,10,97.019,1,0,0.942
+B,22,Idea C + Parabolic,30,96.987,1,0,0.942
+B,22,PSO + Parabolic,1,92.470,1,0,2.902
+B,22,PSO + Parabolic,3,92.470,1,0,2.902
+B,22,PSO + Parabolic,10,92.469,1,0,2.902
+B,22,PSO + Parabolic,30,92.375,1,0,2.902
+B,22,GWO + Parabolic,1,82.851,1,0,2.742
+B,22,GWO + Parabolic,3,82.851,1,0,2.742
+B,22,GWO + Parabolic,10,82.675,1,0,2.822
+B,22,GWO + Parabolic,30,83.009,1,0,2.682
+B,23,DIRECT (paper),1,96.225,1,0,1.202
+B,23,DIRECT (paper),3,96.225,1,0,1.202
+B,23,DIRECT (paper),10,96.176,1,0,1.262
+B,23,DIRECT (paper),30,96.385,1,0,1.222
+B,23,Idea B + Parabolic,1,95.968,1,0,0.862
+B,23,Idea B + Parabolic,3,95.967,1,0,0.902
+B,23,Idea B + Parabolic,10,95.957,1,0,0.862
+B,23,Idea B + Parabolic,30,96.073,1,0,0.882
+B,23,Idea C + Parabolic,1,95.879,1,0,0.862
+B,23,Idea C + Parabolic,3,95.879,1,0,0.862
+B,23,Idea C + Parabolic,10,95.998,1,0,0.842
+B,23,Idea C + Parabolic,30,96.103,1,0,0.822
+B,23,PSO + Parabolic,1,91.160,1,0,3.002
+B,23,PSO + Parabolic,3,91.160,1,0,3.002
+B,23,PSO + Parabolic,10,91.159,1,0,3.002
+B,23,PSO + Parabolic,30,91.322,1,0,2.962
+B,23,GWO + Parabolic,1,82.343,1,0,2.862
+B,23,GWO + Parabolic,3,82.344,1,0,2.862
+B,23,GWO + Parabolic,10,82.468,1,0,2.842
+B,23,GWO + Parabolic,30,82.735,1,0,2.802
+B,24,DIRECT (paper),1,98.290,1,0,0.882
+B,24,DIRECT (paper),3,98.290,1,0,0.882
+B,24,DIRECT (paper),10,98.290,1,0,0.882
+B,24,DIRECT (paper),30,98.290,1,0,0.882
+B,24,Idea B + Parabolic,1,96.677,1,0,0.802
+B,24,Idea B + Parabolic,3,96.677,1,0,0.802
+B,24,Idea B + Parabolic,10,96.677,1,0,0.802
+B,24,Idea B + Parabolic,30,95.387,1,0,3.362
+B,24,Idea C + Parabolic,1,96.324,1,0,0.882
+B,24,Idea C + Parabolic,3,96.322,1,0,0.882
+B,24,Idea C + Parabolic,10,96.327,1,0,0.882
+B,24,Idea C + Parabolic,30,96.096,1,0,0.922
+B,24,PSO + Parabolic,1,91.458,1,0,3.002
+B,24,PSO + Parabolic,3,91.686,1,0,2.962
+B,24,PSO + Parabolic,10,91.713,1,0,2.962
+B,24,PSO + Parabolic,30,91.645,1,0,2.962
+B,24,GWO + Parabolic,1,83.422,1,0,2.802
+B,24,GWO + Parabolic,3,83.422,1,0,2.802
+B,24,GWO + Parabolic,10,83.414,1,0,2.802
+B,24,GWO + Parabolic,30,83.397,1,0,2.802
+B,25,DIRECT (paper),1,98.352,1,0,0.662
+B,25,DIRECT (paper),3,98.352,1,0,0.662
+B,25,DIRECT (paper),10,98.352,1,0,0.662
+B,25,DIRECT (paper),30,98.352,1,0,0.662
+B,25,Idea B + Parabolic,1,98.273,1,0,0.922
+B,25,Idea B + Parabolic,3,98.272,1,0,0.922
+B,25,Idea B + Parabolic,10,98.275,1,0,0.802
+B,25,Idea B + Parabolic,30,97.953,1,0,1.322
+B,25,Idea C + Parabolic,1,97.956,1,0,0.802
+B,25,Idea C + Parabolic,3,97.956,1,0,0.802
+B,25,Idea C + Parabolic,10,97.957,1,0,0.762
+B,25,Idea C + Parabolic,30,97.999,1,0,0.782
+B,25,PSO + Parabolic,1,93.629,1,0,2.842
+B,25,PSO + Parabolic,3,93.623,1,0,2.842
+B,25,PSO + Parabolic,10,93.610,1,0,2.842
+B,25,PSO + Parabolic,30,93.703,1,0,2.782
+B,25,GWO + Parabolic,1,86.258,1,0,2.802
+B,25,GWO + Parabolic,3,86.257,1,0,2.802
+B,25,GWO + Parabolic,10,86.262,1,0,2.802
+B,25,GWO + Parabolic,30,86.293,1,0,2.782
+B,26,DIRECT (paper),1,97.685,1,0,1.142
+B,26,DIRECT (paper),3,97.685,1,0,1.142
+B,26,DIRECT (paper),10,97.685,1,0,1.142
+B,26,DIRECT (paper),30,97.670,1,0,1.142
+B,26,Idea B + Parabolic,1,96.459,1,0,0.922
+B,26,Idea B + Parabolic,3,96.459,1,0,0.922
+B,26,Idea B + Parabolic,10,97.207,1,0,0.802
+B,26,Idea B + Parabolic,30,95.802,1,0,2.282
+B,26,Idea C + Parabolic,1,96.174,1,0,0.842
+B,26,Idea C + Parabolic,3,96.175,1,0,0.842
+B,26,Idea C + Parabolic,10,96.175,1,0,0.842
+B,26,Idea C + Parabolic,30,96.155,1,0,0.882
+B,26,PSO + Parabolic,1,91.598,1,0,2.762
+B,26,PSO + Parabolic,3,91.598,1,0,2.762
+B,26,PSO + Parabolic,10,91.596,1,0,2.762
+B,26,PSO + Parabolic,30,91.583,1,0,2.762
+B,26,GWO + Parabolic,1,85.944,1,0,2.882
+B,26,GWO + Parabolic,3,85.943,1,0,2.882
+B,26,GWO + Parabolic,10,85.942,1,0,2.882
+B,26,GWO + Parabolic,30,86.694,1,0,2.762
+B,27,DIRECT (paper),1,94.557,1,0,0.962
+B,27,DIRECT (paper),3,94.557,1,0,0.962
+B,27,DIRECT (paper),10,94.554,1,0,0.962
+B,27,DIRECT (paper),30,95.162,1,0,0.882
+B,27,Idea B + Parabolic,1,93.201,1,0,1.202
+B,27,Idea B + Parabolic,3,93.207,1,0,1.202
+B,27,Idea B + Parabolic,10,93.214,1,0,1.202
+B,27,Idea B + Parabolic,30,92.598,1,0,1.302
+B,27,Idea C + Parabolic,1,93.935,1,0,1.142
+B,27,Idea C + Parabolic,3,93.933,1,0,1.142
+B,27,Idea C + Parabolic,10,94.061,1,0,1.122
+B,27,Idea C + Parabolic,30,94.331,1,0,1.082
+B,27,PSO + Parabolic,1,89.171,1,0,3.242
+B,27,PSO + Parabolic,3,89.171,1,0,3.242
+B,27,PSO + Parabolic,10,89.439,1,0,3.202
+B,27,PSO + Parabolic,30,89.648,1,0,3.162
+B,27,GWO + Parabolic,1,77.135,1,0,3.582
+B,27,GWO + Parabolic,3,77.136,1,0,3.582
+B,27,GWO + Parabolic,10,80.781,1,0,3.042
+B,27,GWO + Parabolic,30,80.767,1,0,3.042
+B,28,DIRECT (paper),1,97.873,1,0,0.802
+B,28,DIRECT (paper),3,97.873,1,0,0.802
+B,28,DIRECT (paper),10,97.826,1,0,0.822
+B,28,DIRECT (paper),30,97.780,1,0,0.862
+B,28,Idea B + Parabolic,1,98.093,1,0,0.722
+B,28,Idea B + Parabolic,3,98.093,1,0,0.682
+B,28,Idea B + Parabolic,10,98.092,1,0,0.682
+B,28,Idea B + Parabolic,30,97.836,1,0,0.942
+B,28,Idea C + Parabolic,1,98.165,1,0,0.682
+B,28,Idea C + Parabolic,3,98.165,1,0,0.682
+B,28,Idea C + Parabolic,10,98.163,1,0,0.682
+B,28,Idea C + Parabolic,30,97.365,1,0,1.302
+B,28,PSO + Parabolic,1,92.763,1,0,2.802
+B,28,PSO + Parabolic,3,92.763,1,0,2.802
+B,28,PSO + Parabolic,10,92.762,1,0,2.802
+B,28,PSO + Parabolic,30,92.762,1,0,2.802
+B,28,GWO + Parabolic,1,84.822,1,0,2.602
+B,28,GWO + Parabolic,3,84.822,1,0,2.602
+B,28,GWO + Parabolic,10,84.822,1,0,2.602
+B,28,GWO + Parabolic,30,84.820,1,0,2.602
+B,29,DIRECT (paper),1,99.807,0,0,0.182
+B,29,DIRECT (paper),3,99.807,0,0,0.182
+B,29,DIRECT (paper),10,99.807,0,0,0.182
+B,29,DIRECT (paper),30,99.798,0,0,0.182
+B,29,Idea B + Parabolic,1,99.253,0,0,1.062
+B,29,Idea B + Parabolic,3,99.253,0,0,1.062
+B,29,Idea B + Parabolic,10,99.251,0,0,1.062
+B,29,Idea B + Parabolic,30,98.712,0,0,2.922
+B,29,Idea C + Parabolic,1,98.220,1,0,0.782
+B,29,Idea C + Parabolic,3,98.219,1,0,0.782
+B,29,Idea C + Parabolic,10,98.207,1,0,0.782
+B,29,Idea C + Parabolic,30,98.179,1,0,0.802
+B,29,PSO + Parabolic,1,93.493,1,0,2.862
+B,29,PSO + Parabolic,3,93.493,1,0,2.862
+B,29,PSO + Parabolic,10,93.493,1,0,2.862
+B,29,PSO + Parabolic,30,93.523,1,0,2.842
+B,29,GWO + Parabolic,1,84.478,1,0,2.762
+B,29,GWO + Parabolic,3,84.477,1,0,2.762
+B,29,GWO + Parabolic,10,84.474,1,0,2.762
+B,29,GWO + Parabolic,30,84.508,1,0,2.742
+B,30,DIRECT (paper),1,97.091,1,0,0.782
+B,30,DIRECT (paper),3,97.091,1,0,0.782
+B,30,DIRECT (paper),10,97.088,1,0,0.782
+B,30,DIRECT (paper),30,97.003,1,0,0.802
+B,30,Idea B + Parabolic,1,95.248,1,0,1.142
+B,30,Idea B + Parabolic,3,95.248,1,0,1.142
+B,30,Idea B + Parabolic,10,95.246,1,0,1.142
+B,30,Idea B + Parabolic,30,95.591,1,0,1.082
+B,30,Idea C + Parabolic,1,96.042,1,0,0.962
+B,30,Idea C + Parabolic,3,96.043,1,0,0.962
+B,30,Idea C + Parabolic,10,96.037,1,0,0.962
+B,30,Idea C + Parabolic,30,96.762,1,0,0.842
+B,30,PSO + Parabolic,1,91.453,1,0,3.042
+B,30,PSO + Parabolic,3,91.434,1,0,3.042
+B,30,PSO + Parabolic,10,91.833,1,0,2.982
+B,30,PSO + Parabolic,30,92.446,1,0,2.882
+B,30,GWO + Parabolic,1,82.523,1,0,2.822
+B,30,GWO + Parabolic,3,82.521,1,0,2.822
+B,30,GWO + Parabolic,10,82.641,1,0,2.802
+B,30,GWO + Parabolic,30,82.729,1,0,2.782
+B,31,DIRECT (paper),1,96.951,1,0,0.802
+B,31,DIRECT (paper),3,96.951,1,0,0.802
+B,31,DIRECT (paper),10,97.312,1,0,0.662
+B,31,DIRECT (paper),30,97.107,1,0,0.702
+B,31,Idea B + Parabolic,1,97.763,1,0,0.702
+B,31,Idea B + Parabolic,3,97.763,1,0,0.702
+B,31,Idea B + Parabolic,10,97.754,1,0,0.702
+B,31,Idea B + Parabolic,30,97.720,1,0,0.662
+B,31,Idea C + Parabolic,1,97.409,1,0,0.662
+B,31,Idea C + Parabolic,3,97.393,1,0,0.662
+B,31,Idea C + Parabolic,10,97.411,1,0,0.662
+B,31,Idea C + Parabolic,30,97.324,1,0,0.662
+B,31,PSO + Parabolic,1,93.260,1,0,2.822
+B,31,PSO + Parabolic,3,93.260,1,0,2.822
+B,31,PSO + Parabolic,10,93.261,1,0,2.822
+B,31,PSO + Parabolic,30,93.238,1,0,2.822
+B,31,GWO + Parabolic,1,84.870,1,0,2.702
+B,31,GWO + Parabolic,3,84.870,1,0,2.702
+B,31,GWO + Parabolic,10,84.872,1,0,2.702
+B,31,GWO + Parabolic,30,84.881,1,0,2.702
+B,32,DIRECT (paper),1,98.809,1,0,0.782
+B,32,DIRECT (paper),3,98.809,1,0,0.782
+B,32,DIRECT (paper),10,98.802,1,0,0.822
+B,32,DIRECT (paper),30,98.784,1,0,0.802
+B,32,Idea B + Parabolic,1,98.372,1,0,0.802
+B,32,Idea B + Parabolic,3,98.372,1,0,0.802
+B,32,Idea B + Parabolic,10,98.362,1,0,0.802
+B,32,Idea B + Parabolic,30,98.687,1,0,0.802
+B,32,Idea C + Parabolic,1,97.916,1,0,0.922
+B,32,Idea C + Parabolic,3,97.916,1,0,0.922
+B,32,Idea C + Parabolic,10,97.906,1,0,0.922
+B,32,Idea C + Parabolic,30,97.901,1,0,0.922
+B,32,PSO + Parabolic,1,95.374,1,0,2.882
+B,32,PSO + Parabolic,3,95.374,1,0,2.882
+B,32,PSO + Parabolic,10,95.348,1,0,2.862
+B,32,PSO + Parabolic,30,95.273,1,0,2.902
+B,32,GWO + Parabolic,1,88.688,1,0,2.722
+B,32,GWO + Parabolic,3,88.688,1,0,2.722
+B,32,GWO + Parabolic,10,88.720,1,0,2.702
+B,32,GWO + Parabolic,30,88.690,1,0,2.722
+B,33,DIRECT (paper),1,98.185,1,0,0.782
+B,33,DIRECT (paper),3,98.185,1,0,0.782
+B,33,DIRECT (paper),10,98.138,1,0,0.802
+B,33,DIRECT (paper),30,98.109,1,0,0.802
+B,33,Idea B + Parabolic,1,98.334,1,0,0.902
+B,33,Idea B + Parabolic,3,98.335,1,0,0.902
+B,33,Idea B + Parabolic,10,98.335,1,0,0.902
+B,33,Idea B + Parabolic,30,98.300,1,0,0.902
+B,33,Idea C + Parabolic,1,98.019,1,0,0.862
+B,33,Idea C + Parabolic,3,98.020,1,0,0.862
+B,33,Idea C + Parabolic,10,98.021,1,0,0.862
+B,33,Idea C + Parabolic,30,97.554,1,0,0.882
+B,33,PSO + Parabolic,1,94.457,1,0,2.822
+B,33,PSO + Parabolic,3,94.442,1,0,2.822
+B,33,PSO + Parabolic,10,94.433,1,0,2.822
+B,33,PSO + Parabolic,30,94.437,1,0,2.822
+B,33,GWO + Parabolic,1,86.918,1,0,2.622
+B,33,GWO + Parabolic,3,86.918,1,0,2.622
+B,33,GWO + Parabolic,10,86.919,1,0,2.622
+B,33,GWO + Parabolic,30,86.937,1,0,2.622
+B,34,DIRECT (paper),1,98.229,1,0,1.002
+B,34,DIRECT (paper),3,98.229,1,0,1.002
+B,34,DIRECT (paper),10,98.225,1,0,1.002
+B,34,DIRECT (paper),30,98.274,1,0,1.002
+B,34,Idea B + Parabolic,1,97.587,1,0,1.602
+B,34,Idea B + Parabolic,3,97.679,1,0,1.602
+B,34,Idea B + Parabolic,10,97.523,1,0,1.702
+B,34,Idea B + Parabolic,30,97.615,1,0,1.582
+B,34,Idea C + Parabolic,1,97.524,1,0,1.502
+B,34,Idea C + Parabolic,3,97.701,1,0,1.402
+B,34,Idea C + Parabolic,10,97.707,1,0,1.402
+B,34,Idea C + Parabolic,30,97.682,1,0,1.402
+B,34,PSO + Parabolic,1,92.358,1,0,4.362
+B,34,PSO + Parabolic,3,92.355,1,0,4.362
+B,34,PSO + Parabolic,10,92.356,1,0,4.362
+B,34,PSO + Parabolic,30,92.338,1,0,4.562
+B,34,GWO + Parabolic,1,84.126,1,0,4.082
+B,34,GWO + Parabolic,3,84.151,1,0,4.082
+B,34,GWO + Parabolic,10,84.096,1,0,4.182
+B,34,GWO + Parabolic,30,83.941,1,0,5.182
+B,35,DIRECT (paper),1,99.134,0,0,0.422
+B,35,DIRECT (paper),3,99.134,0,0,0.422
+B,35,DIRECT (paper),10,99.129,0,0,0.422
+B,35,DIRECT (paper),30,99.128,0,0,0.422
+B,35,Idea B + Parabolic,1,97.460,0,0,1.442
+B,35,Idea B + Parabolic,3,97.295,0,0,1.542
+B,35,Idea B + Parabolic,10,97.082,0,0,1.662
+B,35,Idea B + Parabolic,30,97.116,0,0,1.662
+B,35,Idea C + Parabolic,1,97.247,0,0,1.502
+B,35,Idea C + Parabolic,3,97.000,0,0,1.602
+B,35,Idea C + Parabolic,10,96.996,0,0,1.622
+B,35,Idea C + Parabolic,30,96.780,0,0,1.802
+B,35,PSO + Parabolic,1,93.885,1,0,2.822
+B,35,PSO + Parabolic,3,93.885,1,0,2.822
+B,35,PSO + Parabolic,10,93.885,1,0,2.822
+B,35,PSO + Parabolic,30,93.886,1,0,2.822
+B,35,GWO + Parabolic,1,85.820,1,0,2.662
+B,35,GWO + Parabolic,3,85.821,1,0,2.662
+B,35,GWO + Parabolic,10,85.822,1,0,2.662
+B,35,GWO + Parabolic,30,85.776,1,0,2.662
+B,36,DIRECT (paper),1,98.742,1,0,0.662
+B,36,DIRECT (paper),3,98.742,1,0,0.662
+B,36,DIRECT (paper),10,98.728,1,0,0.682
+B,36,DIRECT (paper),30,98.728,1,0,0.682
+B,36,Idea B + Parabolic,1,97.597,1,0,0.982
+B,36,Idea B + Parabolic,3,97.597,1,0,0.982
+B,36,Idea B + Parabolic,10,97.597,1,0,0.982
+B,36,Idea B + Parabolic,30,97.927,1,0,0.862
+B,36,Idea C + Parabolic,1,97.350,1,0,1.022
+B,36,Idea C + Parabolic,3,97.349,1,0,0.982
+B,36,Idea C + Parabolic,10,97.349,1,0,0.982
+B,36,Idea C + Parabolic,30,97.345,1,0,0.982
+B,36,PSO + Parabolic,1,94.511,1,0,2.822
+B,36,PSO + Parabolic,3,94.511,1,0,2.822
+B,36,PSO + Parabolic,10,94.522,1,0,2.822
+B,36,PSO + Parabolic,30,94.150,1,0,2.962
+B,36,GWO + Parabolic,1,87.229,1,0,2.822
+B,36,GWO + Parabolic,3,87.229,1,0,2.822
+B,36,GWO + Parabolic,10,87.222,1,0,2.822
+B,36,GWO + Parabolic,30,87.218,1,0,2.822
+B,37,DIRECT (paper),1,98.093,1,0,0.842
+B,37,DIRECT (paper),3,98.093,1,0,0.842
+B,37,DIRECT (paper),10,98.078,1,0,0.842
+B,37,DIRECT (paper),30,98.109,1,0,0.822
+B,37,Idea B + Parabolic,1,97.790,1,0,1.082
+B,37,Idea B + Parabolic,3,97.643,1,0,1.182
+B,37,Idea B + Parabolic,10,97.601,1,0,1.182
+B,37,Idea B + Parabolic,30,97.615,1,0,1.182
+B,37,Idea C + Parabolic,1,97.319,1,0,1.242
+B,37,Idea C + Parabolic,3,97.241,1,0,1.282
+B,37,Idea C + Parabolic,10,97.517,1,0,1.182
+B,37,Idea C + Parabolic,30,97.798,1,0,0.982
+B,37,PSO + Parabolic,1,94.904,1,0,2.562
+B,37,PSO + Parabolic,3,94.907,1,0,2.562
+B,37,PSO + Parabolic,10,94.907,1,0,2.562
+B,37,PSO + Parabolic,30,94.773,1,0,2.622
+B,37,GWO + Parabolic,1,86.206,1,0,2.642
+B,37,GWO + Parabolic,3,86.206,1,0,2.642
+B,37,GWO + Parabolic,10,86.182,1,0,2.642
+B,37,GWO + Parabolic,30,86.034,1,0,2.702
+B,38,DIRECT (paper),1,97.392,1,0,1.042
+B,38,DIRECT (paper),3,97.392,1,0,1.042
+B,38,DIRECT (paper),10,97.164,1,0,1.122
+B,38,DIRECT (paper),30,97.295,1,0,1.022
+B,38,Idea B + Parabolic,1,95.127,1,0,1.762
+B,38,Idea B + Parabolic,3,94.876,1,0,1.862
+B,38,Idea B + Parabolic,10,94.702,1,0,1.962
+B,38,Idea B + Parabolic,30,97.742,1,0,0.962
+B,38,Idea C + Parabolic,1,95.943,1,0,1.482
+B,38,Idea C + Parabolic,3,95.704,1,0,1.582
+B,38,Idea C + Parabolic,10,95.766,1,0,1.582
+B,38,Idea C + Parabolic,30,95.724,1,0,1.582
+B,38,PSO + Parabolic,1,93.979,1,0,2.842
+B,38,PSO + Parabolic,3,93.974,1,0,2.842
+B,38,PSO + Parabolic,10,93.974,1,0,2.842
+B,38,PSO + Parabolic,30,93.973,1,0,2.842
+B,38,GWO + Parabolic,1,86.092,1,0,2.682
+B,38,GWO + Parabolic,3,86.092,1,0,2.682
+B,38,GWO + Parabolic,10,86.090,1,0,2.682
+B,38,GWO + Parabolic,30,86.097,1,0,2.682
+B,39,DIRECT (paper),1,98.290,1,0,0.762
+B,39,DIRECT (paper),3,98.290,1,0,0.762
+B,39,DIRECT (paper),10,98.284,1,0,0.762
+B,39,DIRECT (paper),30,98.264,1,0,0.802
+B,39,Idea B + Parabolic,1,98.201,1,0,0.782
+B,39,Idea B + Parabolic,3,98.200,1,0,0.782
+B,39,Idea B + Parabolic,10,98.197,1,0,0.782
+B,39,Idea B + Parabolic,30,98.182,1,0,0.782
+B,39,Idea C + Parabolic,1,98.173,1,0,0.862
+B,39,Idea C + Parabolic,3,98.183,1,0,0.842
+B,39,Idea C + Parabolic,10,98.215,1,0,0.782
+B,39,Idea C + Parabolic,30,98.206,1,0,0.782
+B,39,PSO + Parabolic,1,94.872,1,0,2.882
+B,39,PSO + Parabolic,3,94.902,1,0,2.822
+B,39,PSO + Parabolic,10,94.839,1,0,2.902
+B,39,PSO + Parabolic,30,94.910,1,0,2.802
+B,39,GWO + Parabolic,1,85.351,1,0,2.682
+B,39,GWO + Parabolic,3,85.399,1,0,2.682
+B,39,GWO + Parabolic,10,85.398,1,0,2.682
+B,39,GWO + Parabolic,30,85.429,1,0,2.622
+B,40,DIRECT (paper),1,98.833,1,0,0.702
+B,40,DIRECT (paper),3,98.833,1,0,0.702
+B,40,DIRECT (paper),10,98.757,1,0,0.782
+B,40,DIRECT (paper),30,98.791,1,0,0.762
+B,40,Idea B + Parabolic,1,98.540,1,0,0.782
+B,40,Idea B + Parabolic,3,98.539,1,0,0.782
+B,40,Idea B + Parabolic,10,98.677,1,0,1.022
+B,40,Idea B + Parabolic,30,98.692,1,0,1.062
+B,40,Idea C + Parabolic,1,98.255,1,0,0.822
+B,40,Idea C + Parabolic,3,98.255,1,0,0.822
+B,40,Idea C + Parabolic,10,98.385,1,0,1.062
+B,40,Idea C + Parabolic,30,98.363,1,0,1.062
+B,40,PSO + Parabolic,1,94.771,1,0,2.862
+B,40,PSO + Parabolic,3,94.771,1,0,2.862
+B,40,PSO + Parabolic,10,94.763,1,0,2.862
+B,40,PSO + Parabolic,30,94.749,1,0,2.862
+B,40,GWO + Parabolic,1,85.908,1,0,2.662
+B,40,GWO + Parabolic,3,85.908,1,0,2.662
+B,40,GWO + Parabolic,10,85.910,1,0,2.662
+B,40,GWO + Parabolic,30,85.908,1,0,2.662
+B,41,DIRECT (paper),1,96.956,1,0,0.702
+B,41,DIRECT (paper),3,96.956,1,0,0.702
+B,41,DIRECT (paper),10,96.956,1,0,0.702
+B,41,DIRECT (paper),30,96.867,1,0,0.722
+B,41,Idea B + Parabolic,1,95.789,1,0,0.922
+B,41,Idea B + Parabolic,3,95.789,1,0,0.922
+B,41,Idea B + Parabolic,10,96.261,1,0,0.842
+B,41,Idea B + Parabolic,30,95.775,1,0,0.922
+B,41,Idea C + Parabolic,1,96.586,1,0,0.802
+B,41,Idea C + Parabolic,3,96.585,1,0,0.802
+B,41,Idea C + Parabolic,10,96.585,1,0,0.802
+B,41,Idea C + Parabolic,30,95.827,1,0,0.922
+B,41,PSO + Parabolic,1,92.422,1,0,2.882
+B,41,PSO + Parabolic,3,92.414,1,0,2.882
+B,41,PSO + Parabolic,10,92.415,1,0,2.882
+B,41,PSO + Parabolic,30,92.413,1,0,2.882
+B,41,GWO + Parabolic,1,83.634,1,0,2.802
+B,41,GWO + Parabolic,3,83.634,1,0,2.802
+B,41,GWO + Parabolic,10,84.094,1,0,2.722
+B,41,GWO + Parabolic,30,83.388,1,0,2.842
+B,42,DIRECT (paper),1,96.485,1,0,0.962
+B,42,DIRECT (paper),3,96.485,1,0,0.962
+B,42,DIRECT (paper),10,96.435,1,0,0.982
+B,42,DIRECT (paper),30,98.739,0,0,0.502
+B,42,Idea B + Parabolic,1,97.410,1,0,0.782
+B,42,Idea B + Parabolic,3,97.408,1,0,0.782
+B,42,Idea B + Parabolic,10,97.408,1,0,0.782
+B,42,Idea B + Parabolic,30,97.028,1,0,0.802
+B,42,Idea C + Parabolic,1,95.847,1,0,1.222
+B,42,Idea C + Parabolic,3,95.847,1,0,1.222
+B,42,Idea C + Parabolic,10,95.848,1,0,1.222
+B,42,Idea C + Parabolic,30,95.475,1,0,1.322
+B,42,PSO + Parabolic,1,93.994,1,0,2.622
+B,42,PSO + Parabolic,3,94.053,1,0,2.602
+B,42,PSO + Parabolic,10,93.955,1,0,2.662
+B,42,PSO + Parabolic,30,93.931,1,0,2.662
+B,42,GWO + Parabolic,1,85.476,1,0,2.662
+B,42,GWO + Parabolic,3,85.476,1,0,2.662
+B,42,GWO + Parabolic,10,85.474,1,0,2.662
+B,42,GWO + Parabolic,30,85.463,1,0,2.662
+B,43,DIRECT (paper),1,98.504,1,0,0.662
+B,43,DIRECT (paper),3,98.503,1,0,0.682
+B,43,DIRECT (paper),10,98.485,1,0,0.662
+B,43,DIRECT (paper),30,98.439,1,0,0.722
+B,43,Idea B + Parabolic,1,98.327,1,0,0.702
+B,43,Idea B + Parabolic,3,98.303,1,0,0.702
+B,43,Idea B + Parabolic,10,98.298,1,0,0.702
+B,43,Idea B + Parabolic,30,98.297,1,0,0.702
+B,43,Idea C + Parabolic,1,97.853,1,0,0.662
+B,43,Idea C + Parabolic,3,97.853,1,0,0.662
+B,43,Idea C + Parabolic,10,97.849,1,0,0.662
+B,43,Idea C + Parabolic,30,97.835,1,0,0.662
+B,43,PSO + Parabolic,1,92.441,1,0,2.862
+B,43,PSO + Parabolic,3,92.439,1,0,2.862
+B,43,PSO + Parabolic,10,92.431,1,0,2.862
+B,43,PSO + Parabolic,30,92.425,1,0,2.862
+B,43,GWO + Parabolic,1,83.993,1,0,2.662
+B,43,GWO + Parabolic,3,83.993,1,0,2.662
+B,43,GWO + Parabolic,10,83.993,1,0,2.662
+B,43,GWO + Parabolic,30,83.992,1,0,2.662
+B,44,DIRECT (paper),1,97.349,1,0,0.702
+B,44,DIRECT (paper),3,97.349,1,0,0.702
+B,44,DIRECT (paper),10,97.144,1,0,0.762
+B,44,DIRECT (paper),30,97.180,1,0,0.742
+B,44,Idea B + Parabolic,1,96.411,1,0,1.022
+B,44,Idea B + Parabolic,3,96.076,1,0,1.122
+B,44,Idea B + Parabolic,10,96.061,1,0,1.122
+B,44,Idea B + Parabolic,30,96.723,1,0,0.922
+B,44,Idea C + Parabolic,1,96.475,1,0,0.922
+B,44,Idea C + Parabolic,3,96.475,1,0,0.922
+B,44,Idea C + Parabolic,10,95.786,1,0,1.122
+B,44,Idea C + Parabolic,30,96.452,1,0,0.922
+B,44,PSO + Parabolic,1,93.309,1,0,2.782
+B,44,PSO + Parabolic,3,93.307,1,0,2.782
+B,44,PSO + Parabolic,10,93.306,1,0,2.782
+B,44,PSO + Parabolic,30,93.251,1,0,2.542
+B,44,GWO + Parabolic,1,82.727,1,0,2.662
+B,44,GWO + Parabolic,3,82.727,1,0,2.662
+B,44,GWO + Parabolic,10,82.711,1,0,2.662
+B,44,GWO + Parabolic,30,82.727,1,0,2.662
+B,45,DIRECT (paper),1,98.014,1,0,0.782
+B,45,DIRECT (paper),3,97.766,1,0,0.862
+B,45,DIRECT (paper),10,97.716,1,0,0.862
+B,45,DIRECT (paper),30,97.702,1,0,0.862
+B,45,Idea B + Parabolic,1,94.478,1,0,1.762
+B,45,Idea B + Parabolic,3,94.497,1,0,1.762
+B,45,Idea B + Parabolic,10,94.508,1,0,1.762
+B,45,Idea B + Parabolic,30,97.857,1,0,0.742
+B,45,Idea C + Parabolic,1,94.586,1,0,1.722
+B,45,Idea C + Parabolic,3,94.586,1,0,1.722
+B,45,Idea C + Parabolic,10,94.891,1,0,1.622
+B,45,Idea C + Parabolic,30,97.682,1,0,0.742
+B,45,PSO + Parabolic,1,90.441,1,0,3.722
+B,45,PSO + Parabolic,3,90.441,1,0,3.722
+B,45,PSO + Parabolic,10,88.872,1,0,4.482
+B,45,PSO + Parabolic,30,93.199,1,0,2.822
+B,45,GWO + Parabolic,1,82.885,1,0,3.442
+B,45,GWO + Parabolic,3,81.401,1,0,4.142
+B,45,GWO + Parabolic,10,82.575,1,0,3.542
+B,45,GWO + Parabolic,30,82.229,1,0,3.642
+B,46,DIRECT (paper),1,98.645,1,0,0.582
+B,46,DIRECT (paper),3,98.645,1,0,0.582
+B,46,DIRECT (paper),10,98.636,1,0,0.622
+B,46,DIRECT (paper),30,98.634,1,0,0.622
+B,46,Idea B + Parabolic,1,98.281,1,0,0.842
+B,46,Idea B + Parabolic,3,98.259,1,0,0.862
+B,46,Idea B + Parabolic,10,98.260,1,0,0.862
+B,46,Idea B + Parabolic,30,98.251,1,0,0.862
+B,46,Idea C + Parabolic,1,98.162,1,0,0.822
+B,46,Idea C + Parabolic,3,98.162,1,0,0.822
+B,46,Idea C + Parabolic,10,98.163,1,0,0.822
+B,46,Idea C + Parabolic,30,98.154,1,0,0.802
+B,46,PSO + Parabolic,1,93.567,1,0,2.642
+B,46,PSO + Parabolic,3,93.567,1,0,2.642
+B,46,PSO + Parabolic,10,93.566,1,0,2.642
+B,46,PSO + Parabolic,30,93.559,1,0,2.642
+B,46,GWO + Parabolic,1,84.225,1,0,2.722
+B,46,GWO + Parabolic,3,84.225,1,0,2.722
+B,46,GWO + Parabolic,10,84.216,1,0,2.722
+B,46,GWO + Parabolic,30,84.215,1,0,2.722
+B,47,DIRECT (paper),1,98.838,1,0,0.682
+B,47,DIRECT (paper),3,98.838,1,0,0.682
+B,47,DIRECT (paper),10,98.836,1,0,0.682
+B,47,DIRECT (paper),30,98.830,1,0,0.602
+B,47,Idea B + Parabolic,1,97.912,1,0,1.422
+B,47,Idea B + Parabolic,3,97.911,1,0,1.422
+B,47,Idea B + Parabolic,10,97.911,1,0,1.422
+B,47,Idea B + Parabolic,30,97.895,1,0,1.422
+B,47,Idea C + Parabolic,1,97.736,1,0,1.422
+B,47,Idea C + Parabolic,3,97.779,1,0,1.382
+B,47,Idea C + Parabolic,10,97.731,1,0,1.422
+B,47,Idea C + Parabolic,30,97.881,1,0,1.282
+B,47,PSO + Parabolic,1,94.528,1,0,2.802
+B,47,PSO + Parabolic,3,94.532,1,0,2.802
+B,47,PSO + Parabolic,10,94.531,1,0,2.802
+B,47,PSO + Parabolic,30,94.537,1,0,2.802
+B,47,GWO + Parabolic,1,86.029,1,0,2.642
+B,47,GWO + Parabolic,3,86.029,1,0,2.642
+B,47,GWO + Parabolic,10,86.032,1,0,2.642
+B,47,GWO + Parabolic,30,85.122,1,1,NaN
+B,48,DIRECT (paper),1,68.885,0,1,NaN
+B,48,DIRECT (paper),3,68.885,0,1,NaN
+B,48,DIRECT (paper),10,68.885,0,1,NaN
+B,48,DIRECT (paper),30,68.876,0,1,NaN
+B,48,Idea B + Parabolic,1,68.579,0,1,NaN
+B,48,Idea B + Parabolic,3,68.622,0,1,NaN
+B,48,Idea B + Parabolic,10,68.619,0,1,NaN
+B,48,Idea B + Parabolic,30,68.609,0,1,NaN
+B,48,Idea C + Parabolic,1,68.620,0,1,NaN
+B,48,Idea C + Parabolic,3,68.619,0,1,NaN
+B,48,Idea C + Parabolic,10,68.664,0,1,NaN
+B,48,Idea C + Parabolic,30,68.677,0,1,NaN
+B,48,PSO + Parabolic,1,68.640,0,1,NaN
+B,48,PSO + Parabolic,3,68.615,0,1,NaN
+B,48,PSO + Parabolic,10,68.653,0,1,NaN
+B,48,PSO + Parabolic,30,68.628,0,1,NaN
+B,48,GWO + Parabolic,1,68.677,0,1,NaN
+B,48,GWO + Parabolic,3,68.675,0,1,NaN
+B,48,GWO + Parabolic,10,68.672,0,1,NaN
+B,48,GWO + Parabolic,30,68.654,0,1,NaN
+B,49,DIRECT (paper),1,89.453,0,0,NaN
+B,49,DIRECT (paper),3,98.041,1,0,0.962
+B,49,DIRECT (paper),10,97.889,1,0,1.022
+B,49,DIRECT (paper),30,96.913,1,0,1.602
+B,49,Idea B + Parabolic,1,88.498,0,0,NaN
+B,49,Idea B + Parabolic,3,88.485,0,0,NaN
+B,49,Idea B + Parabolic,10,88.743,1,0,NaN
+B,49,Idea B + Parabolic,30,88.648,0,0,NaN
+B,49,Idea C + Parabolic,1,88.484,0,0,NaN
+B,49,Idea C + Parabolic,3,88.478,0,0,NaN
+B,49,Idea C + Parabolic,10,89.386,1,0,NaN
+B,49,Idea C + Parabolic,30,88.783,0,0,NaN
+B,49,PSO + Parabolic,1,88.629,0,0,NaN
+B,49,PSO + Parabolic,3,88.603,0,0,NaN
+B,49,PSO + Parabolic,10,88.410,0,0,NaN
+B,49,PSO + Parabolic,30,88.396,0,0,NaN
+B,49,GWO + Parabolic,1,88.712,0,0,NaN
+B,49,GWO + Parabolic,3,88.666,0,0,NaN
+B,49,GWO + Parabolic,10,88.643,0,0,NaN
+B,49,GWO + Parabolic,30,87.293,1,1,NaN
+B,50,DIRECT (paper),1,98.786,1,0,0.782
+B,50,DIRECT (paper),3,98.786,1,0,0.782
+B,50,DIRECT (paper),10,98.786,1,0,0.782
+B,50,DIRECT (paper),30,98.869,1,0,1.982
+B,50,Idea B + Parabolic,1,98.534,1,0,0.942
+B,50,Idea B + Parabolic,3,98.533,1,0,0.942
+B,50,Idea B + Parabolic,10,98.527,1,0,0.942
+B,50,Idea B + Parabolic,30,98.658,1,0,0.802
+B,50,Idea C + Parabolic,1,98.315,1,0,0.862
+B,50,Idea C + Parabolic,3,98.315,1,0,0.862
+B,50,Idea C + Parabolic,10,98.315,1,0,0.862
+B,50,Idea C + Parabolic,30,98.431,1,0,1.062
+B,50,PSO + Parabolic,1,94.877,1,0,2.902
+B,50,PSO + Parabolic,3,94.877,1,0,2.902
+B,50,PSO + Parabolic,10,94.876,1,0,2.902
+B,50,PSO + Parabolic,30,94.861,1,0,4.062
+B,50,GWO + Parabolic,1,86.040,1,0,2.742
+B,50,GWO + Parabolic,3,86.040,1,0,2.742
+B,50,GWO + Parabolic,10,86.037,1,0,2.742
+B,50,GWO + Parabolic,30,86.037,1,0,2.742
+B,51,DIRECT (paper),1,98.113,1,0,0.542
+B,51,DIRECT (paper),3,98.113,1,0,0.542
+B,51,DIRECT (paper),10,98.063,1,0,0.562
+B,51,DIRECT (paper),30,97.953,1,0,0.602
+B,51,Idea B + Parabolic,1,98.117,1,0,0.782
+B,51,Idea B + Parabolic,3,98.117,1,0,0.782
+B,51,Idea B + Parabolic,10,98.110,1,0,0.782
+B,51,Idea B + Parabolic,30,98.111,1,0,0.782
+B,51,Idea C + Parabolic,1,97.830,1,0,0.822
+B,51,Idea C + Parabolic,3,97.830,1,0,0.822
+B,51,Idea C + Parabolic,10,97.830,1,0,0.822
+B,51,Idea C + Parabolic,30,97.775,1,0,0.862
+B,51,PSO + Parabolic,1,93.329,1,0,2.822
+B,51,PSO + Parabolic,3,93.329,1,0,2.822
+B,51,PSO + Parabolic,10,93.325,1,0,2.822
+B,51,PSO + Parabolic,30,93.302,1,0,2.822
+B,51,GWO + Parabolic,1,85.217,1,0,2.662
+B,51,GWO + Parabolic,3,85.214,1,0,2.662
+B,51,GWO + Parabolic,10,85.209,1,0,2.662
+B,51,GWO + Parabolic,30,85.153,1,1,2.662
+B,52,DIRECT (paper),1,99.712,0,0,0.182
+B,52,DIRECT (paper),3,99.712,0,0,0.182
+B,52,DIRECT (paper),10,99.712,0,0,0.182
+B,52,DIRECT (paper),30,99.700,0,0,0.182
+B,52,Idea B + Parabolic,1,98.421,1,0,0.862
+B,52,Idea B + Parabolic,3,98.422,1,0,0.862
+B,52,Idea B + Parabolic,10,98.424,1,0,0.862
+B,52,Idea B + Parabolic,30,98.426,1,0,0.862
+B,52,Idea C + Parabolic,1,98.195,1,0,0.782
+B,52,Idea C + Parabolic,3,98.195,1,0,0.782
+B,52,Idea C + Parabolic,10,98.199,1,0,0.782
+B,52,Idea C + Parabolic,30,98.208,1,0,0.782
+B,52,PSO + Parabolic,1,94.250,1,0,2.822
+B,52,PSO + Parabolic,3,94.249,1,0,2.822
+B,52,PSO + Parabolic,10,94.238,1,0,2.822
+B,52,PSO + Parabolic,30,94.234,1,0,2.822
+B,52,GWO + Parabolic,1,86.553,1,0,2.702
+B,52,GWO + Parabolic,3,86.553,1,0,2.702
+B,52,GWO + Parabolic,10,86.544,1,0,2.702
+B,52,GWO + Parabolic,30,86.511,1,0,2.702
+B,53,DIRECT (paper),1,90.461,0,1,NaN
+B,53,DIRECT (paper),3,90.461,0,1,NaN
+B,53,DIRECT (paper),10,90.461,0,1,NaN
+B,53,DIRECT (paper),30,90.461,0,1,NaN
+B,53,Idea B + Parabolic,1,90.598,0,1,NaN
+B,53,Idea B + Parabolic,3,90.602,0,1,NaN
+B,53,Idea B + Parabolic,10,90.602,0,1,NaN
+B,53,Idea B + Parabolic,30,90.628,0,1,NaN
+B,53,Idea C + Parabolic,1,90.595,0,1,NaN
+B,53,Idea C + Parabolic,3,90.596,0,1,NaN
+B,53,Idea C + Parabolic,10,90.595,0,1,NaN
+B,53,Idea C + Parabolic,30,90.641,0,1,NaN
+B,53,PSO + Parabolic,1,90.608,0,1,NaN
+B,53,PSO + Parabolic,3,90.638,0,1,NaN
+B,53,PSO + Parabolic,10,90.610,0,1,NaN
+B,53,PSO + Parabolic,30,90.640,0,1,NaN
+B,53,GWO + Parabolic,1,90.627,0,1,NaN
+B,53,GWO + Parabolic,3,90.619,0,1,NaN
+B,53,GWO + Parabolic,10,90.625,0,1,NaN
+B,53,GWO + Parabolic,30,90.591,0,1,NaN
+B,54,DIRECT (paper),1,96.213,1,0,0.782
+B,54,DIRECT (paper),3,96.213,1,0,0.782
+B,54,DIRECT (paper),10,96.211,1,0,0.782
+B,54,DIRECT (paper),30,95.700,1,0,0.882
+B,54,Idea B + Parabolic,1,97.112,1,0,0.762
+B,54,Idea B + Parabolic,3,97.111,1,0,0.762
+B,54,Idea B + Parabolic,10,97.107,1,0,0.762
+B,54,Idea B + Parabolic,30,97.116,1,0,0.762
+B,54,Idea C + Parabolic,1,97.029,1,0,0.602
+B,54,Idea C + Parabolic,3,97.029,1,0,0.602
+B,54,Idea C + Parabolic,10,97.025,1,0,0.602
+B,54,Idea C + Parabolic,30,97.021,1,0,0.602
+B,54,PSO + Parabolic,1,93.089,1,0,2.642
+B,54,PSO + Parabolic,3,93.087,1,0,2.642
+B,54,PSO + Parabolic,10,93.093,1,0,2.642
+B,54,PSO + Parabolic,30,93.118,1,0,2.642
+B,54,GWO + Parabolic,1,84.956,1,0,2.642
+B,54,GWO + Parabolic,3,84.959,1,0,2.642
+B,54,GWO + Parabolic,10,84.959,1,0,2.642
+B,54,GWO + Parabolic,30,84.928,1,0,2.642
+B,55,DIRECT (paper),1,97.157,1,0,0.722
+B,55,DIRECT (paper),3,97.157,1,0,0.722
+B,55,DIRECT (paper),10,97.157,1,0,0.722
+B,55,DIRECT (paper),30,96.981,1,0,0.762
+B,55,Idea B + Parabolic,1,97.535,1,0,0.762
+B,55,Idea B + Parabolic,3,97.535,1,0,0.762
+B,55,Idea B + Parabolic,10,97.533,1,0,0.762
+B,55,Idea B + Parabolic,30,97.523,1,0,0.762
+B,55,Idea C + Parabolic,1,96.886,1,0,0.802
+B,55,Idea C + Parabolic,3,96.886,1,0,0.802
+B,55,Idea C + Parabolic,10,96.885,1,0,0.802
+B,55,Idea C + Parabolic,30,97.489,1,0,0.682
+B,55,PSO + Parabolic,1,92.819,1,0,2.802
+B,55,PSO + Parabolic,3,92.832,1,0,2.802
+B,55,PSO + Parabolic,10,92.833,1,0,2.802
+B,55,PSO + Parabolic,30,92.767,1,0,2.802
+B,55,GWO + Parabolic,1,84.314,1,0,2.602
+B,55,GWO + Parabolic,3,84.312,1,0,2.602
+B,55,GWO + Parabolic,10,84.304,1,0,2.602
+B,55,GWO + Parabolic,30,84.284,1,0,2.602
+B,56,DIRECT (paper),1,96.028,1,1,NaN
+B,56,DIRECT (paper),3,96.028,1,1,NaN
+B,56,DIRECT (paper),10,96.054,1,1,NaN
+B,56,DIRECT (paper),30,95.933,1,1,NaN
+B,56,Idea B + Parabolic,1,98.536,1,0,0.922
+B,56,Idea B + Parabolic,3,98.537,1,0,0.922
+B,56,Idea B + Parabolic,10,98.528,1,0,0.922
+B,56,Idea B + Parabolic,30,98.498,1,0,0.962
+B,56,Idea C + Parabolic,1,98.444,1,0,0.802
+B,56,Idea C + Parabolic,3,98.444,1,0,0.802
+B,56,Idea C + Parabolic,10,98.452,1,0,0.802
+B,56,Idea C + Parabolic,30,98.400,1,0,0.862
+B,56,PSO + Parabolic,1,93.978,1,0,2.762
+B,56,PSO + Parabolic,3,93.959,1,0,2.782
+B,56,PSO + Parabolic,10,93.961,1,0,2.782
+B,56,PSO + Parabolic,30,93.978,1,0,2.782
+B,56,GWO + Parabolic,1,85.035,1,0,2.682
+B,56,GWO + Parabolic,3,85.035,1,0,2.682
+B,56,GWO + Parabolic,10,85.033,1,0,2.682
+B,56,GWO + Parabolic,30,85.020,1,0,2.702
+B,57,DIRECT (paper),1,98.129,1,0,0.862
+B,57,DIRECT (paper),3,98.129,1,0,0.862
+B,57,DIRECT (paper),10,98.031,1,0,0.902
+B,57,DIRECT (paper),30,97.930,1,0,0.942
+B,57,Idea B + Parabolic,1,98.084,1,0,1.022
+B,57,Idea B + Parabolic,3,98.085,1,0,1.022
+B,57,Idea B + Parabolic,10,98.077,1,0,1.022
+B,57,Idea B + Parabolic,30,96.094,1,0,1.922
+B,57,Idea C + Parabolic,1,97.730,1,0,1.062
+B,57,Idea C + Parabolic,3,97.730,1,0,1.062
+B,57,Idea C + Parabolic,10,97.728,1,0,1.062
+B,57,Idea C + Parabolic,30,97.954,1,0,0.882
+B,57,PSO + Parabolic,1,94.649,1,0,2.782
+B,57,PSO + Parabolic,3,94.650,1,0,2.782
+B,57,PSO + Parabolic,10,94.669,1,0,2.782
+B,57,PSO + Parabolic,30,94.681,1,0,2.762
+B,57,GWO + Parabolic,1,88.016,1,0,2.742
+B,57,GWO + Parabolic,3,88.016,1,0,2.742
+B,57,GWO + Parabolic,10,88.006,1,0,2.742
+B,57,GWO + Parabolic,30,88.025,1,0,2.722
+B,58,DIRECT (paper),1,97.591,0,1,NaN
+B,58,DIRECT (paper),3,97.591,0,1,NaN
+B,58,DIRECT (paper),10,97.591,0,1,NaN
+B,58,DIRECT (paper),30,97.618,0,1,NaN
+B,58,Idea B + Parabolic,1,97.785,0,1,NaN
+B,58,Idea B + Parabolic,3,97.784,0,1,NaN
+B,58,Idea B + Parabolic,10,97.783,0,1,NaN
+B,58,Idea B + Parabolic,30,97.717,0,1,NaN
+B,58,Idea C + Parabolic,1,97.778,0,1,NaN
+B,58,Idea C + Parabolic,3,97.786,0,1,NaN
+B,58,Idea C + Parabolic,10,97.780,0,1,NaN
+B,58,Idea C + Parabolic,30,97.768,0,1,NaN
+B,58,PSO + Parabolic,1,97.763,0,1,NaN
+B,58,PSO + Parabolic,3,97.763,0,1,NaN
+B,58,PSO + Parabolic,10,97.762,0,1,NaN
+B,58,PSO + Parabolic,30,97.772,0,1,NaN
+B,58,GWO + Parabolic,1,97.769,0,1,NaN
+B,58,GWO + Parabolic,3,97.770,0,1,NaN
+B,58,GWO + Parabolic,10,97.775,0,1,NaN
+B,58,GWO + Parabolic,30,97.785,0,1,NaN
+B,59,DIRECT (paper),1,98.789,1,0,0.582
+B,59,DIRECT (paper),3,98.771,1,0,0.622
+B,59,DIRECT (paper),10,98.765,1,0,0.622
+B,59,DIRECT (paper),30,98.758,1,0,0.622
+B,59,Idea B + Parabolic,1,98.695,1,0,0.862
+B,59,Idea B + Parabolic,3,98.739,1,0,0.762
+B,59,Idea B + Parabolic,10,98.738,1,0,0.762
+B,59,Idea B + Parabolic,30,98.724,1,0,0.762
+B,59,Idea C + Parabolic,1,98.267,1,0,0.922
+B,59,Idea C + Parabolic,3,98.265,1,0,0.922
+B,59,Idea C + Parabolic,10,98.293,1,0,0.902
+B,59,Idea C + Parabolic,30,98.080,1,0,1.362
+B,59,PSO + Parabolic,1,94.771,1,0,2.882
+B,59,PSO + Parabolic,3,94.771,1,0,2.882
+B,59,PSO + Parabolic,10,94.489,1,0,2.882
+B,59,PSO + Parabolic,30,94.490,1,0,2.882
+B,59,GWO + Parabolic,1,85.692,1,0,2.762
+B,59,GWO + Parabolic,3,85.692,1,0,2.762
+B,59,GWO + Parabolic,10,85.693,1,0,2.762
+B,59,GWO + Parabolic,30,85.677,1,0,2.762
+B,60,DIRECT (paper),1,93.701,0,1,NaN
+B,60,DIRECT (paper),3,93.701,0,1,NaN
+B,60,DIRECT (paper),10,93.702,0,1,NaN
+B,60,DIRECT (paper),30,93.763,0,1,NaN
+B,60,Idea B + Parabolic,1,98.105,1,0,1.022
+B,60,Idea B + Parabolic,3,98.104,1,0,1.022
+B,60,Idea B + Parabolic,10,98.098,1,0,1.022
+B,60,Idea B + Parabolic,30,98.082,1,0,1.022
+B,60,Idea C + Parabolic,1,98.126,1,0,0.742
+B,60,Idea C + Parabolic,3,98.126,1,0,0.702
+B,60,Idea C + Parabolic,10,98.120,1,0,0.702
+B,60,Idea C + Parabolic,30,97.337,1,0,1.302
+B,60,PSO + Parabolic,1,94.749,1,0,2.782
+B,60,PSO + Parabolic,3,94.747,1,0,2.782
+B,60,PSO + Parabolic,10,94.716,1,0,2.802
+B,60,PSO + Parabolic,30,94.708,1,0,2.802
+B,60,GWO + Parabolic,1,86.890,1,0,2.582
+B,60,GWO + Parabolic,3,86.890,1,0,2.582
+B,60,GWO + Parabolic,10,86.891,1,0,2.582
+B,60,GWO + Parabolic,30,86.895,1,0,2.582
+B,61,DIRECT (paper),1,95.546,1,1,NaN
+B,61,DIRECT (paper),3,95.546,1,1,NaN
+B,61,DIRECT (paper),10,95.793,1,1,NaN
+B,61,DIRECT (paper),30,95.594,1,1,NaN
+B,61,Idea B + Parabolic,1,98.566,1,0,0.982
+B,61,Idea B + Parabolic,3,98.565,1,0,0.982
+B,61,Idea B + Parabolic,10,98.576,1,0,0.962
+B,61,Idea B + Parabolic,30,98.373,1,0,1.222
+B,61,Idea C + Parabolic,1,98.143,1,0,1.082
+B,61,Idea C + Parabolic,3,98.125,1,0,1.102
+B,61,Idea C + Parabolic,10,98.188,1,0,1.042
+B,61,Idea C + Parabolic,30,97.205,1,0,1.802
+B,61,PSO + Parabolic,1,94.329,1,0,2.682
+B,61,PSO + Parabolic,3,94.331,1,0,2.682
+B,61,PSO + Parabolic,10,94.325,1,0,2.682
+B,61,PSO + Parabolic,30,94.316,1,0,2.682
+B,61,GWO + Parabolic,1,86.500,1,0,2.682
+B,61,GWO + Parabolic,3,86.500,1,0,2.682
+B,61,GWO + Parabolic,10,86.496,1,0,2.682
+B,61,GWO + Parabolic,30,86.453,1,0,2.682
+B,62,DIRECT (paper),1,95.444,1,0,0.842
+B,62,DIRECT (paper),3,95.444,1,0,0.842
+B,62,DIRECT (paper),10,95.445,1,0,0.842
+B,62,DIRECT (paper),30,95.208,1,0,0.882
+B,62,Idea B + Parabolic,1,92.530,1,0,1.362
+B,62,Idea B + Parabolic,3,92.530,1,0,1.362
+B,62,Idea B + Parabolic,10,92.532,1,0,1.362
+B,62,Idea B + Parabolic,30,93.174,1,0,1.262
+B,62,Idea C + Parabolic,1,96.969,1,0,0.582
+B,62,Idea C + Parabolic,3,96.969,1,0,0.582
+B,62,Idea C + Parabolic,10,96.952,1,0,0.582
+B,62,Idea C + Parabolic,30,96.965,1,0,0.582
+B,62,PSO + Parabolic,1,91.308,1,0,2.902
+B,62,PSO + Parabolic,3,91.308,1,0,2.902
+B,62,PSO + Parabolic,10,91.300,1,0,2.902
+B,62,PSO + Parabolic,30,91.530,1,0,2.902
+B,62,GWO + Parabolic,1,81.834,1,0,2.702
+B,62,GWO + Parabolic,3,81.832,1,0,2.702
+B,62,GWO + Parabolic,10,81.829,1,0,2.702
+B,62,GWO + Parabolic,30,81.819,1,0,2.702
+B,63,DIRECT (paper),1,97.208,1,0,1.062
+B,63,DIRECT (paper),3,97.208,1,0,1.062
+B,63,DIRECT (paper),10,97.205,1,0,1.062
+B,63,DIRECT (paper),30,97.194,1,0,1.062
+B,63,Idea B + Parabolic,1,97.121,1,0,0.922
+B,63,Idea B + Parabolic,3,97.121,1,0,0.922
+B,63,Idea B + Parabolic,10,97.120,1,0,0.922
+B,63,Idea B + Parabolic,30,97.102,1,0,0.922
+B,63,Idea C + Parabolic,1,97.024,1,0,0.922
+B,63,Idea C + Parabolic,3,97.024,1,0,0.922
+B,63,Idea C + Parabolic,10,97.022,1,0,0.922
+B,63,Idea C + Parabolic,30,97.232,1,0,0.842
+B,63,PSO + Parabolic,1,93.248,1,0,2.762
+B,63,PSO + Parabolic,3,93.247,1,0,2.762
+B,63,PSO + Parabolic,10,93.227,1,0,2.762
+B,63,PSO + Parabolic,30,93.235,1,0,2.762
+B,63,GWO + Parabolic,1,86.018,1,0,2.722
+B,63,GWO + Parabolic,3,86.018,1,0,2.722
+B,63,GWO + Parabolic,10,86.016,1,0,2.722
+B,63,GWO + Parabolic,30,85.966,1,0,2.722
+B,64,DIRECT (paper),1,97.585,1,0,1.122
+B,64,DIRECT (paper),3,97.585,1,0,1.122
+B,64,DIRECT (paper),10,97.467,1,0,1.202
+B,64,DIRECT (paper),30,97.472,1,0,1.202
+B,64,Idea B + Parabolic,1,97.041,1,0,0.822
+B,64,Idea B + Parabolic,3,97.041,1,0,0.822
+B,64,Idea B + Parabolic,10,97.040,1,0,0.822
+B,64,Idea B + Parabolic,30,97.034,1,0,0.822
+B,64,Idea C + Parabolic,1,97.127,1,0,0.662
+B,64,Idea C + Parabolic,3,97.126,1,0,0.662
+B,64,Idea C + Parabolic,10,97.128,1,0,0.662
+B,64,Idea C + Parabolic,30,96.740,1,0,0.742
+B,64,PSO + Parabolic,1,92.460,1,0,2.882
+B,64,PSO + Parabolic,3,92.461,1,0,2.882
+B,64,PSO + Parabolic,10,92.373,1,0,2.902
+B,64,PSO + Parabolic,30,92.273,1,0,2.942
+B,64,GWO + Parabolic,1,83.332,1,0,2.742
+B,64,GWO + Parabolic,3,83.334,1,0,2.742
+B,64,GWO + Parabolic,10,83.337,1,0,2.742
+B,64,GWO + Parabolic,30,83.331,1,0,2.742
+B,65,DIRECT (paper),1,92.053,0,1,NaN
+B,65,DIRECT (paper),3,92.050,0,1,NaN
+B,65,DIRECT (paper),10,92.052,0,1,NaN
+B,65,DIRECT (paper),30,92.050,0,1,NaN
+B,65,Idea B + Parabolic,1,92.090,0,1,NaN
+B,65,Idea B + Parabolic,3,92.090,0,1,NaN
+B,65,Idea B + Parabolic,10,92.089,0,1,NaN
+B,65,Idea B + Parabolic,30,92.076,0,1,NaN
+B,65,Idea C + Parabolic,1,92.090,0,1,NaN
+B,65,Idea C + Parabolic,3,92.090,0,1,NaN
+B,65,Idea C + Parabolic,10,92.089,0,1,NaN
+B,65,Idea C + Parabolic,30,92.073,0,1,NaN
+B,65,PSO + Parabolic,1,92.106,0,1,NaN
+B,65,PSO + Parabolic,3,92.106,0,1,NaN
+B,65,PSO + Parabolic,10,92.099,0,1,NaN
+B,65,PSO + Parabolic,30,91.832,0,1,NaN
+B,65,GWO + Parabolic,1,92.109,0,1,NaN
+B,65,GWO + Parabolic,3,92.109,0,1,NaN
+B,65,GWO + Parabolic,10,92.110,0,1,NaN
+B,65,GWO + Parabolic,30,92.014,0,1,NaN
+B,66,DIRECT (paper),1,98.501,1,0,0.842
+B,66,DIRECT (paper),3,98.501,1,0,0.842
+B,66,DIRECT (paper),10,98.501,1,0,0.842
+B,66,DIRECT (paper),30,98.493,1,0,0.862
+B,66,Idea B + Parabolic,1,97.968,1,0,1.002
+B,66,Idea B + Parabolic,3,97.968,1,0,1.002
+B,66,Idea B + Parabolic,10,97.969,1,0,1.002
+B,66,Idea B + Parabolic,30,98.519,1,0,3.182
+B,66,Idea C + Parabolic,1,97.700,1,0,0.962
+B,66,Idea C + Parabolic,3,97.702,1,0,0.962
+B,66,Idea C + Parabolic,10,97.701,1,0,0.962
+B,66,Idea C + Parabolic,30,96.783,1,0,1.642
+B,66,PSO + Parabolic,1,94.529,1,0,2.922
+B,66,PSO + Parabolic,3,94.524,1,0,2.922
+B,66,PSO + Parabolic,10,94.531,1,0,2.922
+B,66,PSO + Parabolic,30,94.528,1,0,2.922
+B,66,GWO + Parabolic,1,87.643,1,0,2.762
+B,66,GWO + Parabolic,3,87.642,1,0,2.762
+B,66,GWO + Parabolic,10,87.642,1,0,2.762
+B,66,GWO + Parabolic,30,87.628,1,0,2.762
+B,67,DIRECT (paper),1,96.788,1,0,0.822
+B,67,DIRECT (paper),3,96.788,1,0,0.822
+B,67,DIRECT (paper),10,96.847,1,0,0.822
+B,67,DIRECT (paper),30,96.826,1,0,0.822
+B,67,Idea B + Parabolic,1,97.641,1,0,0.622
+B,67,Idea B + Parabolic,3,97.641,1,0,0.622
+B,67,Idea B + Parabolic,10,97.641,1,0,0.622
+B,67,Idea B + Parabolic,30,97.230,1,0,0.742
+B,67,Idea C + Parabolic,1,97.474,1,0,0.622
+B,67,Idea C + Parabolic,3,97.477,1,0,0.622
+B,67,Idea C + Parabolic,10,97.473,1,0,0.582
+B,67,Idea C + Parabolic,30,94.453,1,0,1.322
+B,67,PSO + Parabolic,1,93.348,1,0,2.782
+B,67,PSO + Parabolic,3,93.345,1,0,2.782
+B,67,PSO + Parabolic,10,93.346,1,0,2.782
+B,67,PSO + Parabolic,30,93.432,1,0,2.762
+B,67,GWO + Parabolic,1,82.766,1,0,2.662
+B,67,GWO + Parabolic,3,82.766,1,0,2.662
+B,67,GWO + Parabolic,10,82.759,1,0,2.662
+B,67,GWO + Parabolic,30,82.838,1,0,2.642
+B,68,DIRECT (paper),1,97.527,1,0,1.102
+B,68,DIRECT (paper),3,97.527,1,0,1.102
+B,68,DIRECT (paper),10,97.521,1,0,1.102
+B,68,DIRECT (paper),30,97.491,1,0,1.102
+B,68,Idea B + Parabolic,1,95.941,1,0,0.962
+B,68,Idea B + Parabolic,3,95.942,1,0,0.962
+B,68,Idea B + Parabolic,10,95.935,1,0,0.962
+B,68,Idea B + Parabolic,30,95.687,1,0,0.962
+B,68,Idea C + Parabolic,1,95.916,1,0,0.902
+B,68,Idea C + Parabolic,3,95.920,1,0,0.902
+B,68,Idea C + Parabolic,10,95.780,1,0,0.922
+B,68,Idea C + Parabolic,30,95.769,1,0,0.922
+B,68,PSO + Parabolic,1,90.387,1,0,3.082
+B,68,PSO + Parabolic,3,90.385,1,0,3.082
+B,68,PSO + Parabolic,10,90.382,1,0,3.082
+B,68,PSO + Parabolic,30,90.095,1,0,3.002
+B,68,GWO + Parabolic,1,82.383,1,0,2.922
+B,68,GWO + Parabolic,3,82.383,1,0,2.922
+B,68,GWO + Parabolic,10,82.382,1,0,2.922
+B,68,GWO + Parabolic,30,82.326,1,0,2.922
+B,69,DIRECT (paper),1,98.435,1,0,0.842
+B,69,DIRECT (paper),3,98.435,1,0,0.842
+B,69,DIRECT (paper),10,98.429,1,0,0.882
+B,69,DIRECT (paper),30,98.409,1,0,0.862
+B,69,Idea B + Parabolic,1,96.866,1,0,0.862
+B,69,Idea B + Parabolic,3,96.864,1,0,0.862
+B,69,Idea B + Parabolic,10,96.854,1,0,0.862
+B,69,Idea B + Parabolic,30,96.854,1,0,0.862
+B,69,Idea C + Parabolic,1,96.685,1,0,0.862
+B,69,Idea C + Parabolic,3,96.679,1,0,0.862
+B,69,Idea C + Parabolic,10,96.678,1,0,0.862
+B,69,Idea C + Parabolic,30,96.700,1,0,0.782
+B,69,PSO + Parabolic,1,92.787,1,0,2.982
+B,69,PSO + Parabolic,3,92.787,1,0,2.982
+B,69,PSO + Parabolic,10,92.732,1,0,2.982
+B,69,PSO + Parabolic,30,92.732,1,0,2.982
+B,69,GWO + Parabolic,1,84.137,1,0,2.782
+B,69,GWO + Parabolic,3,84.134,1,0,2.782
+B,69,GWO + Parabolic,10,84.125,1,0,2.782
+B,69,GWO + Parabolic,30,84.101,1,0,2.782
+B,70,DIRECT (paper),1,97.660,1,0,1.162
+B,70,DIRECT (paper),3,97.660,1,0,1.162
+B,70,DIRECT (paper),10,97.655,1,0,1.182
+B,70,DIRECT (paper),30,97.638,1,0,1.222
+B,70,Idea B + Parabolic,1,97.939,1,0,1.042
+B,70,Idea B + Parabolic,3,97.938,1,0,1.042
+B,70,Idea B + Parabolic,10,97.939,1,0,1.042
+B,70,Idea B + Parabolic,30,97.928,1,0,1.042
+B,70,Idea C + Parabolic,1,97.897,1,0,1.042
+B,70,Idea C + Parabolic,3,97.897,1,0,1.042
+B,70,Idea C + Parabolic,10,97.893,1,0,1.042
+B,70,Idea C + Parabolic,30,97.799,1,0,1.082
+B,70,PSO + Parabolic,1,93.865,1,0,2.762
+B,70,PSO + Parabolic,3,93.865,1,0,2.762
+B,70,PSO + Parabolic,10,93.872,1,0,2.762
+B,70,PSO + Parabolic,30,93.860,1,0,2.762
+B,70,GWO + Parabolic,1,88.510,1,0,2.722
+B,70,GWO + Parabolic,3,88.509,1,0,2.722
+B,70,GWO + Parabolic,10,88.509,1,0,2.722
+B,70,GWO + Parabolic,30,88.522,1,0,2.722
+B,71,DIRECT (paper),1,98.117,1,0,1.002
+B,71,DIRECT (paper),3,98.117,1,0,1.002
+B,71,DIRECT (paper),10,98.118,1,0,1.022
+B,71,DIRECT (paper),30,98.101,1,0,5.322
+B,71,Idea B + Parabolic,1,74.533,1,0,5.822
+B,71,Idea B + Parabolic,3,74.919,1,0,5.722
+B,71,Idea B + Parabolic,10,83.764,1,0,2.522
+B,71,Idea B + Parabolic,30,96.449,1,0,0.842
+B,71,Idea C + Parabolic,1,74.558,1,0,5.762
+B,71,Idea C + Parabolic,3,74.307,1,0,5.902
+B,71,Idea C + Parabolic,10,72.843,1,0,NaN
+B,71,Idea C + Parabolic,30,91.941,1,0,1.402
+B,71,PSO + Parabolic,1,72.955,1,1,NaN
+B,71,PSO + Parabolic,3,73.339,1,1,NaN
+B,71,PSO + Parabolic,10,72.311,1,1,NaN
+B,71,PSO + Parabolic,30,75.768,1,0,4.822
+B,71,GWO + Parabolic,1,71.998,1,0,NaN
+B,71,GWO + Parabolic,3,70.856,1,0,NaN
+B,71,GWO + Parabolic,10,71.730,1,1,NaN
+B,71,GWO + Parabolic,30,71.499,1,0,4.382
+B,72,DIRECT (paper),1,98.011,1,0,0.882
+B,72,DIRECT (paper),3,98.011,1,0,0.882
+B,72,DIRECT (paper),10,98.012,1,0,0.702
+B,72,DIRECT (paper),30,97.912,1,0,0.742
+B,72,Idea B + Parabolic,1,94.828,1,0,1.602
+B,72,Idea B + Parabolic,3,94.827,1,0,1.602
+B,72,Idea B + Parabolic,10,94.798,1,0,1.602
+B,72,Idea B + Parabolic,30,97.295,1,0,0.742
+B,72,Idea C + Parabolic,1,97.782,1,0,1.322
+B,72,Idea C + Parabolic,3,97.877,1,0,1.222
+B,72,Idea C + Parabolic,10,97.922,1,0,1.222
+B,72,Idea C + Parabolic,30,95.798,1,0,1.222
+B,72,PSO + Parabolic,1,92.453,1,0,4.162
+B,72,PSO + Parabolic,3,92.454,1,0,4.162
+B,72,PSO + Parabolic,10,92.699,1,0,4.062
+B,72,PSO + Parabolic,30,92.774,1,0,3.942
+B,72,GWO + Parabolic,1,85.836,1,0,3.882
+B,72,GWO + Parabolic,3,85.840,1,0,3.882
+B,72,GWO + Parabolic,10,85.812,1,0,3.882
+B,72,GWO + Parabolic,30,84.884,1,0,4.382
+B,73,DIRECT (paper),1,98.333,1,0,0.702
+B,73,DIRECT (paper),3,98.333,1,0,0.702
+B,73,DIRECT (paper),10,98.333,1,0,0.702
+B,73,DIRECT (paper),30,98.230,1,0,0.782
+B,73,Idea B + Parabolic,1,98.480,1,0,0.722
+B,73,Idea B + Parabolic,3,98.480,1,0,0.722
+B,73,Idea B + Parabolic,10,98.475,1,0,0.722
+B,73,Idea B + Parabolic,30,98.467,1,0,0.722
+B,73,Idea C + Parabolic,1,98.314,1,0,0.722
+B,73,Idea C + Parabolic,3,98.315,1,0,0.722
+B,73,Idea C + Parabolic,10,98.315,1,0,0.682
+B,73,Idea C + Parabolic,30,98.307,1,0,0.722
+B,73,PSO + Parabolic,1,94.230,1,0,2.762
+B,73,PSO + Parabolic,3,94.229,1,0,2.762
+B,73,PSO + Parabolic,10,94.235,1,0,2.762
+B,73,PSO + Parabolic,30,94.200,1,0,2.762
+B,73,GWO + Parabolic,1,85.724,1,0,2.642
+B,73,GWO + Parabolic,3,85.724,1,0,2.642
+B,73,GWO + Parabolic,10,85.727,1,0,2.642
+B,73,GWO + Parabolic,30,85.656,1,0,2.642
+B,74,DIRECT (paper),1,95.951,1,0,0.982
+B,74,DIRECT (paper),3,95.808,1,0,1.022
+B,74,DIRECT (paper),10,95.808,1,0,1.022
+B,74,DIRECT (paper),30,95.641,1,0,1.042
+B,74,Idea B + Parabolic,1,86.959,1,0,2.302
+B,74,Idea B + Parabolic,3,86.267,1,0,2.402
+B,74,Idea B + Parabolic,10,83.956,1,0,2.762
+B,74,Idea B + Parabolic,30,94.900,1,0,1.302
+B,74,Idea C + Parabolic,1,96.408,1,0,0.902
+B,74,Idea C + Parabolic,3,96.408,1,0,0.902
+B,74,Idea C + Parabolic,10,96.409,1,0,0.902
+B,74,Idea C + Parabolic,30,96.399,1,0,0.902
+B,74,PSO + Parabolic,1,91.664,1,0,2.982
+B,74,PSO + Parabolic,3,91.664,1,0,2.982
+B,74,PSO + Parabolic,10,91.664,1,0,2.982
+B,74,PSO + Parabolic,30,91.652,1,0,2.982
+B,74,GWO + Parabolic,1,83.312,1,0,2.822
+B,74,GWO + Parabolic,3,83.309,1,0,2.822
+B,74,GWO + Parabolic,10,83.307,1,0,2.822
+B,74,GWO + Parabolic,30,83.274,1,0,2.822
+B,75,DIRECT (paper),1,81.467,0,1,NaN
+B,75,DIRECT (paper),3,81.467,0,1,NaN
+B,75,DIRECT (paper),10,81.467,0,1,NaN
+B,75,DIRECT (paper),30,81.462,0,1,NaN
+B,75,Idea B + Parabolic,1,95.915,1,0,0.982
+B,75,Idea B + Parabolic,3,95.915,1,0,0.982
+B,75,Idea B + Parabolic,10,95.912,1,0,0.982
+B,75,Idea B + Parabolic,30,97.304,1,0,0.722
+B,75,Idea C + Parabolic,1,96.533,1,0,0.862
+B,75,Idea C + Parabolic,3,96.530,1,0,0.862
+B,75,Idea C + Parabolic,10,96.622,1,0,0.842
+B,75,Idea C + Parabolic,30,97.924,1,0,0.602
+B,75,PSO + Parabolic,1,90.803,1,0,3.122
+B,75,PSO + Parabolic,3,90.704,1,0,3.142
+B,75,PSO + Parabolic,10,91.255,1,0,3.022
+B,75,PSO + Parabolic,30,90.942,1,0,3.042
+B,75,GWO + Parabolic,1,82.615,1,0,2.842
+B,75,GWO + Parabolic,3,82.619,1,0,2.842
+B,75,GWO + Parabolic,10,81.871,1,0,3.002
+B,75,GWO + Parabolic,30,81.985,1,0,3.002
+B,76,DIRECT (paper),1,95.473,1,0,1.462
+B,76,DIRECT (paper),3,95.473,1,0,1.462
+B,76,DIRECT (paper),10,95.995,1,0,1.382
+B,76,DIRECT (paper),30,95.431,1,0,1.482
+B,76,Idea B + Parabolic,1,96.640,1,0,1.022
+B,76,Idea B + Parabolic,3,96.636,1,0,1.022
+B,76,Idea B + Parabolic,10,96.729,1,0,1.002
+B,76,Idea B + Parabolic,30,97.322,1,0,0.722
+B,76,Idea C + Parabolic,1,96.587,1,0,0.902
+B,76,Idea C + Parabolic,3,96.600,1,0,0.902
+B,76,Idea C + Parabolic,10,96.588,1,0,0.902
+B,76,Idea C + Parabolic,30,97.167,1,0,0.622
+B,76,PSO + Parabolic,1,91.732,1,0,3.062
+B,76,PSO + Parabolic,3,91.733,1,0,3.062
+B,76,PSO + Parabolic,10,91.732,1,0,3.062
+B,76,PSO + Parabolic,30,91.636,1,0,3.082
+B,76,GWO + Parabolic,1,82.937,1,0,2.882
+B,76,GWO + Parabolic,3,82.938,1,0,2.882
+B,76,GWO + Parabolic,10,82.852,1,0,2.902
+B,76,GWO + Parabolic,30,82.743,1,0,2.922
+B,77,DIRECT (paper),1,96.300,1,0,0.822
+B,77,DIRECT (paper),3,96.300,1,0,0.822
+B,77,DIRECT (paper),10,96.177,1,0,0.842
+B,77,DIRECT (paper),30,95.989,1,0,0.882
+B,77,Idea B + Parabolic,1,85.814,1,0,2.622
+B,77,Idea B + Parabolic,3,85.246,1,0,2.722
+B,77,Idea B + Parabolic,10,85.217,1,0,2.722
+B,77,Idea B + Parabolic,30,82.872,1,0,3.062
+B,77,Idea C + Parabolic,1,85.091,1,0,2.682
+B,77,Idea C + Parabolic,3,85.165,1,0,2.682
+B,77,Idea C + Parabolic,10,85.089,1,0,2.682
+B,77,Idea C + Parabolic,30,84.547,1,0,2.842
+B,77,PSO + Parabolic,1,80.655,1,0,4.682
+B,77,PSO + Parabolic,3,80.109,1,0,4.662
+B,77,PSO + Parabolic,10,80.172,1,0,4.782
+B,77,PSO + Parabolic,30,79.621,1,0,4.882
+B,77,GWO + Parabolic,1,72.857,1,0,4.262
+B,77,GWO + Parabolic,3,72.858,1,0,4.262
+B,77,GWO + Parabolic,10,72.802,1,0,4.262
+B,77,GWO + Parabolic,30,72.335,1,0,4.362
+B,78,DIRECT (paper),1,98.159,1,0,0.862
+B,78,DIRECT (paper),3,98.159,1,0,0.862
+B,78,DIRECT (paper),10,98.141,1,0,0.902
+B,78,DIRECT (paper),30,98.146,1,0,0.882
+B,78,Idea B + Parabolic,1,98.250,1,0,0.822
+B,78,Idea B + Parabolic,3,98.250,1,0,0.822
+B,78,Idea B + Parabolic,10,98.240,1,0,0.822
+B,78,Idea B + Parabolic,30,97.460,1,0,1.042
+B,78,Idea C + Parabolic,1,96.938,1,0,1.262
+B,78,Idea C + Parabolic,3,96.938,1,0,1.262
+B,78,Idea C + Parabolic,10,97.181,1,0,1.162
+B,78,Idea C + Parabolic,30,97.183,1,0,1.162
+B,78,PSO + Parabolic,1,93.392,1,0,2.822
+B,78,PSO + Parabolic,3,93.389,1,0,2.822
+B,78,PSO + Parabolic,10,93.392,1,0,2.822
+B,78,PSO + Parabolic,30,93.397,1,0,2.822
+B,78,GWO + Parabolic,1,86.444,1,0,2.822
+B,78,GWO + Parabolic,3,86.444,1,0,2.822
+B,78,GWO + Parabolic,10,86.443,1,0,2.822
+B,78,GWO + Parabolic,30,86.438,1,0,2.822
+B,79,DIRECT (paper),1,99.905,0,0,0.082
+B,79,DIRECT (paper),3,99.905,0,0,0.082
+B,79,DIRECT (paper),10,99.870,0,0,0.122
+B,79,DIRECT (paper),30,99.850,0,0,0.122
+B,79,Idea B + Parabolic,1,97.640,0,0,1.342
+B,79,Idea B + Parabolic,3,97.532,0,0,1.362
+B,79,Idea B + Parabolic,10,97.373,0,0,1.442
+B,79,Idea B + Parabolic,30,97.456,0,0,1.442
+B,79,Idea C + Parabolic,1,97.744,0,0,1.262
+B,79,Idea C + Parabolic,3,97.638,0,0,1.342
+B,79,Idea C + Parabolic,10,97.491,0,0,1.362
+B,79,Idea C + Parabolic,30,97.345,0,0,1.542
+B,79,PSO + Parabolic,1,91.453,1,0,2.722
+B,79,PSO + Parabolic,3,91.467,1,0,2.882
+B,79,PSO + Parabolic,10,91.468,1,0,2.882
+B,79,PSO + Parabolic,30,91.437,1,0,2.882
+B,79,GWO + Parabolic,1,82.249,1,0,2.722
+B,79,GWO + Parabolic,3,82.249,1,0,2.722
+B,79,GWO + Parabolic,10,82.244,1,0,2.722
+B,79,GWO + Parabolic,30,82.248,1,0,2.722
+B,80,DIRECT (paper),1,97.654,1,0,0.902
+B,80,DIRECT (paper),3,97.654,1,0,0.902
+B,80,DIRECT (paper),10,97.654,1,0,0.902
+B,80,DIRECT (paper),30,97.612,1,0,0.922
+B,80,Idea B + Parabolic,1,92.738,1,0,1.702
+B,80,Idea B + Parabolic,3,92.739,1,0,1.702
+B,80,Idea B + Parabolic,10,92.904,1,0,1.682
+B,80,Idea B + Parabolic,30,94.059,1,0,1.482
+B,80,Idea C + Parabolic,1,85.872,1,0,2.962
+B,80,Idea C + Parabolic,3,85.784,1,0,3.042
+B,80,Idea C + Parabolic,10,85.976,1,0,2.962
+B,80,Idea C + Parabolic,30,86.369,1,0,2.902
+B,80,PSO + Parabolic,1,81.105,1,0,5.202
+B,80,PSO + Parabolic,3,81.649,1,0,5.102
+B,80,PSO + Parabolic,10,82.863,1,0,4.902
+B,80,PSO + Parabolic,30,84.340,1,0,4.702
+B,80,GWO + Parabolic,1,76.886,1,0,4.502
+B,80,GWO + Parabolic,3,76.446,1,0,4.602
+B,80,GWO + Parabolic,10,76.948,1,0,4.502
+B,80,GWO + Parabolic,30,75.950,1,0,4.642
+B,81,DIRECT (paper),1,97.883,1,0,0.802
+B,81,DIRECT (paper),3,97.837,1,0,0.822
+B,81,DIRECT (paper),10,97.836,1,0,0.822
+B,81,DIRECT (paper),30,97.872,1,0,0.802
+B,81,Idea B + Parabolic,1,98.030,1,0,0.782
+B,81,Idea B + Parabolic,3,98.031,1,0,0.782
+B,81,Idea B + Parabolic,10,98.031,1,0,0.782
+B,81,Idea B + Parabolic,30,98.219,1,0,0.642
+B,81,Idea C + Parabolic,1,97.681,1,0,0.862
+B,81,Idea C + Parabolic,3,97.681,1,0,0.862
+B,81,Idea C + Parabolic,10,97.657,1,0,0.862
+B,81,Idea C + Parabolic,30,97.887,1,0,0.722
+B,81,PSO + Parabolic,1,94.855,1,0,2.862
+B,81,PSO + Parabolic,3,94.856,1,0,2.862
+B,81,PSO + Parabolic,10,94.827,1,0,2.862
+B,81,PSO + Parabolic,30,94.807,1,0,2.862
+B,81,GWO + Parabolic,1,86.280,1,0,2.742
+B,81,GWO + Parabolic,3,86.282,1,0,2.742
+B,81,GWO + Parabolic,10,86.276,1,0,2.742
+B,81,GWO + Parabolic,30,86.577,1,0,2.602
+B,82,DIRECT (paper),1,97.488,1,0,0.922
+B,82,DIRECT (paper),3,97.488,1,0,0.922
+B,82,DIRECT (paper),10,97.496,1,0,0.902
+B,82,DIRECT (paper),30,97.471,1,0,1.002
+B,82,Idea B + Parabolic,1,94.529,1,0,1.162
+B,82,Idea B + Parabolic,3,94.527,1,0,1.162
+B,82,Idea B + Parabolic,10,94.518,1,0,1.162
+B,82,Idea B + Parabolic,30,94.564,1,0,1.142
+B,82,Idea C + Parabolic,1,95.226,1,0,0.982
+B,82,Idea C + Parabolic,3,95.340,1,0,0.962
+B,82,Idea C + Parabolic,10,95.400,1,0,0.942
+B,82,Idea C + Parabolic,30,95.416,1,0,0.942
+B,82,PSO + Parabolic,1,89.726,1,0,3.202
+B,82,PSO + Parabolic,3,89.725,1,0,3.202
+B,82,PSO + Parabolic,10,89.846,1,0,3.182
+B,82,PSO + Parabolic,30,89.817,1,0,3.182
+B,82,GWO + Parabolic,1,79.939,1,0,3.062
+B,82,GWO + Parabolic,3,80.061,1,0,3.042
+B,82,GWO + Parabolic,10,80.076,1,0,3.042
+B,82,GWO + Parabolic,30,80.091,1,0,3.022
+B,83,DIRECT (paper),1,96.939,1,0,0.762
+B,83,DIRECT (paper),3,96.939,1,0,0.762
+B,83,DIRECT (paper),10,96.876,1,0,0.782
+B,83,DIRECT (paper),30,96.998,1,0,0.742
+B,83,Idea B + Parabolic,1,97.353,1,0,0.842
+B,83,Idea B + Parabolic,3,97.353,1,0,0.842
+B,83,Idea B + Parabolic,10,97.349,1,0,0.842
+B,83,Idea B + Parabolic,30,96.208,1,0,1.202
+B,83,Idea C + Parabolic,1,97.684,1,0,0.722
+B,83,Idea C + Parabolic,3,97.684,1,0,0.722
+B,83,Idea C + Parabolic,10,97.667,1,0,0.722
+B,83,Idea C + Parabolic,30,95.514,1,0,1.342
+B,83,PSO + Parabolic,1,93.387,1,0,2.682
+B,83,PSO + Parabolic,3,93.388,1,0,2.682
+B,83,PSO + Parabolic,10,93.388,1,0,2.682
+B,83,PSO + Parabolic,30,93.371,1,0,2.682
+B,83,GWO + Parabolic,1,85.744,1,0,2.682
+B,83,GWO + Parabolic,3,85.832,1,0,2.682
+B,83,GWO + Parabolic,10,85.827,1,0,2.682
+B,83,GWO + Parabolic,30,85.823,1,0,2.682
+B,84,DIRECT (paper),1,98.952,1,0,0.622
+B,84,DIRECT (paper),3,98.952,1,0,0.622
+B,84,DIRECT (paper),10,98.949,1,0,0.622
+B,84,DIRECT (paper),30,98.931,1,0,0.622
+B,84,Idea B + Parabolic,1,98.397,1,0,1.162
+B,84,Idea B + Parabolic,3,98.397,1,0,1.162
+B,84,Idea B + Parabolic,10,97.938,1,0,1.422
+B,84,Idea B + Parabolic,30,97.862,1,0,1.422
+B,84,Idea C + Parabolic,1,98.184,1,0,0.942
+B,84,Idea C + Parabolic,3,98.185,1,0,0.942
+B,84,Idea C + Parabolic,10,97.870,1,0,1.182
+B,84,Idea C + Parabolic,30,98.099,1,0,0.902
+B,84,PSO + Parabolic,1,94.559,1,0,2.802
+B,84,PSO + Parabolic,3,94.558,1,0,2.802
+B,84,PSO + Parabolic,10,94.550,1,0,2.802
+B,84,PSO + Parabolic,30,95.205,1,0,2.842
+B,84,GWO + Parabolic,1,86.797,1,0,2.682
+B,84,GWO + Parabolic,3,86.797,1,0,2.682
+B,84,GWO + Parabolic,10,86.757,1,0,2.722
+B,84,GWO + Parabolic,30,86.868,1,0,2.742
+B,85,DIRECT (paper),1,98.494,1,0,0.782
+B,85,DIRECT (paper),3,98.494,1,0,0.782
+B,85,DIRECT (paper),10,98.494,1,0,0.782
+B,85,DIRECT (paper),30,98.576,1,0,0.382
+B,85,Idea B + Parabolic,1,98.573,1,0,1.062
+B,85,Idea B + Parabolic,3,98.575,1,0,1.062
+B,85,Idea B + Parabolic,10,98.579,1,0,0.962
+B,85,Idea B + Parabolic,30,98.464,1,0,1.162
+B,85,Idea C + Parabolic,1,97.844,1,0,0.962
+B,85,Idea C + Parabolic,3,97.844,1,0,0.962
+B,85,Idea C + Parabolic,10,97.845,1,0,0.962
+B,85,Idea C + Parabolic,30,97.958,1,0,0.822
+B,85,PSO + Parabolic,1,93.414,1,0,2.822
+B,85,PSO + Parabolic,3,93.420,1,0,2.822
+B,85,PSO + Parabolic,10,93.419,1,0,2.822
+B,85,PSO + Parabolic,30,93.376,1,0,2.822
+B,85,GWO + Parabolic,1,85.320,1,0,2.782
+B,85,GWO + Parabolic,3,85.319,1,0,2.782
+B,85,GWO + Parabolic,10,85.323,1,0,2.782
+B,85,GWO + Parabolic,30,85.340,1,0,2.762
+B,86,DIRECT (paper),1,98.569,1,0,0.702
+B,86,DIRECT (paper),3,98.569,1,0,0.702
+B,86,DIRECT (paper),10,98.763,1,0,0.442
+B,86,DIRECT (paper),30,98.581,1,0,0.682
+B,86,Idea B + Parabolic,1,98.529,1,0,0.862
+B,86,Idea B + Parabolic,3,98.529,1,0,0.862
+B,86,Idea B + Parabolic,10,98.529,1,0,0.862
+B,86,Idea B + Parabolic,30,98.513,1,0,0.862
+B,86,Idea C + Parabolic,1,98.389,1,0,0.922
+B,86,Idea C + Parabolic,3,98.389,1,0,0.922
+B,86,Idea C + Parabolic,10,98.372,1,0,0.922
+B,86,Idea C + Parabolic,30,98.329,1,0,1.042
+B,86,PSO + Parabolic,1,94.366,1,0,2.522
+B,86,PSO + Parabolic,3,94.378,1,0,2.522
+B,86,PSO + Parabolic,10,94.372,1,0,2.722
+B,86,PSO + Parabolic,30,94.384,1,0,2.722
+B,86,GWO + Parabolic,1,85.331,1,1,2.922
+B,86,GWO + Parabolic,3,85.331,1,1,2.922
+B,86,GWO + Parabolic,10,85.321,1,1,2.922
+B,86,GWO + Parabolic,30,85.274,1,0,2.762
+B,87,DIRECT (paper),1,97.796,1,0,1.002
+B,87,DIRECT (paper),3,97.796,1,0,1.002
+B,87,DIRECT (paper),10,97.794,1,0,1.002
+B,87,DIRECT (paper),30,97.764,1,0,1.022
+B,87,Idea B + Parabolic,1,97.465,1,0,0.742
+B,87,Idea B + Parabolic,3,97.465,1,0,0.742
+B,87,Idea B + Parabolic,10,97.464,1,0,0.742
+B,87,Idea B + Parabolic,30,97.454,1,0,0.742
+B,87,Idea C + Parabolic,1,97.285,1,0,0.662
+B,87,Idea C + Parabolic,3,97.285,1,0,0.662
+B,87,Idea C + Parabolic,10,97.288,1,0,0.662
+B,87,Idea C + Parabolic,30,97.266,1,0,0.662
+B,87,PSO + Parabolic,1,93.288,1,0,2.902
+B,87,PSO + Parabolic,3,93.288,1,0,2.902
+B,87,PSO + Parabolic,10,93.289,1,0,2.902
+B,87,PSO + Parabolic,30,93.284,1,0,2.902
+B,87,GWO + Parabolic,1,85.421,1,0,2.742
+B,87,GWO + Parabolic,3,85.421,1,0,2.742
+B,87,GWO + Parabolic,10,85.422,1,0,2.742
+B,87,GWO + Parabolic,30,85.412,1,0,2.742
+B,88,DIRECT (paper),1,97.975,1,0,0.902
+B,88,DIRECT (paper),3,97.975,1,0,0.902
+B,88,DIRECT (paper),10,97.975,1,0,0.902
+B,88,DIRECT (paper),30,97.961,1,0,0.922
+B,88,Idea B + Parabolic,1,96.513,1,0,1.162
+B,88,Idea B + Parabolic,3,96.422,1,0,1.182
+B,88,Idea B + Parabolic,10,96.414,1,0,1.182
+B,88,Idea B + Parabolic,30,96.333,1,0,1.202
+B,88,Idea C + Parabolic,1,96.884,1,0,1.042
+B,88,Idea C + Parabolic,3,96.884,1,0,1.042
+B,88,Idea C + Parabolic,10,97.141,1,0,0.982
+B,88,Idea C + Parabolic,30,97.146,1,0,0.982
+B,88,PSO + Parabolic,1,93.183,1,0,2.982
+B,88,PSO + Parabolic,3,93.183,1,0,2.982
+B,88,PSO + Parabolic,10,93.182,1,0,2.982
+B,88,PSO + Parabolic,30,93.536,1,0,2.902
+B,88,GWO + Parabolic,1,85.169,1,0,2.862
+B,88,GWO + Parabolic,3,85.170,1,0,2.862
+B,88,GWO + Parabolic,10,85.708,1,0,2.742
+B,88,GWO + Parabolic,30,85.709,1,0,2.742
+B,89,DIRECT (paper),1,97.618,1,0,1.162
+B,89,DIRECT (paper),3,97.623,1,0,1.162
+B,89,DIRECT (paper),10,97.614,1,0,1.202
+B,89,DIRECT (paper),30,97.611,1,0,1.202
+B,89,Idea B + Parabolic,1,96.122,1,0,1.322
+B,89,Idea B + Parabolic,3,96.124,1,0,1.322
+B,89,Idea B + Parabolic,10,96.117,1,0,1.322
+B,89,Idea B + Parabolic,30,97.360,1,0,1.082
+B,89,Idea C + Parabolic,1,96.442,1,0,1.122
+B,89,Idea C + Parabolic,3,96.446,1,0,1.122
+B,89,Idea C + Parabolic,10,96.447,1,0,1.122
+B,89,Idea C + Parabolic,30,97.387,1,0,0.942
+B,89,PSO + Parabolic,1,92.555,1,0,2.962
+B,89,PSO + Parabolic,3,92.554,1,0,2.962
+B,89,PSO + Parabolic,10,92.581,1,0,2.962
+B,89,PSO + Parabolic,30,92.606,1,0,2.962
+B,89,GWO + Parabolic,1,84.636,1,0,2.902
+B,89,GWO + Parabolic,3,84.651,1,0,2.902
+B,89,GWO + Parabolic,10,84.522,1,0,2.922
+B,89,GWO + Parabolic,30,84.540,1,0,2.922
+B,90,DIRECT (paper),1,97.975,1,0,0.982
+B,90,DIRECT (paper),3,97.975,1,0,0.982
+B,90,DIRECT (paper),10,97.971,1,0,1.002
+B,90,DIRECT (paper),30,97.966,1,0,0.982
+B,90,Idea B + Parabolic,1,97.016,1,0,0.922
+B,90,Idea B + Parabolic,3,97.015,1,0,0.922
+B,90,Idea B + Parabolic,10,97.007,1,0,0.882
+B,90,Idea B + Parabolic,30,96.989,1,0,0.882
+B,90,Idea C + Parabolic,1,97.017,1,0,0.882
+B,90,Idea C + Parabolic,3,97.017,1,0,0.882
+B,90,Idea C + Parabolic,10,97.018,1,0,0.882
+B,90,Idea C + Parabolic,30,96.985,1,0,0.882
+B,90,PSO + Parabolic,1,93.758,1,0,2.762
+B,90,PSO + Parabolic,3,93.763,1,0,2.762
+B,90,PSO + Parabolic,10,93.764,1,0,2.762
+B,90,PSO + Parabolic,30,93.751,1,0,2.762
+B,90,GWO + Parabolic,1,86.096,1,0,2.762
+B,90,GWO + Parabolic,3,86.096,1,0,2.762
+B,90,GWO + Parabolic,10,86.096,1,0,2.762
+B,90,GWO + Parabolic,30,86.093,1,0,2.762
+B,91,DIRECT (paper),1,98.777,1,0,0.722
+B,91,DIRECT (paper),3,98.777,1,0,0.722
+B,91,DIRECT (paper),10,98.792,1,0,0.642
+B,91,DIRECT (paper),30,98.747,1,0,0.722
+B,91,Idea B + Parabolic,1,93.638,1,0,3.782
+B,91,Idea B + Parabolic,3,93.640,1,0,3.782
+B,91,Idea B + Parabolic,10,91.477,1,0,5.162
+B,91,Idea B + Parabolic,30,96.547,1,0,0.902
+B,91,Idea C + Parabolic,1,93.168,1,0,3.842
+B,91,Idea C + Parabolic,3,94.562,1,0,2.862
+B,91,Idea C + Parabolic,10,92.483,1,0,4.042
+B,91,Idea C + Parabolic,30,90.730,1,0,5.422
+B,91,PSO + Parabolic,1,92.460,1,0,2.822
+B,91,PSO + Parabolic,3,92.460,1,0,2.822
+B,91,PSO + Parabolic,10,92.711,1,0,2.742
+B,91,PSO + Parabolic,30,92.304,1,0,2.822
+B,91,GWO + Parabolic,1,82.995,1,0,2.702
+B,91,GWO + Parabolic,3,82.995,1,0,2.702
+B,91,GWO + Parabolic,10,82.987,1,0,2.702
+B,91,GWO + Parabolic,30,83.369,1,0,2.622
+B,92,DIRECT (paper),1,98.355,1,0,0.742
+B,92,DIRECT (paper),3,98.325,1,0,0.782
+B,92,DIRECT (paper),10,98.622,1,0,0.702
+B,92,DIRECT (paper),30,98.309,1,0,0.802
+B,92,Idea B + Parabolic,1,98.025,1,0,1.342
+B,92,Idea B + Parabolic,3,98.030,1,0,1.342
+B,92,Idea B + Parabolic,10,98.016,1,0,1.342
+B,92,Idea B + Parabolic,30,98.211,1,0,1.142
+B,92,Idea C + Parabolic,1,98.143,1,0,0.822
+B,92,Idea C + Parabolic,3,98.145,1,0,0.822
+B,92,Idea C + Parabolic,10,98.144,1,0,0.822
+B,92,Idea C + Parabolic,30,98.191,1,0,0.822
+B,92,PSO + Parabolic,1,93.823,1,0,2.882
+B,92,PSO + Parabolic,3,93.824,1,0,2.882
+B,92,PSO + Parabolic,10,93.821,1,0,2.882
+B,92,PSO + Parabolic,30,93.249,1,0,3.442
+B,92,GWO + Parabolic,1,85.725,1,0,2.842
+B,92,GWO + Parabolic,3,85.725,1,0,2.842
+B,92,GWO + Parabolic,10,85.726,1,0,2.842
+B,92,GWO + Parabolic,30,85.708,1,0,2.842
+B,93,DIRECT (paper),1,99.724,0,0,0.222
+B,93,DIRECT (paper),3,99.724,0,0,0.222
+B,93,DIRECT (paper),10,99.724,0,0,0.222
+B,93,DIRECT (paper),30,99.658,0,0,0.262
+B,93,Idea B + Parabolic,1,97.085,0,0,4.842
+B,93,Idea B + Parabolic,3,97.100,0,0,4.802
+B,93,Idea B + Parabolic,10,97.863,0,0,3.922
+B,93,Idea B + Parabolic,30,97.468,0,0,5.002
+B,93,Idea C + Parabolic,1,96.948,0,0,4.562
+B,93,Idea C + Parabolic,3,94.869,0,1,NaN
+B,93,Idea C + Parabolic,10,96.923,0,0,5.742
+B,93,Idea C + Parabolic,30,95.675,0,0,NaN
+B,93,PSO + Parabolic,1,94.897,0,1,NaN
+B,93,PSO + Parabolic,3,94.899,0,1,NaN
+B,93,PSO + Parabolic,10,96.485,0,0,5.542
+B,93,PSO + Parabolic,30,94.850,0,0,NaN
+B,93,GWO + Parabolic,1,97.418,0,0,4.482
+B,93,GWO + Parabolic,3,94.897,0,1,NaN
+B,93,GWO + Parabolic,10,96.794,0,0,4.522
+B,93,GWO + Parabolic,30,94.697,0,1,NaN
+B,94,DIRECT (paper),1,97.428,1,0,1.242
+B,94,DIRECT (paper),3,97.428,1,0,1.242
+B,94,DIRECT (paper),10,97.427,1,0,1.282
+B,94,DIRECT (paper),30,97.488,1,0,1.322
+B,94,Idea B + Parabolic,1,94.903,1,0,2.762
+B,94,Idea B + Parabolic,3,94.617,1,0,2.762
+B,94,Idea B + Parabolic,10,94.496,1,0,2.862
+B,94,Idea B + Parabolic,30,96.021,1,0,2.002
+B,94,Idea C + Parabolic,1,98.043,1,0,1.002
+B,94,Idea C + Parabolic,3,98.052,1,0,0.982
+B,94,Idea C + Parabolic,10,98.055,1,0,0.962
+B,94,Idea C + Parabolic,30,97.656,1,0,0.822
+B,94,PSO + Parabolic,1,93.857,1,0,2.842
+B,94,PSO + Parabolic,3,93.864,1,0,2.822
+B,94,PSO + Parabolic,10,93.865,1,0,2.802
+B,94,PSO + Parabolic,30,93.887,1,0,2.682
+B,94,GWO + Parabolic,1,88.508,1,0,2.802
+B,94,GWO + Parabolic,3,88.512,1,0,2.782
+B,94,GWO + Parabolic,10,88.504,1,0,2.802
+B,94,GWO + Parabolic,30,88.519,1,0,2.762
+B,95,DIRECT (paper),1,96.938,1,0,1.002
+B,95,DIRECT (paper),3,96.929,1,0,1.002
+B,95,DIRECT (paper),10,96.929,1,0,1.002
+B,95,DIRECT (paper),30,96.576,1,0,1.282
+B,95,Idea B + Parabolic,1,96.993,1,0,0.742
+B,95,Idea B + Parabolic,3,96.993,1,0,0.742
+B,95,Idea B + Parabolic,10,96.991,1,0,0.742
+B,95,Idea B + Parabolic,30,96.788,1,0,1.002
+B,95,Idea C + Parabolic,1,89.055,1,0,2.602
+B,95,Idea C + Parabolic,3,88.944,1,0,2.602
+B,95,Idea C + Parabolic,10,89.054,1,0,2.602
+B,95,Idea C + Parabolic,30,89.934,1,0,2.502
+B,95,PSO + Parabolic,1,86.172,1,0,4.402
+B,95,PSO + Parabolic,3,86.166,1,0,4.402
+B,95,PSO + Parabolic,10,85.688,1,0,4.502
+B,95,PSO + Parabolic,30,84.020,1,0,4.802
+B,95,GWO + Parabolic,1,78.818,1,0,4.102
+B,95,GWO + Parabolic,3,79.229,1,0,4.002
+B,95,GWO + Parabolic,10,79.250,1,0,4.002
+B,95,GWO + Parabolic,30,79.286,1,0,4.002
+B,96,DIRECT (paper),1,96.926,1,0,0.742
+B,96,DIRECT (paper),3,96.926,1,0,0.742
+B,96,DIRECT (paper),10,96.928,1,0,0.742
+B,96,DIRECT (paper),30,96.717,1,0,0.782
+B,96,Idea B + Parabolic,1,97.618,1,0,0.662
+B,96,Idea B + Parabolic,3,97.618,1,0,0.662
+B,96,Idea B + Parabolic,10,97.596,1,0,0.662
+B,96,Idea B + Parabolic,30,95.368,1,0,1.102
+B,96,Idea C + Parabolic,1,97.428,1,0,0.662
+B,96,Idea C + Parabolic,3,97.428,1,0,0.662
+B,96,Idea C + Parabolic,10,97.429,1,0,0.662
+B,96,Idea C + Parabolic,30,97.446,1,0,0.662
+B,96,PSO + Parabolic,1,92.790,1,0,2.822
+B,96,PSO + Parabolic,3,92.784,1,0,2.822
+B,96,PSO + Parabolic,10,92.784,1,0,2.822
+B,96,PSO + Parabolic,30,92.806,1,0,2.822
+B,96,GWO + Parabolic,1,82.961,1,0,2.662
+B,96,GWO + Parabolic,3,82.941,1,0,2.782
+B,96,GWO + Parabolic,10,82.952,1,0,2.662
+B,96,GWO + Parabolic,30,82.926,1,0,2.782
+B,97,DIRECT (paper),1,86.773,0,1,NaN
+B,97,DIRECT (paper),3,86.773,0,1,NaN
+B,97,DIRECT (paper),10,86.767,0,1,NaN
+B,97,DIRECT (paper),30,86.776,0,1,NaN
+B,97,Idea B + Parabolic,1,97.572,1,0,0.722
+B,97,Idea B + Parabolic,3,97.570,1,0,0.722
+B,97,Idea B + Parabolic,10,97.566,1,0,0.722
+B,97,Idea B + Parabolic,30,97.547,1,0,0.722
+B,97,Idea C + Parabolic,1,97.465,1,0,0.602
+B,97,Idea C + Parabolic,3,97.463,1,0,0.602
+B,97,Idea C + Parabolic,10,97.463,1,0,0.602
+B,97,Idea C + Parabolic,30,86.529,0,1,NaN
+B,97,PSO + Parabolic,1,92.053,1,0,2.802
+B,97,PSO + Parabolic,3,92.049,1,0,2.802
+B,97,PSO + Parabolic,10,92.051,1,0,2.802
+B,97,PSO + Parabolic,30,92.055,1,0,2.802
+B,97,GWO + Parabolic,1,83.608,1,0,2.602
+B,97,GWO + Parabolic,3,83.609,1,0,2.602
+B,97,GWO + Parabolic,10,83.610,1,0,2.602
+B,97,GWO + Parabolic,30,83.590,1,0,2.602
+B,98,DIRECT (paper),1,99.798,0,0,0.202
+B,98,DIRECT (paper),3,99.798,0,0,0.202
+B,98,DIRECT (paper),10,99.785,0,0,0.202
+B,98,DIRECT (paper),30,99.770,0,0,0.202
+B,98,Idea B + Parabolic,1,98.039,0,0,1.102
+B,98,Idea B + Parabolic,3,98.143,0,0,1.062
+B,98,Idea B + Parabolic,10,98.159,0,0,1.062
+B,98,Idea B + Parabolic,30,97.895,1,0,0.842
+B,98,Idea C + Parabolic,1,97.875,1,0,1.182
+B,98,Idea C + Parabolic,3,97.875,1,0,1.182
+B,98,Idea C + Parabolic,10,97.875,1,0,1.182
+B,98,Idea C + Parabolic,30,97.854,1,0,1.182
+B,98,PSO + Parabolic,1,95.042,1,0,2.842
+B,98,PSO + Parabolic,3,95.029,1,0,2.842
+B,98,PSO + Parabolic,10,95.058,1,0,2.842
+B,98,PSO + Parabolic,30,94.982,1,0,2.842
+B,98,GWO + Parabolic,1,87.292,1,0,2.642
+B,98,GWO + Parabolic,3,87.292,1,0,2.642
+B,98,GWO + Parabolic,10,87.292,1,0,2.642
+B,98,GWO + Parabolic,30,87.290,1,0,2.642
+B,99,DIRECT (paper),1,97.781,1,0,0.842
+B,99,DIRECT (paper),3,97.781,1,0,0.842
+B,99,DIRECT (paper),10,97.732,1,0,0.862
+B,99,DIRECT (paper),30,97.716,1,0,0.862
+B,99,Idea B + Parabolic,1,97.633,1,0,0.822
+B,99,Idea B + Parabolic,3,97.636,1,0,0.822
+B,99,Idea B + Parabolic,10,97.633,1,0,0.822
+B,99,Idea B + Parabolic,30,97.611,1,0,0.822
+B,99,Idea C + Parabolic,1,97.347,1,0,0.742
+B,99,Idea C + Parabolic,3,97.349,1,0,0.742
+B,99,Idea C + Parabolic,10,97.291,1,0,0.762
+B,99,Idea C + Parabolic,30,97.624,1,0,0.782
+B,99,PSO + Parabolic,1,93.413,1,0,2.962
+B,99,PSO + Parabolic,3,93.413,1,0,2.962
+B,99,PSO + Parabolic,10,93.470,1,0,2.942
+B,99,PSO + Parabolic,30,93.854,1,0,2.782
+B,99,GWO + Parabolic,1,85.094,1,0,2.742
+B,99,GWO + Parabolic,3,85.094,1,0,2.742
+B,99,GWO + Parabolic,10,85.094,1,0,2.742
+B,99,GWO + Parabolic,30,85.484,1,0,2.582
+B,100,DIRECT (paper),1,98.262,1,0,0.922
+B,100,DIRECT (paper),3,98.262,1,0,0.922
+B,100,DIRECT (paper),10,98.220,1,0,0.962
+B,100,DIRECT (paper),30,98.025,1,0,1.122
+B,100,Idea B + Parabolic,1,97.844,1,0,0.882
+B,100,Idea B + Parabolic,3,97.844,1,0,0.882
+B,100,Idea B + Parabolic,10,97.831,1,0,0.882
+B,100,Idea B + Parabolic,30,97.577,1,0,0.962
+B,100,Idea C + Parabolic,1,97.236,1,0,1.022
+B,100,Idea C + Parabolic,3,97.236,1,0,1.022
+B,100,Idea C + Parabolic,10,97.410,1,0,0.962
+B,100,Idea C + Parabolic,30,97.320,1,0,0.982
+B,100,PSO + Parabolic,1,94.529,1,0,2.882
+B,100,PSO + Parabolic,3,94.529,1,0,2.882
+B,100,PSO + Parabolic,10,94.529,1,0,2.882
+B,100,PSO + Parabolic,30,94.211,1,0,2.962
+B,100,GWO + Parabolic,1,86.902,1,0,2.782
+B,100,GWO + Parabolic,3,87.081,1,0,2.722
+B,100,GWO + Parabolic,10,87.079,1,0,2.722
+B,100,GWO + Parabolic,30,86.895,1,0,2.782

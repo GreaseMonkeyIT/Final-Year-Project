@@ -1,5 +1,11 @@
 %RUN_GMPPT_COMPARE Run Idea B, its refined form and the two baselines in MPPT_4x4.slx.
 %
+%   Note of 2026-11-21: this script is a record of the preliminary study.
+%   Its algorithm numbers and result files are those of the preliminary
+%   study, not of the current tracker (README.md, section "Templates").
+%   The current scripts are experiments/run_gmppt_baseline.m and
+%   experiments/run_gmppt_restart_tests.m.
+%
 %   Made on 2026-11-08 from run_gmppt_demo.m, with the same cases and the
 %   same values. The script runs MPPT_4x4.slx for each case of the section
 %   "Cases", once for each algorithm in the list algs:

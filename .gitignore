@@ -42,3 +42,29 @@ reports/**/Reference_Papers/
 **/pending_edits.md
 .claude/
 CLAUDE.local.md
+
+# Third-party measurement data (Oahu Solar Measurement Grid, NLR MIDC): large,
+# so it stays on the local disk only. docs/notes/final_test_plan.md, section 3.1,
+# says how to get it.
+data/oahu/
+
+# Weather files (climate.onebuilding.org TMYx). They stay on the local disk.
+data/epw/
+
+# Console output and the run list of the final tests (logs).
+results/*.out
+results/final_runs.txt
+
+# Smoke tests of the final test scripts (FINAL_QUICK).
+results/quick/
+results/STOP
+results/WORKERS
+results/archive_*/*.out
+results/archive_*/final_runs.txt
+
+# Earlier runs of the final tests (archive_* folders): large .mat files, kept on the
+# local disk only. The current run (results/final_*) is in the repository.
+results/archive_*/
+
+# Third-party templates (IEEE): copyrighted, so they stay on the local disk only.
+archive/old/IEEE_conference-template-a4.docx

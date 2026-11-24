@@ -4,7 +4,7 @@ EE449 Major Project-A, NIT Andhra Pradesh, A.Y. 2026-27. 4 x 4 array of Emmvee E
 
 ## Start here
 
-Read `README.md` before any work. It gives the folder layout, the status and the quick start. On 2026-11-21 the project was restructured, and the global searches of the preliminary study were archived. `archive/2026-11-21_post_midreview/README.md` says what was archived, why, and how to restore it. New global searches go into `src/controller/gmppt_search.m` and `src/controller/gmppt_init.m`, which are placeholders today.
+Read `README.md` before any work. It gives the folder layout, the status and the quick start. On 2026-11-21 the project was restructured, and the global searches of the preliminary study were archived. `archive/2026-11-21_post_midreview/README.md` says what was archived, why, and how to restore it. The current global searches (DIRECT, Idea B refined, Idea C, PSO, GWO) were written from the source papers and integrated on 2026-11-21. `docs/notes/gmppt_methods.md` describes them, `docs/notes/gmppt_review.md` is the review record, and `docs/notes/gmppt_baseline_2026-11-21.md` gives the Simulink baseline. `docs/notes/plans_after_baseline.md` lists the next steps.
 
 ## Rules
 

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Idea C MPPT Notes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global',scale:1},options:{enableMenu:false}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<style>
+/* Layout: one reading column of about 76ch. Figures and wide tables use the 980px frame. Revision notes: short sections, key boxes, tables, interactive figures. */
+:root{
+  --bg:#f3f6f7;--surface:#ffffff;--fg:#14212b;--muted:#53636f;--line:#d3dce2;--soft:#e7eef1;
+  --accent:#0d6e6e;--c:#1f66c1;--d:#b9521f;--plate:#ffffff;
+  --curve:#0d7272;--pt:#2c4f86;--sel:#c27200;--warn:#c2185b;--ok:#1e8a4c;--step:#d32f2f;
+  --f-display:"Space Grotesk",system-ui,sans-serif;
+  --f-body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1519;--surface:#161e24;--fg:#e3ebf0;--muted:#97a6b1;--line:#2b3741;--soft:#1d2830;
+  --accent:#5cc4c4;--c:#86b6f2;--d:#f0935f;--plate:#ffffff;
+  --curve:#52c4c4;--pt:#94b6ec;--sel:#f0ad3a;--warn:#f06292;--ok:#5fd38d;--step:#ff6b6b;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1519;--surface:#161e24;--fg:#e3ebf0;--muted:#97a6b1;--line:#2b3741;--soft:#1d2830;
+  --accent:#5cc4c4;--c:#86b6f2;--d:#f0935f;--plate:#ffffff;
+  --curve:#52c4c4;--pt:#94b6ec;--sel:#f0ad3a;--warn:#f06292;--ok:#5fd38d;--step:#ff6b6b;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.65 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.6rem 4rem}
+main{max-width:980px;margin:0 auto}
+.col{max-width:76ch;margin:0 auto}
+nav.pages{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 auto 2rem;max-width:76ch}
+nav.pages a{font:500 .8rem var(--f-mono);color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:.3rem .7rem;background:var(--surface)}
+nav.pages a[aria-current="page"]{color:var(--accent);border-color:var(--accent)}
+nav.pages a:hover{border-color:var(--accent)}
+.eyebrow{font:500 .76rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 clamp(1.9rem,5vw,2.7rem)/1.1 var(--f-display);letter-spacing:-.02em;text-wrap:balance;margin:.35rem 0 .8rem}
+h2{font:600 1.45rem/1.25 var(--f-display);text-wrap:balance;margin:3rem 0 .6rem;letter-spacing:-.01em}
+h2 .n{display:block;font:500 .76rem var(--f-mono);letter-spacing:.07em;color:var(--muted);margin-bottom:.2rem}
+h3{font:600 1.08rem/1.35 var(--f-display);margin:1.7rem 0 .3rem}
+p,li{margin:.55rem 0}
+ul,ol{padding-left:1.3rem}
+.lede{font-size:1.04rem;color:var(--muted)}
+.key{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.75rem 1.1rem;margin:1.2rem 0}
+.key .lab{font:500 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.15rem}
+.key p,.key li{margin:.35rem 0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.6rem;margin:1.2rem 0}
+.facts div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.6rem .85rem;min-width:0}
+.facts b{display:block;font:500 .72rem var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+.facts span{font-size:.92rem}
+.eq{background:var(--soft);border-radius:6px 6px 0 0;padding:.3rem 1rem;margin:1rem 0 0;overflow-x:auto;overflow-y:hidden}
+.eq.solo{border-radius:6px;margin-bottom:1rem}
+.where{background:var(--surface);border:1px solid var(--soft);border-top:0;border-radius:0 0 6px 6px;padding:.4rem 1rem .5rem;margin:0 0 1.1rem;font-size:.93rem}
+.where ul{margin:.15rem 0;padding-left:1.2rem}
+.where li{margin:.2rem 0}
+mjx-container[display="true"]{font-size:100%!important;margin:.4em 0!important}
+mjx-container{color:var(--fg)}
+.fig{margin:1.5rem 0}
+.plate{background:var(--plate);border:1px solid var(--line);border-radius:8px;padding:10px}
+.plate img{display:block;width:100%;height:auto}
+.figc{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px}
+.figc canvas{display:block;width:100%;height:300px}
+.cap{color:var(--muted);font-size:.88rem;line-height:1.55;margin:.55rem 2px 0}
+.cap b{color:var(--fg);font-weight:600}
+.ctrl{display:flex;flex-wrap:wrap;gap:.55rem .9rem;align-items:center;font-size:.9rem;margin-top:.7rem}
+.ctrl label{display:flex;gap:.5rem;align-items:center;color:var(--muted)}
+.ctrl input[type=range]{width:min(240px,55vw);accent-color:var(--curve)}
+.ctrl input[type=checkbox]{accent-color:var(--curve)}
+button,select{font:500 .86rem var(--f-body);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:.35rem .8rem;cursor:pointer}
+button:hover{border-color:var(--curve)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{font:400 .8rem/1.55 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;margin-top:.55rem}
+.stats b{color:var(--fg);font-weight:500}
+.key-dot{display:inline-block;width:.7em;height:.7em;border-radius:50%;margin:0 .3em 0 .1em;vertical-align:baseline}
+.tw{overflow-x:auto;margin:.9rem 0}
+table{border-collapse:collapse;font-size:.88rem;width:100%;min-width:520px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:.4rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font:500 .74rem var(--f-mono);letter-spacing:.05em;text-transform:uppercase}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-size:.84rem}
+tr.ic td{color:var(--c);font-weight:600}
+table.dt{font-family:var(--f-mono);font-size:.8rem}
+table.dt td,table.dt th{text-align:right}
+table.dt td:first-child,table.dt th:first-child{text-align:left}
+#tF td:last-child,#tF th:last-child{text-align:left}
+tr.win td{color:var(--sel);font-weight:500}
+tr.dom td,tr.dim td{opacity:.55}
+tr.grp td{background:var(--soft);color:var(--muted);font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .6rem}
+tr.swept td:first-child::before{content:"✓ ";color:var(--sel)}
+.tagc{color:var(--c);font-weight:600}
+.tagd{color:var(--d);font-weight:600}
+.src{font-size:.86rem;color:var(--muted)}
+.refs{font-size:.86rem;color:var(--muted);padding-left:1.6rem}
+.refs li{margin:.4rem 0}
+.refs i{color:var(--fg)}
+.next{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);font:500 .86rem var(--f-mono)}
+a{color:var(--accent)}
+code{font:400 .86em var(--f-mono)}
+@media (max-width:640px){.figc canvas{height:250px}}
+</style>
+</head>
+<body>
+<main>
+<nav class="pages" aria-label="Pages">
+  <a href="index.html">1 · Search problem and theory</a>
+  <a href="ideas.html">2 · Idea C method</a>
+  <a href="results.html" aria-current="page">3 · Example and results</a>
+</nav>
+
+<header class="col">
+  <div class="eyebrow">EE449 Major Project · Revision notes · Part 3 of 3</div>
+  <h1>Worked example and final results</h1>
+  <p class="lede">Section 1 runs DIRECT and Idea C on one curve, test by test. Sections 2 to 5 give the final test results of 24 November 2026 for Idea C and the four other searches.</p>
+  <div class="key"><span class="lab">Idea C: the numbers to remember</span>
+    <ul>
+      <li><b>Start-up, Simulink, 99 patterns:</b> 99.987 % mean, 99.955 % worst. Wrong peak in 1 of 99 (DIRECT: 26 of 99).</li>
+      <li><b>Wrong peak, static bench, all start-ups:</b> 0.78 % (DIRECT: 10.24 %).</li>
+      <li><b>One search:</b> 0.51 s on average, the same as DIRECT. PSO and GWO: 2.4 to 2.6 s.</li>
+      <li><b>EN 50530 ramps:</b> 99.52 % mean over the rows, 98.95 % on the worst row.</li>
+      <li><b>40 cloud events, Simulink:</b> 98.72 % mean, recovery to 99 % of the GMPP power in 1.13 s.</li>
+      <li><b>Four full days, open sky:</b> 99.968 % of the GMPP energy with 521 searches.</li>
+      <li><b>Computation:</b> 6.4 µJ per search (DIRECT 9.9 µJ, PSO and GWO 21 to 23 µJ).</li>
+    </ul>
+  </div>
+</header>
+
+<section class="col">
+  <h2><span class="n">1</span>Worked example: DIRECT and Idea C on one curve</h2>
+  <p>The curve is an idealized partly shaded array, in volts for clarity. The controller works in duty, but a higher duty always gives a lower voltage, so the order of the points is the same. The current is 30 A up to 80 V. It falls to 18 A between 80 and 90 V as the bypass diodes switch, stays at 18 A up to 140 V, and falls to zero at 180 V.</p>
+</section>
+<div class="fig">
+  <div class="plate"><img src="img/1_example_curve.png" alt="I-V and P-V curves of the example with a local peak at 80 V and the global peak at 140 V" loading="lazy"></div>
+  <p class="cap"><b>Figure 1.</b> Local peak 2400 W at 80 V, valley 1620 W at 90 V, global peak 2520 W at 140 V.</p>
+</div>
+
+<section class="col">
+  <h3>DIRECT on the curve</h3>
+  <p>Round 1 tests 90, 30 and 150 V. Round 2 tests 130 and 170 V. Round 3 tests 70, 110, 123 and 137 V. In round 4 the part from 0 to 60 V is the widest left, so DIRECT must test 10 V (300 W, 12 % of the peak) and 50 V (1500 W). The ceiling already rules this part out: below 60 V the power cannot exceed 60 V × 30 A = 1800 W, less than the 2460 W found at test 9. After 11 tests, DIRECT is near the peak, but no test tells it so.</p>
+</section>
+<div class="fig">
+  <div class="plate"><img src="img/2_direct_tests.png" alt="DIRECT tests numbered 1 to 11 on the P-V curve, with tests 10 and 11 in the region below 60 V" loading="lazy"></div>
+  <p class="cap"><b>Figure 2.</b> DIRECT: 11 tests and no stop rule. Tests 10 and 11 fall in a region that cannot win.</p>
+</div>
+
+<section class="col">
+  <h3>Idea C on the same curve</h3>
+  <p>Idea C tests where its measured ceiling allows a better point, and nowhere else. It first tests 10, 90 and 170 V. The best power is 1620 W. The gap from 90 to 170 V has the ceiling 170 × 18 = 3060 W, and the gap from 10 to 90 V has 90 × 30 = 2700 W. Both are open. Each later test goes to the corner of the open gap with the highest ceiling: 146 V (2248 W), 82 V (2251 W), 141 V (2464 W), 150 V (2036 W), 142 V (2420 W) and 140 V (2508 W). Part 2, Figure 2 shows the first corner split.</p>
+  <p><b>After test 6</b> the best power is 2464 W, so a gap stays open only above 1.02 × 2464 = 2513 W. The two gaps of the left half have ceilings of 2465 W. Both close. The region from 10 to 90 V, with the local peak, is ruled out with no further test.</p>
+  <p><b>After test 9</b> every gap is closed, so the search stops at 2508 W, 99.5 % of the peak. No point in the range can give more than 2558 W. The local stage then climbs the last 0.5 %.</p>
+</section>
+<div class="fig">
+  <div class="plate"><img src="img/4_ideac_tests.png" alt="Idea C tests on the P-V curve with the ceiling of each gap after test 6 and after test 9" loading="lazy"></div>
+  <p class="cap"><b>Figure 3.</b> Idea C. Orange line: ceiling of an open gap. Dark line: ceiling of a closed gap. Grey band: closed region. Green dashed line: the open limit, 1.02 × the best power.</p>
+</div>
+
+<section class="col">
+  <h3>What this does to the tracking efficiency</h3>
+  <p>A test at a fraction \(p\) of the peak power loses \(1-p\) test periods of energy. Summed over the tests:</p>
+</section>
+<div class="tw"><table>
+  <tr><th>Search</th><th class="num">Tests</th><th class="num">Energy lost (test periods)</th><th>State at the end</th></tr>
+  <tr class="ic"><td>Idea C</td><td class="num">9</td><td class="num">2.4</td><td>Stopped, global peak proven</td></tr>
+  <tr><td>DIRECT</td><td class="num">11</td><td class="num">3.8</td><td>Still searching, no stop rule</td></tr>
+</table></div>
+<div class="fig">
+  <div class="plate"><img src="img/5_power_per_test.png" alt="Bar charts of the power at each test for DIRECT and Idea C" loading="lazy"></div>
+  <p class="cap"><b>Figure 4.</b> Power at each test as a share of the global peak. Both searches start with low-power tests, because they know nothing yet. After test 3, Idea C never falls below 81 %.</p>
+</div>
+<section class="col">
+  <div class="key"><span class="lab">Key point</span><p>The gain does not come from shallower tests. It comes from two things: Idea C never tests a region that cannot win, and it stops with a proof. The proof also removes the loss on a wrong peak, which lasts as long as the shading. The numbers of this example are for teaching. The measured results follow.</p></div>
+</section>
+
+<section class="col">
+  <h2><span class="n">2</span>The test programme</h2>
+  <p>All five searches use the same local stage and restart rule. Only the search differs.</p>
+</section>
+<div class="tw"><table>
+  <tr><th>Phase</th><th>What it tests</th><th>Bench</th><th>Cases</th></tr>
+  <tr><td>1b</td><td>Start-up from open circuit</td><td>Static</td><td>The nine patterns, the group patterns and 1800 random cases. 25 °C and 55 °C, sensor noise on and off. PSO and GWO with 30 seeds</td></tr>
+  <tr><td>1c</td><td>Start-up from open circuit</td><td>Simulink</td><td>99 patterns, 4 s each, sensor noise on</td></tr>
+  <tr><td>2</td><td>EN 50530 ramps</td><td>Static, with a Simulink check</td><td>The 10-50 % and 30-100 % sequences on P0 (uniform) and R1 (three peaks), 25 °C and 45 °C</td></tr>
+  <tr><td>3</td><td>Cloud events</td><td>Simulink</td><td>40 cloud edges, 10 to 23 s each, from a fit of the 1 s irradiance data of the Oahu Solar Measurement Grid. Sensor noise on</td></tr>
+  <tr><td>3n</td><td>Sensor noise</td><td>Static</td><td>1, 3, 10 and 30 times the datasheet noise. Set A: the 40 cloud events. Set B: 100 pattern steps that move the GMPP</td></tr>
+  <tr><td>4</td><td>Full days</td><td>Static</td><td>Four days (January, April, July, October), open sky and morning shade, timer 900 s</td></tr>
+  <tr><td>compute</td><td>Cost of the controller</td><td>Compiled code, one PC core</td><td>Time of one decision and energy of one search (estimate)</td></tr>
+</table></div>
+
+<section class="col">
+  <h2><span class="n">3</span>Results of the five searches</h2>
+  <p>Efficiencies in percent of the GMPP power or energy. Static: static bench. The best value in each column is not always Idea C. Section 5 discusses each case.</p>
+</section>
+<div class="tw"><table>
+  <tr><th>Search</th><th class="num">Start-up, Simulink: mean / worst</th><th class="num">Wrong peak of 99</th><th class="num">Wrong peak, static</th><th class="num">Search time (s)</th><th class="num">EN 50530 mean</th><th class="num">Cloud events, Simulink: mean / worst</th><th class="num">Pattern steps: wrong / not recovered of 100</th><th class="num">Days, open sky</th><th class="num">Energy per search (µJ)</th></tr>
+  <tr class="ic"><td>Idea C</td><td class="num">99.987 / 99.955</td><td class="num">1</td><td class="num">0.78 %</td><td class="num">0.51</td><td class="num">99.52</td><td class="num">98.72 / 94.28</td><td class="num">6 / 7</td><td class="num">99.968</td><td class="num">6.4</td></tr>
+  <tr><td>Idea B</td><td class="num">99.988 / 99.949</td><td class="num">2</td><td class="num">1.09 %</td><td class="num">0.55</td><td class="num">99.51</td><td class="num">98.68 / 93.57</td><td class="num">6 / 7</td><td class="num">99.962</td><td class="num">6.2</td></tr>
+  <tr><td>DIRECT</td><td class="num">98.905 / 90.869</td><td class="num">26</td><td class="num">10.24 %</td><td class="num">0.51</td><td class="num">99.42</td><td class="num">98.62 / 94.44</td><td class="num">12 / 13</td><td class="num">99.921</td><td class="num">9.9</td></tr>
+  <tr><td>PSO</td><td class="num">99.978 / 98.800</td><td class="num">3</td><td class="num">1.75 %</td><td class="num">2.56</td><td class="num">98.58</td><td class="num">95.66 / 90.87</td><td class="num">8 / 9</td><td class="num">99.900</td><td class="num">21.0</td></tr>
+  <tr><td>GWO</td><td class="num">99.995 / 99.681</td><td class="num">2</td><td class="num">2.68 %</td><td class="num">2.40</td><td class="num">97.25</td><td class="num">90.83 / 81.12</td><td class="num">7 / 8</td><td class="num">99.814</td><td class="num">23.2</td></tr>
+</table></div>
+
+<section class="col">
+  <h2><span class="n">4</span>Figures of the final run</h2>
+</section>
+<div class="fig">
+  <div class="plate"><img src="img/fig_search_points.png" alt="Samples of each search on the P-V curve of pattern R1" loading="lazy"></div>
+  <p class="cap"><b>Figure 5.</b> Samples of each search on pattern R1 (static bench). Idea C: 12 samples in 0.58 s. DIRECT: 15 samples in 0.66 s. PSO and GWO: 59 to 64 samples in about 2.5 s. Star: operating point at 4 s.</p>
+</div>
+<div class="fig">
+  <div class="plate"><img src="img/fig_startup_stats.png" alt="Start-up accuracy of the five searches in Simulink and on the static bench" loading="lazy"></div>
+  <p class="cap"><b>Figure 6.</b> Start-up accuracy. Left: Simulink, 99 patterns, power at 4 s. Right: static bench, share of runs whose shortfall from the GMPP power is above x (log axis). DIRECT has a long tail: about 8 % of its runs fall short by more than 1 %.</p>
+</div>
+<div class="fig">
+  <div class="plate"><img src="img/fig_en50530.png" alt="EN 50530 dynamic efficiency against ramp slope for all trackers on P0 and R1" loading="lazy"></div>
+  <p class="cap"><b>Figure 7.</b> EN 50530 ramps on the static bench, with sensor noise. Idea C stays near or above 99 % on every row. PSO and GWO fall further, most at the slow slopes of the 10-50 % sequence and at the fast slopes of the 30-100 % sequence. Each of their searches lasts 2.4 to 2.6 s.</p>
+</div>
+<div class="fig">
+  <div class="plate"><img src="img/fig_cloud_stats.png" alt="Efficiency and recovery time of each search over the 40 cloud events" loading="lazy"></div>
+  <p class="cap"><b>Figure 8.</b> The 40 cloud events in Simulink. Left: efficiency per event (bar: median). Right: time to reach 99 % of the GMPP power. Idea C and DIRECT recover in about 1.1 s, PSO and GWO in about 3.2 s.</p>
+</div>
+<div class="fig">
+  <div class="plate"><img src="img/fig_noise.png" alt="Efficiency and wrong peaks against sensor noise for the 100 pattern steps" loading="lazy"></div>
+  <p class="cap"><b>Figure 9.</b> Sensor noise up to 30 times the datasheet values (static bench, set B, 100 pattern steps). The efficiency of Idea C does not change with the noise. Idea C ends on a wrong peak in 5 to 7 of 100 steps, DIRECT in 12.</p>
+</div>
+<div class="fig">
+  <div class="plate"><img src="img/fig_day.png" alt="One full day of Idea C, and the energy share of each search over four days" loading="lazy"></div>
+  <p class="cap"><b>Figure 10.</b> Left: Idea C on 29 April, open sky, 99.976 % of the GMPP energy. Each spike is one search. Right: four days, timer 900 s. Dark bar: open sky. Light bar: morning shade. Idea C has the highest share in both cases.</p>
+</div>
+<div class="fig">
+  <div class="plate"><img src="img/fig_compute.png" alt="Time of one decision and energy of one search on one PC core" loading="lazy"></div>
+  <p class="cap"><b>Figure 11.</b> Cost of the compiled controller on one core of the PC (AMD Ryzen 9 8940HX, 3.4 W per core, estimate). One decision of Idea C takes 0.085 µs, which is negligible against the 20 ms period.</p>
+</div>
+
+<section class="col">
+  <h2><span class="n">5</span>What the results show</h2>
+  <h3>Where Idea C is better</h3>
+  <ul>
+    <li><b>Reliability.</b> Wrong peak in 1 of 99 Simulink start-ups (DIRECT: 26), in 0.78 % of the static start-ups (DIRECT: 10.24 %) and in 6 of 100 pattern steps (DIRECT: 12).</li>
+    <li><b>Against the swarm searches.</b> A search takes 0.51 s, against 2.4 to 2.6 s. On the cloud events: 98.72 %, against 95.66 % (PSO) and 90.83 % (GWO).</li>
+    <li><b>Full days.</b> 99.968 % of the GMPP energy on open-sky days, the highest of the five searches.</li>
+    <li><b>Computation.</b> 6.4 µJ per search, about a third less than DIRECT (9.9 µJ) and less than a third of PSO and GWO.</li>
+  </ul>
+  <h3>Where Idea C is about equal</h3>
+  <ul>
+    <li>The search time is the same as DIRECT (0.51 s on average).</li>
+    <li>On the cloud events in Simulink, Idea C leads DIRECT by only 0.10 points (98.72 % against 98.62 %). On the EN 50530 ramps it leads by 0.10 points (99.52 % against 99.42 %).</li>
+    <li>On ramps of a curve with one peak, plain INC from start-up does as well, because it never needs a search.</li>
+  </ul>
+  <h3>Where Idea C is weaker, or the question is open</h3>
+  <ul>
+    <li><b>Simulink against the static bench.</b> Idea C loses 0.27 points on the cloud events in Simulink. The parabolic check does not settle on slow and deep cloud edges (part 2, section 9).</li>
+    <li><b>Pattern steps.</b> DIRECT has a higher mean efficiency after a step (96.91 % against 96.11 %), although it ends on a wrong peak twice as often. DIRECT also recovers faster after a step (0.83 s against 1.12 s on average). The cause is not yet analysed.</li>
+    <li><b>Worst cloud event.</b> DIRECT 94.44 %, Idea C 94.28 %.</li>
+    <li><b>Time of one decision.</b> 0.085 µs against 0.052 µs for DIRECT. Both are negligible against the 20 ms period.</li>
+  </ul>
+
+  <h2><span class="n">6</span>Questions to expect</h2>
+  <h3>Is Idea C a new algorithm?</h3>
+  <p>No. It is an implementation of published parts: the ceiling of Boztepe et al. and Wang, Li and Ruan, the best-first rule of Piyavskii and Shubert, and the corner split of monotonic optimization (Tuy). The work of the project is to combine these parts, implement them for Simulink Coder, and test them on a 4 × 4 array against four baselines.</p>
+  <h3>Why is Idea C more reliable than DIRECT?</h3>
+  <p>Idea C stops only when its measurements prove that no region can beat the best power by more than 2 %. DIRECT has no such proof, so it stops on a budget and sometimes stops on a local peak.</p>
+  <h3>Why not PSO or GWO?</h3>
+  <p>They find the right peak, but each search takes 2.4 to 2.6 s of tests at low power. On the cloud events they lose 3 to 8 points against Idea C.</p>
+  <h3>What does a search cost over a day?</h3>
+  <p>One search takes about 0.5 s. Over four full days, Idea C made 521 searches, which cost 0.016 % of the energy. That is about 130 searches per day.</p>
+  <h3>When can the ceiling be wrong?</h3>
+  <p>When the light changes during the search, when a reading has not settled, or when a sensor is inaccurate. The restart rule starts a search only when the power is steady, and the parameter <code>delta_s</code> can widen the open test for a known sensor error.</p>
+  <h3>Why compare by tracking efficiency?</h3>
+  <p>It counts the loss during the search and the loss on a wrong peak in one unit, energy. EN 50530 defines the dynamic MPPT efficiency of inverters in the same way.</p>
+  <h3>What are the limits of these results?</h3>
+  <p>The Simulink gap of the parabolic check (0.27 points), one climate for the cloud data (Oahu), the long tests on the static bench, and no hardware test yet. Real-time tests on the OPAL-RT OP5707 are the planned next step.</p>
+
+  <p class="src">Sources: part 1 and part 2 list every source. The figures of sections 4 come from <code>reports/final_review/figures</code>. The example figures come from <code>docs/explainer/ceiling_example/make_figures.py</code>.</p>
+
+  <div class="next"><a href="ideas.html">← Part 2: the Idea C method</a><a href="index.html">Back to part 1</a></div>
+</section>
+</main>
+</body>
+</html>

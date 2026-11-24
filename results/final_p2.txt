@@ -1,0 +1,70 @@
+run_final_p2.m, 24-Nov-2026 11:32:29
+Curve banks: 1508 curves in 10 s
+Part A: 476 rows in 651 s on 4 workers
+
+Part A. Overall dynamic efficiency [%] (mean of the rows) and searches (sum over the rows)
+Variant                    Pat   T   10-50 eta/srch  30-100 eta/srch
+DIRECT (paper)             P0   25    99.526/   574    99.648/   122
+DIRECT (paper)             P0   45    99.553/   571    99.648/   120
+DIRECT (paper)             R1   25    99.386/   431    99.055/   134
+DIRECT (paper)             R1   45    99.238/   410    98.640/   137
+Idea B + Parabolic         P0   25    99.617/   569    99.729/   120
+Idea B + Parabolic         P0   45    99.661/   566    99.719/   120
+Idea B + Parabolic         R1   25    99.428/   415    99.239/   120
+Idea B + Parabolic         R1   45    99.498/   402    98.729/   120
+Idea C + Parabolic         P0   25    99.643/   568    99.735/   120
+Idea C + Parabolic         P0   45    99.649/   573    99.735/   120
+Idea C + Parabolic         R1   25    99.431/   413    99.257/   120
+Idea C + Parabolic         R1   45    99.601/   405    99.693/   120
+PSO + Parabolic            P0   25    98.301/   496    98.636/   120
+PSO + Parabolic            P0   45    98.365/   500    98.673/   120
+PSO + Parabolic            R1   25    98.908/   356    98.405/   120
+PSO + Parabolic            R1   45    97.994/   351    97.313/   120
+GWO + Parabolic            P0   25    96.583/   504    97.061/   120
+GWO + Parabolic            P0   45    96.600/   501    97.073/   120
+GWO + Parabolic            R1   25    98.097/   360    97.132/   120
+GWO + Parabolic            R1   45    98.161/   351    97.351/   120
+P&O from start-up          P0   25    99.747/     0    99.759/     0
+P&O from start-up          P0   45    99.786/     0    99.788/     0
+P&O from start-up          R1   25    99.312/     0    99.357/     0
+P&O from start-up          R1   45    99.451/     0    99.473/     0
+INC from start-up          P0   25    99.832/     0    99.803/     0
+INC from start-up          P0   45    99.844/     0    99.832/     0
+INC from start-up          R1   25    99.537/     0    99.577/     0
+INC from start-up          R1   45    99.667/     0    99.610/     0
+
+Part B: 33 Simulink runs, 1965 s simulated, 2953 s wall, MATLAB RAM 9.5 GiB
+Variant                    Pat   T  Slope    Eta Sim   Eta stat   Srch Srch s
+DIRECT (paper)             P0   25     30     99.669     99.668      2      2
+DIRECT (paper)             P0   25     50     99.549     99.548      2      2
+DIRECT (paper)             P0   25    100     99.318     99.324      2      2
+DIRECT (paper)             P0   45     30     99.662     99.666      2      2
+DIRECT (paper)             P0   45     50     99.533     99.540      2      2
+DIRECT (paper)             P0   45    100     99.288     99.299      2      2
+DIRECT (paper)             R1   25     30     99.128     99.126      2      2
+DIRECT (paper)             R1   25     50     99.078     99.078      2      2
+DIRECT (paper)             R1   25    100     98.974     98.980      2      2
+Idea B + Parabolic         P0   25     30     99.731     99.731      2      2
+Idea B + Parabolic         P0   25     50     99.632     99.632      2      2
+Idea B + Parabolic         P0   25    100     99.474     99.474      2      2
+Idea B + Parabolic         R1   25     30     99.218     99.224      2      2
+Idea B + Parabolic         R1   25     50     99.172     99.181      2      2
+Idea B + Parabolic         R1   25    100     99.086     99.098      2      2
+Idea C + Parabolic         P0   25     30     99.730     99.737      2      2
+Idea C + Parabolic         P0   25     50     99.631     99.640      2      2
+Idea C + Parabolic         P0   25    100     99.463     99.485      2      2
+Idea C + Parabolic         R1   25     30     99.237     99.239      2      2
+Idea C + Parabolic         R1   25     50     99.197     99.201      2      2
+Idea C + Parabolic         R1   25    100     99.127     99.133      2      2
+PSO + Parabolic            P0   25     30     98.687     98.685      2      2
+PSO + Parabolic            P0   25     50     98.180     98.177      2      2
+PSO + Parabolic            P0   25    100     97.422     97.413      2      2
+PSO + Parabolic            R1   25     30     98.361     98.355      2      2
+PSO + Parabolic            R1   25     50     97.979     97.974      2      2
+PSO + Parabolic            R1   25    100     97.408     97.399      2      2
+GWO + Parabolic            P0   25     30     96.834     96.829      2      2
+GWO + Parabolic            P0   25     50     95.605     95.599      2      2
+GWO + Parabolic            P0   25    100     93.779     93.773      2      2
+GWO + Parabolic            R1   25     30     97.091     97.091      2      2
+GWO + Parabolic            R1   25     50     96.197     96.218      2      2
+GWO + Parabolic            R1   25    100     94.915     94.919      2      2

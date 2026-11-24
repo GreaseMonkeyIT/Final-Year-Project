@@ -1,0 +1,11 @@
+run_final_p3.m, 24-Nov-2026 12:34:25
+40 events: windows 10.0 to 22.8 s, total 565 s
+Curves: 365 s
+Part A: 200 runs, 2826 s simulated, 7440 s wall, MATLAB RAM 5.2 GiB
+
+Variant                    Eta mean/min   Srch  Wrong  tRec mean/max s  NoRec Static on/off mean
+DIRECT (paper)           98.621/ 94.438     40      0   1.112/  1.980      0    98.648/  98.644
+Idea B + Parabolic       98.684/ 93.566     40      0   1.204/  2.281      1    98.929/  99.032
+Idea C + Parabolic       98.722/ 94.275     40      0   1.135/  1.960      1    98.992/  98.996
+PSO + Parabolic          95.658/ 90.869     39      0   3.153/  4.423     18    95.706/  95.805
+GWO + Parabolic          90.834/ 81.120     40      0   3.316/  4.081     23    90.709/  90.733

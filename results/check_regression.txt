@@ -1,0 +1,32 @@
+check_regression.m, 21-Nov-2026 21:04:18
+73 runs in 570 s on 4 workers
+  R1, DIRECT local 1: end 99.506 % of the GMPP
+  R1, DIRECT local 2: end 99.974 % of the GMPP
+  R1, DIRECT local 3: end 99.974 % of the GMPP
+  R1, DIRECT local 4: end 99.506 % of the GMPP
+  R1, Idea B local 1: end 99.503 % of the GMPP
+  R1, Idea B local 2: end 99.924 % of the GMPP
+  R1, Idea B local 3: end 99.973 % of the GMPP
+  R1, Idea B local 4: end 99.503 % of the GMPP
+  R1, Idea C local 1: end 99.505 % of the GMPP
+  R1, Idea C local 2: end 99.972 % of the GMPP
+  R1, Idea C local 3: end 99.974 % of the GMPP
+  R1, Idea C local 4: end 99.505 % of the GMPP
+  R1, PSO    local 1: end 99.505 % of the GMPP
+  R1, PSO    local 2: end 99.933 % of the GMPP
+  R1, PSO    local 3: end 99.989 % of the GMPP
+  R1, PSO    local 4: end 99.505 % of the GMPP
+  R1, GWO    local 1: end 99.436 % of the GMPP
+  R1, GWO    local 2: end 99.163 % of the GMPP
+  R1, GWO    local 3: end 99.999 % of the GMPP
+  R1, GWO    local 4: end 99.439 % of the GMPP
+  P0 at 55 degC: end 4541.9 W, static GMPP 4542.2 W (99.992 %)
+  R1 with the sensors on: end 99.974 % of the GMPP
+1. P&O and INC: 24 runs, largest difference of the final power 0.000001 % of the GMPP
+2. Parabolic stage: 27 runs, largest difference 0.000000 points
+screener src/controller/mppt_controller.m: 0 messages, 0 unsupported calls
+screener src/controller/gmppt_search.m: 0 messages, 0 unsupported calls
+screener src/controller/gmppt_pso.m: 0 messages, 0 unsupported calls
+screener src/controller/gmppt_gwo.m: 0 messages, 0 unsupported calls
+screener src/plant/sensor_adc.m: 0 messages, 0 unsupported calls
+Gate 0.6 PASS

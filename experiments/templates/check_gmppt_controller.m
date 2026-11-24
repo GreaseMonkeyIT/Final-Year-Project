@@ -1,5 +1,11 @@
 %CHECK_GMPPT_CONTROLLER Compare the global searches in MPPT_4x4.slx with the static check.
 %
+%   Note of 2026-11-21: this script is a record of the preliminary study.
+%   Its algorithm numbers and result files are those of the preliminary
+%   study, not of the current tracker (README.md, section "Templates").
+%   The current scripts are experiments/run_gmppt_baseline.m and
+%   experiments/run_gmppt_restart_tests.m.
+%
 %   Task T3 of HANDOFF_ideas_B_C.md. The script runs mppt.alg = 3
 %   (DIRECT), 4 (Idea B), 5 (Idea C), 6 (DIRECT as in the paper), 7 (PSO)
 %   and 8 (Idea B refined) in MPPT_4x4.slx on each pattern of

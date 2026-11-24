@@ -1,5 +1,11 @@
 %RUN_GMPPT_GROUP Global searches when single bypass-diode groups are shaded.
 %
+%   Note of 2026-11-21: this script is a record of the preliminary study.
+%   Its algorithm numbers and result files are those of the preliminary
+%   study, not of the current tracker (README.md, section "Templates").
+%   The current scripts are experiments/run_gmppt_baseline.m and
+%   experiments/run_gmppt_restart_tests.m.
+%
 %   Task T6 of HANDOFF_ideas_B_C.md. In MPPT_4x4.slx each panel has one
 %   irradiance, so its three groups switch together. The static
 %   cross-check showed that the 0.8 Voc methods and DIRECT miss more often
