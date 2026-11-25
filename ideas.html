@@ -254,14 +254,119 @@ code{font:400 .86em var(--f-mono)}
 
 <section class="col">
   <h2><span class="n">7</span>After the search: the parabolic local stage</h2>
-  <p>The certificate leaves the last few percent to a local stage. Idea C hands over to a stage that refines the peak and then holds it.</p>
-  <p class="src">Sources: parabolic prediction of Pai et al. [8], the procedure localmin of Brent [9], and the drift-corrected measurement of Sera et al. [10].</p>
+  <p>The search ends with the best test on the right peak, but not on its top. The tests are at least \(\tau=0.01\) of duty apart, so the top lies between the best test and one of its neighbours. On the nine static patterns, the best test of Idea C was at 99.911 % of the global maximum on average, and at 99.703 % at worst. The local stage has three jobs:</p>
   <ol>
-    <li><b>Fresh reading.</b> Measure the hand-over duty again. If the power differs from the stored test by more than 1 %, the tests are old, and the stage goes to step 4.</li>
-    <li><b>Refinement.</b> Bracket the best test with its nearest neighbours. Take parabolic or golden-section steps as in localmin [9]. At most 3 tests, tolerance 0.001 of duty.</li>
-    <li><b>Hold.</b> Keep the array voltage at the voltage \(V_0\) of the first hold period. While the light changes on all panels, this keeps the point near the peak.</li>
-    <li><b>Check every 1 s.</b> Five periods at \(D_0,\ D_0+d,\ D_0,\ D_0-d,\ D_0\), with \(d=0.002\). Each side power is corrected by the mean of the two centre powers around it, which removes a steady drift of the light ([10], Eq. (1)). A parabola through the three corrected points moves \(D_0\) by at most \(2d\).</li>
+    <li>climb the last fraction of a percent with as few tests as possible,</li>
+    <li>hold the top without the steady oscillation of P&amp;O,</li>
+    <li>follow slow changes of the light without a new search.</li>
   </ol>
+  <p>It does this in four phases. The first two run once after each search. The last two repeat until the restart rule of section 8 starts a new search.</p>
+  <p class="src">Sources: parabolic prediction of Pai et al. [8], the procedure localmin of Brent [9], the drift-corrected measurement of Sera et al. [10], and the voltage hold of the two-loop trackers of Boztepe et al. [1] and Furtado et al. [11].</p>
+</section>
+<div class="facts" style="max-width:76ch;margin-left:auto;margin-right:auto">
+  <div><b>1 · Fresh reading</b><span>One period at the best duty. Are the stored tests still valid?</span></div>
+  <div><b>2 · Refinement</b><span>At most 3 tests. A parabola through three tests points to the top.</span></div>
+  <div><b>3 · Hold</b><span>1 s at the top. The duty moves only to keep the array voltage constant.</span></div>
+  <div><b>4 · Check</b><span>Five periods (0.1 s). A small parabola, corrected for drift, moves the hold point.</span></div>
+</div>
+<section class="col">
+  <h3>7.1 Fresh reading</h3>
+  <p>The refinement uses the tests of the search, so it must first make sure that they still describe the curve. The first local period measures the best duty \(D_{\mathrm{best}}\) again. If the new power differs from the stored power by more than 1 % (<code>chk_eps</code>), the light changed during the search. The stored tests are then old, so the stage skips the refinement and goes to the check (7.4), which uses fresh readings only. The limit of 1 % is about five times the settling error of one test (0.21 %).</p>
+
+  <h3>7.2 Refinement: a parabola through three tests</h3>
+  <p><b>The idea.</b> Near a smooth peak, \(P(D)\) is close to a parabola, because the first term of its Taylor series that is not zero is the square term. A parabola through three tests around the peak therefore points close to the top in one step. Pai et al. [8] use this for PV tracking.</p>
+  <p><b>The bracket costs no test.</b> The search already holds the best test and its nearest neighbours on the duty axis. These three tests are the start points \((D_1,P_1)\), \((D_2,P_2)\), \((D_3,P_3)\), with \(D_2\) the best. If the best test has no neighbour on one side (it lies at the end of the range), the stage first makes one end test \(0.01\) of duty away (<code>par_h</code>). If that end test is better, the bracket shifts to that side. This is the shifting procedure of Pai et al. [8], section III-A.</p>
+  <p><b>The parabolic step.</b> The top of the parabola through the three points is at</p>
+  <div class="eq">\[ D^{*}=D_2-\frac{1}{2}\,\frac{(D_2-D_1)^2\,(P_2-P_3)-(D_2-D_3)^2\,(P_2-P_1)}{(D_2-D_1)\,(P_2-P_3)-(D_2-D_3)\,(P_2-P_1)} \]</div>
+  <div class="where"><ul>
+    <li>\(D_2\) is the best point so far, \(D_1\) and \(D_3\) are the other two points of the fit,</li>
+    <li>after each new test, the three best points of the bracket form the next fit (Brent [9], ch. 5, Eqs. (4.3) to (4.6)).</li>
+  </ul></div>
+  <p><b>The safeguards.</b> A pure parabolic step can fail. A kink of the curve (a bypass diode that switches) or sensor noise can put the top of the fit far away, or outside the bracket. The procedure localmin of Brent [9] guards against this. The controller implements it as published:</p>
+  <ul>
+    <li><b>Accept test.</b> The parabolic step is used only if \(D^{*}\) lies inside the bracket and the step is shorter than half the step before the last one. The second condition makes sure that the steps get shorter.</li>
+    <li><b>Golden-section step.</b> Otherwise the next test goes into the larger part of the bracket, at \(0.382\) of its width from the best point. This step always shrinks the bracket by a fixed ratio, so the refinement cannot stall.</li>
+    <li><b>Smallest distance.</b> No test is nearer than \(0.001\) of duty (<code>par_tol</code>) to a known point. Closer tests would differ by less than the measurement noise.</li>
+    <li><b>Stop.</b> The refinement ends when the bracket reaches at most \(2\times0.001\) on each side of the best point, or after 3 tests (<code>par_kmax</code>). The duty then goes to the best point, \(D_0\).</li>
+  </ul>
+  <p>Each refinement test uses the timing of a search test (40 ms), because a duty step needs that time to settle.</p>
+
+  <h3>7.3 Hold: keep the voltage, not the duty</h3>
+  <p>The stage now holds the point for 1 s (<code>chk_T</code>). A fixed duty fixes the input resistance of the converter, \(R=V/I\). When the light falls on all panels, the current falls with it, so a fixed resistance drags the voltage down, away from the peak. The voltage of the peak, however, changes little with the light. The stage therefore holds the array voltage at \(V_0\), the voltage of the first hold period, as the voltage loop of a two-loop tracker does [1], [11].</p>
+  <p>For the ideal buck-boost, \(\ln R=\ln(\eta R_L)+2x\) with \(x=\ln\frac{1-D}{D}\). This is the relation of the corner split (section 4). If the current stays about constant over one period, a change of \(\ln V\) by \(\ln(V_0/V)\) needs a change of \(x\) by half of that:</p>
+  <div class="eq">\[ x_{\mathrm{new}}=x+\tfrac{1}{2}\ln\frac{V_0}{V},\qquad D_{\mathrm{new}}=\frac{1}{1+e^{x_{\mathrm{new}}}},\qquad |D_{\mathrm{new}}-D|\le 0.01 \]</div>
+  <div class="where"><ul>
+    <li>\(V\) is the voltage of the period that just ended,</li>
+    <li>near the peak the current also changes with the voltage, so this step is smaller than the full correction and does not overshoot,</li>
+    <li>the limit of 0.01 per period (<code>vh_max</code>) stops a large jump on a sensor fault. No load value is used.</li>
+  </ul></div>
+  <p>During the hold, the restart rule of section 8 watches the power in each period.</p>
+
+  <h3>7.4 Check every second: five periods, corrected for drift</h3>
+  <p>The voltage hold follows a change of light on all panels. It does not move the voltage when the top of the peak itself moves. The check finds such a shift. It runs five periods of 20 ms at the duties</p>
+  <div class="eq solo">\[ D_0,\quad D_0+d,\quad D_0,\quad D_0-d,\quad D_0\qquad (d=0.002) \]</div>
+  <p>and records the powers \(P_1\) to \(P_5\). Near a peak, a step of \(d=0.002\) changes the power by 0.01 % to 0.2 %. The light can change by as much during the 0.1 s of the check, so a direct comparison of the side powers with the centre power is not reliable. Sera et al. [10], Eq. (1), solve this with an extra centre measurement. Each side power is compared with the mean of the two centre powers around it:</p>
+  <div class="eq">\[ g_{+}=P_2-\tfrac{1}{2}(P_1+P_3),\qquad g_{-}=P_4-\tfrac{1}{2}(P_3+P_5) \]</div>
+  <div class="where"><ul>
+    <li>if the light changes at a constant rate, the mean of the two centre powers is the centre power at the time of the side test, so the drift cancels exactly,</li>
+    <li>\(g_{+}\) and \(g_{-}\) are the gains of the two side duties over the centre, free of the drift.</li>
+  </ul></div>
+  <p>A parabola \(c_2z^2+s_1z\) through \((-1,g_{-})\), \((0,0)\) and \((1,g_{+})\), with \(z\) in units of \(d\), gives the move:</p>
+  <div class="eq">\[ c_2=\tfrac{1}{2}(g_{+}+g_{-}),\qquad s_1=\tfrac{1}{2}(g_{+}-g_{-}),\qquad z^{*}=-\frac{s_1}{2c_2},\qquad \Delta P^{*}=-\frac{s_1^2}{4c_2} \]</div>
+  <div class="where"><ul>
+    <li>if \(c_2&lt;0\) (the fit has a top) and the predicted gain \(\Delta P^{*}\) is more than \(10^{-4}P\) (<code>chk_db</code>), \(D_0\) moves by \(z^{*}d\), at most \(2d\),</li>
+    <li>if \(c_2\ge0\) (no top in the fit), \(D_0\) moves one step \(d\) to the side with the higher gain, if that gain is more than \(10^{-4}P\),</li>
+    <li>if the move reached its limit, the top is further away, and the next check follows at once, not after 1 s. Far from the top, the stage then moves \(2d\) every 0.1 s. This rule is a choice of this project,</li>
+    <li>the dead band \(10^{-4}P\) is far below the restart level of 5 % of section 8, so a move of the check can never start a new search.</li>
+  </ul></div>
+</section>
+<div class="fig figc" style="max-width:76ch;margin-left:auto;margin-right:auto">
+  <svg viewBox="0 0 640 270" role="img" aria-label="Five check periods: centre powers rise on a straight drift line, the side powers are measured against that line" style="display:block;width:100%;height:auto;font-family:var(--f-body)">
+    <line x1="70" y1="30" x2="70" y2="225" style="stroke:var(--line)"/>
+    <line x1="70" y1="225" x2="600" y2="225" style="stroke:var(--line)"/>
+    <g style="fill:var(--muted);font-size:12px" text-anchor="end">
+      <text x="62" y="194">1000.0</text><text x="62" y="134">1000.4</text><text x="62" y="74">1000.8</text>
+    </g>
+    <g style="stroke:var(--soft)"><line x1="70" y1="190" x2="600" y2="190"/><line x1="70" y1="130" x2="600" y2="130"/><line x1="70" y1="70" x2="600" y2="70"/></g>
+    <text x="16" y="128" transform="rotate(-90 16 128)" text-anchor="middle" style="fill:var(--muted);font-size:12px">Power (W)</text>
+    <line x1="110" y1="190" x2="550" y2="70" style="stroke:var(--muted);stroke-dasharray:5 4;stroke-width:1.4"/>
+    <text x="556" y="62" style="fill:var(--muted);font-size:12px">drift</text>
+    <line x1="220" y1="160" x2="220" y2="134" style="stroke:var(--ok);stroke-width:2.4"/>
+    <line x1="440" y1="100" x2="440" y2="186" style="stroke:var(--warn);stroke-width:2.4"/>
+    <text x="234" y="116" style="fill:var(--fg);font-size:12.5px">g₊ = +0.2</text>
+    <text x="450" y="150" style="fill:var(--fg);font-size:12.5px">g₋ = −0.6</text>
+    <g style="fill:var(--pt);stroke:var(--surface);stroke-width:1.5">
+      <circle cx="110" cy="190" r="6"/><circle cx="330" cy="130" r="6"/><circle cx="550" cy="70" r="6"/>
+    </g>
+    <g style="fill:var(--sel);stroke:var(--surface);stroke-width:1.5">
+      <circle cx="220" cy="130" r="6"/><circle cx="440" cy="190" r="6"/>
+    </g>
+    <circle cx="220" cy="160" r="3" style="fill:var(--muted)"/><circle cx="440" cy="100" r="3" style="fill:var(--muted)"/>
+    <g style="fill:var(--fg);font-size:12.5px" text-anchor="middle">
+      <text x="110" y="244">P₁ at D₀</text><text x="220" y="244">P₂ at D₀+d</text><text x="330" y="244">P₃ at D₀</text><text x="440" y="244">P₄ at D₀−d</text><text x="550" y="244">P₅ at D₀</text>
+    </g>
+    <g style="fill:var(--muted);font-size:11.5px" text-anchor="middle">
+      <text x="110" y="261">1000.0</text><text x="220" y="261">1000.4</text><text x="330" y="261">1000.4</text><text x="440" y="261">1000.0</text><text x="550" y="261">1000.8</text>
+    </g>
+  </svg>
+  <p class="cap"><b>Figure 4.</b> One check with round numbers. The light rises by 0.2 W per period (dashed line through the three centre powers). The true top is one step \(d\) above \(D_0\). Corrected gains: \(g_{+}=1000.4-1000.2=0.2\) W and \(g_{-}=1000.0-1000.6=-0.6\) W, so \(c_2=-0.2\), \(s_1=0.4\), \(z^{*}=1\) and \(\Delta P^{*}=0.2\) W. The gain is above the dead band (0.1 W), so \(D_0\) moves one step \(d\) to the true top. If the sides were compared with \(P_3\) alone, the gains would be \(0\) and \(-0.4\) W. The fit would then give \(z^{*}=0.5\) and \(\Delta P^{*}=0.05\) W, below the dead band, so the drift would hide the gain and the check would not move.</p>
+</div>
+<section class="col">
+  <div class="key"><span class="lab">Key point</span><p>The search finds the right peak, and the local stage finishes it. The refinement starts from the tests of the search, so it costs at most three new tests. The hold keeps the voltage of the peak with no test at all. The check costs 0.1 s per second and removes the effect of a steady change of light. The correction is exact only for a change at a constant rate. Section 13 states the case where the plant does not settle within one check period.</p></div>
+</section>
+<div class="tw" style="max-width:76ch;margin-left:auto;margin-right:auto"><table>
+  <tr><th>Field of <code>mppt</code></th><th class="num">Value</th><th>Meaning</th></tr>
+  <tr><td><code>chk_eps</code></td><td class="num">0.01</td><td>Fresh reading: larger change means the stored tests are old</td></tr>
+  <tr><td><code>par_h</code></td><td class="num">0.01</td><td>Distance of the end test if the best test has no neighbour (duty)</td></tr>
+  <tr><td><code>par_tol</code></td><td class="num">0.001</td><td>Smallest distance between two tests of the refinement (duty)</td></tr>
+  <tr><td><code>par_kmax</code></td><td class="num">3</td><td>Most tests of the refinement</td></tr>
+  <tr><td><code>vh_max</code></td><td class="num">0.01</td><td>Largest duty move of the voltage hold in one period</td></tr>
+  <tr><td><code>chk_T</code></td><td class="num">1 s</td><td>Hold time between two checks</td></tr>
+  <tr><td><code>chk_d</code></td><td class="num">0.002</td><td>Duty step of the check</td></tr>
+  <tr><td><code>chk_db</code></td><td class="num">10⁻⁴</td><td>Dead band of the check, as a fraction of \(P\)</td></tr>
+</table></div>
+<section class="col">
+  <p class="src">The values are start values from the static analysis, not tuned values (<code>src/config/pv4x4_config.m</code>).</p>
 
   <h2><span class="n">8</span>When to search again: the restart rule</h2>
   <p>The certificate holds only for the curve that Idea C measured. When the shading changes, Idea C must search again, but each search costs energy. The restart rule decides when.</p>
